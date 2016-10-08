@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+
+	<!-- 主页 -->
+	<servlet>
+		<servlet-name>HomeServlet</servlet-name>
+		<servlet-class>com.kcj.animfriend.servlet.HomeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>HomeMoreAlbum</servlet-name>
+		<servlet-class>com.kcj.animfriend.servlet.HomeMoreAlbum</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>HomeMorePalette</servlet-name>
+		<servlet-class>com.kcj.animfriend.servlet.HomeMorePalette</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>HomeMorePaletteAblum</servlet-name>
+		<servlet-class>com.kcj.animfriend.servlet.HomeMorePaletteAblum</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>HomeMoreVedio</servlet-name>
+		<servlet-class>com.kcj.animfriend.servlet.HomeMoreVedio</servlet-class>
+	</servlet>
+	<!-- 发现 -->
+	<servlet>
+		<servlet-name>FindBunKung</servlet-name>
+		<servlet-class>com.kcj.animfriend.servlet.FindBunKung</servlet-class>
+	</servlet>
+	<!-- 搜索 -->
+	<servlet>
+		<servlet-name>SearchAlbum</servlet-name>
+		<servlet-class>com.kcj.animfriend.servlet.SearchAlbum</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SearchPalette</servlet-name>
+		<servlet-class>com.kcj.animfriend.servlet.SearchPalette</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SearchVideo</servlet-name>
+		<servlet-class>com.kcj.animfriend.servlet.SearchVideo</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SearchBangunmi</servlet-name>
+		<servlet-class>com.kcj.animfriend.servlet.SearchBangunmi</servlet-class>
+	</servlet>
+
+
+
+
+
+
+
+	<servlet-mapping>
+		<servlet-name>HomeServlet</servlet-name>
+		<url-pattern>/home</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HomeMoreAlbum</servlet-name>
+		<url-pattern>/home/more/album</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HomeMorePalette</servlet-name>
+		<url-pattern>/home/more/palette</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HomeMorePaletteAblum</servlet-name>
+		<url-pattern>/home/more/palette/album</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HomeMoreVedio</servlet-name>
+		<url-pattern>/home/more/vedio</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FindBunKung</servlet-name>
+		<url-pattern>/find/bunkung</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchAlbum</servlet-name>
+		<url-pattern>/search/album</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchPalette</servlet-name>
+		<url-pattern>/search/palette</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchVideo</servlet-name>
+		<url-pattern>/search/video</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchBangunmi</servlet-name>
+		<url-pattern>/search/bangunmi</url-pattern>
+	</servlet-mapping>
+
+
+
+
+
+
+
+
+
+
+</web-app>
