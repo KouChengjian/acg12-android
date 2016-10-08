@@ -1,0 +1,139 @@
+# To enable ProGuard in your project, edit project.properties
+# to define the proguard.config property as described in that file.
+#
+# Add project specific ProGuard rules here.
+# By default, the flags in this file are appended to flags specified
+# in ${sdk.dir}/tools/proguard/proguard-android.txt
+# You can edit the include path and order by changing the ProGuard
+# include property in project.properties.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# Add any project specific keep options here:
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+-optimizationpasses 5                                                           # 指定代码的压缩级别
+-dontusemixedcaseclassnames                                                     # 是否使用大小写混合
+-dontskipnonpubliclibraryclasses                                                # 是否混淆第三方jar
+-dontskipnonpubliclibraryclassmembers
+-dontpreverify                                                                  # 混淆时是否做预校验
+-verbose                                                                        # 混淆时是否记录日志
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*        # 混淆时所采用的算法
+
+-keep public class * extends android.app.Activity                               # 保持哪些类不被混淆
+-keep public class * extends android.app.Application                            # 保持哪些类不被混淆
+-keep public class * extends android.app.Service                                # 保持哪些类不被混淆
+-keep public class * extends android.content.BroadcastReceiver                  # 保持哪些类不被混淆
+-keep public class * extends android.content.ContentProvider                    # 保持哪些类不被混淆
+-keep public class * extends android.app.backup.BackupAgentHelper               # 保持哪些类不被混淆
+-keep public class * extends android.preference.Preference                      # 保持哪些类不被混淆
+-keep public class com.android.vending.licensing.ILicensingService              # 保持哪些类不被混淆
+
+-libraryjars libs/armeabi/libBaiduMapSDK_v3_5_0_31.so
+-libraryjars libs/armeabi/libbspatch.so
+-libraryjars libs/armeabi/liblocSDK5.so
+-libraryjars libs/BaiduLBS_Android.jar
+-libraryjars libs/BmobIM_V1.1.9beta_20150820.jar
+-libraryjars libs/BmobSDK_V3.4.3_0820.jar
+-libraryjars libs/commons-lang3-3.4.jar
+-libraryjars libs/locSDK_5.2.jar
+-libraryjars libs/universal-image-loader-1.9.4.jar
+
+#依赖库
+#-libraryjars ..\\第三方库的工程名--------引入的第三方库
+#-dontwarn  包名.**  --------告诉ProGuard不要警告找不到包名.**这个包里面的类的相关引用
+#-keep class 包名.** { *;}      --------对这个包里面的所有类和所有方法不进行混淆
+
+-libraryjars ..\\DanmakuFlameLibs
+-dontwarn  master.flame.danmaku.**
+-keep class master.flame.danmaku.** { *;} 
+-dontwarn  tv.cjump.jni.**
+-keep class tv.cjump.jni.** { *;} 
+
+-libraryjars ..\\CropperLibs
+-dontwarn  com.edmodo.cropper.**
+-keep class com.edmodo.cropper.** { *;} 
+
+-libraryjars ..\\HListViewLibs
+-dontwarn  it.sephiroth.android.library.**
+-keep class it.sephiroth.android.library.** { *;} 
+
+-libraryjars ..\\ViewPagerLibs
+-dontwarn  com.viewpagerindicator.**
+-keep class com.viewpagerindicator.** { *;} 
+
+-libraryjars ..\\ImageViewTouchLibs
+-dontwarn  com.imagezoom.**
+-keep class com.imagezoom.** { *;} 
+
+-libraryjars ..\\XListViewLibs
+-dontwarn  com.kcj.animationfriend.view.xlist.**
+-keep class com.kcj.animationfriend.view.xlist.** { *;} 
+
+-libraryjars ..\\VitamioLibs
+-dontwarn  io.vov.vitamio.**
+-keep class io.vov.vitamio.** { *;} 
+
+-libraryjars ..\\..\\PIForAndroid\\PIForAndroid
+-dontwarn  com.kcj.peninkframe.**
+-keep class com.kcj.peninkframe.** { *;} 
+
+-keepclasseswithmembernames class * {                                           # 保持 native 方法不被混淆
+    native <methods>;
+}
+
+-keepclasseswithmembers class * {                                               # 保持自定义控件类不被混淆
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+
+-keepclasseswithmembers class * {                                               # 保持自定义控件类不被混淆
+    public <init>(android.content.Context, android.util.AttributeSet, int);     
+}
+
+-keepclassmembers class * extends android.app.Activity {                        # 保持自定义控件类不被混淆
+   public void *(android.view.View);
+}
+
+-keepclassmembers enum * {                                                      # 保持枚举 enum 类不被混淆
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {                                # 保持 Parcelable 不被混淆
+  public static final android.os.Parcelable$Creator *;
+}
+
+#-keep class MyClass;                                                            # 保持自己定义的类不被混淆
+
+
+-dontwarn butterknife.internal.**
+-keep class **$$ViewInjector { *; }
+-keepnames class * { @butterknife.InjectView *;}
+
+
+# removes such information by default, so configure it to keep all of it.
+-keepattributes Signature
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.examples.android.model.** { *; }
+
+-keep class io.vov.utils.** { *; }
+-keep class io.vov.vitamio.** { *; }
+
+-ignorewarnings
+-keepattributes Signature
+-keep class cn.bmob.v3.** {*;}
+
+# 保证继承自BmobObject、BmobUser类的JavaBean不被混淆
+-keep class com.example.bmobexample.Person{*;}
+-keep class com.example.bmobexample.MyUser{*;}
+-keep class com.example.bmobexample.relationaldata.Weibo{*;}
+-keep class com.example.bmobexample.relationaldata.Comment{*;}
+
+
