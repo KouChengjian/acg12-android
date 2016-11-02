@@ -1,0 +1,8 @@
+<com.kcj.animationfriend.view.ScaleImageView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/iv_album_pic"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scaleType="fitXY"
+    android:src="@drawable/bg_pic_loading" 
+    android:layout_marginTop="5dp"/>

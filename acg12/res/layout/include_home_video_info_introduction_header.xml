@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/bg_home_color" >
+
+    <TextView
+        android:id="@+id/tv_video_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="标签：加载中..."
+        android:layout_marginTop="250dp"
+        android:textColor="@color/theme_color" />
+
+    <TextView
+        android:id="@+id/tv_video_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:paddingBottom="3dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="3dp"
+        android:text="自制 大家好，我是钠盐，感谢大家一直以来对我的支持" />
+
+    <ImageView
+        android:id="@+id/iv_video_arrow"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@null"
+        android:scaleType="center"
+        android:src="@drawable/icon_show_video_content" />
+
+    <TextView
+        android:id="@+id/tv_video_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="2dp"
+        android:text="正在查询视频信息..."
+        android:textColor="@color/theme_color" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey" />
+
+</LinearLayout>
