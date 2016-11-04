@@ -41,7 +41,7 @@ import com.kcj.animationfriend.bean.Video;
 import com.kcj.animationfriend.listener.FindCollectListener;
 import com.kcj.animationfriend.listener.FindFavourListener;
 import com.kcj.animationfriend.listener.FindUserPaletteListener;
-import com.kcj.animationfriend.listener.HttpRequestListener;
+import com.kcj.animationfriend.listener.HttpRequestListener1;
 import com.kcj.animationfriend.listener.ILoginListener;
 import com.kcj.animationfriend.listener.IResetPasswordListener;
 import com.kcj.animationfriend.listener.ISignUpListener;
@@ -50,6 +50,7 @@ import com.kcj.animationfriend.ui.RstAndLoginActivity;
 import com.kcj.animationfriend.util.CollectionUtils;
 import com.liteutil.http.HttpMethod;
 import com.liteutil.http.LiteHttp;
+import com.liteutil.http.listener.Callback;
 import com.liteutil.http.listener.Callback.CommonCallback;
 import com.liteutil.http.request.RequestParams;
 import com.liteutil.util.Log;
@@ -65,7 +66,7 @@ public class HttpProxy {
 	/**
 	 * 主页-内容
 	 */
-	public static List<Area> getHomeContent(final HttpRequestListener<Area> listener) {
+	public static List<Area> getHomeContent(final HttpRequestListener1<Area> listener) {
 		final List<Area> areaList = new ArrayList<Area>();
 		try {
 			LiteHttp.http().get(new RequestParams(Constant.URL_HOME_CONTENT),new CommonCallback<String>() {
@@ -141,180 +142,161 @@ public class HttpProxy {
 	/**
 	 * 主页-更多内容-图片
 	 */
-	public static List<Album> getHomeMoreAlbum(String max,final HttpRequestListener<Album> listener){
-		final List<Album> albumList = new ArrayList<Album>();
-		try {
-			LiteHttp.http().get(new RequestParams(Constant.URL_HOME_MORE_ALBUM+"?max="+max),new CommonCallback<String>() {
+	public static Callback.Cancelable getHomeMoreAlbum(String max,final HttpRequestListener1<Album> listener){
+		RequestParams params = new RequestParams(Constant.URL_HOME_MORE_ALBUM + max);
+		Callback.Cancelable cancelable = LiteHttp.http().get(params,new CommonCallback<String>() {
 
-				@Override
-				public void onCancelled(CancelledException arg0) {}
+			@Override
+			public void onCancelled(CancelledException arg0) {}
 
-				@Override
-				public void onError(Throwable ex, boolean isOnCallback) {
-					if(listener != null){
-						listener.onFailure(ex.toString());
-					}
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+				if(listener != null){
+					listener.onFailure(ex.toString());
 				}
-
-				@Override
-				public void onSuccess(String html) {
-					try {
-						JSONObject json = new JSONObject(html);
-						String result = json.getString("result");
-						String desc = json.getString("desc");
-						String data = json.getString("data");
-						if(result.equals("0")){
-							if(listener != null){
-								listener.onFailure(desc);
-							}
-						}else{
-							Gson gson = new Gson();
-							List<Album> list = gson.fromJson(data, new TypeToken<List<Album>>(){}.getType());
-							albumList.addAll(list);
-							if(listener != null){
-								listener.onSuccess(list);
-							}
-						}
-					} catch (JSONException e) {
-						e.printStackTrace();
-						if(listener != null){
-							listener.onFailure(e.toString());
-						}
-					}
-				}
-				
-				@Override
-				public void onFinished() {}
-			});
-		} catch (Throwable e) {
-			e.printStackTrace();
-			if(listener != null){
-				listener.onFailure(e.toString());
 			}
-		}
-		return albumList;
+
+			@Override
+			public void onSuccess(String html) {
+				try {
+					List<Album> albumList = new ArrayList<Album>();
+					JSONObject json = new JSONObject(html);
+					String result = json.getString("result");
+					String desc = json.getString("desc");
+					String data = json.getString("data");
+					if(result.equals("0")){
+						if(listener != null){
+							listener.onFailure(desc);
+						}
+					}else{
+						Gson gson = new Gson();
+						List<Album> list = gson.fromJson(data, new TypeToken<List<Album>>(){}.getType());
+						albumList.addAll(list);
+						if(listener != null){
+							listener.onSuccess(list);
+						}
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					if(listener != null){
+						listener.onFailure(e.toString());
+					}
+				}
+			}
+			
+			@Override
+			public void onFinished() {}
+		});	
+		return cancelable;
 	}
 	
 	/**
 	 * 主页-更多内容-画板
 	 */
-	public static List<Palette> getHomeMorePalette(String max,final HttpRequestListener<Palette> listener){
-		final List<Palette> paletteList = new ArrayList<Palette>();
-		try {
-			LiteHttp.http().get(new RequestParams(Constant.URL_HOME_MORE_PALETTE+"?max="+max),new CommonCallback<String>() {
+	public static Callback.Cancelable getHomeMorePalette(String max,final HttpRequestListener1<Palette> listener){
+		RequestParams params = new RequestParams(Constant.URL_HOME_MORE_PALETTE+max);
+		Callback.Cancelable cancelable = LiteHttp.http().get(params,new CommonCallback<String>() {
 
-				@Override
-				public void onCancelled(CancelledException arg0) {}
+			@Override
+			public void onCancelled(CancelledException arg0) {}
 
-				@Override
-				public void onError(Throwable ex, boolean isOnCallback) {
-					if(listener != null){
-						listener.onFailure(ex.toString());
-					}
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+				if(listener != null){
+					listener.onFailure(ex.toString());
 				}
-
-				@Override
-				public void onSuccess(String html) {
-					try {
-						JSONObject json = new JSONObject(html);
-						String result = json.getString("result");
-						String desc = json.getString("desc");
-						String data = json.getString("data");
-						if(result.equals("0")){
-							if(listener != null){
-								listener.onFailure(desc);
-							}
-						}else{
-							Gson gson = new Gson();
-							List<Palette> list = gson.fromJson(data, new TypeToken<List<Palette>>(){}.getType());
-							paletteList.addAll(list);
-							if(listener != null){
-								listener.onSuccess(paletteList);
-							}
-						}
-					}catch (JSONException e) {
-						e.printStackTrace();
-						if(listener != null){
-							listener.onFailure(e.toString());
-						}
-					}
-				}
-				
-				@Override
-				public void onFinished() {}
-				
-			});
-		} catch (Throwable e) {
-			e.printStackTrace();
-			if(listener != null){
-				listener.onFailure(e.toString());
 			}
-		}
-		return paletteList;
+
+			@Override
+			public void onSuccess(String html) {
+				try {
+					List<Palette> paletteList = new ArrayList<Palette>();
+					JSONObject json = new JSONObject(html);
+					String result = json.getString("result");
+					String desc = json.getString("desc");
+					String data = json.getString("data");
+					if(result.equals("0")){
+						if(listener != null){
+							listener.onFailure(desc);
+						}
+					}else{
+						Gson gson = new Gson();
+						List<Palette> list = gson.fromJson(data, new TypeToken<List<Palette>>(){}.getType());
+						paletteList.addAll(list);
+						if(listener != null){
+							listener.onSuccess(paletteList);
+						}
+					}
+				}catch (JSONException e) {
+					e.printStackTrace();
+					if(listener != null){
+						listener.onFailure(e.toString());
+					}
+				}
+			}
+			
+			@Override
+			public void onFinished() {}
+			
+		});	
+		return cancelable;
 	}
 	
 	/**
 	 * 主页-更多内容-画板-图片
 	 */
-	public static List<Album> getHomeMorePaletteAlbum(String max,String boardId ,final HttpRequestListener<Album> listener){
+	public static Callback.Cancelable getHomeMorePaletteAlbum(String max,String boardId ,final HttpRequestListener1<Album> listener){
 		final List<Album> albumList = new ArrayList<Album>();
-		try {
-			Log.e("TAG", Constant.URL_HOME_MORE_PALETTE_ALBUM +"?max="+max+"&boardId="+boardId);
-			LiteHttp.http().get(new RequestParams(Constant.URL_HOME_MORE_PALETTE_ALBUM +"?max="+max+"&boardId="+boardId),new CommonCallback<String>() {
+		RequestParams params = new RequestParams(Constant.URL_HOME_MORE_PALETTEALBUM +max+"&boardId="+boardId);
+		Callback.Cancelable cancelable = LiteHttp.http().get(params,new CommonCallback<String>() {
 
-				@Override
-				public void onCancelled(CancelledException arg0) {}
+			@Override
+			public void onCancelled(CancelledException arg0) {}
 
-				@Override
-				public void onError(Throwable ex, boolean isOnCallback) {
-					if(listener != null){
-						listener.onFailure(ex.toString());
-					}
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+				if(listener != null){
+					listener.onFailure(ex.toString());
 				}
-
-				@Override
-				public void onSuccess(String html) {
-					try {
-						JSONObject json = new JSONObject(html);
-						String result = json.getString("result");
-						String desc = json.getString("desc");
-						String data = json.getString("data");
-						if(result.equals("0")){
-							if(listener != null){
-								listener.onFailure(desc);
-							}
-						}else{
-							Gson gson = new Gson();
-							List<Album> list = gson.fromJson(data, new TypeToken<List<Album>>(){}.getType());
-							albumList.addAll(list);
-							if(listener != null){
-								listener.onSuccess(list);
-							}
-						}
-					} catch (JSONException e) {
-						e.printStackTrace();
-						if(listener != null){
-							listener.onFailure(e.toString());
-						}
-					}
-				}
-				
-				@Override
-				public void onFinished() {}
-			});
-		} catch (Throwable e) {
-			e.printStackTrace();
-			if(listener != null){
-				listener.onFailure(e.toString());
 			}
-		}
-		return albumList;
+
+			@Override
+			public void onSuccess(String html) {
+				try {
+					JSONObject json = new JSONObject(html);
+					String result = json.getString("result");
+					String desc = json.getString("desc");
+					String data = json.getString("data");
+					if(result.equals("0")){
+						if(listener != null){
+							listener.onFailure(desc);
+						}
+					}else{
+						Gson gson = new Gson();
+						List<Album> list = gson.fromJson(data, new TypeToken<List<Album>>(){}.getType());
+						albumList.addAll(list);
+						if(listener != null){
+							listener.onSuccess(list);
+						}
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					if(listener != null){
+						listener.onFailure(e.toString());
+					}
+				}
+			}
+			
+			@Override
+			public void onFinished() {}
+		});	
+		return cancelable;
 	}
 	
 	/**
 	 * 主页-更多内容-视频
 	 */
-	public static synchronized List<Video> getHomeMoreVedio(String url,int page,final HttpRequestListener<Video> listener){
+	public static synchronized List<Video> getHomeMoreVedio(String url,int page,final HttpRequestListener1<Video> listener){
 		final List<Video> videoList = new ArrayList<Video>();
 		try {
 			LiteHttp.http().requestSync(HttpMethod.GET,new RequestParams(url + page),new CommonCallback<String>() {
@@ -372,7 +354,7 @@ public class HttpProxy {
 	/**
 	 * 发现 - 番剧
 	 */
-	public static List<Video> getBankunList(int page,final HttpRequestListener<Video> listener){
+	public static List<Video> getBankunList(int page,final HttpRequestListener1<Video> listener){
 		final List<Video> videoList = new ArrayList<Video>();
 		try {
 			LiteHttp.http().get(new RequestParams(Constant.URL_FIND_BANKUN+String.valueOf(page).toString()), new CommonCallback<String>() {
@@ -433,13 +415,62 @@ public class HttpProxy {
 		return videoList;
 	}
 	
-	
+	/**
+	 * 发现 - 番剧详情
+	 */
+	public static Callback.Cancelable getBankunInfo(String av,final HttpRequestListener<Video> listener){
+		RequestParams params = new RequestParams(Constant.URL_FIND_BANKUN_INFO + av);
+		Callback.Cancelable cancelable = LiteHttp.http().get(params,new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+				if(listener != null){
+					listener.onFailure(ex.toString());
+				}
+			}
+
+			@Override
+			public void onSuccess(String html) {
+				try {
+					Video video = new Video();
+					JSONObject json = new JSONObject(html);
+					String result = json.getString("result");
+					String desc = json.getString("desc");
+					String data = json.getString("data");
+					if(result.equals("0")){
+						if(listener != null){
+							listener.onFailure(desc);
+						}
+					}else{
+						Gson gson = new Gson();
+						video = gson.fromJson(data, new TypeToken<Video>(){}.getType());
+						if(listener != null){
+							listener.onSuccess(video);
+						}
+					}
+				}catch (JSONException e) {
+					e.printStackTrace();
+					if(listener != null){
+						listener.onFailure(e.toString());
+					}
+				}
+			}
+			
+			@Override
+			public void onFinished() {}
+			
+		});	
+		return cancelable;
+	}
 	
 	
 	/**
 	 * 搜索 - 图片
 	 */
-	public static List<Album> getSearchAlbum(String key , int page ,final HttpRequestListener<Album> httpRequestListener){
+	public static List<Album> getSearchAlbum(String key , int page ,final HttpRequestListener1<Album> httpRequestListener){
 		final List<Album> albumList = new ArrayList<Album>();
 		try {
 			LiteHttp.http().get(new RequestParams(Constant.URL_SEARCH_ALBUM + 
@@ -497,7 +528,7 @@ public class HttpProxy {
 	/**
 	 * 搜索 - 图集
 	 */
-	public static List<Palette> getSearchPalette(String key , int page ,final HttpRequestListener<Palette> listener){
+	public static List<Palette> getSearchPalette(String key , int page ,final HttpRequestListener1<Palette> listener){
 		final List<Palette> paletteList = new ArrayList<Palette>();
 		try {
 			LiteHttp.http().get(new RequestParams(Constant.URL_SEARCH_PALETTE + 
@@ -556,7 +587,7 @@ public class HttpProxy {
 	/**
 	 * 搜索 - 视频
 	 */
-    public static List<Video> getSearchVideo(String key , int page ,final HttpRequestListener<Video> httpRequestListener){
+    public static List<Video> getSearchVideo(String key , int page ,final HttpRequestListener1<Video> httpRequestListener){
     	final List<Video> videoList = new ArrayList<Video>();
     	try {
 			LiteHttp.http().get(new RequestParams(Constant.URL_SEARCH_VIDEO + 
@@ -614,7 +645,7 @@ public class HttpProxy {
 	/**
 	 * 搜索 - 番剧
 	 */
-    public static List<Video> getSearchBangunmi(String key , int page ,final HttpRequestListener<Video> httpRequestListener){
+    public static List<Video> getSearchBangunmi(String key , int page ,final HttpRequestListener1<Video> httpRequestListener){
     	final List<Video> videoList = new ArrayList<Video>();
     	try {
     		Log.e("TAG", Constant.URL_SEARCH_SERIES + 
@@ -732,7 +763,7 @@ public class HttpProxy {
 	/**
 	 * 获取相关视频
 	 */
-	public static void getVideoRecommendString(Context mContext,String urlRecommend,final HttpRequestListener<Video> listener) {
+	public static void getVideoRecommendString(Context mContext,String urlRecommend,final HttpRequestListener1<Video> listener) {
 		Log.e("url", urlRecommend+"=====");
 		final List<Video> list = new ArrayList<Video>();
 		try {

@@ -32,7 +32,7 @@ import com.kcj.animationfriend.adapter.HomeAdapter;
 import com.kcj.animationfriend.bean.Area;
 import com.kcj.animationfriend.bean.Video;
 import com.kcj.animationfriend.config.HttpProxy;
-import com.kcj.animationfriend.listener.HttpRequestListener;
+import com.kcj.animationfriend.listener.HttpRequestListener1;
 import com.kcj.animationfriend.ui.base.BaseFragment;
 import com.kcj.animationfriend.util.Network;
 import com.kcj.animationfriend.util.PixelUtil;
@@ -116,7 +116,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener{
 	}
 	
 	public void refresh() {
-		HttpProxy.getHomeContent(new HttpRequestListener<Area>() {
+		HttpProxy.getHomeContent(new HttpRequestListener1<Area>() {
 			@Override
 			public void onSuccess(List<Area> result) {
 				if (result.size() != 0 && result.get(result.size() - 1) != null) {

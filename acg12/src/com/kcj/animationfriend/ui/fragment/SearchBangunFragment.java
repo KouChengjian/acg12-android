@@ -20,13 +20,12 @@ import com.kcj.animationfriend.adapter.FindAdapter.OnRecyclerViewItemClickListen
 import com.kcj.animationfriend.bean.Video;
 import com.kcj.animationfriend.config.Constant;
 import com.kcj.animationfriend.config.HttpProxy;
-import com.kcj.animationfriend.listener.HttpRequestListener;
+import com.kcj.animationfriend.listener.HttpRequestListener1;
 import com.kcj.animationfriend.listener.LodeMoreCallBack;
-import com.kcj.animationfriend.ui.VideoInfoActivity;
+import com.kcj.animationfriend.ui.VideoFindInfoActivity;
 import com.kcj.animationfriend.ui.base.BaseFragment;
 import com.kcj.animationfriend.util.PixelUtil;
 import com.kcj.animationfriend.view.RecyclerViewOnScroll;
-import com.liteutil.util.Log;
 
 
 /**
@@ -129,14 +128,14 @@ public class SearchBangunFragment extends BaseFragment implements OnRecyclerView
 		Intent i = new Intent();
 		Bundle bundle = new Bundle();
 		Video item = (Video) videoList.get(position);
-		i.setClass(mContext, VideoInfoActivity.class);
+		i.setClass(mContext, VideoFindInfoActivity.class);
 		bundle.putSerializable("videoItemdata", item);
 		i.putExtras(bundle);
 		mContext.startActivity(i);
 	}
 	
 	public void refresh(String key,int page) {
-		HttpProxy.getSearchBangunmi(key , page ,new HttpRequestListener<Video>() {
+		HttpProxy.getSearchBangunmi(key , page ,new HttpRequestListener1<Video>() {
 			@Override
 			public void onSuccess(List<Video> list) {
 				if (list.size() != 0 && list.get(list.size() - 1) != null) {

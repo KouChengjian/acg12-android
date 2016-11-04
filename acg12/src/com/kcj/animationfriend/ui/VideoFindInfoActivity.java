@@ -136,7 +136,7 @@ public class VideoFindInfoActivity extends BaseActivity implements ScrollTabHold
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == R.id.btn_video_play){
-			Intent intent = new Intent(mContext, VideoPlayActivity1.class);
+			Intent intent = new Intent(mContext, VideoPlayActivity.class);
 			intent.putExtra("displayName",video.getTitle());
 			intent.putExtra("av",video.getAid());
 			intent.putExtra("page","1");
@@ -227,94 +227,4 @@ public class VideoFindInfoActivity extends BaseActivity implements ScrollTabHold
 		super.onDestroy();
 	}
 
-//	private class VideoInfoTask extends AsyncTask<String, Void, List<Video>> {
-//
-//		@Override
-//		protected List<Video> doInBackground(String... arg0) {
-//			List<Video> videoList = new ArrayList<Video>();
-//			try {
-//				Document document = Jsoup.connect(video.getUrlInfo())
-//						.data("jquery", "java").userAgent("Mozilla")
-//						.cookie("auth", "token").timeout(50000).get();
-//				Log.e("document", document.toString() + "=====");
-//				Elements tags = document.select("div.nfo-row,.info-style");
-//				Elements taga = tags.select("a");
-//				String label = "";
-//				for (Element tag : taga) {
-//					Log.e("tag", tag.text() + "=====");
-//					label = label + "  " + tag.text();
-//				}
-//				video.setSbutitle(label);
-//				Elements bangumi_info_r = document.select("div.bangumi-info-r");
-//				Elements info_descs = bangumi_info_r
-//						.select("div.info-row,.info-desc-wrp");
-//				Elements info = info_descs.select("div.info-desc");
-//				video.setDescription(info.text());
-//				Log.e("info", info.text() + "====");
-//				// 获取视频
-//				Elements episode_list_wrp = document.select("div.episode-list-wrp");
-//				Elements episode_list = episode_list_wrp
-//						.select("div.episode-list,.initialized,.ep-mode-cover");
-//				Elements links = episode_list.select("a[href]");
-//				for (int i = 0; i < links.size(); i++) {
-//					Video item = new Video();
-//					Element link = links.get(i);
-//					item.setAid(link.attr("href").split("/")[2].replace("av", ""));
-//					item.setTitle(link.attr("title"));
-//					videoList.add(item);
-//					i++;
-//					Log.e("vedioList",
-//							link.attr("href").split("/")[2].replace("av", "")
-//									+ "====");
-//					Log.e("vedioList", link.attr("title") + "====");
-//				}
-//				// 相关推荐
-//				Elements page_video_wrp = document.select("div.page-video-wrp");
-//				Elements page_video_wrp_r = page_video_wrp
-//						.select("div.page-video-wrp-r");
-//				Elements r_item = page_video_wrp_r.select("div.page-video-wrp-r");
-//				Elements a_items = r_item.select("a[href]");
-//				List<Video> list = new ArrayList<Video>();
-//				for (int i = 0; i < a_items.size(); i++) {
-//					Video item = new Video();
-//					Element a_item = a_items.get(i);
-//					item.setAid(a_item.attr("href"));
-//					item.setTitle(a_item.attr("title"));
-//					Elements preview = page_video_wrp_r.select("div.preview");
-//					Element media = preview.select("[src]").get(0);
-//					Elements num = preview.get(0).getElementsByClass("num");
-//					item.setPic(media.attr("abs:data-img"));
-//					item.setTitle(a_item.attr("title"));
-//					item.setUrlInfo(Constant.URL_NEW_BANKUN_INFO
-//							+ a_item.attr("href").replaceAll(" ", "%20"));
-//					item.setUpdateContent(num.text());
-//					list.add(item);
-//					Log.e("num", num.text() + "=====");
-//					Log.e("pic", media.attr("abs:data-img") + "=====");
-//					Log.e("url", a_item.attr("href") + "====");
-//					Log.e("title", a_item.attr("title") + "====");
-//				}
-//				video.setVideoList(list);
-//			} catch (IOException e) {
-//				Log.e("IOException", e.toString());
-//				e.printStackTrace();
-//			}
-//			return videoList;
-//		}
-//		
-//		@Override
-//		protected void onPostExecute(List<Video> result) {
-//			super.onPostExecute(result);
-//			Log.e("TAG", result.size());
-//			if(result != null && result.size()!=0){
-//				btn_video_play.setText("播放01话");
-//			}else{
-//				btn_video_play.setText("加载失败");
-//			}
-//			videoList.addAll(result);
-//			bankunAdapter.notifyDataSetChanged();
-//			
-//		}
-//
-//	}
 }

@@ -16,7 +16,7 @@ import com.kcj.animationfriend.adapter.VideoAdapter;
 import com.kcj.animationfriend.bean.Video;
 import com.kcj.animationfriend.config.Constant;
 import com.kcj.animationfriend.config.HttpProxy;
-import com.kcj.animationfriend.listener.HttpRequestListener;
+import com.kcj.animationfriend.listener.HttpRequestListener1;
 import com.kcj.animationfriend.ui.base.BaseFragment;
 import com.kcj.animationfriend.util.PixelUtil;
 import com.kcj.animationfriend.view.RefreshLayout;
@@ -110,7 +110,7 @@ public class SearchVideoFragment extends BaseFragment implements OnRefreshListen
 	}
 	
 	public void refresh(String key,int page) {
-		HttpProxy.getSearchVideo(key , page ,new HttpRequestListener<Video>() {
+		HttpProxy.getSearchVideo(key , page ,new HttpRequestListener1<Video>() {
 			@Override
 			public void onSuccess(List<Video> list) {
 				if (list.size() != 0 && list.get(list.size() - 1) != null) {

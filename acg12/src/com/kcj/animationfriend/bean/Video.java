@@ -33,8 +33,8 @@ public class Video implements Serializable {
 	// 后续添加的字段
 	private String urlInfo;// 连接详细信息
 	private String updateContent;// 更新信息
-	private List<Video> videoList; // 季度
-	public  List<Video> relatedList ;// 相关视频
+	private List<Video> bangumiVideoList; // 番剧列表
+	private List<Video> quarterVideoList; // 季度视频
 
 	public String getAid() {
 		return aid;
@@ -188,20 +188,21 @@ public class Video implements Serializable {
 		this.updateContent = updateContent;
 	}
 
-	public List<Video> getVideoList() {
-		return videoList;
+	public List<Video> getBangumiVideoList() {
+		return bangumiVideoList;
 	}
 
-	public void setVideoList(List<Video> videoList) {
-		this.videoList = videoList;
+	public void setBangumiVideoList(List<Video> bangumiVideoList) {
+		this.bangumiVideoList = bangumiVideoList;
 	}
 
-	public List<Video> getRelatedList() {
-		return relatedList;
+	public List<Video> getQuarterVideoList() {
+		return quarterVideoList;
 	}
 
-	public void setRelatedList(List<Video> relatedList) {
-		this.relatedList = relatedList;
+	public void setQuarterVideoList(List<Video> quarterVideoList) {
+		this.quarterVideoList = quarterVideoList;
 	}
+
 	
 }

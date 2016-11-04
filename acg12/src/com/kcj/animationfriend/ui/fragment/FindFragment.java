@@ -21,7 +21,7 @@ import com.kcj.animationfriend.adapter.FindAdapter.OnRecyclerViewItemClickListen
 import com.kcj.animationfriend.bean.Video;
 import com.kcj.animationfriend.config.Constant;
 import com.kcj.animationfriend.config.HttpProxy;
-import com.kcj.animationfriend.listener.HttpRequestListener;
+import com.kcj.animationfriend.listener.HttpRequestListener1;
 import com.kcj.animationfriend.listener.LodeMoreCallBack;
 import com.kcj.animationfriend.ui.VideoFindInfoActivity;
 import com.kcj.animationfriend.ui.base.BaseFragment;
@@ -131,7 +131,7 @@ public class FindFragment extends BaseFragment implements OnRecyclerViewItemClic
 	}
 
 	public void refresh(int page) {
-		HttpProxy.getBankunList(page, new HttpRequestListener<Video>() {
+		HttpProxy.getBankunList(page, new HttpRequestListener1<Video>() {
 
 			@Override
 			public void onSuccess(List<Video> list) {

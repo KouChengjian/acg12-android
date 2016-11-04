@@ -15,7 +15,7 @@ import com.kcj.animationfriend.adapter.VideoAdapter;
 import com.kcj.animationfriend.bean.Video;
 import com.kcj.animationfriend.config.Constant;
 import com.kcj.animationfriend.config.HttpProxy;
-import com.kcj.animationfriend.listener.HttpRequestListener;
+import com.kcj.animationfriend.listener.HttpRequestListener1;
 import com.kcj.animationfriend.view.ScrollTabHolderFragment;
 import com.liteutil.async.AsyncTask;
 
@@ -86,18 +86,18 @@ public class VideoFindInfoRelatedFragment extends ScrollTabHolderFragment{
 		protected List<Video> doInBackground(Integer... params) {
 			if(video.getUrlInfo() == null){
 				final List<Video> lists = new ArrayList<Video>();
-				HttpProxy.getVideoRecommendString(mContext,Constant.URL_NEW_BANKUN_RE+video.getAid(),new HttpRequestListener<Video>() {
-					
-					@Override
-					public void onSuccess(List<Video> list) {
-						lists.addAll(list);
-					}
-					
-					@Override
-					public void onFailure(String msg) {
-						
-					}
-				});
+//				HttpProxy.getVideoRecommendString(mContext,Constant.URL_NEW_BANKUN_RE+video.getAid(),new HttpRequestListener1<Video>() {
+//					
+//					@Override
+//					public void onSuccess(List<Video> list) {
+//						lists.addAll(list);
+//					}
+//					
+//					@Override
+//					public void onFailure(String msg) {
+//						
+//					}
+//				});
 				return lists;
 			}else{
 //				return HttpProxy.getVideoHotString(mContext,video.getVideoAid(),0);

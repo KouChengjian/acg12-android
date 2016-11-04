@@ -4,11 +4,6 @@ package com.kcj.animationfriend.ui.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -32,13 +27,12 @@ import com.kcj.animationfriend.MyApplication;
 import com.kcj.animationfriend.R;
 import com.kcj.animationfriend.adapter.base.ViewHolderHomeHList;
 import com.kcj.animationfriend.bean.Video;
-import com.kcj.animationfriend.config.Constant;
+import com.kcj.animationfriend.config.HttpProxy;
+import com.kcj.animationfriend.config.HttpRequestListener;
 import com.kcj.animationfriend.listener.ParameCallBack;
 import com.kcj.animationfriend.ui.VideoInfoActivity;
 import com.kcj.animationfriend.ui.base.BaseFragment;
 import com.kcj.animationfriend.view.ScrollTabHolderFragment;
-import com.liteutil.async.AsyncTask;
-import com.liteutil.util.Log;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
@@ -68,7 +62,7 @@ public class VideoFindInfoIntroduceFragment extends ScrollTabHolderFragment impl
 	protected View footView;
 	protected RecyclerView footHListView;
 	protected HomeHListAdapter areaHListAdapter = null;
-	protected DetailsAsyncTask detailsAsyncTask;
+	//protected DetailsAsyncTask detailsAsyncTask;
 	
 	public static BaseFragment newInstance(ParameCallBack callBack) {
     	BaseFragment fragment = new VideoFindInfoIntroduceFragment();
@@ -137,24 +131,17 @@ public class VideoFindInfoIntroduceFragment extends ScrollTabHolderFragment impl
 	public void initDatas() {
 		super.initDatas();
 		refreshData(video);
-		if(detailsAsyncTask != null){
-			detailsAsyncTask.cancel(true);
-		}
-		detailsAsyncTask = new DetailsAsyncTask();
-		detailsAsyncTask.execute("");
+//		if(detailsAsyncTask != null){
+//			detailsAsyncTask.cancel(true);
+//		}
+//		detailsAsyncTask = new DetailsAsyncTask();
+//		detailsAsyncTask.execute("");
+		refresh();
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
-	}
-	
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		if(detailsAsyncTask != null){
-			detailsAsyncTask.cancel(true);
-		}
 	}
 	
 	@Override
@@ -183,6 +170,38 @@ public class VideoFindInfoIntroduceFragment extends ScrollTabHolderFragment impl
         lv_video_info.setSelectionFromTop(1, scrollHeight);
     }
 	
+	public void refresh(){
+		String av = video.getUrlInfo().split("/anime/")[1];
+		HttpProxy.getBankunInfo(av, new HttpRequestListener<Video>() {
+			
+			@Override
+			public void onSuccess(Video result) {
+				if(result.getQuarterVideoList() != null && !result.getQuarterVideoList().isEmpty()){
+					areaHListAdapter = new HomeHListAdapter(mContext ,result.getQuarterVideoList());
+					footHListView.setAdapter(areaHListAdapter);
+				}
+				videoInfoList.addAll(result.getBangumiVideoList());
+				lv_video_info.addFooterView(footView);
+				videoInfoListAdapter.notifyDataSetChanged();
+				refreshData(result);
+				lv_video_info.setVisibility(View.VISIBLE);
+				pv_circular_inout.stop();
+				if(result == null && !result.getBangumiVideoList().isEmpty()){
+					parameCallBack.onCall(video);
+				}else{
+					parameCallBack.onCall(videoInfoList.get(0));
+				}
+			}
+			
+			@Override
+			public void onFailure(String msg) {
+				ShowToast(msg);
+				lv_video_info.setVisibility(View.VISIBLE);
+				pv_circular_inout.stop();
+			}
+		});
+	}
+	
 	public void refreshData(Video video){
 		if (video != null) {
 			tv_video_label.setText(video.getSbutitle());
@@ -201,101 +220,110 @@ public class VideoFindInfoIntroduceFragment extends ScrollTabHolderFragment impl
 		}
 	}
 	
-	/**
-	 * @ClassName: DetailsAsyncTask
-	 * @Description: 
-	 * @author: KCJ
-	 * @date: 2015-12-16
-	 */
-	private class DetailsAsyncTask extends AsyncTask<String, Void, List<Video>> {
-
-		@Override
-		protected List<Video> doInBackground(String... arg0) {
-			List<Video> videoList = new ArrayList<Video>();
-			try {
-				Document document = Jsoup.connect(video.getUrlInfo()).data("jquery", "java")
-						.userAgent("Mozilla").cookie("auth", "token")
-						.timeout(50000).get();
-				Log.e("url", video.getUrlInfo()+"=====");
-				Log.i("document", document.toString()+"=====");
-				Elements tags = document.select("div.nfo-row,.info-style");
-				Elements taga = tags.select("a");
-				String label = "";
-				for(Element tag:taga){
-					Log.e("tag", tag.text()+"=====");
-					label = label+"  "+tag.text();
-				}
-				video.setSbutitle(label);
-				Elements bangumi_info_r = document.select("div.bangumi-info-r");
-				Elements info_descs = bangumi_info_r.select("div.info-row,.info-desc-wrp");
-				Elements info = info_descs.select("div.info-desc");
-				video.setDescription(info.text());
-				Log.i("info", info.text()+"====");
-				// 获取视频
-				Elements episode_list_wrp = document.select("div.episode-list-wrp");
-				Elements episode_list = episode_list_wrp.select("div.episode-list,.initialized,.ep-mode-cover");
-				Elements links = episode_list.select("a[href]");
-				for(int i = 0;i< links.size();i++){
-					Video item = new Video();
-					Element link = links.get(i);
-					item.setAid(link.attr("href").split("/")[2].replace("av",""));
-					item.setTitle(link.attr("title"));
-					videoList.add(item);
-					i++;
-					Log.i("vedioList", link.attr("href").split("/")[2].replace("av","")+"====");
-					Log.i("vedioList", link.attr("title")+"====");
-				}
-				// 相关推荐
-				Elements page_video_wrp = document.select("div.page-video-wrp");
-				Elements page_video_wrp_r = page_video_wrp.select("div.page-video-wrp-r");
-				Elements r_item = page_video_wrp_r.select("div.page-video-wrp-r");
-				Elements a_items = r_item.select("a[href]");
-				List<Video> list = new ArrayList<Video>();
-				for(int i = 0;i< a_items.size();i++){
-					Video item = new Video();
-					Element a_item = a_items.get(i);
-					item.setAid(a_item.attr("href"));
-					item.setTitle(a_item.attr("title"));
-					Elements preview = page_video_wrp_r.select("div.preview");
-					Element media = preview.select("[src]").get(0);
-					Elements num = preview.get(0).getElementsByClass("num");
-					item.setPic(media.attr("abs:data-img"));
-					item.setTitle(a_item.attr("title"));
-					item.setUrlInfo(Constant.URL_NEW_BANKUN_INFO+a_item.attr("href").replaceAll(" ", "%20"));
-					item.setUpdateContent(num.text());
-					list.add(item);
-					Log.i("num", num.text()+"=====");
-					Log.i("pic", media.attr("abs:data-img")+"=====");
-					Log.i("url", a_item.attr("href")+"====");
-					Log.i("title", a_item.attr("title")+"====");
-				}
-				video.setVideoList(list);
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-			return videoList;
-		}
-		
-		@Override
-		protected void onPostExecute(List<Video> result) {
-			super.onPostExecute(result);
-			if(video.getVideoList() != null && !video.getVideoList().isEmpty()){
-				areaHListAdapter = new HomeHListAdapter(mContext ,video.getVideoList());
-				footHListView.setAdapter(areaHListAdapter);
-			}
-			videoInfoList.addAll(result);
-			lv_video_info.addFooterView(footView);
-			videoInfoListAdapter.notifyDataSetChanged();
-			refreshData(video);
-			lv_video_info.setVisibility(View.VISIBLE);
-			pv_circular_inout.stop();
-			if(result == null || result.isEmpty()){
-				parameCallBack.onCall(video);
-			}else{
-				parameCallBack.onCall(videoInfoList.get(0));
-			}
-		}
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+//		if(detailsAsyncTask != null){
+//			detailsAsyncTask.cancel(true);
+//		}
 	}
+	
+//	/**
+//	 * @ClassName: DetailsAsyncTask
+//	 * @Description: 
+//	 * @author: KCJ
+//	 * @date: 2015-12-16
+//	 */
+//	private class DetailsAsyncTask extends AsyncTask<String, Void, List<Video>> {
+//
+//		@Override
+//		protected List<Video> doInBackground(String... arg0) {
+//			List<Video> videoList = new ArrayList<Video>();
+//			try {
+//				Log.e("video.getUrlInfo()", video.getUrlInfo());
+//				Document document = Jsoup.connect(video.getUrlInfo()).data("jquery", "java")
+//						.userAgent("Mozilla").cookie("auth", "token")
+//						.timeout(50000).get();
+//				Log.e("url", video.getUrlInfo()+"=====");
+//				Log.i("document", document.toString()+"=====");                                             
+//				Elements tags = document.select("div.nfo-row,.info-style");
+//				Elements taga = tags.select("a");
+//				String label = "";
+//				for(Element tag:taga){
+//					Log.e("tag", tag.text()+"=====");
+//					label = label+"  "+tag.text();
+//				}
+//				video.setSbutitle(label);
+//				Elements bangumi_info_r = document.select("div.bangumi-info-r");
+//				Elements info_descs = bangumi_info_r.select("div.info-row,.info-desc-wrp");
+//				Elements info = info_descs.select("div.info-desc");
+//				video.setDescription(info.text());
+//				Log.i("info", info.text()+"====");
+//				// 获取视频
+//				Elements episode_list_wrp = document.select("div.episode-list-wrp");
+//				Elements episode_list = episode_list_wrp.select("div.episode-list,.initialized,.ep-mode-cover");
+//				Elements links = episode_list.select("a[href]");
+//				for(int i = 0;i< links.size();i++){
+//					Video item = new Video();
+//					Element link = links.get(i);
+//					item.setAid(link.attr("href").split("/")[2].replace("av",""));
+//					item.setTitle(link.attr("title"));
+//					videoList.add(item);
+//					i++;
+//					Log.i("vedioList", link.attr("href").split("/")[2].replace("av","")+"====");
+//					Log.i("vedioList", link.attr("title")+"====");
+//				}
+//				// 相关推荐
+//				Elements page_video_wrp = document.select("div.page-video-wrp");
+//				Elements page_video_wrp_r = page_video_wrp.select("div.page-video-wrp-r");
+//				Elements r_item = page_video_wrp_r.select("div.page-video-wrp-r");
+//				Elements a_items = r_item.select("a[href]");
+//				List<Video> list = new ArrayList<Video>();
+//				for(int i = 0;i< a_items.size();i++){
+//					Video item = new Video();
+//					Element a_item = a_items.get(i);
+//					item.setAid(a_item.attr("href"));
+//					item.setTitle(a_item.attr("title"));
+//					Elements preview = page_video_wrp_r.select("div.preview");
+//					Element media = preview.select("[src]").get(0);
+//					Elements num = preview.get(0).getElementsByClass("num");
+//					item.setPic(media.attr("abs:data-img"));
+//					item.setTitle(a_item.attr("title"));
+//					item.setUrlInfo(Constant.URL_NEW_BANKUN_INFO+a_item.attr("href").replaceAll(" ", "%20"));
+//					item.setUpdateContent(num.text());
+//					list.add(item);
+//					Log.i("num", num.text()+"=====");
+//					Log.i("pic", media.attr("abs:data-img")+"=====");
+//					Log.i("url", a_item.attr("href")+"====");
+//					Log.i("title", a_item.attr("title")+"====");
+//				}
+////				video.setVideoList(list);
+//			}catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return videoList;
+//		}
+//		
+//		@Override
+//		protected void onPostExecute(List<Video> result) {
+//			super.onPostExecute(result);
+////			if(video.getVideoList() != null && !video.getVideoList().isEmpty()){
+////				areaHListAdapter = new HomeHListAdapter(mContext ,video.getVideoList());
+////				footHListView.setAdapter(areaHListAdapter);
+////			}
+//			videoInfoList.addAll(result);
+//			lv_video_info.addFooterView(footView);
+//			videoInfoListAdapter.notifyDataSetChanged();
+//			refreshData(video);
+//			lv_video_info.setVisibility(View.VISIBLE);
+//			pv_circular_inout.stop();
+//			if(result == null || result.isEmpty()){
+//				parameCallBack.onCall(video);
+//			}else{
+//				parameCallBack.onCall(videoInfoList.get(0));
+//			}
+//		}
+//	}
 	
 	/**
 	 * @ClassName: VideoInfoListAdapter

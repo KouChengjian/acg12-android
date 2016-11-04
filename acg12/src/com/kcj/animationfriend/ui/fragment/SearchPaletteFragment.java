@@ -20,7 +20,7 @@ import com.kcj.animationfriend.adapter.HomePaletteAdapter.OnRecyclerViewItemClic
 import com.kcj.animationfriend.bean.Palette;
 import com.kcj.animationfriend.config.Constant;
 import com.kcj.animationfriend.config.HttpProxy;
-import com.kcj.animationfriend.listener.HttpRequestListener;
+import com.kcj.animationfriend.listener.HttpRequestListener1;
 import com.kcj.animationfriend.listener.LodeMoreCallBack;
 import com.kcj.animationfriend.ui.HomeActivity;
 import com.kcj.animationfriend.ui.base.BaseFragment;
@@ -118,7 +118,7 @@ public class SearchPaletteFragment extends BaseFragment implements OnRecyclerVie
 	}
 	
 	public void refresh(String key,int page) {
-		HttpProxy.getSearchPalette(key, page, new HttpRequestListener<Palette>() {
+		HttpProxy.getSearchPalette(key, page, new HttpRequestListener1<Palette>() {
 			
 			@Override
 			public void onSuccess(List<Palette> list) {

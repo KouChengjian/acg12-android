@@ -20,7 +20,7 @@ import com.kcj.animationfriend.adapter.HomePaletteAdapter.OnRecyclerViewItemClic
 import com.kcj.animationfriend.bean.Palette;
 import com.kcj.animationfriend.config.Constant;
 import com.kcj.animationfriend.config.HttpProxy;
-import com.kcj.animationfriend.listener.HttpRequestListener;
+import com.kcj.animationfriend.listener.HttpRequestListener1;
 import com.kcj.animationfriend.listener.LodeMoreCallBack;
 import com.kcj.animationfriend.ui.HomeActivity;
 import com.kcj.animationfriend.ui.base.BaseFragment;
@@ -112,7 +112,7 @@ public class TabPaletteFragment extends BaseFragment implements OnRecyclerViewIt
 	}
 
 	public void refresh(String max) {
-		HttpProxy.getHomeMorePalette(max ,new HttpRequestListener<Palette>() {
+		HttpProxy.getHomeMorePalette(max ,new HttpRequestListener1<Palette>() {
 			@Override
 			public void onSuccess(List<Palette> list) {
 				if (list.size() != 0 && list.get(list.size() - 1) != null) {

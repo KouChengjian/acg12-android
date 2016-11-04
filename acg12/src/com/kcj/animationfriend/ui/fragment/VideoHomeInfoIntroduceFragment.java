@@ -187,7 +187,7 @@ public class VideoHomeInfoIntroduceFragment extends ScrollTabHolderFragment impl
 						.userAgent("Mozilla").cookie("auth", "token")
 						.timeout(50000).get();
 				Elements listElements = document.getElementsByClass("li-wrap-content");
-				Log.i("TAG", Constant.URL_GET_VIDEO_INFO+video.getAid()+".html"+"======");
+				Log.e("TAG", Constant.URL_GET_VIDEO_INFO+video.getAid()+".html"+"======");
 				Log.i("size", listElements.size()+"======");
 				for (int i = 0; i < listElements.size(); i++) {
 					Video video = new Video();
@@ -207,10 +207,10 @@ public class VideoHomeInfoIntroduceFragment extends ScrollTabHolderFragment impl
 		
 		@Override
 		protected void onPostExecute(List<Video> result) {
-			if(video.getVideoList() != null && !video.getVideoList().isEmpty()){
-				areaHListAdapter = new HomeHListAdapter(mContext ,video.getVideoList());
-				footHListView.setAdapter(areaHListAdapter);
-			}
+//			if(video.getVideoList() != null && !video.getVideoList().isEmpty()){
+//				areaHListAdapter = new HomeHListAdapter(mContext ,video.getVideoList());
+//				footHListView.setAdapter(areaHListAdapter);
+//			}
 			videoInfoList.addAll(result);
 			lv_video_info.addFooterView(footView);
 			videoInfoListAdapter.notifyDataSetChanged();

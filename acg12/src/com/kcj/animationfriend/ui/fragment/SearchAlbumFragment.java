@@ -21,7 +21,7 @@ import com.kcj.animationfriend.bean.Album;
 import com.kcj.animationfriend.config.Constant;
 import com.kcj.animationfriend.config.HttpProxy;
 import com.kcj.animationfriend.config.UserProxy;
-import com.kcj.animationfriend.listener.HttpRequestListener;
+import com.kcj.animationfriend.listener.HttpRequestListener1;
 import com.kcj.animationfriend.listener.LodeMoreCallBack;
 import com.kcj.animationfriend.ui.AlbumPvwActivity;
 import com.kcj.animationfriend.ui.base.BaseFragment;
@@ -139,7 +139,7 @@ public class SearchAlbumFragment extends BaseFragment implements OnRecyclerViewI
 	}
 	
 	public void refresh(String key,int page) {
-		HttpProxy.getSearchAlbum(key, page, new HttpRequestListener<Album>() {
+		HttpProxy.getSearchAlbum(key, page, new HttpRequestListener1<Album>() {
 			
 			@Override
 			public void onSuccess(List<Album> list) {

@@ -26,6 +26,7 @@ import master.flame.danmaku.danmaku.parser.BaseDanmakuParser;
 import master.flame.danmaku.danmaku.parser.IDataSource;
 import master.flame.danmaku.danmaku.parser.android.BiliDanmukuParser;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -1099,22 +1100,25 @@ public class VideoPlayActivity  extends BaseSwipeBackActivity implements MediaCo
 	/**
 	 * @ClassName: VideoViewInitTask
 	 * @Description: 
-	 * @author: KCJ
-	 * @date:  
 	 */
 	private class VideoViewInitTask extends AsyncTask<String, Void, Integer> {
 
 		@Override
 		protected Integer doInBackground(String... arg0) {
-			Log.i("VideoViewInitTask", "开始解析视频地址");
+			Log.e("VideoViewInitTask", "开始解析视频地址");
 			try {
-				Log.e("QAQ--->", "http://www.bilibili.com/m/html5?aid=" + av+ "&page=" + page + "=====");
-				JSONObject videopathjson = new JSONObject(HttpProxy.getHtmlString("http://www.bilibili.com/m/html5?aid="+av+"&page="+page));
-				Log.e("QAQ--->", videopathjson.getString("src").toString());
-				danmakuPath = videopathjson.getString("cid").toString();
-				mUri = Uri.parse(videopathjson.getString("src").toString());
+				Log.e("QAQ--->", Constant.URL_PLAY_VIDEO_INFO + av);
+				JSONObject videopathjson = new JSONObject(HttpProxy.getHtmlString(Constant.URL_PLAY_VIDEO_INFO + av));
+				String data = videopathjson.getString("data");
+				JSONObject result = new JSONObject(data);
+				Log.e("QAQ--->", result.getString("img").toString());
+				Log.e("QAQ--->", result.getString("cid").toString());
+				Log.e("QAQ--->", result.getString("url").toString());
+				danmakuPath = result.getString("cid").toString();
+				mUri = Uri.parse(result.getString("url").toString());
 			} catch (JSONException e) {
 				e.printStackTrace();
+				Log.e("VideoViewInitTask", e.toString());
 			}
 			Log.i("VideoViewInitTask", "开始加载弹幕");
 			mParser = createParser(danmakuPath);

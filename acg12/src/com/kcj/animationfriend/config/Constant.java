@@ -130,29 +130,33 @@ public class Constant {
 	public static Boolean debug = true;
 	
 	// URL-域名
-	public static final String URL = debug ? "http://192.168.1.100:8080/acg12/":"http://120.25.97.142:8080/";
+	public static final String URL = debug ? "http://192.168.10.142:8080/acg12/":"http://120.25.97.142:8080/";
 	// 主页-内容
-	public static final String URL_HOME_CONTENT = URL + "home";
+	public static final String URL_HOME_CONTENT           = URL + "home";
 	// 主页-更多内容 - 图片
-	public static final String URL_HOME_MORE_ALBUM = URL + "home/more/album";
+	public static final String URL_HOME_MORE_ALBUM        = URL + "home/more?action=album&max=";
 	// 主页-更多内容 - 画集
-	public static final String URL_HOME_MORE_PALETTE = URL + "home/more/palette";
+	public static final String URL_HOME_MORE_PALETTE      = URL + "home/more?action=palette&max=";
 	// 主页-更多内容 - 画集 - 图片
-	public static final String URL_HOME_MORE_PALETTE_ALBUM = URL + "home/more/palette/album";
+	public static final String URL_HOME_MORE_PALETTEALBUM = URL + "home/more?action=palettealbum&max=";
 	// 主页-更多内容 - 番剧
-	public static final String URL_BANKUN_SERIALIZE = URL + "home/more/vedio?type=default-33&page=";  // 连载动画
-	public static final String URL_BANKUN_END       = URL + "home/more/vedio?type=default-32&page=";  // 完结动画
-	public static final String URL_BANKUN_MESSAGE   = URL + "home/more/vedio?type=default-51&page=";  // 资讯
-	public static final String URL_BANKUN_OFFICIAL  = URL + "home/more/vedio?type=default-152&page="; // 官方延伸
-	public static final String URL_BANKUN_DOMESTIC  = URL + "home/more/vedio?type=default-153&page="; // 国产动画
+	public static final String URL_BANKUN_SERIALIZE       = URL + "home/more?action=bangumi&type=default-33&page=";  // 连载动画
+	public static final String URL_BANKUN_END             = URL + "home/more?action=bangumi&type=default-32&page=";  // 完结动画
+	public static final String URL_BANKUN_MESSAGE         = URL + "home/more?action=bangumi&type=default-51&page=";  // 资讯
+	public static final String URL_BANKUN_OFFICIAL        = URL + "home/more?action=bangumi&type=default-152&page="; // 官方延伸
+	public static final String URL_BANKUN_DOMESTIC        = URL + "home/more?action=bangumi&type=default-153&page="; // 国产动画
 	// 主页-更多内容 - 动漫
-	public static final String URL_DONGMAN_MAD_AMV    = URL + "home/more/vedio?type=default-24&page="; // MAD·AMV
-	public static final String URL_DONGMAN_MMD_3D     = URL + "home/more/vedio?type=default-25&page="; // MMD·3D
-	public static final String URL_DONGMAN_SHORT_FILM = URL + "home/more/vedio?type=default-47&page="; // 动画短片
-	public static final String URL_DONGMAN_SYNTHESIZE = URL + "home/more/vedio?type=default-27&page="; // 综合
-
+	public static final String URL_DONGMAN_MAD_AMV        = URL + "home/more?action=video&type=default-24&page="; // MAD·AMV
+	public static final String URL_DONGMAN_MMD_3D         = URL + "home/more?action=video&type=default-25&page="; // MMD·3D
+	public static final String URL_DONGMAN_SHORT_FILM     = URL + "home/more?action=video&type=default-47&page="; // 动画短片
+	public static final String URL_DONGMAN_SYNTHESIZE     = URL + "home/more?action=video&type=default-27&page="; // 综合
+    // 主页-视频详细信息
+	public static final String URL_GET_VIDEO_INFO = "http://www.bilibili.com/mobile/video/av";//详细信息
+	
 	// 发现 - 所有番剧
-	public static final String URL_FIND_BANKUN = URL + "find?&page=";//所有的动画资源
+	public static final String URL_FIND_BANKUN      = URL + "find?&page=";//所有的动画资源
+	// 发现 - 番剧详情
+	public static final String URL_FIND_BANKUN_INFO = URL + "find/info?&av=";
 
 	// 搜索 - 图片
 	public static final String URL_SEARCH_ALBUM   = URL + "search?action=album&key=";
@@ -163,8 +167,8 @@ public class Constant {
 	// 搜索 - 番剧
 	public static final String URL_SEARCH_SERIES  = URL + "search?action=bangumi&key=";
 
-	// 播放获取视频信息
-	public static final String URL_GET_VIDEO_INFO = "http://www.bilibili.com/mobile/video/av";
-	public static final String URL_NEW_BANKUN_INFO = "http://www.bilibili.com";//详细信息
-	public static final String URL_NEW_BANKUN_RE = "http://comment.bilibili.com/recommend,";
+	// 通过av号获取弹幕和视频地址
+	public static final String URL_PLAY_VIDEO_INFO = URL + "playurl?av=";
+	
+	
 }

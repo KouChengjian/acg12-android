@@ -23,7 +23,7 @@ import com.kcj.animationfriend.bean.Palette;
 import com.kcj.animationfriend.config.Constant;
 import com.kcj.animationfriend.config.HttpProxy;
 import com.kcj.animationfriend.config.UserProxy;
-import com.kcj.animationfriend.listener.HttpRequestListener;
+import com.kcj.animationfriend.listener.HttpRequestListener1;
 import com.kcj.animationfriend.listener.LodeMoreCallBack;
 import com.kcj.animationfriend.ui.AlbumPvwActivity;
 import com.kcj.animationfriend.ui.base.BaseFragment;
@@ -135,7 +135,7 @@ public class TabAlbumFragment extends BaseFragment implements OnRecyclerViewItem
 	
 	public void refresh(String max) {
 		if(palette == null){
-			HttpProxy.getHomeMoreAlbum(max ,new HttpRequestListener<Album>() {
+			HttpProxy.getHomeMoreAlbum(max ,new HttpRequestListener1<Album>() {
 				
 				@Override
 				public void onSuccess(List<Album> list) {
@@ -150,7 +150,7 @@ public class TabAlbumFragment extends BaseFragment implements OnRecyclerViewItem
 				}
 			});
 		}else{
-			HttpProxy.getHomeMorePaletteAlbum(max , palette.getBoardId(), new HttpRequestListener<Album>() {
+			HttpProxy.getHomeMorePaletteAlbum(max , palette.getBoardId(), new HttpRequestListener1<Album>() {
 				
 				@Override
 				public void onSuccess(List<Album> list) {
