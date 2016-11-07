@@ -27,4 +27,4 @@ proguard/
 *.log
 
 忽略这个文件夹
-AnimationFriend/.apt_generated
+acg12/.apt_generated
