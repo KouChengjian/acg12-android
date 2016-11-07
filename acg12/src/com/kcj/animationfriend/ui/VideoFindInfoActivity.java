@@ -1,6 +1,7 @@
 package com.kcj.animationfriend.ui;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -22,6 +23,8 @@ import com.kcj.animationfriend.MyApplication;
 import com.kcj.animationfriend.R;
 import com.kcj.animationfriend.adapter.FindScrollTabPagerdAdapter;
 import com.kcj.animationfriend.bean.Video;
+import com.kcj.animationfriend.config.HttpProxy;
+import com.kcj.animationfriend.config.HttpRequestListener;
 import com.kcj.animationfriend.listener.ParameCallBack;
 import com.kcj.animationfriend.ui.base.BaseActivity;
 import com.kcj.animationfriend.view.ScrollTabHolder;
@@ -104,7 +107,6 @@ public class VideoFindInfoActivity extends BaseActivity implements ScrollTabHold
 		if(video != null){
 			ImageLoader.getInstance().displayImage(video.getPic(), iv_video_icon, MyApplication.getInstance().getOptions(R.drawable.bg_pic_loading),new SimpleImageLoadingListener(){});
 			tv_video_title.setText(video.getTitle());
-			
 			btn_video_play.setClickable(false);
 		}
 	}
@@ -136,26 +138,29 @@ public class VideoFindInfoActivity extends BaseActivity implements ScrollTabHold
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == R.id.btn_video_play){
-			Intent intent = new Intent(mContext, VideoPlayActivity.class);
-			intent.putExtra("displayName",video.getTitle());
-			intent.putExtra("av",video.getAid());
-			intent.putExtra("page","1");
-			startActivity(intent);
+			if(video.getUrlInfo() != null && !video.getUrlInfo().isEmpty()){
+				getVideoAV(video.getUrlInfo());
+			}
 		}
 	}
 	
 	@Override
 	public void onCall(Object object) {
-		if(object instanceof Video){
-			video = (Video)object;
-			if(video.getAid() != null && !video.getAid().isEmpty()){
+		if (object instanceof Video) {
+			video = (Video) object;
+			if (video.getUrlInfo() != null && !video.getUrlInfo().isEmpty()) {
 				btn_video_play.setText("播放01话");
 				btn_video_play.setClickable(true);
 				btn_video_play.setSelected(false);
-			}else{
+			} else {
 				btn_video_play.setText("加载失败");
 				btn_video_play.setClickable(false);
 				btn_video_play.setSelected(true);
+			}
+		} else if(object instanceof String){
+			String url = (String)object;
+			if(url != null && !url.isEmpty()){
+				getVideoAV(url);
 			}
 		}
 	}
@@ -220,6 +225,36 @@ public class VideoFindInfoActivity extends BaseActivity implements ScrollTabHold
 			
 		};
 		return listener;
+	}
+	
+	public void getVideoAV(String url){
+		final ProgressDialog progress = new ProgressDialog(mContext);
+		progress.setMessage("正在获取视频编号...");
+		progress.setCanceledOnTouchOutside(false);
+		progress.show();
+		String av = url.split("anime/v/")[1].replace("/", "");
+		HttpProxy.getBankunInfoAV(av, new HttpRequestListener<String>() {
+			
+			@Override
+			public void onSuccess(String result) {
+				progress.dismiss();
+				openVideoPlay(result);
+			}
+			
+			@Override
+			public void onFailure(String msg) {
+				progress.dismiss();
+				ShowToast("获取失败");
+			}
+		});
+	}
+	
+	public void openVideoPlay(String av){
+		Intent intent = new Intent(mContext, VideoPlayActivity.class);
+		intent.putExtra("displayName",video.getTitle());
+		intent.putExtra("av",av);
+		intent.putExtra("page","1");
+		startActivity(intent);
 	}
 	
 	@Override

@@ -1,12 +1,7 @@
 package com.kcj.animationfriend.ui.fragment;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -30,13 +25,13 @@ import com.kcj.animationfriend.MyApplication;
 import com.kcj.animationfriend.R;
 import com.kcj.animationfriend.adapter.base.ViewHolderHomeHList;
 import com.kcj.animationfriend.bean.Video;
-import com.kcj.animationfriend.config.Constant;
+import com.kcj.animationfriend.config.HttpProxy;
+import com.kcj.animationfriend.config.HttpRequestListener;
 import com.kcj.animationfriend.listener.ParameCallBack;
-import com.kcj.animationfriend.ui.VideoInfoActivity;
+import com.kcj.animationfriend.ui.VideoHomeInfoActivity;
+import com.kcj.animationfriend.ui.VideoPlayActivity;
 import com.kcj.animationfriend.ui.base.BaseFragment;
 import com.kcj.animationfriend.view.ScrollTabHolderFragment;
-import com.liteutil.async.AsyncTask;
-import com.liteutil.util.Log;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
@@ -65,7 +60,7 @@ public class VideoHomeInfoIntroduceFragment extends ScrollTabHolderFragment impl
 	protected View footView;
 	protected RecyclerView footHListView;
 	protected HomeHListAdapter areaHListAdapter = null;
-	protected DetailsAsyncTask detailsAsyncTask;
+	//protected DetailsAsyncTask detailsAsyncTask;
 	
 	protected boolean isClickable = true;
 	private static ParameCallBack parameCallBack;
@@ -125,11 +120,7 @@ public class VideoHomeInfoIntroduceFragment extends ScrollTabHolderFragment impl
 	public void initDatas() {
 		super.initDatas();
 		refreshData(video);
-		if(detailsAsyncTask != null){
-			detailsAsyncTask.cancel(true);
-		}
-		detailsAsyncTask = new DetailsAsyncTask();
-		detailsAsyncTask.execute("");
+		refresh();
 	}
 	
 	@Override
@@ -152,6 +143,34 @@ public class VideoHomeInfoIntroduceFragment extends ScrollTabHolderFragment impl
 		    }
 		    break;
 		}
+	}
+	
+	public void refresh(){
+		HttpProxy.getHomeVideoInfo(video.getAid() , new HttpRequestListener<Video>() {
+			
+			@Override
+			public void onSuccess(Video result) {
+				video.setSbutitle(result.getSbutitle());
+				videoInfoList.addAll(result.getBangumiVideoList());
+				
+				lv_video_info.addFooterView(footView);
+				videoInfoListAdapter.notifyDataSetChanged();
+				refreshData(video);
+				
+				lv_video_info.setVisibility(View.VISIBLE);
+				pv_circular_inout.stop();
+				if(result == null ){
+					parameCallBack.onCall(true);
+				}else{
+					parameCallBack.onCall(true);
+				}
+			}
+			
+			@Override
+			public void onFailure(String msg) {
+				
+			}
+		});
 	}
 	
 	public void refreshData(Video video){
@@ -177,65 +196,63 @@ public class VideoHomeInfoIntroduceFragment extends ScrollTabHolderFragment impl
 		super.onDestroy();
 	}
 	
-	private class DetailsAsyncTask extends AsyncTask<String, Void, List<Video>> {
-
-		@Override
-		protected List<Video> doInBackground(String... params) {
-			try {
-				videoInfoList.clear();
-				Document document = Jsoup.connect(Constant.URL_GET_VIDEO_INFO+video.getAid()+".html").data("jquery", "java")
-						.userAgent("Mozilla").cookie("auth", "token")
-						.timeout(50000).get();
-				Elements listElements = document.getElementsByClass("li-wrap-content");
-				Log.e("TAG", Constant.URL_GET_VIDEO_INFO+video.getAid()+".html"+"======");
-				Log.i("size", listElements.size()+"======");
-				for (int i = 0; i < listElements.size(); i++) {
-					Video video = new Video();
-					video.setTitle(listElements.get(i).text());
-					videoInfoList.add(video);
-				}
-				Elements labelElements = document.select("[name=keywords]");
-			    String label = labelElements.attr("content");
-				video.setSbutitle(label);	
-			} catch (IOException e) {
-				e.printStackTrace();
-				Log.e("IOException", e.toString()+"====");
-				return null;
-			}
-			return videoInfoList;
-		}
-		
-		@Override
-		protected void onPostExecute(List<Video> result) {
-//			if(video.getVideoList() != null && !video.getVideoList().isEmpty()){
-//				areaHListAdapter = new HomeHListAdapter(mContext ,video.getVideoList());
-//				footHListView.setAdapter(areaHListAdapter);
+//	private class DetailsAsyncTask extends AsyncTask<String, Void, List<Video>> {
+//
+//		@Override
+//		protected List<Video> doInBackground(String... params) {
+//			try {
+//				videoInfoList.clear();
+//				Document document = Jsoup.connect(Constant.URL_GET_VIDEO_INFO+video.getAid()+".html").data("jquery", "java")
+//						.userAgent("Mozilla").cookie("auth", "token")
+//						.timeout(50000).get();
+//				Elements listElements = document.getElementsByClass("li-wrap-content");
+//				Log.e("TAG", Constant.URL_GET_VIDEO_INFO+video.getAid()+".html"+"======");
+//				Log.i("size", listElements.size()+"======");
+//				for (int i = 0; i < listElements.size(); i++) {
+//					Video video = new Video();
+//					video.setTitle(listElements.get(i).text());
+//					videoInfoList.add(video);
+//				}
+//				Elements labelElements = document.select("[name=keywords]");
+//			    String label = labelElements.attr("content");
+//				video.setSbutitle(label);	
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//				Log.e("IOException", e.toString()+"====");
+//				return null;
 //			}
-			videoInfoList.addAll(result);
-			lv_video_info.addFooterView(footView);
-			videoInfoListAdapter.notifyDataSetChanged();
-			refreshData(video);
-			
-			lv_video_info.setVisibility(View.VISIBLE);
-			pv_circular_inout.stop();
-			if(result == null || result.isEmpty()){
-				parameCallBack.onCall(true);
-			}else{
-				parameCallBack.onCall(true);
-			}
-		}
-		
-		@Override
-		protected void onCancelled() {
-			super.onCancelled();
-		}
-	}
+//			return videoInfoList;
+//		}
+//		
+//		@Override
+//		protected void onPostExecute(List<Video> result) {
+////			if(video.getVideoList() != null && !video.getVideoList().isEmpty()){
+////				areaHListAdapter = new HomeHListAdapter(mContext ,video.getVideoList());
+////				footHListView.setAdapter(areaHListAdapter);
+////			}
+//			videoInfoList.addAll(result);
+//			lv_video_info.addFooterView(footView);
+//			videoInfoListAdapter.notifyDataSetChanged();
+//			refreshData(video);
+//			
+//			lv_video_info.setVisibility(View.VISIBLE);
+//			pv_circular_inout.stop();
+//			if(result == null || result.isEmpty()){
+//				parameCallBack.onCall(true);
+//			}else{
+//				parameCallBack.onCall(true);
+//			}
+//		}
+//		
+//		@Override
+//		protected void onCancelled() {
+//			super.onCancelled();
+//		}
+//	}
 	
 	/**
 	 * @ClassName: VideoInfoListAdapter
 	 * @Description: 
-	 * @author: KCJ
-	 * @date: 2015-9-20
 	 */
 	public class VideoInfoListAdapter extends BaseAdapter{
 		private Context mContext;
@@ -286,14 +303,14 @@ public class VideoHomeInfoIntroduceFragment extends ScrollTabHolderFragment impl
 					if(mList.get(position).getAid() == null || mList.get(position).getAid().isEmpty()){
 						// 处理跳转逻辑
 						page = String.valueOf(position+1);
-						Intent intent = new Intent(mContext, VideoInfoActivity.class);
+						Intent intent = new Intent(mContext, VideoPlayActivity.class);
 						intent.putExtra("displayName",mList.get(position).getTitle());
 						intent.putExtra("av",av);
 						intent.putExtra("page",page);
 						startActivity(intent);
 					}else{
 						Video video = mList.get(position);
-						Intent intent = new Intent(mContext, VideoInfoActivity.class);
+						Intent intent = new Intent(mContext, VideoPlayActivity.class);
 						intent.putExtra("displayName",video.getTitle());
 						intent.putExtra("av",video.getAid());
 						intent.putExtra("page",1+"");
@@ -313,8 +330,6 @@ public class VideoHomeInfoIntroduceFragment extends ScrollTabHolderFragment impl
 	/**
 	 * @ClassName: HomeHListAdapter
 	 * @Description: List
-	 * @author: KCJ
-	 * @date: 2015-9-20
 	 */
 	class HomeHListAdapter extends RecyclerView.Adapter<ViewHolderHomeHList>{
 
@@ -365,7 +380,7 @@ public class VideoHomeInfoIntroduceFragment extends ScrollTabHolderFragment impl
 					Bundle bundle = new Bundle();
 					if(mList.get(position) instanceof Video){
 						Video item = (Video) mList.get(position);
-						i.setClass(mContext, VideoInfoActivity.class);
+						i.setClass(mContext, VideoHomeInfoActivity.class);
 						bundle.putSerializable("videoItemdata", item);
 					}
 					i.putExtras(bundle);

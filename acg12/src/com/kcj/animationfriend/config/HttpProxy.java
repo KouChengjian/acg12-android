@@ -352,6 +352,55 @@ public class HttpProxy {
 	}
 	
 	/**
+	 * 主页-视频详细信息 
+	 */
+	public static Callback.Cancelable getHomeVideoInfo(String av , final HttpRequestListener<Video> listener){
+		RequestParams params = new RequestParams(Constant.URL_HOME_VIDEO_INFO + av);
+		Callback.Cancelable cancelable = LiteHttp.http().get(params,new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+				if(listener != null){
+					listener.onFailure(ex.toString());
+				}
+			}
+
+			@Override
+			public void onSuccess(String html) {
+				try {
+					JSONObject json = new JSONObject(html);
+					String result = json.getString("result");
+					String desc = json.getString("desc");
+					String data = json.getString("data");
+					if(result.equals("0")){
+						if(listener != null){
+							listener.onFailure(desc);
+						}
+					}else{
+						Gson gson = new Gson();
+						Video video = gson.fromJson(data, new TypeToken<Video>(){}.getType());
+						if(listener != null){
+							listener.onSuccess(video);
+						}
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					if(listener != null){
+						listener.onFailure(e.toString());
+					}
+				}
+			}
+			
+			@Override
+			public void onFinished() {}
+		});	
+		return cancelable;
+	}
+	
+	/**
 	 * 发现 - 番剧
 	 */
 	public static List<Video> getBankunList(int page,final HttpRequestListener1<Video> listener){
@@ -435,6 +484,7 @@ public class HttpProxy {
 			@Override
 			public void onSuccess(String html) {
 				try {
+					Log.i("tag", html);
 					Video video = new Video();
 					JSONObject json = new JSONObject(html);
 					String result = json.getString("result");
@@ -449,6 +499,54 @@ public class HttpProxy {
 						video = gson.fromJson(data, new TypeToken<Video>(){}.getType());
 						if(listener != null){
 							listener.onSuccess(video);
+						}
+					}
+				}catch (JSONException e) {
+					e.printStackTrace();
+					if(listener != null){
+						listener.onFailure(e.toString());
+					}
+				}
+			}
+			
+			@Override
+			public void onFinished() {}
+			
+		});	
+		return cancelable;
+	}
+	
+	/**
+	 * 发现 - 获取视频av号
+	 */
+	public static Callback.Cancelable getBankunInfoAV(String av,final HttpRequestListener<String> listener){
+		RequestParams params = new RequestParams(Constant.URL_FIND_BANKUN_INFO_AV + av);
+		Callback.Cancelable cancelable = LiteHttp.http().get(params,new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+				if(listener != null){
+					listener.onFailure(ex.toString());
+				}
+			}
+
+			@Override
+			public void onSuccess(String html) {
+				try {
+					JSONObject json = new JSONObject(html);
+					String result = json.getString("result");
+					String desc = json.getString("desc");
+					String data = json.getString("data");
+					if(result.equals("0")){
+						if(listener != null){
+							listener.onFailure(desc);
+						}
+					}else{
+						if(listener != null){
+							listener.onSuccess(data);
 						}
 					}
 				}catch (JSONException e) {

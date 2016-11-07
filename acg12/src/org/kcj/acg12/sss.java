@@ -1,4 +1,4 @@
-package com.kcj.acg12;
+package org.kcj.acg12;
 
 public class sss {
 

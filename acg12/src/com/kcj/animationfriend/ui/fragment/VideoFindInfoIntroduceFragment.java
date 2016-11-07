@@ -30,7 +30,8 @@ import com.kcj.animationfriend.bean.Video;
 import com.kcj.animationfriend.config.HttpProxy;
 import com.kcj.animationfriend.config.HttpRequestListener;
 import com.kcj.animationfriend.listener.ParameCallBack;
-import com.kcj.animationfriend.ui.VideoInfoActivity;
+import com.kcj.animationfriend.ui.VideoFindInfoActivity;
+import com.kcj.animationfriend.ui.VideoPlayActivity;
 import com.kcj.animationfriend.ui.base.BaseFragment;
 import com.kcj.animationfriend.view.ScrollTabHolderFragment;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -377,22 +378,29 @@ public class VideoFindInfoIntroduceFragment extends ScrollTabHolderFragment impl
 			holder.itemView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if(mList.get(position).getAid() == null || mList.get(position).getAid().isEmpty()){
-						// 处理跳转逻辑
-						page = String.valueOf(position+1);
-						Intent intent = new Intent(mContext, VideoInfoActivity.class);
-						intent.putExtra("displayName",mList.get(position).getTitle());
-						intent.putExtra("av",av);
-						intent.putExtra("page",page);
-						startActivity(intent);
-					}else{
-						Video video = mList.get(position);
-						Intent intent = new Intent(mContext, VideoInfoActivity.class);
-						intent.putExtra("displayName",video.getTitle());
-						intent.putExtra("av",video.getAid());
-						intent.putExtra("page",1+"");
-						startActivity(intent);
+					Video video = mList.get(position);
+					if(parameCallBack != null){
+						parameCallBack.onCall(video.getUrlInfo());
 					}
+//					if(mList.get(position).getAid() == null || mList.get(position).getAid().isEmpty()){
+//						// 处理跳转逻辑
+//						page = String.valueOf(position+1);
+//						Intent intent = new Intent(mContext, VideoPlayActivity.class);
+//						intent.putExtra("displayName",mList.get(position).getTitle());
+//						intent.putExtra("av",av);
+//						intent.putExtra("page",page);
+//						startActivity(intent);
+//					}else{
+//						Video video = mList.get(position);
+//						if(parameCallBack != null){
+//							parameCallBack.onCall(videoInfoList.get(0));
+//						}
+//						Intent intent = new Intent(mContext, VideoPlayActivity.class);
+//						intent.putExtra("displayName",video.getTitle());
+//						intent.putExtra("av",video.getAid());
+//						intent.putExtra("page",1+"");
+//						startActivity(intent);
+//					}
 				}
 			});
 			return convertView;
@@ -459,7 +467,7 @@ public class VideoFindInfoIntroduceFragment extends ScrollTabHolderFragment impl
 					Bundle bundle = new Bundle();
 					if(mList.get(position) instanceof Video){
 						Video item = (Video) mList.get(position);
-						i.setClass(mContext, VideoInfoActivity.class);
+						i.setClass(mContext, VideoFindInfoActivity.class);
 						bundle.putSerializable("videoItemdata", item);
 					}
 					i.putExtras(bundle);

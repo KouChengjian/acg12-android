@@ -6,9 +6,6 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -31,7 +28,6 @@ import cn.bmob.v3.listener.UpdateListener;
 import com.kcj.animationfriend.bean.User;
 import com.kcj.animationfriend.config.Constant;
 import com.kcj.animationfriend.config.HttpProxy;
-import com.kcj.animationfriend.config.UserProxy;
 import com.kcj.animationfriend.ui.MainActivity;
 import com.kcj.animationfriend.ui.NewFriendActivity;
 import com.kcj.animationfriend.util.CollectionUtils;

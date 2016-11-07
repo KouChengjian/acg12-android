@@ -37,8 +37,8 @@ public class UserResAllFragment extends BaseFragment implements OnClickListener{
     protected ViewPagerFixed pager;
     private MyPagerAdapter adapter;
     private Fragment[] fragments;
-    private UserResDLFragment   userResDLFragment;
-    private UserResULFragment   userResULFragment;
+    //private UserResDLFragment   userResDLFragment;
+    //private UserResULFragment   userResULFragment;
     private UserResPaleFragment userResPaleFragment;
     private UserResCltFragment  userResCltFragment;
     
@@ -71,11 +71,12 @@ public class UserResAllFragment extends BaseFragment implements OnClickListener{
 	
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 	public void initViews(){
-        userResDLFragment   = (UserResDLFragment)  UserResDLFragment.newInstance(user);  // 下载
-        userResULFragment   = (UserResULFragment)  UserResULFragment.newInstance(user);  // 上传
+        //userResDLFragment   = (UserResDLFragment)  UserResDLFragment.newInstance(user);  // 下载
+        //userResULFragment   = (UserResULFragment)  UserResULFragment.newInstance(user);  // 上传
         userResCltFragment  = (UserResCltFragment) UserResCltFragment.newInstance(user); // 采集
         userResPaleFragment = (UserResPaleFragment)UserResPaleFragment.newInstance(user);// 画板
-		fragments = new Fragment[] { userResDLFragment,userResULFragment,userResCltFragment ,userResPaleFragment};
+        // userResDLFragment,userResULFragment,
+		fragments = new Fragment[] { userResCltFragment ,userResPaleFragment};
 		adapter = new MyPagerAdapter(getActivity().getSupportFragmentManager());
 		pager.setOffscreenPageLimit(fragments.length);
 		pager.setAdapter(adapter);
@@ -101,7 +102,7 @@ public class UserResAllFragment extends BaseFragment implements OnClickListener{
 	
 	public class MyPagerAdapter extends WeakFragmentPagerAdapter {
 
-        private final String[] TITLES = {"下载列表","上传列表","采集收藏","我的图集"  }; //
+        private final String[] TITLES = {"采集收藏","我的图集"  }; //,"上传列表""下载列表",
 
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);

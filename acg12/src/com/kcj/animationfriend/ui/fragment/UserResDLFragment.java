@@ -4,12 +4,6 @@ package com.kcj.animationfriend.ui.fragment;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-
-
-
-
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;

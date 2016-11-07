@@ -11,6 +11,7 @@ import android.os.Environment;
  * @date:  
  */
 public class Constant {
+	// 6bff09329cac2833b205ce74bd2c859c    92b8ccc3c129b72251e817155d955485
 	public static final String BMOB_APP_ID = "92b8ccc3c129b72251e817155d955485"; 
 
 	public static final int PUBLISH_COMMENT = 1;
@@ -46,7 +47,7 @@ public class Constant {
 	/**
 	 * 管理员id
 	 */
-	public static String ADMIN_ID = "JGDI7WWa";
+	public static String ADMIN_ID = "JGDI7WWa"; //7ywPbbbD  
 	
 	
 	
@@ -150,14 +151,16 @@ public class Constant {
 	public static final String URL_DONGMAN_MMD_3D         = URL + "home/more?action=video&type=default-25&page="; // MMD·3D
 	public static final String URL_DONGMAN_SHORT_FILM     = URL + "home/more?action=video&type=default-47&page="; // 动画短片
 	public static final String URL_DONGMAN_SYNTHESIZE     = URL + "home/more?action=video&type=default-27&page="; // 综合
-    // 主页-视频详细信息
-	public static final String URL_GET_VIDEO_INFO = "http://www.bilibili.com/mobile/video/av";//详细信息
+    // 主页-视频详细信息 
+	public static final String URL_HOME_VIDEO_INFO        = URL + "home/info?av=";//详细信息
 	
 	// 发现 - 所有番剧
-	public static final String URL_FIND_BANKUN      = URL + "find?&page=";//所有的动画资源
+	public static final String URL_FIND_BANKUN         = URL + "find?&page=";//所有的动画资源
 	// 发现 - 番剧详情
-	public static final String URL_FIND_BANKUN_INFO = URL + "find/info?&av=";
-
+	public static final String URL_FIND_BANKUN_INFO    = URL + "find/info?&av=";
+	// 发现 - 获取AV
+	public static final String URL_FIND_BANKUN_INFO_AV = URL + "find/v?&number=";
+    
 	// 搜索 - 图片
 	public static final String URL_SEARCH_ALBUM   = URL + "search?action=album&key=";
 	// 搜索 - 画集
@@ -166,9 +169,8 @@ public class Constant {
 	public static final String URL_SEARCH_VIDEO   = URL + "search?action=video&key=";
 	// 搜索 - 番剧
 	public static final String URL_SEARCH_SERIES  = URL + "search?action=bangumi&key=";
-
+    
 	// 通过av号获取弹幕和视频地址
 	public static final String URL_PLAY_VIDEO_INFO = URL + "playurl?av=";
-	
 	
 }

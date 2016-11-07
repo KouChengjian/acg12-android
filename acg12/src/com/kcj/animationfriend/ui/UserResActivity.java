@@ -88,7 +88,7 @@ public class UserResActivity extends BaseSwipeBackActivity implements
 	public void onCall(Object object) {
 		if (object instanceof Integer) {
 			int position = (Integer) object;
-			if (position == 3) {
+			if (position == 1) {
 				// edit.setVisible(true);
 				add.setVisible(true);
 			} else {

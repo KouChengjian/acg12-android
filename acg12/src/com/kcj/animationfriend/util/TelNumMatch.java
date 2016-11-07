@@ -48,7 +48,7 @@ public class TelNumMatch {
 			}
 			// 都不合适 未知
 			else {
-				flag = 4;
+				flag = 0;
 			}
 		}
 		// 不是11位
