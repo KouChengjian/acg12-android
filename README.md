@@ -4,10 +4,7 @@
 
 
 
-#manyouservice
-把接口独立出来<br/>
-
-
 #Dependent libraries
+[acg12-service](https://github.com/KouChengjian/acg12-service "") <br/>
 [easyforandroid](https://github.com/KouChengjian/easyforandroid "") <br/>
 [materialdesign6.x](https://github.com/KouChengjian/materialdesign6.x "") <br/>
