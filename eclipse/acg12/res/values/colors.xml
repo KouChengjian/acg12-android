@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="transparent">#00000000</color>
+    <color name="black">#FF000000</color>
+    <color name="theme_color">#D95555</color>
+    <color name="second_color">#888888</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#ebebeb</color>
+    <color name="spb_default_color">#33b5e5</color>
+    <color name="bocop_dialog_bg">#77000000</color>
+    <color name="color_bottom_text_normal">#9da0a4</color>
+    <color name="color_bottom_text_press">#D95555</color>
+    <color name="guide_color">#898989</color>
+    <color name="media_bg">#ffefc1d9</color>
+    
+    <color name="splash_color">#d1d1d1</color>
+    <color name="bg_home_color">#f2f2f2</color>
+
+    <color name="base_color_text_black">#3e3e39</color>
+    <color name="msg_chat_bg">#eceff4</color>
+    <color name="base_color_text_white">#ffffff</color>
+    <color name="base_color_text_gray">#9fa0a0</color>
+    
+    <color name="bili_red">#db77ab</color>
+    <color name="bili_red2">#efc1d9</color>
+    <color name="bili_red3">#fcf4f8</color>
+    <color name="black_alpha2">#23000000</color>
+    <color name="black_alpha">#75000000</color>
+    
+    <!-- 上传图片添加的颜色 -->
+    <color name="none_color">#00000000</color>
+    <color name="plugin_camera_black">#000000</color>
+    <color name="albumback">#E1E0DE</color>
+    <color name="style_red">#ff4c41</color>
+    <color name="style_divider_color">#C9C7CD</color>
+    
+    <!-- new  -->
+    <color name="theme_primary">#D95555</color><!-- 0077d9-蓝  fb7299-粉  -->
+    <color name="theme_primary_dark">#D95555</color><!-- 0097A7 -->
+    <color name="theme_accent">#acacac</color>
+    <color name="background_card">#fff</color>
+    
+    
+    
+    
+    <array name="progress_red">
+        <item>#4BD95555</item>
+        <item>#33D95555</item>
+        <item>#19D95555</item>
+    </array>
+</resources>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:orientation="vertical" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.MaterialSheetFab.ToolBar" />
+
+    <RelativeLayout
+        android:id="@+id/personal_info"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="18dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/item_bg_selector"
+        android:clickable="true"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp" >
+
+        <ImageView
+            android:id="@+id/personal_icon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/user_icon_default" />
+
+        <LinearLayout
+            android:id="@+id/personl_con"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/personal_icon"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/personl_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#353535"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/personl_sex"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/icon_pop_girl" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/personl_signature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/personal_icon"
+            android:text="这个家伙很懒，什么也不说。。。"
+            android:textColor="#AAAAAA"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_personl_account"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/item_bg_selector"
+        android:clickable="true"
+        android:paddingLeft="12dp"
+        android:visibility="visible" >
+
+        <TextView
+            android:id="@+id/tv_personl_account_n"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="账号      "
+            android:textColor="#353535"
+            android:textSize="16sp" />
+        
+        
+        <TextView
+            android:id="@+id/tv_personl_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_personl_account_n"
+            android:text="18710627436"
+            android:textColor="#AAAAAA"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="12dp"
+            android:background="#dadada" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_personl_res"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/item_bg_selector"
+        android:clickable="true"
+        android:paddingLeft="12dp"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/iv_personl_res"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/icon_resource" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/iv_personl_res"
+            android:text="资源"
+            android:textColor="#353535"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="12dp"
+            android:background="#dadada" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/rl_personl_send"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_logout"
+        android:gravity="center"
+        android:paddingBottom="12dip"
+        android:paddingTop="12dip"
+        android:text="发送消息"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/rl_personl_add"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_logout"
+        android:gravity="center"
+        android:paddingBottom="12dip"
+        android:paddingTop="12dip"
+        android:text="添加好友"
+        android:textColor="@color/white" />
+    
+
+</LinearLayout>
