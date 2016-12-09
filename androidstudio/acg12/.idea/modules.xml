@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/acg12.iml" filepath="$PROJECT_DIR$/acg12.iml" />
+      <module fileurl="file://$PROJECT_DIR$/acg12playlibs/acg12playlibs.iml" filepath="$PROJECT_DIR$/acg12playlibs/acg12playlibs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/liteForAndroid/liteForAndroid.iml" filepath="$PROJECT_DIR$/liteForAndroid/liteForAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/materialdesignlib/materialdesignlib.iml" filepath="$PROJECT_DIR$/materialdesignlib/materialdesignlib.iml" />
+    </modules>
+  </component>
+</project>

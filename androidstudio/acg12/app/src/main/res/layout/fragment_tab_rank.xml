@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/bg_home_color">
+
+    <com.kcj.animationfriend.view.RefreshLayout
+        android:id="@+id/rl_tab_rank_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/lv_tab_rank"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:divider="#00000000"
+            android:dividerHeight="8dp"
+            android:fadingEdge="horizontal" />
+    </com.kcj.animationfriend.view.RefreshLayout>
+
+</LinearLayout>

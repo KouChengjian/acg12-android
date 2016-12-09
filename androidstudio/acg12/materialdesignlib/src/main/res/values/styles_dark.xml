@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DarkCircularProgressDrawable" parent="Material.Drawable.CircularProgress">
+        <item name="cpd_strokeColor">@color/colorAccent</item>
+        <item name="cpd_reverse">true</item>
+    </style>
+
+    <style name="DarkCircularProgressView">
+        <item name="pv_autostart">false</item>
+        <item name="pv_circular">true</item>
+        <item name="pv_progressStyle">@style/DarkCircularProgressDrawable</item>
+        <item name="pv_progressMode">indeterminate</item>
+    </style>
+
+    <style name="DarkInCircularProgressView" parent="DarkCircularProgressView">
+        <item name="pv_progressStyle">@style/DarkInCircularProgressDrawable</item>
+    </style>
+
+    <style name="DarkInCircularProgressDrawable" parent="DarkCircularProgressDrawable">
+        <item name="cpd_inAnimDuration">800</item>
+        <item name="cpd_inStepPercent">0.5</item>
+        <item name="cpd_inStepColors">@array/in_colors_dark</item>
+        <item name="cpd_outAnimDuration">400</item>
+    </style>
+
+</resources>
