@@ -28,3 +28,6 @@ proguard/
 
 忽略这个文件夹
 acg12/.apt_generated
+eclipse\acg12\.apt_generated
+.DS_Store
+androidstudio\acg12\.DS_Store
