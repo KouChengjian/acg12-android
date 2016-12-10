@@ -1,3 +1,0 @@
-include ':app', ':acg12playlibs'
-include ':liteForAndroid'
-include ':materialdesignlib'
