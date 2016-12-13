@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="roundedimageview">
+        <attr name="border_thickness" format="dimension" />
+        <attr name="border_inside_color" format="color" />
+        <attr name="border_outside_color" format="color"></attr>
+    </declare-styleable>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--&lt;!&ndash; 图片显示时，淡入淡出动画的时间，单位为毫秒&ndash;&gt;-->
+    <!--<attr name="fadeDuration" format="integer"/>-->
+    <!--&lt;!&ndash; 设置的View宽高的比例 &ndash;&gt;-->
+    <!--<attr name="viewAspectRatio" format="float"/>-->
+    <!--&lt;!&ndash; 图片显示前的占位图片，可以为drawable或者color&ndash;&gt;-->
+    <!--<attr name="placeholderImage" format="reference"/>-->
+    <!--&lt;!&ndash; 占位图缩放种类 &ndash;&gt;-->
+    <!--<attr name="placeholderImageScaleType">-->
+        <!--<enum name="none" value="-1" />-->
+        <!--<enum name="fitXY" value="0" />-->
+        <!--<enum name="fitStart" value="1" />-->
+        <!--<enum name="fitCenter" value="2" />-->
+        <!--<enum name="fitEnd" value="3" />-->
+        <!--<enum name="center" value="4" />-->
+        <!--<enum name="centerInside" value="5" />-->
+        <!--<enum name="centerCrop" value="6" />-->
+        <!--<enum name="focusCrop" value="7" />progressBarAutoRotateInterval-->
+    <!--</attr>-->
+    <!--&lt;!&ndash; 重新加载图片占位 &ndash;&gt;-->
+    <!--<attr name="retryImage" format="reference"/>-->
+    <!--&lt;!&ndash; 重新加载图片占位缩放种类 &ndash;&gt;-->
+    <!--<attr name="retryImageScaleType">-->
+        <!--<enum name="none" value="-1" />-->
+        <!--<enum name="fitXY" value="0" />-->
+        <!--<enum name="fitStart" value="1" />-->
+        <!--<enum name="fitCenter" value="2" />-->
+        <!--<enum name="fitEnd" value="3" />-->
+        <!--<enum name="center" value="4" />-->
+        <!--<enum name="centerInside" value="5" />-->
+        <!--<enum name="centerCrop" value="6" />-->
+        <!--<enum name="focusCrop" value="7" />-->
+    <!--</attr>-->
+    <!--&lt;!&ndash; 加载失败显示的图片 &ndash;&gt;-->
+    <!--<attr name="failureImage" format="reference"/>-->
+    <!--&lt;!&ndash; 加载失败显示的图片缩放种类 &ndash;&gt;-->
+    <!--<attr name="failureImageScaleType">-->
+        <!--<enum name="none" value="-1" />-->
+        <!--<enum name="fitXY" value="0" />-->
+        <!--<enum name="fitStart" value="1" />-->
+        <!--<enum name="fitCenter" value="2" />-->
+        <!--<enum name="fitEnd" value="3" />-->
+        <!--<enum name="center" value="4" />-->
+        <!--<enum name="centerInside" value="5" />-->
+        <!--<enum name="centerCrop" value="6" />-->
+        <!--<enum name="focusCrop" value="7" />-->
+    <!--</attr>-->
+    <!--&lt;!&ndash; 加载图片过程中显示进度的图片 &ndash;&gt;-->
+    <!--<attr name="progressBarImage" format="reference"/>-->
+    <!--&lt;!&ndash; 加载图片过程中显示进度的图片缩放种类 &ndash;&gt;-->
+    <!--<attr name="progressBarImageScaleType">-->
+        <!--<enum name="none" value="-1" />-->
+        <!--<enum name="fitXY" value="0" />-->
+        <!--<enum name="fitStart" value="1" />-->
+        <!--<enum name="fitCenter" value="2" />-->
+        <!--<enum name="fitEnd" value="3" />-->
+        <!--<enum name="center" value="4" />-->
+        <!--<enum name="centerInside" value="5" />-->
+        <!--<enum name="centerCrop" value="6" />-->
+        <!--<enum name="focusCrop" value="7" />-->
+    <!--</attr>-->
+    <!--&lt;!&ndash;进度条旋转的的间隔，单位为毫秒&ndash;&gt;-->
+    <!--<attr name="progressBarAutoRotateInterval" format="integer"/>-->
+
+    <!--&lt;!&ndash; 加载图片的缩放种类. &ndash;&gt;-->
+    <!--<attr name="actualImageScaleType">-->
+        <!--<enum name="none" value="-1" />-->
+        <!--<enum name="fitXY" value="0" />-->
+        <!--<enum name="fitStart" value="1" />-->
+        <!--<enum name="fitCenter" value="2" />-->
+        <!--<enum name="fitEnd" value="3" />-->
+        <!--<enum name="center" value="4" />-->
+        <!--<enum name="centerInside" value="5" />-->
+        <!--<enum name="centerCrop" value="6" />-->
+        <!--<enum name="focusCrop" value="7" />-->
+    <!--</attr>-->
+
+    <!--&lt;!&ndash; 背景，可以为drawable或者color &ndash;&gt;-->
+    <!--<attr name="backgroundImage" format="reference"/>-->
+    <!--&lt;!&ndash; 覆盖在图片上的背景，可以为drawable或者color &ndash;&gt;-->
+    <!--<attr name="overlayImage" format="reference"/>-->
+    <!--&lt;!&ndash;View按压时的背景，可以为drawable或者color &ndash;&gt;-->
+    <!--<attr name="pressedStateOverlayImage" format="reference"/>-->
+
+    <!--&lt;!&ndash; 显示为圆形图片 &ndash;&gt;-->
+    <!--<attr name="roundAsCircle" format="boolean"/>-->
+    <!--&lt;!&ndash; 圆角的半径 &ndash;&gt;-->
+    <!--<attr name="roundedCornerRadius" format="dimension"/>-->
+
+    <!--&lt;!&ndash; 下面四个属性用于控制图片四个角是否为圆角 &ndash;&gt;-->
+    <!--<attr name="roundTopLeft" format="boolean"/>-->
+    <!--<attr name="roundTopRight" format="boolean"/>-->
+    <!--<attr name="roundBottomRight" format="boolean"/>-->
+
+    <!--&lt;!&ndash; 圆外面的覆盖的颜色 &ndash;&gt;-->
+    <!--<attr name="roundWithOverlayColor" format="color"/>-->
+    <!--&lt;!&ndash; 边界的宽度&ndash;&gt;-->
+    <!--<attr name="roundingBorderWidth" format="dimension"/>-->
+    <!--&lt;!&ndash; 边界的的颜色 &ndash;&gt;-->
+    <!--<attr name="roundingBorderColor" format="color"/>-->
+</resources>
