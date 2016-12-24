@@ -23,16 +23,16 @@ public class LoginConverter extends AbstractResponseConverter<User> {
     @Override
     public User convert(ResponseBody value) throws IOException {
         User user = new User();
-        JSONObject data = RetrofitClient.success(value);
-        if (data != null) {
-            user.setUid(RetrofitClient.getInt(data, "userId"));
-            user.setC(RetrofitClient.getString(data, "accessToken"));
-            user.setTokenKey(RetrofitClient.getString(data, "tokenKey"));
-            user.setExpired(RetrofitClient.getInt(data, "expired"));
-            user.setUpdateTime(System.currentTimeMillis() / 1000);
-        }else{
-            RetrofitClient.failure();
-        }
+//        JSONObject data = RetrofitClient.success(value);
+//        if (data != null) {
+//            user.setUid(RetrofitClient.getInt(data, "userId"));
+//            user.setC(RetrofitClient.getString(data, "accessToken"));
+//            user.setTokenKey(RetrofitClient.getString(data, "tokenKey"));
+//            user.setExpired(RetrofitClient.getInt(data, "expired"));
+//            user.setUpdateTime(System.currentTimeMillis() / 1000);
+//        }else{
+//            RetrofitClient.failure();
+//        }
         return user;
     }
 }

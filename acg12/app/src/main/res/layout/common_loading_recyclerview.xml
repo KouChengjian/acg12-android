@@ -18,10 +18,10 @@
             android:scrollbars="none" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
-
-    <include
-        android:id="@+id/footerView"
-        layout="@layout/common_loading_footer"
-        android:visibility="gone" />
+    <ViewStub
+        android:id="@+id/layout_load_null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/common_loading_null" />
 </RelativeLayout>
 

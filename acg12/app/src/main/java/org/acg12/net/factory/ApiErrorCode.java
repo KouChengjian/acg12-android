@@ -8,7 +8,7 @@ import org.acg12.config.Constant;
  */
 public class ApiErrorCode {
 
-    public static final int HTTP_RESPONSE_SUCCEED = 20000;
+    public static final int HTTP_RESPONSE_SUCCEED = 200;
     public static final int HTTP_RESPONSE_CONVERTER_DATA_NULL = 20100;
 
     // 异常捕获

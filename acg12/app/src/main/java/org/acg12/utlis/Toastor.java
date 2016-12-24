@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kcj.animationfriend.R;
+import org.acg12.R;
 
 
 public class Toastor {

@@ -14,7 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 
 
-import com.kcj.animationfriend.R;
+import org.acg12.R;
 
 import org.acg12.utlis.AppUtil;
 

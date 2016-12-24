@@ -3,6 +3,8 @@ package org.acg12.listener;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import org.acg12.R;
+
 /**
  * recycleview 点击事件
  * Created by DELL on 2016/11/16.
@@ -52,25 +54,25 @@ public class ItemClickSupport {
 
     private ItemClickSupport(RecyclerView recyclerView) {
         mRecyclerView = recyclerView;
-//        mRecyclerView.setTag(R.id.item_click_support, this);
+        mRecyclerView.setTag(R.id.item_click_support, this);
         mRecyclerView.addOnChildAttachStateChangeListener(mAttachListener);
     }
 
-//    public static ItemClickSupport addTo(RecyclerView view) {
-//        ItemClickSupport support = (ItemClickSupport) view.getTag(R.id.item_click_support);
-//        if (support == null) {
-//            support = new ItemClickSupport(view);
-//        }
-//        return support;
-//    }
+    public static ItemClickSupport addTo(RecyclerView view) {
+        ItemClickSupport support = (ItemClickSupport) view.getTag(R.id.item_click_support);
+        if (support == null) {
+            support = new ItemClickSupport(view);
+        }
+        return support;
+    }
 
-//    public static ItemClickSupport removeFrom(RecyclerView view) {
-////        ItemClickSupport support = (ItemClickSupport) view.getTag(R.id.item_click_support);
-//        if (support != null) {
-//            support.detach(view);
-//        }
-//        return support;
-//    }
+    public static ItemClickSupport removeFrom(RecyclerView view) {
+        ItemClickSupport support = (ItemClickSupport) view.getTag(R.id.item_click_support);
+        if (support != null) {
+            support.detach(view);
+        }
+        return support;
+    }
 
     public ItemClickSupport setOnItemClickListener(OnItemClickListener listener) {
         mOnItemClickListener = listener;
@@ -84,7 +86,7 @@ public class ItemClickSupport {
 
     private void detach(RecyclerView view) {
         view.removeOnChildAttachStateChangeListener(mAttachListener);
-//        view.setTag(R.id.item_click_support, null);
+        view.setTag(R.id.item_click_support, null);
     }
 
     public interface OnItemClickListener {

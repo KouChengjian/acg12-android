@@ -63,21 +63,4 @@ public class ACGApplication extends Application {
 	}
 
 
-
-
-
-	/*-------------------调用类--------------------*/
-	public Boolean isGuide() {
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		return preferences.getBoolean(Constant.PREF_HASGUIDE, false);
-	}
-
-	public void setHasGuide(Boolean guide) {
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		SharedPreferences.Editor editor = preferences.edit();
-		editor.putBoolean(Constant.PREF_HASGUIDE, guide).commit();
-	}
-
-
-	
 }

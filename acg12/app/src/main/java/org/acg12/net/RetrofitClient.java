@@ -10,9 +10,11 @@ import org.acg12.listener.HttpRequestListener;
 import org.acg12.net.factory.ApiConverterFactory;
 import org.acg12.net.factory.ApiErrorCode;
 import org.acg12.net.factory.ApiException;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -20,8 +22,10 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -88,21 +92,12 @@ public class RetrofitClient {
         return call;
     }
 
-    public static OkHttpClient initOkhttp(final User user) {
+    public static OkHttpClient initOkhttp() {
         return new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request().newBuilder()
-                        .addHeader("p", user.getP())
-                        .addHeader("s", user.getS())
-                        .addHeader("n", user.getN())
-                        .addHeader("d", user.getD())
-                        .addHeader("v", user.getV())
-                        .addHeader("a", user.getA())
-                        .addHeader("t", user.getT())
-                        .addHeader("u", user.getUid() + "")
-                        .addHeader("g", user.getG())
-                        .addHeader("c", user.getC()).build();
+                        .build();
                 return chain.proceed(request);
             }
         })
@@ -113,13 +108,11 @@ public class RetrofitClient {
         .build();
     }
 
-    public static ApiService with(User user){
-        OkHttpClient okHttpClient = initOkhttp(user);
+    public static ApiService with(){
+        OkHttpClient okHttpClient = initOkhttp();
         retrofit2.Retrofit retrofit = new retrofit2.Retrofit.Builder()
                 .baseUrl(Constant.URL)
-                //.addConverterFactory(GsonConverterFactory.create())
                 .addConverterFactory(ApiConverterFactory.create())
-                //.addConverterFactory(ScalarsConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
@@ -127,87 +120,14 @@ public class RetrofitClient {
         return netInterFace;
     }
 
-    public static void failure(){
-        throw new ApiException(ApiErrorCode.HTTP_RESPONSE_CONVERTER_DATA_NULL,ApiErrorCode.getErrorCodeMsg(ApiErrorCode.HTTP_RESPONSE_CONVERTER_DATA_NULL));
+    /* --------静态函数调用-----------*/
+    public static RequestBody parseRequestBody(String value) {
+        return RequestBody.create(MediaType.parse("text/plain"), value);
     }
 
-    public static void failure(final Throwable e , final HttpRequestListener httpRequestListener){
-        failure("错误"+e.toString() ,httpRequestListener);
+    public static RequestBody parseImageRequestBody(File file) {
+        return RequestBody.create(MediaType.parse("image/png"), file);
     }
-
-    public static void failure(final String e , final HttpRequestListener httpRequestListener){
-        httpRequestListener.onFailure(-1, e);
-    }
-
-    public static JSONObject success(String response , final HttpRequestListener httpRequestListener) {
-        JSONObject data = null;
-        String result = "";
-        try {
-            result = response;
-            Log.e("success",result+"");
-            JSONObject json = new JSONObject(result);
-            int code = json.getInt("code");
-            String msg = json.getString("msg");
-            if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
-                data = json.getJSONObject("data");
-            }else{
-                if(httpRequestListener != null)
-                    httpRequestListener.onFailure(code, msg);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            if(httpRequestListener != null){
-                if(Constant.debug)
-                    httpRequestListener.onFailure(ApiErrorCode.EXCEPTION_JSON , e.toString());
-                else
-                    httpRequestListener.onFailure(ApiErrorCode.EXCEPTION_JSON , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_JSON));
-            }else {
-                if(Constant.debug){
-                    throw new ApiException(ApiErrorCode.EXCEPTION_JSON , e.toString());
-                } else {
-                    throw new ApiException(ApiErrorCode.EXCEPTION_JSON , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_JSON));
-                }
-            }
-        }
-        return data;
-    }
-
-    public static JSONObject success(retrofit2.Response<ResponseBody> response , final HttpRequestListener httpRequestListener) {
-        JSONObject data = null;
-        String result = "";
-        try {
-            result = response.body().string();
-            data = success(result,httpRequestListener);
-        } catch (IOException e) {
-            e.printStackTrace();
-            if(httpRequestListener != null){
-                if(Constant.debug)
-                    httpRequestListener.onFailure(ApiErrorCode.EXCEPTION_IO , e.toString());
-                else
-                    httpRequestListener.onFailure(ApiErrorCode.EXCEPTION_IO , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_IO));
-            }
-        }
-        return data;
-    }
-
-    public static JSONObject success(ResponseBody response){
-        JSONObject data = null;
-        String result = "";
-        try {
-            result = response.string();
-            data = success(result , null);
-        } catch (IOException e) {
-            e.printStackTrace();
-            if(Constant.debug){
-                throw new ApiException(ApiErrorCode.EXCEPTION_IO , e.toString());
-            } else {
-                throw new ApiException(ApiErrorCode.EXCEPTION_IO , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_IO));
-            }
-        }
-        return data;
-    }
-
-
 
     public static String getString(JSONObject json ,String key){
         try {
@@ -215,6 +135,15 @@ public class RetrofitClient {
                 return json.getString(key);
             }else
                 return "";
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static String getString(JSONArray json ,int key){
+        try {
+            return json.getString(key);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -232,4 +161,162 @@ public class RetrofitClient {
         }
         return 0;
     }
+
+    public static Double getDouble(JSONObject json ,String key){
+        try {
+            if(!json.isNull(key)){
+                return json.getDouble(key);
+            }else
+                return 0.00;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0.00;
+    }
+
+    public static JSONArray getJSONArray(JSONObject json ,String key){
+        try {
+            if(!json.isNull(key)){
+                return json.getJSONArray(key);
+            }else
+                return null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static JSONObject getJSONObject(JSONArray json ,int position){
+        try {
+            return json.getJSONObject(position);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String parseString(ResponseBody response) {
+        String data = null;
+        try {
+            String result = response.string();
+            Log.e("success",result+"");
+            JSONObject json = new JSONObject(result);
+            String code = json.getString("result");
+            String desc = json.getString("desc");
+            if (code.equals(ApiErrorCode.HTTP_RESPONSE_SUCCEED+"")) {
+                data = json.getString("data");
+            }else{
+                throw new ApiException(Integer.valueOf(code).intValue() , desc);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            if(Constant.debug){
+                throw new ApiException(ApiErrorCode.EXCEPTION_IO , e.toString());
+            } else {
+                throw new ApiException(ApiErrorCode.EXCEPTION_IO , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_IO));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            if(Constant.debug){
+                throw new ApiException(ApiErrorCode.EXCEPTION_JSON , e.toString());
+            } else {
+                throw new ApiException(ApiErrorCode.EXCEPTION_JSON , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_JSON));
+            }
+        }
+        return data;
+    }
+
+    public static JSONObject parseJSONObject(ResponseBody response) {
+        JSONObject data = null;
+        try {
+            String result = response.string();
+            Log.e("success",result+"");
+            JSONObject json = new JSONObject(result);
+            String code = json.getString("result");
+            String desc = json.getString("desc");
+            if (code.equals(ApiErrorCode.HTTP_RESPONSE_SUCCEED+"")) {
+                String str = json.getString("data");
+                data = new JSONObject(str);
+            }else{
+                throw new ApiException(Integer.valueOf(code).intValue() , desc);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            if(Constant.debug){
+                throw new ApiException(ApiErrorCode.EXCEPTION_IO , e.toString());
+            } else {
+                throw new ApiException(ApiErrorCode.EXCEPTION_IO , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_IO));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            if(Constant.debug){
+                throw new ApiException(ApiErrorCode.EXCEPTION_JSON , e.toString());
+            } else {
+                throw new ApiException(ApiErrorCode.EXCEPTION_JSON , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_JSON));
+            }
+        }
+        return data;
+    }
+
+    public static JSONArray parseJSONArray(ResponseBody response) {
+        JSONArray data = null;
+        try {
+            String result = response.string();
+            Log.e("success",result+"");
+            JSONObject json = new JSONObject(result);
+            int code = json.getInt("code");
+            String msg = json.getString("msg");
+            if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
+                data = json.getJSONArray("data");
+            }else{
+                throw new ApiException(code , msg);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            if(Constant.debug){
+                throw new ApiException(ApiErrorCode.EXCEPTION_JSON , e.toString());
+            } else {
+                throw new ApiException(ApiErrorCode.EXCEPTION_JSON , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_JSON));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            if(Constant.debug){
+                throw new ApiException(ApiErrorCode.EXCEPTION_IO , e.toString());
+            } else {
+                throw new ApiException(ApiErrorCode.EXCEPTION_IO , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_IO));
+            }
+        }
+        return data;
+    }
+
+    public static JSONArray transformStringToJSONArray(String  response){
+        JSONArray array = null;
+        try {
+            array = new JSONArray(response);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(array == null ){
+            //new ApiException()
+        }
+        return array;
+    }
+
+    public static void failure(){
+        throw new ApiException(ApiErrorCode.HTTP_RESPONSE_CONVERTER_DATA_NULL,ApiErrorCode.getErrorCodeMsg(ApiErrorCode.HTTP_RESPONSE_CONVERTER_DATA_NULL));
+    }
+
+    public static void failure(final Throwable e , final HttpRequestListener httpRequestListener){
+        failure(e.getMessage() ,httpRequestListener);
+    }
+
+    public static void failure(final String e , final HttpRequestListener httpRequestListener){
+        if(httpRequestListener != null){
+            httpRequestListener.onFailure(-1, e);
+        }else{
+            failure();
+        }
+    }
+
 }

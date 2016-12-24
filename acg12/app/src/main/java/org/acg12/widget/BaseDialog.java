@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kcj.animationfriend.R;
+import org.acg12.R;
 
 
 /**

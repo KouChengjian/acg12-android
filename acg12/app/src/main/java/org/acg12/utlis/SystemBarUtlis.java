@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 
-import com.kcj.animationfriend.R;
+import org.acg12.R;
 
 import org.acg12.utlis.SystemBarTintManager;
 

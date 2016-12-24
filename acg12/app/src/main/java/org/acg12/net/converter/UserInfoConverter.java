@@ -23,8 +23,8 @@ public class UserInfoConverter extends AbstractResponseConverter<User> {
     @Override
     public User convert(ResponseBody value) throws IOException {
         User user = new User();
-        JSONObject data = RetrofitClient.success(value);
-        if (data != null) {
+//        JSONObject data = RetrofitClient.success(value);
+//        if (data != null) {
 //            user.setNick(RetrofitClient.getString(data,"nickname"));
 //            user.setSex(RetrofitClient.getInt(data,"sex"));
 //            user.setAvatar(RetrofitClient.getString(data,"avatar"));
@@ -35,9 +35,9 @@ public class UserInfoConverter extends AbstractResponseConverter<User> {
 //            user.setCityId(RetrofitClient.getString(data,"cityId"));
 //            user.setAdder(RetrofitClient.getString(data,"address"));
 //            user.setWxOpenId(RetrofitClient.getInt(data,"bindWx")+"");
-        }else{
-            RetrofitClient.failure();
-        }
+//        }else{
+//            RetrofitClient.failure();
+//        }
         return user;
     }
 }

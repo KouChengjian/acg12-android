@@ -1,14 +1,20 @@
 package org.acg12.utlis;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.acg12.ui.activity.MainActivity;
 
 public class ViewUtil {
 	
@@ -101,5 +107,16 @@ public class ViewUtil {
 
 	public static void exitAnimActivity(Context mContext) {
 		//((Activity)mContext).overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+	}
+
+	@TargetApi(21)
+	public static void startTransitionActivity(Context mContext ,Class<?> cls, Bundle bundle ,ImageView view) {
+		Intent intent = new Intent();
+		intent.setClass(mContext, cls);
+		if (bundle != null) {
+			intent.putExtras(bundle);
+		}
+		mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(
+				(Activity)mContext , view , view.getTransitionName()).toBundle());
 	}
 }

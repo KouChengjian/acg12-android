@@ -6,13 +6,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 
-import com.kcj.animationfriend.R;
+import org.acg12.R;
 
 import java.util.ArrayList;
 
@@ -70,10 +71,10 @@ public class IRecycleView extends RecyclerView {
         isLoadingData = false;
         View footView = mFootViews;
         if(previousTotal <  getLayoutManager().getItemCount()) {
-            layout_footer.setVisibility(View.GONE);
+            footView.setVisibility(View.GONE);
         } else {
-            layout_footer.setVisibility(View.GONE);
-            isnomore = true;
+            footView.setVisibility(View.GONE);
+            //isnomore = true;
         }
         previousTotal = getLayoutManager().getItemCount();
     }
@@ -90,6 +91,7 @@ public class IRecycleView extends RecyclerView {
         if(loadingMoreEnabled){
             View footView = LayoutInflater.from(mContext).inflate(R.layout.common_loading_footer ,null);
             layout_footer = (RelativeLayout)footView.findViewById(R.id.layout_footer);
+            footView.setVisibility(View.GONE);
             addFootView(footView);
         } else {
             if (mFootViews != null) {
@@ -109,7 +111,6 @@ public class IRecycleView extends RecyclerView {
     @Override
     public void onScrollStateChanged(int state) {
         super.onScrollStateChanged(state);
-
         if (state == RecyclerView.SCROLL_STATE_IDLE && mLoadingListener != null && !isLoadingData && loadingMoreEnabled) {
             LayoutManager layoutManager = getLayoutManager();
             int lastVisibleItemPosition;
@@ -122,6 +123,12 @@ public class IRecycleView extends RecyclerView {
             } else {
                 lastVisibleItemPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
             }
+
+//            Log.e("onLoadMore","layoutManager.getChildCount()="+layoutManager.getChildCount()+"    "+
+//                               "lastVisibleItemPosition="+lastVisibleItemPosition+"    "+
+//                    "layoutManager.getItemCount() - 1="+layoutManager.getItemCount()+"    "+
+//                    "layoutManager.getItemCount()="+layoutManager.getItemCount()+"    "+
+//                    "layoutManager.getChildCount()="+layoutManager.getChildCount());
             if (layoutManager.getChildCount() > 0
                     && lastVisibleItemPosition >= layoutManager.getItemCount() - 1
                     && layoutManager.getItemCount() > layoutManager.getChildCount()
@@ -129,8 +136,11 @@ public class IRecycleView extends RecyclerView {
 
                 //View footView = mFootViews;
                 isLoadingData = true;
-                layout_footer.setVisibility(View.VISIBLE);
+                mFootViews.setVisibility(View.VISIBLE);
+                Log.e("onLoadMore","onLoadMore");
                 mLoadingListener.onLoadMore();
+            }else {
+                Log.e("onLoadMore","false");
             }
         }
     }

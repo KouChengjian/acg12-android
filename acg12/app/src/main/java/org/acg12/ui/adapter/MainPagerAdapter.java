@@ -10,8 +10,8 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
-    Fragment[] fragments;
-    public static final String[] DONG_HUA_TITLE = new String[] {"推荐","图片","画集","番剧"};
+    private Fragment[] fragments;
+    private final String[] DONG_HUA_TITLE = new String[] {"图片","画集","番剧" ,"推荐"};
 
     public MainPagerAdapter(FragmentManager fm ,Fragment[] fragments) {
         super(fm);

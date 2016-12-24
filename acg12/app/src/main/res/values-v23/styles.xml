@@ -5,7 +5,9 @@
         <item name="colorPrimary">@color/theme_primary</item>
         <item name="colorAccent">@color/theme_accent</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowEnterTransition">@transition/details_window_enter_transition</item>
+        <item name="android:windowReturnTransition">@transition/details_window_return_transition</item>
+        <!--<item name="android:windowLightStatusBar">true</item>-->
     </style>
 
 

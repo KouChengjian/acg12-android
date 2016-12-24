@@ -10,8 +10,6 @@ import org.acg12.utlis.AppUtil;
 @Table("user")
 public class User extends Param{
 
-	private static final long serialVersionUID = 401654029524226798L;
-
 	private String p = ""; // 手机系统平台（1:安卓 2:ios 3:未知）
 	private String s = ""; // 随机字符串（未获取到默认'unknown'）
 	private String n = ""; // 手机名称（未获取到默认'unknown'）

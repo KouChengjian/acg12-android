@@ -6,11 +6,14 @@ import org.acg12.net.converter.LoginConverter;
 import org.acg12.net.converter.UserInfoConverter;
 import org.acg12.net.factory.ApiConverter;
 
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -18,19 +21,29 @@ import rx.Observable;
  */
 public interface ApiService {
 
-    @FormUrlEncoded
-    @ApiConverter(converter = LoginConverter.class)
-    @POST("/LoginPhone")
-    Observable<User> login(@Field("username") String username, @Field("password") String password);
 
-    // @FormUrlEncoded
-    @ApiConverter(converter = LoginConverter.class)
-    @GET("/Token/{tokenKey}")
-    Observable<User> updataToken(@Path("tokenKey") String tokenKey);
+    @GET("home/more")
+    Observable<ResponseBody> albumList(@Query("action") String action , @Query("max") String pinId);
 
-    @ApiConverter(converter = UserInfoConverter.class)
-    @GET("/UserInfo/{u}")
-    Observable<User> userinfo(@Path("u") String u);
+    @GET("home/more")
+    Observable<ResponseBody> paletteList(@Query("action") String action , @Query("max") String pinId);
+
+    @GET("find")
+    Observable<ResponseBody> bangumiList(@Query("page") String page);
+
+//    @FormUrlEncoded
+//    @ApiConverter(converter = LoginConverter.class)
+//    @POST("/LoginPhone")
+//    Observable<User> login(@Field("username") String username, @Field("password") String password);
+//
+//    // @FormUrlEncoded
+//    @ApiConverter(converter = LoginConverter.class)
+//    @GET("/Token/{tokenKey}")
+//    Observable<User> updataToken(@Path("tokenKey") String tokenKey);
+//
+//    @ApiConverter(converter = UserInfoConverter.class)
+//    @GET("/UserInfo/{u}")
+//    Observable<User> userinfo(@Path("u") String u);
 
 
 

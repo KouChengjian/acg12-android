@@ -1,7 +1,7 @@
 package org.acg12.config;
 
 
-import com.kcj.animationfriend.BuildConfig;
+import org.acg12.BuildConfig;
 
 /**
  * @ClassName: Constant
@@ -12,13 +12,12 @@ import com.kcj.animationfriend.BuildConfig;
 public class Constant {
 
 	public static final Boolean debug = BuildConfig.DEBUG;
-	public static final String PREF_HASGUIDE = "hasGuide";   // 是否启动引导
-	public static final String KEY = "wcphp";
-	public static final String DB_NAME = "";
+	public static final String DB_NAME = "manyou.db";
 	public static final int TOOLBAR_ID = -1;
+	public static final int LIMIT_PAGER = 20;
 
 	// url常量
-	public static final String URL = Constant.debug ? "http://api.nx87.cn" : "" ; // http://api.51yueka.com
+	public static final String URL = Constant.debug ? "http://139.196.46.40:8080/api/" : "http://139.196.46.40:8080/api/" ;
 
 	// 申请权限
 	public static final int PERMISSION_CAMERE = 301;
