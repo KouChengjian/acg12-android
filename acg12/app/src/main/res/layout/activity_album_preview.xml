@@ -7,19 +7,23 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:fitsSystemWindows="true"
     tools:context="org.acg12.ui.activity.AlbumPreviewActivity">
 
+    <ImageView
+        android:id="@+id/details_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
     <LinearLayout
         android:id="@+id/details_header_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:transitionGroup="true">
-        <ImageView
-            android:id="@+id/details_background_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+        android:transitionGroup="true"
+        android:gravity="center"
+        android:visibility="gone">
+
 
     </LinearLayout>
 

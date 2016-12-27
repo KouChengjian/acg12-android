@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 public class SystemBarUtlis {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    protected void setTranslucentStatus(Activity activity ,boolean on) {
+    protected static void setTranslucentStatus(Activity activity ,boolean on) {
         Window win = activity.getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
         final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
@@ -36,16 +36,18 @@ public class SystemBarUtlis {
         win.setAttributes(winParams);
     }
 
-    protected void setSystemBarTintManager(Activity activity ,int color){
+    public static void setSystemBarTintManager(Activity activity ,int color){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(activity ,true);
         }
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(color);
+//        tintManager.setNavigationBarTintEnabled(true);
+//        tintManager.setNavigationBarTintColor(R.color.transparent);
     }
 
-    protected void setSystemBarTintManager(Activity activity){
+    public static void setSystemBarTintManager(Activity activity){
         setSystemBarTintManager(activity , R.color.theme_primary);
     }
 

@@ -1,30 +1,21 @@
 package org.acg12.net;
 
 import android.content.Context;
-import android.util.Log;
-
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.acg12.bean.Album;
 import org.acg12.bean.Palette;
-import org.acg12.bean.User;
 import org.acg12.bean.Video;
 import org.acg12.listener.HttpRequestListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
-import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -47,10 +38,8 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription albumList(String pinId, final HttpRequestListener<List<Album>> httpRequestListener) {
-
         Subscription subscription = RetrofitClient.with().albumList("album",pinId)
                 .subscribeOn(Schedulers.newThread())
-                .observeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
                     @Override
@@ -76,9 +65,6 @@ public class HttpRequestImpl implements HttpRequest {
                             }
                             httpRequestListener.onSuccess(list);
                         }
-//                        Gson gson = new Gson();
-//                        list = gson.fromJson(data.toString() , new TypeToken<List<Album>>(){}.getType());
-
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -97,10 +83,63 @@ public class HttpRequestImpl implements HttpRequest {
                 .subscribe(new Action1<ResponseBody>() {
                     @Override
                     public void call(ResponseBody response) {
+                        List<Palette> list = new ArrayList<Palette>();
                         String data = RetrofitClient.parseString(response);
                         if(data != null){
-                            Gson gson = new Gson();
-                            List<Palette> list = gson.fromJson(data.toString() , new TypeToken<List<Palette>>(){}.getType());
+                            JSONArray array =RetrofitClient.transformStringToJSONArray(data);
+                            for(int i = 0 , num = array.length(); i < num ; i++){
+                                JSONObject item = RetrofitClient.getJSONObject(array , i);
+                                Palette palette = new Palette();
+                                palette.setBoardId(RetrofitClient.getString(item ,"boardId"));
+                                palette.setName(RetrofitClient.getString(item ,"name"));
+                                palette.setNum(RetrofitClient.getInt(item ,"num"));
+                                JSONArray urls = RetrofitClient.getJSONArray(item ,"urlAlbum");
+                                ArrayList<String> urlAlbum = new ArrayList<String>();
+                                for(int j = 0 , n = urls.length() ; j < n ; j ++) {
+                                    urlAlbum.add(RetrofitClient.getString(urls , j));
+                                }
+                                palette.setUrlAlbum(urlAlbum);
+                                list.add(palette);
+                            }
+                            httpRequestListener.onSuccess(list);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription palettePreview(String boardId ,String pinId , final HttpRequestListener<List<Album>> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with().palettePreview("palettealbum",pinId ,boardId)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        List<Album> list = new ArrayList<Album>();
+                        String data = RetrofitClient.parseString(response);
+                        if(data != null){
+                            JSONArray array =RetrofitClient.transformStringToJSONArray(data);
+                            for(int i = 0 , num = array.length(); i < num ; i++){
+                                JSONObject item = RetrofitClient.getJSONObject(array , i);
+                                Album album = new Album();
+                                album.setPinId(RetrofitClient.getString(item ,"pinId"));
+                                album.setContent(RetrofitClient.getString(item ,"content"));
+                                album.setResWidth(RetrofitClient.getInt(item ,"resWidth"));
+                                album.setResHight(RetrofitClient.getInt(item ,"resHight"));
+                                album.setLove(RetrofitClient.getInt(item ,"love"));
+                                album.setFavorites(RetrofitClient.getInt(item ,"favorites"));
+                                JSONArray urls = RetrofitClient.getJSONArray(item ,"urlList");
+                                if(urls != null){
+                                    album.setImageUrl(RetrofitClient.getString(urls , 0));
+                                }
+                                list.add(album);
+                            }
                             httpRequestListener.onSuccess(list);
                         }
                     }
@@ -121,10 +160,65 @@ public class HttpRequestImpl implements HttpRequest {
                 .subscribe(new Action1<ResponseBody>() {
                     @Override
                     public void call(ResponseBody response) {
+                        List<Video> list = new ArrayList<Video>();
                         String data = RetrofitClient.parseString(response);
                         if(data != null){
-                            Gson gson = new Gson();
-                            List<Video> list = gson.fromJson(data.toString() , new TypeToken<List<Video>>(){}.getType());
+                            JSONArray array =RetrofitClient.transformStringToJSONArray(data);
+                            for(int i = 0 , num = array.length(); i < num ; i++){
+                                JSONObject item = RetrofitClient.getJSONObject(array , i);
+                                Video video = new Video();
+                                video.setTitle(RetrofitClient.getString(item ,"title"));
+                                video.setPic(RetrofitClient.getString(item ,"pic"));
+                                video.setUpdateContent(RetrofitClient.getString(item ,"updateContent"));
+                                video.setUrlInfo(RetrofitClient.getString(item ,"urlInfo"));
+                                list.add(video);
+                            }
+                            httpRequestListener.onSuccess(list);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription videoList(String page , int type ,final HttpRequestListener<List<Video>> httpRequestListener) {
+        String requestType = "";
+        if(type == 0){
+            requestType = "default-24";
+        }else if(type == 1){
+            requestType = "default-25";
+        }else if(type == 2){
+            requestType = "default-27";
+        }
+        Subscription subscription = RetrofitClient.with().videoList("video",requestType,page)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        List<Video> list = new ArrayList<Video>();
+                        String data = RetrofitClient.parseString(response);
+                        if(data != null){
+                            JSONArray array =RetrofitClient.transformStringToJSONArray(data);
+                            for(int i = 0 , num = array.length(); i < num ; i++){
+                                JSONObject item = RetrofitClient.getJSONObject(array , i);
+                                Video video = new Video();
+                                video.setAid(RetrofitClient.getString(item ,"aid"));
+                                video.setTitle(RetrofitClient.getString(item ,"title"));
+                                video.setPlay(RetrofitClient.getString(item ,"play"));
+                                video.setVideoReview(RetrofitClient.getString(item ,"videoReview"));
+                                video.setFavorites(RetrofitClient.getString(item ,"favorites"));
+                                video.setAuthor(RetrofitClient.getString(item ,"author"));
+                                video.setDescription(RetrofitClient.getString(item ,"description"));
+                                video.setCreate(RetrofitClient.getString(item ,"create"));
+                                video.setPic(RetrofitClient.getString(item ,"pic"));
+                                list.add(video);
+                            }
                             httpRequestListener.onSuccess(list);
                         }
                     }

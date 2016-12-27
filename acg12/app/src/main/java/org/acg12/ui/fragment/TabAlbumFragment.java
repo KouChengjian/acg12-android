@@ -1,9 +1,5 @@
 package org.acg12.ui.fragment;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -15,9 +11,7 @@ import org.acg12.config.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.ui.activity.AlbumPreviewActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
-import org.acg12.utlis.ViewUtil;
 import org.acg12.views.TabAlbumView;
 import org.acg12.widget.IRecycleView;
 
@@ -27,36 +21,46 @@ public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implem
         SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener {
 
     boolean refresh = true;
+    String boardId = "";
+
+    public static TabAlbumFragment newInstance(String boardId) {
+        TabAlbumFragment fragment = new TabAlbumFragment();
+        Bundle args = new Bundle();
+        args.putString("boardId", boardId);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        refresh("");
+        boardId = getArguments().getString("boardId");
+        refresh(boardId);
     }
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            Album album = mView.getAlbum(position);
-            album.getTransitionView().setTransitionName(album.getContent());
-            Bundle bundle = new Bundle();
-            bundle.putString("transitionName",album.getTransitionView().getTransitionName());
-            bundle.putString("imageUrl",album.getImageUrl());
-            //ViewUtil.startTransitionActivity(mContext , AlbumPreviewActivity.class , bundle ,album.getTransitionView());
-            Intent intent = new Intent();
-            intent.setClass(mContext, AlbumPreviewActivity.class);
-            if (bundle != null) {
-                intent.putExtras(bundle);
-            }
-            mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(
-                    (Activity)mContext , album.getTransitionView() , album.getTransitionView().getTransitionName()).toBundle());
-        }
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+//            Album album = mView.getAlbum(position);
+//            album.getTransitionView().setTransitionName(album.getContent());
+//            Bundle bundle = new Bundle();
+//            bundle.putString("transitionName",album.getTransitionView().getTransitionName());
+//            bundle.putString("imageUrl",album.getImageUrl());
+//            //ViewUtil.startTransitionActivity(mContext , AlbumPreviewActivity.class , bundle ,album.getTransitionView());
+//            Intent intent = new Intent();
+//            intent.setClass(mContext, AlbumPreviewActivity.class);
+//            if (bundle != null) {
+//                intent.putExtras(bundle);
+//            }
+//            mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(
+//                    (Activity)mContext , album.getTransitionView() , album.getTransitionView().getTransitionName()).toBundle());
+//        }
     }
 
     @Override
     public void onRefresh() {
         refresh = true;
-        refresh("");
+        refresh(boardId);
     }
 
     @Override

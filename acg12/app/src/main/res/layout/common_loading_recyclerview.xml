@@ -18,6 +18,7 @@
             android:scrollbars="none" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
     <ViewStub
         android:id="@+id/layout_load_null"
         android:layout_width="match_parent"

@@ -6,8 +6,7 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        style="@style/Widget.MaterialSheetFab.ToolBar"
-        android:background="@color/white">
+        style="@style/Widget.MaterialSheetFab.ToolBar">
 
         <TextView
             android:id="@+id/title_left"

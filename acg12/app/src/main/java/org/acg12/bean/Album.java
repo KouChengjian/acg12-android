@@ -23,7 +23,7 @@ public class Album extends Param {
 	private String imageUrl;
 	private ArrayList<String> urlList; // URL
 
-	private ImageView transitionView; // 转场动画
+//	private ImageView transitionView; // 转场动画
 
 	public String getContent() {
 		return content;
@@ -87,14 +87,6 @@ public class Album extends Param {
 
 	public void setPinId(String pinId) {
 		this.pinId = pinId;
-	}
-
-	public ImageView getTransitionView() {
-		return transitionView;
-	}
-
-	public void setTransitionView(ImageView transitionView) {
-		this.transitionView = transitionView;
 	}
 
 	public String getImageUrl() {

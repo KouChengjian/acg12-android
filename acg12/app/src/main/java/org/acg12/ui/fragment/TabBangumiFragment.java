@@ -38,7 +38,7 @@ public class TabBangumiFragment extends PresenterFragmentImpl<TabBangumiView> im
     @Override
     public void onRefresh() {
         refresh = true;
-        page = 0;
+        page = 1;
         refresh(page);
     }
 

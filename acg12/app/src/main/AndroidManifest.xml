@@ -27,8 +27,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.PalettePreviewActivity" />
-        <activity android:name=".ui.activity.AlbumPreviewActivity"></activity>
+
+        <activity
+            android:name=".ui.activity.PalettePreviewActivity"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+
+        <activity
+            android:name=".ui.activity.AlbumPreviewActivity"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout"></activity>
     </application>
 
 </manifest>

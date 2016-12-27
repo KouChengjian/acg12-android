@@ -10,9 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import org.acg12.R;
 
@@ -20,8 +22,12 @@ import org.acg12.ui.adapter.MainPagerAdapter;
 import org.acg12.ui.base.BaseActivity;
 import org.acg12.ui.fragment.HomeFragment;
 import org.acg12.ui.fragment.TabAlbumFragment;
+import org.acg12.ui.fragment.TabAnimatFragment;
 import org.acg12.ui.fragment.TabBangumiFragment;
 import org.acg12.ui.fragment.TabPaletteFragment;
+import org.acg12.utlis.PixelUtil;
+import org.acg12.utlis.SystemBarTintManager;
+import org.acg12.utlis.SystemBarUtlis;
 
 import butterknife.BindView;
 
@@ -43,7 +49,9 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     TabAlbumFragment tabAlbumFragment;
     TabPaletteFragment tabPaletteFragment;
     TabBangumiFragment tabBangumiFragment;
-    HomeFragment homeFragment3;
+    TabAnimatFragment tabMADAMVFragment;
+    TabAnimatFragment tabMMD3DFragment;
+    TabAnimatFragment tabChatFragment;
 
     public static long firstTime;
 
@@ -63,14 +71,17 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         super.initViews();
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.opendrawer, R.string.closedrawer);
 
-        tabAlbumFragment = new TabAlbumFragment();
+        tabAlbumFragment = TabAlbumFragment.newInstance("");
         tabPaletteFragment = new TabPaletteFragment();
         tabBangumiFragment = new TabBangumiFragment();
-        homeFragment3 = new HomeFragment();
+        tabMADAMVFragment = TabAnimatFragment.newInstance(0);
+        tabMMD3DFragment = TabAnimatFragment.newInstance(1);
+        tabChatFragment = TabAnimatFragment.newInstance(2);
+        fragments = new Fragment[]{tabAlbumFragment , tabPaletteFragment ,tabBangumiFragment ,tabMADAMVFragment ,tabMMD3DFragment, tabChatFragment };
 
-        fragments = new Fragment[]{tabAlbumFragment , new HomeFragment() ,new HomeFragment() ,new HomeFragment()};
         mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager() , fragments);
         mViewpager.setAdapter(mainPagerAdapter);
         mViewpager.setOffscreenPageLimit(fragments.length);

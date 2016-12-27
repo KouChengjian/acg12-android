@@ -23,6 +23,10 @@ public class Video  extends Param {
     private String duration;// 视频长度
 
     private String updateContent;// 更新信息
+    private String urlInfo; // 番剧详情
+
+    public Video() {
+    }
 
     public String getAid() {
         return aid;
@@ -158,5 +162,13 @@ public class Video  extends Param {
 
     public void setUpdateContent(String updateContent) {
         this.updateContent = updateContent;
+    }
+
+    public String getUrlInfo() {
+        return urlInfo;
+    }
+
+    public void setUrlInfo(String urlInfo) {
+        this.urlInfo = urlInfo;
     }
 }

@@ -77,6 +77,10 @@ public class TabPaletteView extends ViewImpl {
         return tabPaletteAdapter.getList().get(tabPaletteAdapter.getList().size()-1).getBoardId();
     }
 
+    public Palette getPalette(int position){
+        return tabPaletteAdapter.getList().get(position);
+    }
+
     public void stopLoading(){
         mRecyclerView.noMoreLoading();
     }

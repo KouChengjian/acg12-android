@@ -28,8 +28,14 @@ public interface ApiService {
     @GET("home/more")
     Observable<ResponseBody> paletteList(@Query("action") String action , @Query("max") String pinId);
 
+    @GET("home/more")
+    Observable<ResponseBody> palettePreview(@Query("action") String action , @Query("max") String pinId ,@Query("boardId") String boardId);
+
     @GET("find")
     Observable<ResponseBody> bangumiList(@Query("page") String page);
+
+    @GET("home/more")
+    Observable<ResponseBody> videoList(@Query("action") String action , @Query("type") String type ,@Query("page") String page);
 
 //    @FormUrlEncoded
 //    @ApiConverter(converter = LoginConverter.class)

@@ -21,6 +21,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder>{
 
     private Context mContext;
     private List<Home> mList;
+    private final LayoutInflater mInflater;
 
     public HomeAdapter(Context mContext){
         this(mContext , new ArrayList<Home>());
@@ -29,6 +30,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder>{
     public HomeAdapter(Context mContext, List<Home> mList){
         this.mContext = mContext;
         this.mList = mList;
+        mInflater = LayoutInflater.from(mContext);
     }
 
     public void addAll(List<Home> mList){
@@ -54,7 +56,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder>{
 
     @Override
     public HomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_home, parent, false);
+        View view = mInflater.inflate(R.layout.item_home, parent, false);
         return new HomeViewHolder(view);
     }
 

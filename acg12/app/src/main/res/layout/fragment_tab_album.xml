@@ -4,5 +4,5 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <include layout="@layout/common_loading_recyclerview"/>
+    <include layout="@layout/common_loading_recyclerview" />
 </LinearLayout>

@@ -6,7 +6,8 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="Theme.MaterialSheetFab" parent="Theme.MaterialSheetFab.Base"></style>
+    <style name="Theme.MaterialSheetFab" parent="Theme.MaterialSheetFab.Base">
+    </style>
 
     <style name="Theme.MaterialSheetFab.SwipeBackLayout" parent="Theme.MaterialSheetFab.Base">
         <item name="android:windowAnimationStyle">@style/AnimFade</item>

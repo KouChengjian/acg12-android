@@ -6,20 +6,11 @@ public class Palette extends Param{
 	
 
 	private String boardId = ""; // 花瓣网画板id
-	private User user; // 用户
 	private String name; // 画板名
 	private Integer num = 0; // 图片数量
 	private String sign; // 图片签名
+
 	private ArrayList<String> urlAlbum = new ArrayList<String>();
-	
-	
-	public User getUser() {
-		return user;
-	}
-	
-	public void setUser(User user) {
-		this.user = user;
-	}
 	
 	public String getName() {
 		return name;
