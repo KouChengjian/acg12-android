@@ -8,17 +8,17 @@ import butterknife.ButterKnife.Injector;
 public class HomeActivity$$ViewInjector<T extends com.kcj.animationfriend.ui.HomeActivity> implements Injector<T> {
   @Override public void inject(final Finder finder, final T target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131296452, "field 'indicator'");
-    target.indicator = finder.castView(view, 2131296452, "field 'indicator'");
-    view = finder.findRequiredView(source, 2131296405, "field 'toolbar'");
-    target.toolbar = finder.castView(view, 2131296405, "field 'toolbar'");
-    view = finder.findRequiredView(source, 2131296453, "field 'pager'");
-    target.pager = finder.castView(view, 2131296453, "field 'pager'");
+    view = finder.findRequiredView(source, 2131361988, "field 'indicator'");
+    target.indicator = finder.castView(view, 2131361988, "field 'indicator'");
+    view = finder.findRequiredView(source, 2131361989, "field 'pager'");
+    target.pager = finder.castView(view, 2131361989, "field 'pager'");
+    view = finder.findRequiredView(source, 2131361941, "field 'toolbar'");
+    target.toolbar = finder.castView(view, 2131361941, "field 'toolbar'");
   }
 
   @Override public void reset(T target) {
     target.indicator = null;
-    target.toolbar = null;
     target.pager = null;
+    target.toolbar = null;
   }
 }

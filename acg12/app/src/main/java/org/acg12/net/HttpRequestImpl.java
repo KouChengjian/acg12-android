@@ -283,6 +283,40 @@ public class HttpRequestImpl implements HttpRequest {
         return subscription;
     }
 
+    @Override
+    public Subscription playBangumi(String av,final HttpRequestListener<Video> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with().playUrl("bangumi" , av)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        String data = RetrofitClient.parseString(response);
+                        if(data != null){
+                            Video video = new Video();
+                            JSONObject json = RetrofitClient.transformStringToJSONObject(data);
+                            video.setTitle(RetrofitClient.getString(json,"title"));
+                            video.setSbutitle(RetrofitClient.getString(json,"sbutitle"));
+                            video.setDescription(RetrofitClient.getString(json,"description"));
+                            video.setPic(RetrofitClient.getString(json,"pic").replace("_225x300.jpg",""));
+
+                            httpRequestListener.onSuccess(video);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription playVideo(String av, HttpRequestListener<Video> httpRequestListener) {
+        return null;
+    }
+
 //    @Override
 //    public void updateToken(final User user, HttpRequestListener<User> httpRequestListener) {
 //

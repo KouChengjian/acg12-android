@@ -8,8 +8,8 @@ import butterknife.ButterKnife.Injector;
 public class VideoFindInfoRelatedFragment$$ViewInjector<T extends com.kcj.animationfriend.ui.fragment.VideoFindInfoRelatedFragment> implements Injector<T> {
   @Override public void inject(final Finder finder, final T target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131296580, "field 'pinnePagerdListView'");
-    target.pinnePagerdListView = finder.castView(view, 2131296580, "field 'pinnePagerdListView'");
+    view = finder.findRequiredView(source, 2131362116, "field 'pinnePagerdListView'");
+    target.pinnePagerdListView = finder.castView(view, 2131362116, "field 'pinnePagerdListView'");
   }
 
   @Override public void reset(T target) {

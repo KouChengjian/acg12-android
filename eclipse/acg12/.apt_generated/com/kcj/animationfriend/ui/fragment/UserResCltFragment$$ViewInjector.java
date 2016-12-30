@@ -8,17 +8,17 @@ import butterknife.ButterKnife.Injector;
 public class UserResCltFragment$$ViewInjector<T extends com.kcj.animationfriend.ui.fragment.UserResCltFragment> implements Injector<T> {
   @Override public void inject(final Finder finder, final T target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131296461, "field 'recyclerView'");
-    target.recyclerView = finder.castView(view, 2131296461, "field 'recyclerView'");
-    view = finder.findRequiredView(source, 2131296462, "field 'footView'");
+    view = finder.findRequiredView(source, 2131361998, "field 'footView'");
     target.footView = view;
-    view = finder.findRequiredView(source, 2131296408, "field 'myRefreshListView'");
-    target.myRefreshListView = finder.castView(view, 2131296408, "field 'myRefreshListView'");
+    view = finder.findRequiredView(source, 2131361944, "field 'myRefreshListView'");
+    target.myRefreshListView = finder.castView(view, 2131361944, "field 'myRefreshListView'");
+    view = finder.findRequiredView(source, 2131361997, "field 'recyclerView'");
+    target.recyclerView = finder.castView(view, 2131361997, "field 'recyclerView'");
   }
 
   @Override public void reset(T target) {
-    target.recyclerView = null;
     target.footView = null;
     target.myRefreshListView = null;
+    target.recyclerView = null;
   }
 }

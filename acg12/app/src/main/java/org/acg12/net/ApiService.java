@@ -40,6 +40,10 @@ public interface ApiService {
     @GET("find/info")
     Observable<ResponseBody> bangumiPreview(@Query("av") String av);
 
+    @GET("playurl")
+    Observable<ResponseBody> playUrl(@Query("action") String action ,@Query("av") String av);
+
+
 //    @FormUrlEncoded
 //    @ApiConverter(converter = LoginConverter.class)
 //    @POST("/LoginPhone")

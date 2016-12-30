@@ -8,10 +8,10 @@ import butterknife.ButterKnife.Injector;
 public class SearchVideoFragment$$ViewInjector<T extends com.kcj.animationfriend.ui.fragment.SearchVideoFragment> implements Injector<T> {
   @Override public void inject(final Finder finder, final T target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131296611, "field 'rankListView'");
-    target.rankListView = finder.castView(view, 2131296611, "field 'rankListView'");
-    view = finder.findRequiredView(source, 2131296610, "field 'myRefreshListView'");
-    target.myRefreshListView = finder.castView(view, 2131296610, "field 'myRefreshListView'");
+    view = finder.findRequiredView(source, 2131362147, "field 'rankListView'");
+    target.rankListView = finder.castView(view, 2131362147, "field 'rankListView'");
+    view = finder.findRequiredView(source, 2131362146, "field 'myRefreshListView'");
+    target.myRefreshListView = finder.castView(view, 2131362146, "field 'myRefreshListView'");
   }
 
   @Override public void reset(T target) {

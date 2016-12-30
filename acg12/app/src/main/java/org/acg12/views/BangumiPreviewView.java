@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import org.acg12.R;
 import org.acg12.bean.Video;
+import org.acg12.listener.ItemClickSupport;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.adapter.BangumiEpisodeAdapter;
 import org.acg12.ui.adapter.BangumiSeasonAdapter;
@@ -85,7 +86,12 @@ public class BangumiPreviewView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter, ivVideoArrow);
+        PresenterHelper.click(mPresenter , ivVideoArrow);
+        ItemClickSupport.addTo(episodeRecyclerView).setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
+    }
+
+    public String getEpisode(int position){
+        return bangumiEpisodeAdapter.getList().get(position).getBmId();
     }
 
     public void bindData(Video video) {

@@ -131,7 +131,7 @@ public class Constant {
 	public static Boolean debug = true;
 	
 	// URL-域名
-	public static final String URL = debug ? "http://192.168.10.142:8080/acg12/":"http://120.25.97.142:8080/";
+	public static final String URL = debug ? "http://139.196.46.40:8080/api/":"http://139.196.46.40:8080/api/";
 	// 主页-内容
 	public static final String URL_HOME_CONTENT           = URL + "home";
 	// 主页-更多内容 - 图片

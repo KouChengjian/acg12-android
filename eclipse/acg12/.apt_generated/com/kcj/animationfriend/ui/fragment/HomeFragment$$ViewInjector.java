@@ -8,14 +8,14 @@ import butterknife.ButterKnife.Injector;
 public class HomeFragment$$ViewInjector<T extends com.kcj.animationfriend.ui.fragment.HomeFragment> implements Injector<T> {
   @Override public void inject(final Finder finder, final T target, Object source) {
     View view;
-    view = finder.findRequiredView(source, 2131296582, "field 'listView'");
-    target.listView = finder.castView(view, 2131296582, "field 'listView'");
-    view = finder.findRequiredView(source, 2131296408, "field 'mRefreshLayout'");
-    target.mRefreshLayout = finder.castView(view, 2131296408, "field 'mRefreshLayout'");
+    view = finder.findRequiredView(source, 2131361944, "field 'mRefreshLayout'");
+    target.mRefreshLayout = finder.castView(view, 2131361944, "field 'mRefreshLayout'");
+    view = finder.findRequiredView(source, 2131362118, "field 'listView'");
+    target.listView = finder.castView(view, 2131362118, "field 'listView'");
   }
 
   @Override public void reset(T target) {
-    target.listView = null;
     target.mRefreshLayout = null;
+    target.listView = null;
   }
 }

@@ -49,6 +49,7 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
+		//initSkin();
 		super.onCreate(bundle);
 		mContext = this;
 		mTag = this.getClass().getSimpleName();
@@ -56,7 +57,6 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 		if(Constant.debug){
 			ViewServer.get(this).addWindow(this);
 		}
-		initSkin();
 	}
 	
 	@Override
@@ -193,8 +193,8 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 			field.setAccessible(true);
 			field.setBoolean(getLayoutInflater(), false);
 
-			mSkinInflaterFactory = new SkinInflaterFactory();
-			getLayoutInflater().setFactory(mSkinInflaterFactory);
+//			mSkinInflaterFactory = new SkinInflaterFactory();
+//			getLayoutInflater().setFactory(mSkinInflaterFactory);
 
 			LayoutInflaterCompat.setFactory(LayoutInflater.from(this) , new LayoutInflaterFactory()
 			{
@@ -239,7 +239,6 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 
 	@Override
 	public void dynamicAddView(View view, List<DynamicAttr> pDAttrs) {
-		L.e("dynamicAddView");
 		mSkinInflaterFactory.dynamicAddSkinEnableView(this, view, pDAttrs);
 	}
 }

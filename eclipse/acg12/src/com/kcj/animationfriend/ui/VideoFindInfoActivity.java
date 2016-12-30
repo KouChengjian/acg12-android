@@ -139,7 +139,8 @@ public class VideoFindInfoActivity extends BaseActivity implements ScrollTabHold
 	public void onClick(View v) {
 		if(v.getId() == R.id.btn_video_play){
 			if(video.getUrlInfo() != null && !video.getUrlInfo().isEmpty()){
-				getVideoAV(video.getUrlInfo());
+				Log.e("video.getUrlInfo()",video.getUrlInfo()+"");
+				//getVideoAV(video.getUrlInfo());
 			}
 		}
 	}

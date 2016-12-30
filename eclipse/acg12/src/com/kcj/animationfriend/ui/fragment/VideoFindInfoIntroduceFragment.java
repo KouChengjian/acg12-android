@@ -34,6 +34,7 @@ import com.kcj.animationfriend.ui.VideoFindInfoActivity;
 import com.kcj.animationfriend.ui.VideoPlayActivity;
 import com.kcj.animationfriend.ui.base.BaseFragment;
 import com.kcj.animationfriend.view.ScrollTabHolderFragment;
+import com.liteutil.util.Log;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
@@ -197,6 +198,7 @@ public class VideoFindInfoIntroduceFragment extends ScrollTabHolderFragment impl
 			@Override
 			public void onFailure(String msg) {
 				ShowToast(msg);
+				Log.e("msg", msg);
 				lv_video_info.setVisibility(View.VISIBLE);
 				pv_circular_inout.stop();
 			}

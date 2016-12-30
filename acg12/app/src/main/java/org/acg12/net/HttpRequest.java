@@ -25,7 +25,9 @@ public interface HttpRequest {
 
     Subscription bangumiPreview(String av ,HttpRequestListener<Video> httpRequestListener);
 
+    Subscription playBangumi(String av ,HttpRequestListener<Video> httpRequestListener);
 
+    Subscription playVideo(String av ,HttpRequestListener<Video> httpRequestListener);
 
 //    void updateToken(User user, HttpRequestListener<User> httpRequestListener);
 //
