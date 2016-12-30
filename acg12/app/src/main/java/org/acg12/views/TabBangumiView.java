@@ -2,6 +2,7 @@ package org.acg12.views;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageView;
@@ -72,9 +73,9 @@ public class TabBangumiView extends ViewImpl {
         tabBangumiAdapter.notifyDataSetChanged();
     }
 
-//    public String getPicId(){
-//        return tabAlbumAdapter.getList().get(tabAlbumAdapter.getList().size() - 1).getPinId();
-//    }
+    public String getBangumiId(int position){
+        return tabBangumiAdapter.getList().get(position).getBmId();
+    }
 
     public void stopLoading(){
         mRecyclerView.noMoreLoading();

@@ -1,5 +1,8 @@
 package org.acg12.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by DELL on 2016/12/24.
  */
@@ -8,7 +11,7 @@ public class Video  extends Param {
     private String aid;// 视频av号
     private String typeid;// 视频类型
     private String title;// 视频标题
-    private String sbutitle;
+    private String sbutitle; // tag标签
     private String play;// 视频播放数
     private String review;// 评论数
     private String videoReview;// 视频弹幕数
@@ -22,11 +25,13 @@ public class Video  extends Param {
     private String coins;// 视频硬币数
     private String duration;// 视频长度
 
+    private String bmId; // 番剧id
     private String updateContent;// 更新信息
     private String urlInfo; // 番剧详情
 
-    public Video() {
-    }
+    private List<Video> episodeList = new ArrayList<>(); // 所有集
+    private List<Video> seasonList = new ArrayList<>(); // 所有季度
+
 
     public String getAid() {
         return aid;
@@ -170,5 +175,29 @@ public class Video  extends Param {
 
     public void setUrlInfo(String urlInfo) {
         this.urlInfo = urlInfo;
+    }
+
+    public String getBmId() {
+        return bmId;
+    }
+
+    public void setBmId(String bmId) {
+        this.bmId = bmId;
+    }
+
+    public List<Video> getEpisodeList() {
+        return episodeList;
+    }
+
+    public void setEpisodeList(List<Video> episodeList) {
+        this.episodeList = episodeList;
+    }
+
+    public List<Video> getSeasonList() {
+        return seasonList;
+    }
+
+    public void setSeasonList(List<Video> seasonList) {
+        this.seasonList = seasonList;
     }
 }

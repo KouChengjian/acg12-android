@@ -19,13 +19,6 @@ import butterknife.BindView;
  */
 public class HomeView extends ViewImpl {
 
-    @BindView(R.id.mRecyclerView)
-    IRecycleView mRecyclerView;
-    @BindView(R.id.mSwipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-
-    HomeAdapter homeAdapter;
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home;
@@ -35,31 +28,8 @@ public class HomeView extends ViewImpl {
     public void created() {
         super.created();
 
-        View header = LayoutInflater.from(getContext()).inflate(R.layout.item_home, null);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager); //new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-        mRecyclerView.addHeaderView(header);
-        mRecyclerView.setLoadingMoreEnabled(true);
-        mRecyclerView.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
-        homeAdapter = new HomeAdapter(getContext());
-
-        mRecyclerView.setAdapter(homeAdapter);
-
-
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_primary);
-        mSwipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(50), PixelUtil.dp2px(24));
-        mSwipeRefreshLayout.setRefreshing(true);
-
-        for (int i = 0, j = 20; i < j; i++) {
-            homeAdapter.add(new Home());
-        }
-        homeAdapter.notifyDataSetChanged();
     }
 
-    public void ss() {
-        mRecyclerView.loadMoreComplete();
-    }
 
 }

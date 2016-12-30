@@ -141,9 +141,9 @@ public class RetrofitClient {
         return "";
     }
 
-    public static String getString(JSONArray json ,int key){
+    public static String getString(JSONArray json ,int position){
         try {
-            return json.getString(key);
+            return json.getString(position);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -299,6 +299,16 @@ public class RetrofitClient {
         }
         if(array == null ){
             //new ApiException()
+        }
+        return array;
+    }
+
+    public static JSONObject transformStringToJSONObject(String  response){
+        JSONObject array = null;
+        try {
+            array = new JSONObject(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return array;
     }

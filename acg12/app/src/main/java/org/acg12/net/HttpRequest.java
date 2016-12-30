@@ -17,15 +17,13 @@ public interface HttpRequest {
 
     Subscription paletteList(String pinId ,HttpRequestListener<List<Palette>> httpRequestListener);
 
-    Subscription palettePreview(String boardId ,String pinId ,HttpRequestListener<List<Album>> httpRequestListener);
-
     Subscription bangumiList(String page ,HttpRequestListener<List<Video>> httpRequestListener);
 
     Subscription videoList(String page , int type , HttpRequestListener<List<Video>> httpRequestListener);
 
+    Subscription palettePreview(String boardId ,String pinId ,HttpRequestListener<List<Album>> httpRequestListener);
 
-
-
+    Subscription bangumiPreview(String av ,HttpRequestListener<Video> httpRequestListener);
 
 
 

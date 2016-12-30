@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.acg12.R;
-import org.acg12.bean.Home;
 import org.acg12.bean.Video;
-import org.acg12.ui.adapter.base.HomeViewHolder;
 import org.acg12.ui.adapter.base.TabBangumiViewHolder;
 
 import java.util.ArrayList;

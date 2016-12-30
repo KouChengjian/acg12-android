@@ -31,7 +31,7 @@ import org.acg12.utlis.SystemBarUtlis;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener{
+public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener ,NavigationView.OnNavigationItemSelectedListener{
 
     @BindView(R.id.mToolbar)
     Toolbar mToolbar;
@@ -93,16 +93,7 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         super.initEvent();
         drawerLayout.addDrawerListener(drawerToggle);
         mToolbar.setOnMenuItemClickListener(this);
-    }
-
-    @Override
-    public void initDatas() {
-        super.initDatas();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -134,6 +125,25 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         switch (item.getItemId()) {
             case R.id.menu_main_search:
 
+                break;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        drawerLayout.closeDrawers();
+        switch (item.getItemId()){
+            case R.id.nav_star:
+                break;
+            case R.id.nav_down:
+                break;
+            case R.id.nav_history:
+                break;
+            case R.id.nav_color_lens:
+                startAnimActivity(SkinLoaderActivity.class);
+                break;
+            case R.id.nav_settings:
                 break;
         }
         return false;

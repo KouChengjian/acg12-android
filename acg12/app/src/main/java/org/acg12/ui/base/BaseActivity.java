@@ -4,11 +4,24 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.LayoutInflaterCompat;
+import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+
+import com.skin.loader.entity.DynamicAttr;
+import com.skin.loader.listener.IDynamicNewView;
+import com.skin.loader.listener.ISkinUpdate;
+import com.skin.loader.loader.SkinInflaterFactory;
+import com.skin.loader.loader.SkinManager;
+import com.skin.loader.utils.L;
 
 import org.acg12.config.Constant;
 import org.acg12.db.DaoBaseImpl;
@@ -16,6 +29,9 @@ import org.acg12.utlis.ActivityTack;
 import org.acg12.utlis.Toastor;
 import org.acg12.utlis.ViewServer;
 import org.acg12.utlis.ViewUtil;
+
+import java.lang.reflect.Field;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -25,7 +41,7 @@ import butterknife.ButterKnife;
  * @author: KCJ
  * @date: 2016-07-26 10:30
  */
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDynamicNewView {
 
 	protected Context mContext;
 	protected String mTag;
@@ -40,6 +56,7 @@ public class BaseActivity extends AppCompatActivity {
 		if(Constant.debug){
 			ViewServer.get(this).addWindow(this);
 		}
+		initSkin();
 	}
 	
 	@Override
@@ -48,6 +65,7 @@ public class BaseActivity extends AppCompatActivity {
 		if(Constant.debug){
 			ViewServer.get(this).setFocusedWindow(this);
 		}
+		SkinManager.getInstance().attach(this);
 	}
 	
 	@Override
@@ -62,6 +80,7 @@ public class BaseActivity extends AppCompatActivity {
 		if(Constant.debug){
 			ViewServer.get(this).removeWindow(this);
 		}
+		SkinManager.getInstance().detach(this);
 	}
 	
 	@Override
@@ -163,4 +182,64 @@ public class BaseActivity extends AppCompatActivity {
 
 	public void initDatas(){}
 
+	/** --------------------skin 切换-------------------------*/
+	private boolean isResponseOnSkinChanging = true;
+
+	private SkinInflaterFactory mSkinInflaterFactory;
+
+	public void initSkin(){
+		try {
+			Field field = LayoutInflater.class.getDeclaredField("mFactorySet");
+			field.setAccessible(true);
+			field.setBoolean(getLayoutInflater(), false);
+
+			mSkinInflaterFactory = new SkinInflaterFactory();
+			getLayoutInflater().setFactory(mSkinInflaterFactory);
+
+			LayoutInflaterCompat.setFactory(LayoutInflater.from(this) , new LayoutInflaterFactory()
+			{
+				@Override
+				public View onCreateView(View parent, String name, Context context, AttributeSet attrs)
+				{
+					Log.e("ssss", "name = " + name);
+					int n = attrs.getAttributeCount();
+					for (int i = 0; i < n; i++)
+					{
+						Log.e("ss", attrs.getAttributeName(i) + " , " + attrs.getAttributeValue(i));
+					}
+					return null;
+				}
+			});
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void dynamicAddSkinEnableView(View view, String attrName, int attrValueResId){
+		mSkinInflaterFactory.dynamicAddSkinEnableView(this, view, attrName, attrValueResId);
+	}
+
+	protected void dynamicAddSkinEnableView(View view, List<DynamicAttr> pDAttrs){
+		mSkinInflaterFactory.dynamicAddSkinEnableView(this, view, pDAttrs);
+	}
+
+	final protected void enableResponseOnSkinChanging(boolean enable){
+		isResponseOnSkinChanging = enable;
+	}
+
+	@Override
+	public void onThemeUpdate() {
+		if(!isResponseOnSkinChanging) return;
+		mSkinInflaterFactory.applySkin();
+	}
+
+	@Override
+	public void dynamicAddView(View view, List<DynamicAttr> pDAttrs) {
+		L.e("dynamicAddView");
+		mSkinInflaterFactory.dynamicAddSkinEnableView(this, view, pDAttrs);
+	}
 }

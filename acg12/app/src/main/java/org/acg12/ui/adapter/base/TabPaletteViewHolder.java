@@ -48,8 +48,8 @@ public class TabPaletteViewHolder extends RecyclerView.ViewHolder {
 
         List<String> paletteList = palette.getUrlAlbum();
         if(paletteList != null && !paletteList.isEmpty()) {
-            imageView.setImageWidth(200);
-            imageView.setImageHeight(200);
+            imageView.setImageWidth(250);
+            imageView.setImageHeight(350);
             for (int i = 0; i < paletteList.size(); i++) {
                 if(i == 0){
                     ImageLoadUtils.glideLoading(context , paletteList.get(i) , imageView);
