@@ -41,7 +41,13 @@
         <activity
             android:name=".ui.activity.BangumiPreviewActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
-        <activity android:name=".ui.activity.SkinLoaderActivity"></activity>
+        <activity android:name=".ui.activity.SkinLoaderActivity" />
+        <activity android:name=".ui.activity.SettingActivity" />
+        <activity android:name=".ui.activity.RecordActivity" />
+        <activity android:name=".ui.activity.DownloadActivity" />
+        <activity android:name=".ui.activity.CollectActivity" />
+        <activity android:name=".ui.activity.SearchActivity" />
+        <activity android:name=".ui.activity.AboutActivity"></activity>
     </application>
 
 </manifest>

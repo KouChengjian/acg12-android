@@ -31,8 +31,6 @@ import butterknife.BindView;
  */
 public class PalettePreviewView extends ViewImpl {
 
-    @BindView(R.id.title)
-    TextView title;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.mRecyclerView)
@@ -54,8 +52,9 @@ public class PalettePreviewView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        ViewUtil.setText(title,"");
-        toolbar.setNavigationIcon(R.mipmap.ic_action_break);
+        ((AppCompatActivity)getContext()).setTitle("");
+        ((AppCompatActivity)getContext()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setLoadingMoreEnabled(true);
@@ -77,7 +76,7 @@ public class PalettePreviewView extends ViewImpl {
     }
 
     public void bindData(Palette palette){
-        ViewUtil.setText(title , palette.getName());
+        ((AppCompatActivity)getContext()).setTitle(palette.getName());
     }
 
     public void bindData(List<Album> result , boolean refresh){

@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import com.facebook.stetho.Stetho;
 import com.skin.loader.loader.SkinManager;
 
+import org.acg12.config.Config;
 import org.acg12.config.Constant;
 import org.acg12.db.DaoBaseImpl;
 import org.acg12.net.HttpRequestImpl;
@@ -53,16 +54,18 @@ public class ACGApplication extends Application {
 	}
 
 	public void initInsideClass(){
+		new Config(this);
 		new Toastor(this);
 		new ImageLoadUtils(this);
 		new DaoBaseImpl(this);
 		new HttpRequestImpl(this);
-		SkinManager.getInstance().init(this);
-		SkinManager.getInstance().load();
+
 	}
 
 	public void initExteriorSdk(){
 		Stetho.initializeWithDefaults(this);
+		SkinManager.getInstance().init(this);
+		SkinManager.getInstance().load();
 	}
 
 

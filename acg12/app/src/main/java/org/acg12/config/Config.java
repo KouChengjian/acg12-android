@@ -1,29 +1,32 @@
 package org.acg12.config;
 
 
+import android.content.Context;
+
+import org.greenrobot.eventbus.EventBus;
+
 /**
  * Created by DELL on 2016/11/25.
  */
 public class Config {
 
-//    Context mContext ;
+    Context mContext ;
 //    // 环信全局监听
 //    private EMConnectionListener connectionListener;
 //    // 更新用户数据
-//    static EventBus eventbusUser;
-//
-//    static {
-//        eventbusUser = EventBus.builder().build();
-//    }
-//
-//    public Config(Context mContext){
-//        this.mContext = mContext;
-//        setEMConnectionListener();
-//    }
-//
-//    public static EventBus getUserEventBus(){
-//        return eventbusUser;
-//    }
+    static EventBus eventbusNavigation;
+
+    static {
+        eventbusNavigation = EventBus.builder().build();
+    }
+
+    public Config(Context mContext){
+        this.mContext = mContext;
+    }
+
+    public static EventBus navigationEventBus(){
+        return eventbusNavigation;
+    }
 //
 //    public void setEMConnectionListener(){
 //        connectionListener = new EMConnectionListener() {

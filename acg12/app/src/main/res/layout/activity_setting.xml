@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/common_action_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/settings_cache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/selector_ripple_default"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/settings_cache_tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="清除图片缓存"
+                    android:textColor="@color/title"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/settings_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/selector_ripple_default"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/settings_date_tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="检查更新"
+                    android:textColor="@color/title"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/settings_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/selector_ripple_default"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/tv_settings_feedback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="反馈"
+                    android:textColor="@color/title"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"/>
+
+            <RelativeLayout
+                android:id="@+id/settings_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_ripple_default"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/tv_settings_about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="关于"
+                    android:textColor="@color/title"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/user_logout"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="48dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/selector_ripple_default"
+                android:gravity="center"
+                android:paddingBottom="12dip"
+                android:paddingTop="12dip"
+                android:text="退出登录"
+                android:textColor="@color/title"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

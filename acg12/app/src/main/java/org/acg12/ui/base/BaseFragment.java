@@ -95,8 +95,6 @@ public class BaseFragment extends Fragment {
 		});
 	}
 
-
-
 	public void initViews(){}
 
 	public void initEvent(){}

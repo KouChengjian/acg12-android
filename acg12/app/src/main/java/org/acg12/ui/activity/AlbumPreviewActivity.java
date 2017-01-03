@@ -11,11 +11,8 @@ public class AlbumPreviewActivity extends PresenterActivityImpl<AlbumPreviewView
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-
         String album = getIntent().getExtras().getString("transitionName");
         String url = getIntent().getExtras().getString("imageUrl");
         mView.ss(album , url);
-
-
     }
 }

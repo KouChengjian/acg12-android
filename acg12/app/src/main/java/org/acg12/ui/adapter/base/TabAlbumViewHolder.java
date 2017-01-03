@@ -73,23 +73,22 @@ public class TabAlbumViewHolder extends RecyclerView.ViewHolder {
             tv_home_album_love.setText(love+"");
         }
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            imageView.setTransitionName(url);
-//            album.setTransitionView(imageView);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, AlbumPreviewActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("transitionName",album.getImageUrl());
-                    bundle.putString("imageUrl",album.getImageUrl());
-                    intent.putExtras(bundle);
-                    context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity)context, imageView,imageView.getTransitionName()).toBundle());
-                }
-            });
-
-        }
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+//            imageView.setTransitionName(url);
+////          album.setTransitionView(imageView);
+//            imageView.setOnClickListener(new View.OnClickListener() {
+//                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(context, AlbumPreviewActivity.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("transitionName",album.getImageUrl());
+//                    bundle.putString("imageUrl",album.getImageUrl());
+//                    intent.putExtras(bundle);
+//                    context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity)context, imageView,imageView.getTransitionName()).toBundle());
+//                }
+//            });
+//        }
     }
 
 }

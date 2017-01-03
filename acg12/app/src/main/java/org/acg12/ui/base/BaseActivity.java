@@ -26,6 +26,7 @@ import com.skin.loader.utils.L;
 import org.acg12.config.Constant;
 import org.acg12.db.DaoBaseImpl;
 import org.acg12.utlis.ActivityTack;
+import org.acg12.utlis.SystemBarUtlis;
 import org.acg12.utlis.Toastor;
 import org.acg12.utlis.ViewServer;
 import org.acg12.utlis.ViewUtil;
@@ -54,6 +55,7 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 		mContext = this;
 		mTag = this.getClass().getSimpleName();
 		mActivityTack.addActivity(this);
+		SystemBarUtlis.setSystemBarTintManager(this);
 		if(Constant.debug){
 			ViewServer.get(this).addWindow(this);
 		}

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import org.acg12.bean.Album;
@@ -19,8 +20,8 @@ import org.acg12.widget.IRecycleView;
 
 import java.util.List;
 
-public class PalettePreviewActivity extends PresenterActivityImpl<PalettePreviewView> implements View.OnClickListener ,
-        IRecycleView.LoadingListener , SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener{
+public class PalettePreviewActivity extends PresenterActivityImpl<PalettePreviewView> implements IRecycleView.LoadingListener ,
+        SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener{
 
     Palette palette;
     boolean refresh = true;
@@ -34,10 +35,13 @@ public class PalettePreviewActivity extends PresenterActivityImpl<PalettePreview
     }
 
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if(id == Constant.TOOLBAR_ID){
-            finish();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
