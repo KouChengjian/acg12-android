@@ -10,15 +10,15 @@ public class MainActivity$$ViewInjector<T extends com.kcj.animationfriend.ui.Mai
     View view;
     view = finder.findRequiredView(source, 2131362141, "field 'iv_message_tips'");
     target.iv_message_tips = finder.castView(view, 2131362141, "field 'iv_message_tips'");
-    view = finder.findRequiredView(source, 2131361941, "field 'toolbar'");
-    target.toolbar = finder.castView(view, 2131361941, "field 'toolbar'");
     view = finder.findRequiredView(source, 2131362202, "field 'iv_setting_tips'");
     target.iv_setting_tips = finder.castView(view, 2131362202, "field 'iv_setting_tips'");
+    view = finder.findRequiredView(source, 2131361941, "field 'toolbar'");
+    target.toolbar = finder.castView(view, 2131361941, "field 'toolbar'");
   }
 
   @Override public void reset(T target) {
     target.iv_message_tips = null;
-    target.toolbar = null;
     target.iv_setting_tips = null;
+    target.toolbar = null;
   }
 }
