@@ -1,12 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textColor="@color/title_hint"
-        android:text="sssssssss"/>
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/skin_bg"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/theme_primary"
+                android:src="@mipmap/bg_skin_color" />
+
+            <ImageView
+                android:id="@+id/skin_select"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/ic_white_tick" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/skin_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:text="胖次蓝"
+            android:textColor="@color/theme_primary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/skin_switch"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:background="@drawable/selector_skin_btn"
+            android:gravity="center"
+            android:text="使用中"
+            android:textColor="@drawable/selector_skin_text"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line" />
 
 </LinearLayout>

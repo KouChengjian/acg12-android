@@ -6,7 +6,8 @@
             android:id="@+id/nav_home"
             android:checked="true"
             android:icon="@mipmap/ic_nav_home"
-            android:title="首页" />
+            android:title="首页"
+            />
 
     </group>
     <group android:id="@+id/group1">

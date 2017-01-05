@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar;
 
 import org.acg12.R;
 import org.acg12.ui.ViewImpl;
+import org.acg12.ui.base.PresenterHelper;
 
 import butterknife.BindView;
 
@@ -24,13 +25,13 @@ public class RecordView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        ((AppCompatActivity) getContext()).setTitle(getContext().getString(R.string.record));
-        ((AppCompatActivity) getContext()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
+        toolbar.setTitle(getContext().getString(R.string.record));
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
+        PresenterHelper.click(mPresenter ,toolbar);
     }
 }

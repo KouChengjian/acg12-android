@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">漫友</string>
 
+
     <string name="search">搜索</string>
 
     <string name="colloct">收藏</string>
@@ -8,6 +9,8 @@
     <string name="download">下载</string>
 
     <string name="record">记录</string>
+
+    <string name="skin">主题</string>
 
     <string name="setting">设置</string>
 

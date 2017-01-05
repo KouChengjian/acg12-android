@@ -21,7 +21,7 @@ import org.acg12.widget.IRecycleView;
 import java.util.List;
 
 public class PalettePreviewActivity extends PresenterActivityImpl<PalettePreviewView> implements IRecycleView.LoadingListener ,
-        SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener{
+        SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener ,View.OnClickListener{
 
     Palette palette;
     boolean refresh = true;
@@ -35,13 +35,10 @@ public class PalettePreviewActivity extends PresenterActivityImpl<PalettePreview
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    public void onClick(View v) {
+        int id = v.getId();
+        if(id == Constant.TOOLBAR_ID){
+            finish();
         }
     }
 

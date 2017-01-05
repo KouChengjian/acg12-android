@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:skin="http://schemas.android.com/android/skin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        style="@style/Widget.MaterialSheetFab.ToolBar">
+        style="@style/Widget.MaterialSheetFab.ToolBar"
+        android:background="@color/theme_primary"
+        app:titleTextColor="@color/white"
+        skin:enable="true">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/title_left"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -19,8 +24,8 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:textColor="@color/white"
@@ -35,13 +40,13 @@
             android:layout_gravity="right"
             android:layout_marginRight="20dp"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp" />-->
 
     </android.support.v7.widget.Toolbar>
 
-    <View
+    <!--<View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line"/>
+        android:background="@color/line"/>-->
 </LinearLayout>
 

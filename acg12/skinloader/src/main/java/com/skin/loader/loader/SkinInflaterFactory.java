@@ -2,6 +2,7 @@ package com.skin.loader.loader;
 
 import android.content.Context;
 import android.content.res.Resources.NotFoundException;
+import android.support.v4.view.LayoutInflaterFactory;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ import java.util.List;
  * <p>Use this to collect the {skin:enable="true|false"} views availabled in our XML layout files.
  *
  */
-public class SkinInflaterFactory implements Factory {
+public class SkinInflaterFactory implements LayoutInflaterFactory {
 
     private static final boolean DEBUG = true;
 
@@ -35,7 +36,7 @@ public class SkinInflaterFactory implements Factory {
     private List<SkinItem> mSkinItems = new ArrayList<SkinItem>();
 
     @Override
-    public View onCreateView(String name, Context context, AttributeSet attrs) {
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         // if this is NOT enable to be skined , simplly skip it
         L.e("onCreateView");
         boolean isSkinEnable = attrs.getAttributeBooleanValue(SkinConfig.NAMESPACE, SkinConfig.ATTR_SKIN_ENABLE, false);

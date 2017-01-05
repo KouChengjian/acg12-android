@@ -3,7 +3,7 @@
 
     <style name="Theme.MaterialSheetFab" parent="Theme.MaterialSheetFab.Base">
         <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
-        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <!--<item name="android:windowTranslucentNavigation">true</item>-->
         <item name="android:colorPrimaryDark">@color/theme_primary</item>
     </style>

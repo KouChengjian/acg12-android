@@ -52,9 +52,8 @@ public class PalettePreviewView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        ((AppCompatActivity)getContext()).setTitle("");
-        ((AppCompatActivity)getContext()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
+        toolbar.setTitle("");
 
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setLoadingMoreEnabled(true);
@@ -76,7 +75,7 @@ public class PalettePreviewView extends ViewImpl {
     }
 
     public void bindData(Palette palette){
-        ((AppCompatActivity)getContext()).setTitle(palette.getName());
+        toolbar.setTitle(palette.getName());
     }
 
     public void bindData(List<Album> result , boolean refresh){

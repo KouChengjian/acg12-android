@@ -3,6 +3,7 @@
     <style name="Theme.MaterialSheetFab.Base" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/theme_primary</item>
         <item name="colorAccent">@color/theme_accent</item>
+        <!--<item name="android:textColorPrimary">@color/white</item>-->
         <item name="android:windowContentOverlay">@null</item>
     </style>
 

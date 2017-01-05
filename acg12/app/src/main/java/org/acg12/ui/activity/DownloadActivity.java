@@ -3,12 +3,14 @@ package org.acg12.ui.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.acg12.R;
+import org.acg12.config.Constant;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.views.DownloadView;
 
-public class DownloadActivity extends PresenterActivityImpl<DownloadView> {
+public class DownloadActivity extends PresenterActivityImpl<DownloadView> implements View.OnClickListener {
 
 
     @Override
@@ -17,13 +19,10 @@ public class DownloadActivity extends PresenterActivityImpl<DownloadView> {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    public void onClick(View v) {
+        int id = v.getId();
+        if(id == Constant.TOOLBAR_ID){
+            finish();
         }
     }
 

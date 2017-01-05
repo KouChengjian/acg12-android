@@ -50,7 +50,7 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
-		//initSkin();
+		initSkin();
 		super.onCreate(bundle);
 		mContext = this;
 		mTag = this.getClass().getSimpleName();
@@ -195,23 +195,8 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 			field.setAccessible(true);
 			field.setBoolean(getLayoutInflater(), false);
 
-//			mSkinInflaterFactory = new SkinInflaterFactory();
-//			getLayoutInflater().setFactory(mSkinInflaterFactory);
-
-			LayoutInflaterCompat.setFactory(LayoutInflater.from(this) , new LayoutInflaterFactory()
-			{
-				@Override
-				public View onCreateView(View parent, String name, Context context, AttributeSet attrs)
-				{
-					Log.e("ssss", "name = " + name);
-					int n = attrs.getAttributeCount();
-					for (int i = 0; i < n; i++)
-					{
-						Log.e("ss", attrs.getAttributeName(i) + " , " + attrs.getAttributeValue(i));
-					}
-					return null;
-				}
-			});
+			mSkinInflaterFactory = new SkinInflaterFactory();
+			LayoutInflaterCompat.setFactory(LayoutInflater.from(this) , mSkinInflaterFactory);
 		} catch (NoSuchFieldException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {

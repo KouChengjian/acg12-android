@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.acg12.R;
+import org.acg12.config.Constant;
 import org.acg12.ui.base.BaseActivity;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.views.SettingView;
@@ -21,20 +22,11 @@ public class SettingActivity extends PresenterActivityImpl<SettingView> implemen
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.settings_cache){
+        if(id == Constant.TOOLBAR_ID){
+            finish();
+        } else if(id == R.id.settings_cache){
 
         } else if(id == R.id.settings_update) {
 

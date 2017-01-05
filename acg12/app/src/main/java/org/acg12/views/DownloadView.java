@@ -24,9 +24,8 @@ public class DownloadView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        ((AppCompatActivity) getContext()).setTitle(getContext().getString(R.string.download));
-        ((AppCompatActivity) getContext()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
+        toolbar.setTitle(getContext().getString(R.string.download));
     }
 
     @Override

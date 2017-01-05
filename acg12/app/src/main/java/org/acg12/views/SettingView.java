@@ -37,14 +37,13 @@ public class SettingView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        ((AppCompatActivity) getContext()).setTitle(getContext().getString(R.string.setting));
-        ((AppCompatActivity) getContext()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
+        toolbar.setTitle(getContext().getString(R.string.setting));
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter , settingsCache ,settingsUpdate , settingsFeedback , settingsAbout ,userLogout );
+        PresenterHelper.click(mPresenter ,toolbar , settingsCache ,settingsUpdate , settingsFeedback , settingsAbout ,userLogout );
     }
 }

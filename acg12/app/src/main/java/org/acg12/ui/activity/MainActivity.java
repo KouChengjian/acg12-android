@@ -41,7 +41,7 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
                 startAnimActivity(RecordActivity.class);
                 break;
             case R.id.nav_color_lens:
-                startAnimActivity(SkinLoaderActivity.class);
+                startAnimActivity(SkinActivity.class);
                 break;
             case R.id.nav_settings:
                 startAnimActivity(SettingActivity.class);
