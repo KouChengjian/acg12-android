@@ -67,8 +67,8 @@ public class SkinView extends ViewImpl {
     }
 
     public void bindData(){
-        skinLoaderAdapter.add(new Skin(0xff3998e1 , "胖次蓝" , ""));
-        //skinLoaderAdapter.add(new Skin(0xfffb7299 , "少女粉" , "skin_pink_skin")); //   /storage/emulated/0/BlackFantacy.skin
+        skinLoaderAdapter.add(new Skin(0xff3998e1 , "胖次蓝" , "default"));
+        skinLoaderAdapter.add(new Skin(0xfffb7299 , "少女粉" , "skin_pink.skin"));
         skinLoaderAdapter.notifyDataSetChanged();
 
     }

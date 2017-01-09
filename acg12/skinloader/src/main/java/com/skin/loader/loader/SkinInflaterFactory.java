@@ -3,17 +3,18 @@ package com.skin.loader.loader;
 import android.content.Context;
 import android.content.res.Resources.NotFoundException;
 import android.support.v4.view.LayoutInflaterFactory;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.LayoutInflater.Factory;
 import android.view.View;
 
 import com.skin.loader.SkinConfig;
 import com.skin.loader.entity.AttrFactory;
 import com.skin.loader.entity.DynamicAttr;
-import com.skin.loader.entity.SkinAttr;
-import com.skin.loader.entity.SkinItem;
+import com.skin.loader.entity.base.SkinAttr;
+import com.skin.loader.entity.base.SkinItem;
 import com.skin.loader.utils.L;
 import com.skin.loader.utils.ListUtils;
 
@@ -38,13 +39,21 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         // if this is NOT enable to be skined , simplly skip it
-        L.e("onCreateView");
+        //L.e("onCreateView = " +name);
         boolean isSkinEnable = attrs.getAttributeBooleanValue(SkinConfig.NAMESPACE, SkinConfig.ATTR_SKIN_ENABLE, false);
         if (!isSkinEnable){
             return null;
         }
 
-        View view = createView(context, name, attrs);
+        AppCompatDelegate delegate = ((AppCompatActivity)context).getDelegate();
+        View view = delegate.createView(parent, name, context, attrs);
+        if(view == null){
+            Log.e("v","null");
+        } else {
+            Log.e("v","!null");
+        }
+
+        //View view = createView(context, name, attrs);
 
         if (view == null){
             return null;
@@ -145,6 +154,7 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
         }
 
         for(SkinItem si : mSkinItems){
+            L.e(si.toString());
             if(si.view == null){
                 continue;
             }

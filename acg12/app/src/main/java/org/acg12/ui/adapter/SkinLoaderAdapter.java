@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,34 +86,15 @@ public class SkinLoaderAdapter extends RecyclerView.Adapter<SkinLoaderViewHolder
 
         @Override
         public void onClick(View v) {
-            String path = mList.get(position).getPath();
-            if (path == null || path.isEmpty()) {
+            if(position == 0){
                 SkinManager.getInstance().restoreDefaultTheme();
                 notifyDataSetChanged();
             } else {
-                if(path.contains("_skin")){
-                    String files = CacheUtils.getCacheDirectory(mContext, true, "skin") + "/"+mList.get(position).getColor()+".skin";
-                    File file = new File(files);
-                    if (file.exists()) {
-                        file.delete();
-                    }
-                    try {
-                        file.createNewFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    AssetManager asset = mContext.getAssets();
-                    InputStream input = null;
-                    try {
-                        input = asset.open(path.split("_skin")[0]);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    //writeBytesToFile(input ,file);
-                } else{
-                    skinLoading(path);
+                String name = mList.get(position).getPath();
+                if (name == null || name.isEmpty()) {
+                    return;
+                } else {
+                    skinLoading(copySkinAssetsToDir(mContext , name ));
                 }
             }
         }
@@ -139,19 +121,44 @@ public class SkinLoaderAdapter extends RecyclerView.Adapter<SkinLoaderViewHolder
         });
     }
 
-    public void writeBytesToFile(InputStream is, File file) {
-        FileOutputStream fos = null;
+    /**
+     *  file:///android_asset/skin_pink.skin
+     */
+    public String copySkinAssetsToDir(Context context, String name) {
+        String toFile = CacheUtils.getCacheDirectory(context, true, "skin") + File.separator + name;
+        Log.e("toFile",toFile+"");
         try {
-            byte[] data = new byte[2048];
-            int nbread = 0;
-            fos = new FileOutputStream(file);
-            while ((nbread = is.read(data)) > -1) {
-                fos.write(data, 0, nbread);
+            InputStream is = context.getAssets().open(name);
+//            File fileDir = new File(toDir);
+//            if (!fileDir.exists()) {
+//                fileDir.mkdirs();
+//            }
+            OutputStream os = new FileOutputStream(toFile);
+            int byteCount;
+            byte[] bytes = new byte[1024];
+
+            while ((byteCount = is.read(bytes)) != -1) {
+                os.write(bytes, 0, byteCount);
             }
-            fos.close();
-            skinLoading(file.getPath());
-        } catch (IOException ex) {
-            Log.e("IOException", ex.toString() + "");
+            os.close();
+            is.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("IOException",e.toString());
         }
+        return toFile;
     }
+
+//    public void resetSkin(int position){
+//        for (int i = 0 ; i < mList.size() ; i++) {
+//            Skin skin = mList.get(position);
+//            if(i == position){
+//                skin.setHasSelector(true);
+//            } else {
+//                skin.setHasSelector(false);
+//            }
+//        }
+//    }
+
 }

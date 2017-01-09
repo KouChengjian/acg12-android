@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 
+import com.skin.loader.entity.base.SkinAttr;
 import com.skin.loader.loader.SkinManager;
 
 public class BackgroundAttr extends SkinAttr {

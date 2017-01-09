@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dip"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:background="@color/white"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp">
+
+        <org.acg12.widget.DeletableEditText
+            android:id="@+id/edt_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:ems="10"
+            android:focusable="true"
+            android:hint="搜索视频、番剧"
+            android:paddingLeft="4dip"
+            android:paddingRight="4dip"
+            android:singleLine="true"
+            android:textColor="@color/title_hint"
+            android:textColorHint="@color/title_hint"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/tv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_pop_search"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+
+</LinearLayout>

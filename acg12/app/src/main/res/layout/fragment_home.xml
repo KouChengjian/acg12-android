@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/home_appbar"
@@ -22,6 +22,7 @@
                 style="@style/Widget.MaterialSheetFab.ToolBar"
                 android:background="@color/theme_primary"
                 app:layout_collapseMode="pin"
+                app:titleTextColor="@color/white"
                 skin:enable="true" />
 
             <!--<ImageView

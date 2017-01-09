@@ -8,6 +8,7 @@ public class Skin {
     private int color;
     private String name;
     private String path;
+    private boolean hasSelector;
 
     public Skin(){}
 
@@ -39,5 +40,13 @@ public class Skin {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public boolean isHasSelector() {
+        return hasSelector;
+    }
+
+    public void setHasSelector(boolean hasSelector) {
+        this.hasSelector = hasSelector;
     }
 }

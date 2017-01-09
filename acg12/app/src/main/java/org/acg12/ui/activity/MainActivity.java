@@ -53,7 +53,9 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
     @Override
     public void onBackPressed() {
         if (firstTime + 2000 > System.currentTimeMillis()) {
-            super.onBackPressed();
+//            super.onBackPressed();
+            //System.exit(0);
+            finish();
         } else {
             ShowToast(R.string.double_click_logout);
         }

@@ -36,23 +36,24 @@ public class SkinLoaderViewHolder extends RecyclerView.ViewHolder {
         ViewUtil.setText(skin_name, skin.getName());
 
         boolean isOfficalSelected = !SkinManager.getInstance().isExternalSkin();
-        if(isOfficalSelected){
-            if(position == 0){
+        //Log.e("isOfficalSelected",isOfficalSelected+"===");
+        if(isOfficalSelected) {
+            if(position == 0) {
                 ViewUtil.setText(skin_switch, "使用中");
                 skin_select.setVisibility(View.VISIBLE);
                 skin_switch.setSelected(true);
-            }else {
+            } else {
                 ViewUtil.setText(skin_switch, "使用");
                 skin_select.setVisibility(View.GONE);
                 skin_switch.setSelected(false);
             }
-        }else {
+        } else {
             String path = SkinManager.getInstance().getSkinPath();
-            Log.e("path", path + "");
+            //Log.e("path", path + "");
             if (path == null) {
-                path = "";
+                path = "default";
             }
-            if (skin.getPath().equals(path)) {
+            if (path.contains(skin.getPath())) {
                 ViewUtil.setText(skin_switch, "使用中");
                 skin_select.setVisibility(View.VISIBLE);
                 skin_switch.setSelected(true);

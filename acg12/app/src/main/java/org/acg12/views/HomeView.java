@@ -8,12 +8,13 @@ import android.support.v7.widget.Toolbar;
 
 import org.acg12.R;
 import org.acg12.ui.ViewImpl;
-import org.acg12.ui.adapter.MainPagerAdapter;
+import org.acg12.ui.adapter.HomePagerAdapter;
 import org.acg12.ui.base.PresenterHelper;
 import org.acg12.ui.fragment.TabAlbumFragment;
 import org.acg12.ui.fragment.TabAnimatFragment;
 import org.acg12.ui.fragment.TabBangumiFragment;
 import org.acg12.ui.fragment.TabPaletteFragment;
+import org.acg12.widget.SearchPopWindow;
 
 import butterknife.BindView;
 
@@ -30,13 +31,15 @@ public class HomeView extends ViewImpl {
     ViewPager mViewpager;
 
     Fragment[] fragments;
-    MainPagerAdapter mainPagerAdapter;
+    HomePagerAdapter mainPagerAdapter;
     TabAlbumFragment tabAlbumFragment;
     TabPaletteFragment tabPaletteFragment;
     TabBangumiFragment tabBangumiFragment;
     TabAnimatFragment tabMADAMVFragment;
     TabAnimatFragment tabMMD3DFragment;
     TabAnimatFragment tabChatFragment;
+
+    SearchPopWindow searchPopWindow;
 
     @Override
     public int getLayoutId() {
@@ -57,10 +60,12 @@ public class HomeView extends ViewImpl {
         tabChatFragment = TabAnimatFragment.newInstance(2);
         fragments = new Fragment[]{tabAlbumFragment , tabPaletteFragment ,tabBangumiFragment ,tabMADAMVFragment ,tabMMD3DFragment, tabChatFragment };
 
-        mainPagerAdapter = new MainPagerAdapter(((AppCompatActivity)getContext()).getSupportFragmentManager() , fragments);
+        mainPagerAdapter = new HomePagerAdapter(((AppCompatActivity)getContext()).getSupportFragmentManager() , fragments);
         mViewpager.setAdapter(mainPagerAdapter);
         mViewpager.setOffscreenPageLimit(fragments.length);
         mTabLayout.setupWithViewPager(mViewpager);
+
+        searchPopWindow = new SearchPopWindow((AppCompatActivity)getContext());
     }
 
     @Override
@@ -68,5 +73,17 @@ public class HomeView extends ViewImpl {
         super.bindEvent();
         PresenterHelper.click(mPresenter , mToolbar );
         mToolbar.setOnMenuItemClickListener((Toolbar.OnMenuItemClickListener)mPresenter);
+    }
+
+    public TabLayout getTabLayout(){
+        return mTabLayout;
+    }
+
+    public void showPopupWindow(){
+        searchPopWindow.showPopupWindow(mToolbar);
+    }
+
+    public void dismissPopupWindow(){
+        searchPopWindow.dismissPopupWindow();
     }
 }

@@ -79,5 +79,10 @@
         <item name="@android:windowExitAnimation">@anim/popup_shrink_from_top</item>
     </style>
 
+    <!-- search pop -->
+    <style name="Animations.SearchPopWindow">
+        <item name="android:windowEnterAnimation">@anim/popup_search_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_search_out</item>
+    </style>
 
 </resources>

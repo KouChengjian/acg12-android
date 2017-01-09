@@ -4,6 +4,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.ListView;
 
+import com.skin.loader.entity.base.SkinAttr;
 import com.skin.loader.loader.SkinManager;
 
 public class DividerAttr extends SkinAttr {

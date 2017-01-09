@@ -4,10 +4,7 @@ package org.acg12.config;
 import org.acg12.BuildConfig;
 
 /**
- * @ClassName: Constant
- * @Description: 常量
- * @author: KCJ
- * @date: 2016-07-26 10:23
+ * 2016-07-26 10:23
  */
 public class Constant {
 

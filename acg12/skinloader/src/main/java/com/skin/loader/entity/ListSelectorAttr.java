@@ -3,6 +3,7 @@ package com.skin.loader.entity;
 import android.view.View;
 import android.widget.AbsListView;
 
+import com.skin.loader.entity.base.SkinAttr;
 import com.skin.loader.loader.SkinManager;
 
 public class ListSelectorAttr extends SkinAttr {

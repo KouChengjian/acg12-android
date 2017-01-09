@@ -150,25 +150,26 @@ public class SkinManager implements ISkinLoader {
 				try {
 					if (params.length == 1) {
 						String skinPkgPath = params[0];
-						
+						//L.e(skinPkgPath+"======");
 						File file = new File(skinPkgPath); 
 						if(file == null || !file.exists()){
+							//L.e(1+"");
 							return null;
 						}
-						
+						//L.e(1+"");
 						PackageManager mPm = context.getPackageManager();
 						PackageInfo mInfo = mPm.getPackageArchiveInfo(skinPkgPath, PackageManager.GET_ACTIVITIES);
 						skinPackageName = mInfo.packageName;
-
+						//L.e(2+"");
 						AssetManager assetManager = AssetManager.class.newInstance();
 						Method addAssetPath = assetManager.getClass().getMethod("addAssetPath", String.class);
 						addAssetPath.invoke(assetManager, skinPkgPath);
-
+						//L.e(3+"");
 						Resources superRes = context.getResources();
 						Resources skinResource = new Resources(assetManager,superRes.getDisplayMetrics(),superRes.getConfiguration());
-						
+						//L.e(4+"");
 						SkinConfig.saveSkinPath(context, skinPkgPath);
-						
+						//L.e(5+"");
 						skinPath = skinPkgPath;
 						isDefaultSkin = false;
 						return skinResource;
@@ -183,9 +184,10 @@ public class SkinManager implements ISkinLoader {
 
 			protected void onPostExecute(Resources result) {
 				mResources = result;
-
+				L.e("mResources");
 				if (mResources != null) {
 					if (callback != null) callback.onSuccess();
+					L.e("notifySkinUpdate");
 					notifySkinUpdate();
 				}else{
 					isDefaultSkin = true;

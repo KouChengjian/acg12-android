@@ -3,6 +3,7 @@ package com.skin.loader.entity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.skin.loader.entity.base.SkinAttr;
 import com.skin.loader.loader.SkinManager;
 import com.skin.loader.utils.L;
 

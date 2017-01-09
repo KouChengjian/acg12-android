@@ -1,12 +1,15 @@
 package com.skin.loader.entity;
 
 
+import com.skin.loader.entity.base.SkinAttr;
+
 public class AttrFactory {
 	
 	public static final String BACKGROUND = "background";
 	public static final String TEXT_COLOR = "textColor";
 	public static final String LIST_SELECTOR = "listSelector";
 	public static final String DIVIDER = "divider";
+	public static final String TABLAYOUT = "tabLayoutIndicator";
 	
 	public static SkinAttr get(String attrName, int attrValueRefId, String attrValueRefName, String typeName){
 		
@@ -20,7 +23,9 @@ public class AttrFactory {
 			mSkinAttr = new ListSelectorAttr();
 		}else if(DIVIDER.equals(attrName)){ 
 			mSkinAttr = new DividerAttr();
-		}else{
+		}else if(TABLAYOUT.equals(attrName)){
+			mSkinAttr = new TabLayoutIndicatorAttr();
+		} else{
 			return null;
 		}
 		
