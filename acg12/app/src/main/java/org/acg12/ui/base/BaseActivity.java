@@ -5,23 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
-import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-
 
 import com.skin.loader.entity.DynamicAttr;
 import com.skin.loader.listener.IDynamicNewView;
 import com.skin.loader.listener.ISkinUpdate;
 import com.skin.loader.loader.SkinInflaterFactory;
 import com.skin.loader.loader.SkinManager;
-import com.skin.loader.utils.L;
 
 import org.acg12.config.Constant;
 import org.acg12.db.DaoBaseImpl;
@@ -31,7 +26,6 @@ import org.acg12.utlis.Toastor;
 import org.acg12.utlis.ViewServer;
 import org.acg12.utlis.ViewUtil;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -44,6 +38,7 @@ import butterknife.ButterKnife;
  */
 public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDynamicNewView {
 
+	protected boolean replace = true;
 	protected Context mContext;
 	protected String mTag;
 	protected ActivityTack mActivityTack = ActivityTack.getInstanse();
@@ -55,7 +50,7 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 		mContext = this;
 		mTag = this.getClass().getSimpleName();
 		mActivityTack.addActivity(this);
-		SystemBarUtlis.setSystemBarTintManager(this);
+		SystemBarUtlis.skinThemeUpdate(this ,replace);
 		if(Constant.debug){
 			ViewServer.get(this).addWindow(this);
 		}
@@ -190,20 +185,21 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 	private SkinInflaterFactory mSkinInflaterFactory;
 
 	public void initSkin(){
-		try {
-			Field field = LayoutInflater.class.getDeclaredField("mFactorySet");
-			field.setAccessible(true);
-			field.setBoolean(getLayoutInflater(), false);
-
-			mSkinInflaterFactory = new SkinInflaterFactory();
-			LayoutInflaterCompat.setFactory(LayoutInflater.from(this) , mSkinInflaterFactory);
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
+		mSkinInflaterFactory = new SkinInflaterFactory();
+		LayoutInflaterCompat.setFactory(LayoutInflater.from(this) , mSkinInflaterFactory);
+//		try {
+////			Field field = LayoutInflater.class.getDeclaredField("mFactorySet");
+////			field.setAccessible(true);
+////			field.setBoolean(getLayoutInflater(), false);
+//
+//
+//		} catch (NoSuchFieldException e) {
+//			e.printStackTrace();
+//		} catch (IllegalArgumentException e) {
+//			e.printStackTrace();
+//		} catch (IllegalAccessException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	protected void dynamicAddSkinEnableView(View view, String attrName, int attrValueResId){
@@ -222,10 +218,12 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 	public void onThemeUpdate() {
 		if(!isResponseOnSkinChanging) return;
 		mSkinInflaterFactory.applySkin();
+		SystemBarUtlis.skinThemeUpdate(this ,replace);
 	}
 
 	@Override
 	public void dynamicAddView(View view, List<DynamicAttr> pDAttrs) {
 		mSkinInflaterFactory.dynamicAddSkinEnableView(this, view, pDAttrs);
+		SkinManager.getInstance().load();
 	}
 }

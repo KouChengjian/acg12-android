@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar;
 
 import org.acg12.R;
 import org.acg12.ui.ViewImpl;
+import org.acg12.ui.base.PresenterHelper;
 
 import butterknife.BindView;
 
@@ -31,5 +32,6 @@ public class DownloadView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
+        PresenterHelper.click(mPresenter , toolbar);
     }
 }

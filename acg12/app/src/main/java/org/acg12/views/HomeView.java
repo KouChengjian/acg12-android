@@ -23,8 +23,8 @@ import butterknife.BindView;
  */
 public class HomeView extends ViewImpl {
 
-    @BindView(R.id.home_toolbar)
-    Toolbar mToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.home_tabLayout)
     TabLayout mTabLayout;
     @BindView(R.id.home_viewpager)
@@ -49,8 +49,8 @@ public class HomeView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        mToolbar.setNavigationIcon(R.mipmap.ic_action_home);
-        mToolbar.inflateMenu(R.menu.menu_main);
+        toolbar.setNavigationIcon(R.mipmap.ic_action_home);
+        toolbar.inflateMenu(R.menu.menu_main);
 
         tabAlbumFragment = TabAlbumFragment.newInstance("");
         tabPaletteFragment = new TabPaletteFragment();
@@ -71,8 +71,8 @@ public class HomeView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter , mToolbar );
-        mToolbar.setOnMenuItemClickListener((Toolbar.OnMenuItemClickListener)mPresenter);
+        PresenterHelper.click(mPresenter , toolbar );
+        toolbar.setOnMenuItemClickListener((Toolbar.OnMenuItemClickListener)mPresenter);
     }
 
     public TabLayout getTabLayout(){
@@ -80,7 +80,7 @@ public class HomeView extends ViewImpl {
     }
 
     public void showPopupWindow(){
-        searchPopWindow.showPopupWindow(mToolbar);
+        searchPopWindow.showPopupWindow(toolbar);
     }
 
     public void dismissPopupWindow(){

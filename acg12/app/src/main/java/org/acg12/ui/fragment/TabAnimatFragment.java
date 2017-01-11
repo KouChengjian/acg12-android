@@ -50,7 +50,7 @@ public class TabAnimatFragment extends PresenterFragmentImpl<TabAnimatView> impl
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
+        Log.e("Video",mView.getVideo(position).getAid());
     }
 
     @Override

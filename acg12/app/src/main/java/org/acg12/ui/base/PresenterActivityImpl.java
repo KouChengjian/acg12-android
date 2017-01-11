@@ -12,8 +12,8 @@ public class PresenterActivityImpl<T extends IView> extends BaseActivity impleme
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         create(savedInstanceState);
+        super.onCreate(savedInstanceState);
         try {
             mView = getViewClass().newInstance();
             setContentView(mView.create(getLayoutInflater(), null));

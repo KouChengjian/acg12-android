@@ -32,7 +32,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@color/theme_primary</item>
-        <item name="android:theme">@style/ThemeOverlay.MaterialSheetFab.ActionBar</item>
+        <item name="theme">@style/ThemeOverlay.MaterialSheetFab.ActionBar</item>
         <item name="popupTheme">@style/ThemeOverlay.MaterialSheetFab.ActionBar.Popup</item>
     </style>
 

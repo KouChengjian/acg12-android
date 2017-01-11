@@ -24,9 +24,7 @@ import butterknife.BindView;
  */
 public class SearchView extends ViewImpl {
 
-    @BindView(R.id.search_collapsing)
-    CollapsingToolbarLayout searchCollapsing;
-    @BindView(R.id.search_toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.search_tabLayout)
     TabLayout mTabLayout;
@@ -50,7 +48,7 @@ public class SearchView extends ViewImpl {
     public void created() {
         super.created();
         toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        searchCollapsing.setTitle(getContext().getString(R.string.search));
+        toolbar.setTitle(getContext().getString(R.string.search));
     }
 
     @Override
@@ -60,7 +58,7 @@ public class SearchView extends ViewImpl {
     }
 
     public void bindData(String title) {
-        searchCollapsing.setTitle(title);
+        toolbar.setTitle(title);
 
         searchAlbumFragment = SearchAlbumFragment.newInstance(title);
         searchPaletteFragment = SearchPaletteFragment.newInstance(title);
@@ -72,6 +70,10 @@ public class SearchView extends ViewImpl {
         mViewpager.setAdapter(searchPagerAdapter);
         mViewpager.setOffscreenPageLimit(fragments.length);
         mTabLayout.setupWithViewPager(mViewpager);
+    }
+
+    public TabLayout getTabLayout(){
+        return mTabLayout;
     }
 
 }

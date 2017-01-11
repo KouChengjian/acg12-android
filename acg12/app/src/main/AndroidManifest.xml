@@ -44,12 +44,18 @@
 
         <activity android:name=".ui.activity.SkinActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout"/>
-        <activity android:name=".ui.activity.SettingActivity" />
-        <activity android:name=".ui.activity.RecordActivity" />
-        <activity android:name=".ui.activity.DownloadActivity" />
-        <activity android:name=".ui.activity.CollectActivity" />
-        <activity android:name=".ui.activity.SearchActivity" />
-        <activity android:name=".ui.activity.AboutActivity"></activity>
+        <activity android:name=".ui.activity.SettingActivity"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout"/>
+        <activity android:name=".ui.activity.RecordActivity"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout"/>
+        <activity android:name=".ui.activity.DownloadActivity"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout"/>
+        <activity android:name=".ui.activity.CollectActivity"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout"/>
+        <activity android:name=".ui.activity.SearchActivity"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout"/>
+        <activity android:name=".ui.activity.AboutActivity"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout"/>
     </application>
 
 </manifest>

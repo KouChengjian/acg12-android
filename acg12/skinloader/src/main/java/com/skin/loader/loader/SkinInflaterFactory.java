@@ -39,7 +39,7 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         // if this is NOT enable to be skined , simplly skip it
-        //L.e("onCreateView = " +name);
+        L.e("onCreateView = " +name);
         boolean isSkinEnable = attrs.getAttributeBooleanValue(SkinConfig.NAMESPACE, SkinConfig.ATTR_SKIN_ENABLE, false);
         if (!isSkinEnable){
             return null;
@@ -108,11 +108,11 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
     private void parseSkinAttr(Context context, AttributeSet attrs, View view) {
         List<SkinAttr> viewAttrs = new ArrayList<SkinAttr>();
 
-        Log.e("attrs",attrs.getAttributeCount()+"");
+        Log.i("attrs",attrs.getAttributeCount()+"");
         for (int i = 0; i < attrs.getAttributeCount(); i++){
             String attrName = attrs.getAttributeName(i);
             String attrValue = attrs.getAttributeValue(i);
-            Log.e("attrName",attrName+"==="+attrValue);
+            Log.i("attrName",attrName+"==="+attrValue);
             if(!AttrFactory.isSupportedAttr(attrName)){
                 continue;
             }
@@ -122,6 +122,7 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
                     int id = Integer.parseInt(attrValue.substring(1));
                     String entryName = context.getResources().getResourceEntryName(id);
                     String typeName = context.getResources().getResourceTypeName(id);
+                    Log.i("ResourceEntry",id+"==="+entryName +"==="+typeName);
                     SkinAttr mSkinAttr = AttrFactory.get(attrName, id, entryName, typeName);
                     if (mSkinAttr != null) {
                         viewAttrs.add(mSkinAttr);
@@ -148,7 +149,7 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
     }
 
     public void applySkin(){
-        L.e(mSkinItems.size()+"===");
+        //L.e(mSkinItems.size()+"===");
         if(ListUtils.isEmpty(mSkinItems)){
             return;
         }

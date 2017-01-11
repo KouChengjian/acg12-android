@@ -3,9 +3,17 @@ package org.acg12.ui.activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.skin.loader.entity.AttrFactory;
+import com.skin.loader.entity.DynamicAttr;
+import com.skin.loader.loader.SkinManager;
+
+import org.acg12.R;
 import org.acg12.config.Constant;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.views.SearchView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends PresenterActivityImpl<SearchView> implements View.OnClickListener{
 
@@ -14,6 +22,10 @@ public class SearchActivity extends PresenterActivityImpl<SearchView> implements
         super.created(savedInstance);
         String title = getIntent().getExtras().getString("title");
         mView.bindData(title);
+
+        List<DynamicAttr> mDynamicAttr = new ArrayList<DynamicAttr>();
+        mDynamicAttr.add(new DynamicAttr(AttrFactory.TABLAYOUT, R.color.theme_primary));
+        dynamicAddView(mView.getTabLayout(), mDynamicAttr);
     }
 
     @Override

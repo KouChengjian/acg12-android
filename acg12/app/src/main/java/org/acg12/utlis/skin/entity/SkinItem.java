@@ -1,4 +1,4 @@
-package com.skin.loader.entity;
+package org.acg12.utlis.skin.entity;
 
 import android.view.View;
 

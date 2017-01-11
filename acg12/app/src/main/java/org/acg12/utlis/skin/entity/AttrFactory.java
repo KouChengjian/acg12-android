@@ -1,6 +1,11 @@
-package com.skin.loader.entity;
+package org.acg12.utlis.skin.entity;
 
 
+import com.skin.loader.entity.BackgroundAttr;
+import com.skin.loader.entity.DividerAttr;
+import com.skin.loader.entity.ListSelectorAttr;
+import com.skin.loader.entity.TabLayoutIndicatorAttr;
+import com.skin.loader.entity.TextColorAttr;
 import com.skin.loader.entity.base.SkinAttr;
 
 public class AttrFactory {
@@ -10,7 +15,6 @@ public class AttrFactory {
 	public static final String LIST_SELECTOR = "listSelector";
 	public static final String DIVIDER = "divider";
 	public static final String TABLAYOUT = "tabLayoutIndicator";
-	public static final String NAVIGATIONVIEW = "navigationView";
 	
 	public static SkinAttr get(String attrName, int attrValueRefId, String attrValueRefName, String typeName){
 		
@@ -26,10 +30,7 @@ public class AttrFactory {
 			mSkinAttr = new DividerAttr();
 		}else if(TABLAYOUT.equals(attrName)){
 			mSkinAttr = new TabLayoutIndicatorAttr();
-		} else if(NAVIGATIONVIEW.equals(attrName)){
-			mSkinAttr = new NavigationViewAttr();
-		}
-		else{
+		} else{
 			return null;
 		}
 		

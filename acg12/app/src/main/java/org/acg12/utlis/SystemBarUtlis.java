@@ -4,10 +4,13 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+
+import com.skin.loader.loader.SkinManager;
 
 import org.acg12.R;
 
@@ -29,17 +32,18 @@ public class SystemBarUtlis {
     }
 
     public static void setSystemBarTintManager(Activity activity , int color){
-        if(Build.VERSION.SDK_INT  >= Build.VERSION_CODES.LOLLIPOP){
-            Window window = activity.getWindow();
+//        if(Build.VERSION.SDK_INT  >= Build.VERSION_CODES.LOLLIPOP){
+//            Window window = activity.getWindow();
 //            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
 //                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 //            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 //                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 //                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 //            window.setStatusBarColor(Color.TRANSPARENT);
-            //window.setNavigationBarColor(Color.TRANSPARENT);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            //window.setNavigationBarColor(Color.TRANSPARENT);
+//        } else
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(activity ,true);
             SystemBarTintManager tintManager = new SystemBarTintManager(activity);
             tintManager.setStatusBarTintEnabled(true);
@@ -59,6 +63,30 @@ public class SystemBarUtlis {
         }
         win.setAttributes(winParams);
     }
+
+    public static void skinThemeUpdate(Activity activity , boolean replace){
+        if(!replace) return;
+//        if(Build.VERSION.SDK_INT  >= Build.VERSION_CODES.LOLLIPOP){
+//            Window window = activity.getWindow();
+//            window.setStatusBarColor(Color.TRANSPARENT);
+//            //setTranslucentStatus(activity ,true);
+//            SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+//            tintManager.setStatusBarTintEnabled(true);
+//            tintManager.setStatusBarTintResource(R.color.theme_primary);
+//        } else
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            int color = SkinManager.getInstance().getColorPrimaryDark();
+            if (color != -1){
+                setTranslucentStatus(activity ,true);
+                SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+                tintManager.setStatusBarTintEnabled(true);
+                tintManager.setStatusBarTintColor(color);
+            } else
+                setSystemBarTintManager(activity , R.color.theme_primary);
+        }
+    }
+
+
 
     /**
      * 修改状态栏为全透明

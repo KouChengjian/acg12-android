@@ -1,6 +1,5 @@
 package org.acg12.ui.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +18,12 @@ public class BangumiPreviewActivity extends PresenterActivityImpl<BangumiPreview
 
     String bangumiId = "";
     boolean hasShow = false;
+
+    @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        replace = false;
+    }
 
     @Override
     public void created(Bundle savedInstance) {

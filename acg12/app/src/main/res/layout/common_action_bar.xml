@@ -6,7 +6,7 @@
     style="@style/Widget.MaterialSheetFab.ToolBar"
     android:background="@color/theme_primary"
     app:titleTextColor="@color/white"
-    skin:enable="fasle">
+    skin:enable="true">
 
 </android.support.v7.widget.Toolbar>
 

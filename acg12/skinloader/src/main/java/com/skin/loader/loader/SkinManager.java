@@ -111,7 +111,18 @@ public class SkinManager implements ISkinLoader {
 	public void init(Context ctx){
 		context = ctx.getApplicationContext();
 	}
-	
+
+	public int getColorPrimaryDark() {
+		if (mResources != null) {
+			//Log.e("skinPackageName",skinPackageName+"");
+			int identify = mResources.getIdentifier("theme_primary", "color", skinPackageName);
+			//Log.e("identify",identify+"");
+			if (!(identify <= 0))
+				return mResources.getColor(identify);
+		}
+		return -1;
+	}
+
 	public void restoreDefaultTheme(){
 		SkinConfig.saveSkinPath(context, SkinConfig.DEFALT_SKIN);
 		isDefaultSkin = true;
@@ -184,10 +195,10 @@ public class SkinManager implements ISkinLoader {
 
 			protected void onPostExecute(Resources result) {
 				mResources = result;
-				L.e("mResources");
+				//L.e("mResources");
 				if (mResources != null) {
 					if (callback != null) callback.onSuccess();
-					L.e("notifySkinUpdate");
+					//L.e("notifySkinUpdate");
 					notifySkinUpdate();
 				}else{
 					isDefaultSkin = true;
@@ -231,17 +242,17 @@ public class SkinManager implements ISkinLoader {
 		}
 		
 		String resName = context.getResources().getResourceEntryName(resId);
-		
+		Log.i("resName",resName+"");
 		int trueResId = mResources.getIdentifier(resName, "color", skinPackageName);
 		int trueColor = 0;
-		
+		Log.i("trueResId",trueResId+"");
 		try{
 			trueColor = mResources.getColor(trueResId);
 		}catch(NotFoundException e){
 			e.printStackTrace();
 			trueColor = originColor;
 		}
-		
+		Log.i("trueColor",trueColor+"");
 		return trueColor;
 	}
 	

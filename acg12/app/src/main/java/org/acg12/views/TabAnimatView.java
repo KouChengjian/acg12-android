@@ -77,6 +77,9 @@ public class TabAnimatView extends ViewImpl {
         tabAnimatAdapter.notifyDataSetChanged();
     }
 
+    public Video getVideo(int position){
+        return tabAnimatAdapter.getList().get(position);
+    }
 
     public void stopLoading(){
         mRecyclerView.noMoreLoading();

@@ -45,7 +45,7 @@ public class SkinView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
+        toolbar.setNavigationIcon(R.mipmap.ic_action_home);
         toolbar.setTitle(getContext().getString(R.string.skin));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

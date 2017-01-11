@@ -24,6 +24,43 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 可以使用 Manifest.permission.CAMERA来获取具体权限
+ * 1、android.permission-group.CALENDAR            // 允许程序读取用户的日程信息
+ *    android.permission.READ_CALENDAR
+ *    android.permission.WRITE_CALENDAR
+ * 2、android.permission-group.CAMERA              // 摄像机
+ *    android.permission.CAMERA
+ * 3、android.permission-group.CONTACTS           // 获取联系人
+ *    android.permission.READ_CONTACTS
+ *    android.permission.WRITE_CONTACTS
+ *    android.permission.GET_ACCOUNTS
+ * 4、android.permission-group.LOCATION            // 获取位置
+ *    android.permission.ACCESS_FINE_LOCATION
+ *    android.permission.ACCESS_COARSE_LOCATION
+ * 5、android.permission-group.MICROPHONE         // 获取语言
+ *    android.permission.RECORD_AUDIO
+ * 6、android.permission-group.PHONE              // 获取手机信息 如状态码 打电话
+ *    android.permission.READ_PHONE_STATE
+ *    android.permission.CALL_PHONE
+ *    android.permission.READ_CALL_LOG
+ *    android.permission.WRITE_CALL_LOG
+ *    com.android.voicemail.permission.ADD_VOICEMAIL
+ *    android.permission.USE_SIP
+ *    android.permission.PROCESS_OUTGOING_CALLS
+ * 7、android.permission-group.SENSORS            // 短信传感器
+ *    android.permission.BODY_SENSORS
+ * 8、android.permission-group.SMS               // 短信服务
+ *    android.permission.SEND_SMS
+ *    android.permission.RECEIVE_SMS
+ *    android.permission.READ_SMS
+ *    android.permission.RECEIVE_WAP_PUSH
+ *    android.permission.RECEIVE_MMS
+ *    android.permission.READ_CELL_BROADCASTS
+ * 9、android.permission-group.STORAGE            // 访问sd卡
+ *    android.permission.READ_EXTERNAL_STORAGE
+ *    android.permission.WRITE_EXTERNAL_STORAGE
+ */
 public class ApplyPermission {
 	private String[] mPermissions;
 	private int mRequestCode;

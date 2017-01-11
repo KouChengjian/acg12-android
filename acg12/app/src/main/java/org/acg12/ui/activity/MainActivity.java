@@ -3,7 +3,11 @@ package org.acg12.ui.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.view.MenuItem;
+
+import com.skin.loader.entity.AttrFactory;
+import com.skin.loader.entity.DynamicAttr;
 
 import org.acg12.R;
 import org.acg12.config.Config;
@@ -11,6 +15,9 @@ import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.views.MainView;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends PresenterActivityImpl<MainView> implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -20,6 +27,9 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
         Config.navigationEventBus().register(this);
+        List<DynamicAttr> mDynamicAttr = new ArrayList<DynamicAttr>();
+        mDynamicAttr.add(new DynamicAttr(AttrFactory.NAVIGATIONVIEW, R.color.theme_primary));
+        dynamicAddView(mView.getNavigationView(), mDynamicAttr);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -31,6 +41,9 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
     public boolean onNavigationItemSelected(MenuItem item) {
         mView.closeDrawers();
         switch (item.getItemId()){
+            case R.id.nav_home:
+                mView.onTabSelect(0);
+                break;
             case R.id.nav_star:
                 startAnimActivity(CollectActivity.class);
                 break;
@@ -41,7 +54,8 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
                 startAnimActivity(RecordActivity.class);
                 break;
             case R.id.nav_color_lens:
-                startAnimActivity(SkinActivity.class);
+                //startAnimActivity(SkinActivity.class);
+                mView.onTabSelect(1);
                 break;
             case R.id.nav_settings:
                 startAnimActivity(SettingActivity.class);
@@ -52,14 +66,16 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
 
     @Override
     public void onBackPressed() {
-        if (firstTime + 2000 > System.currentTimeMillis()) {
-//            super.onBackPressed();
-            //System.exit(0);
-            finish();
+        if(mView.getDrawerLayout().isDrawerVisible(GravityCompat.START)){
+            mView.toggleDrawer();
         } else {
-            ShowToast(R.string.double_click_logout);
+            if (firstTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+            } else {
+                ShowToast(R.string.double_click_logout);
+            }
+            firstTime = System.currentTimeMillis();
         }
-        firstTime = System.currentTimeMillis();
     }
 
     @Override
