@@ -8,14 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.skin.loader.listener.ILoaderListener;
-import com.skin.loader.loader.SkinManager;
-import com.skin.loader.utils.L;
 
 import org.acg12.R;
 import org.acg12.bean.Skin;
+import org.acg12.listener.ILoaderListener;
 import org.acg12.ui.adapter.base.SkinLoaderViewHolder;
 import org.acg12.utlis.CacheUtils;
+import org.acg12.utlis.Toastor;
+import org.acg12.utlis.skin.SkinManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -105,18 +105,17 @@ public class SkinLoaderAdapter extends RecyclerView.Adapter<SkinLoaderViewHolder
         SkinManager.getInstance().load(skin.getAbsolutePath(), new ILoaderListener() {
             @Override
             public void onStart() {
-                L.e("startloadSkin");
             }
 
             @Override
             public void onSuccess() {
-                L.e("loadSkinSuccess");
+                Toastor.ShowToast("切换成功");
                 notifyDataSetChanged();
             }
 
             @Override
             public void onFailed() {
-                L.e("loadSkinFail");
+                Toastor.ShowToast("切换失败 /(ㄒoㄒ)/~~");
             }
         });
     }

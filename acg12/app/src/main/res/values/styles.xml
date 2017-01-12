@@ -3,8 +3,14 @@
     <style name="Theme.MaterialSheetFab.Base" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/theme_primary</item>
         <item name="colorAccent">@color/theme_accent</item>
-        <!--<item name="android:textColorPrimary">@color/white</item>-->
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AnimFade" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_to_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_to_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_from_left</item>
     </style>
 
     <style name="Theme.MaterialSheetFab" parent="Theme.MaterialSheetFab.Base">
@@ -14,11 +20,9 @@
         <item name="android:windowAnimationStyle">@style/AnimFade</item>
     </style>
 
-    <style name="AnimFade" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/slide_in_from_right</item>
-        <item name="android:activityOpenExitAnimation">@anim/slide_out_to_left</item>
-        <item name="android:activityCloseExitAnimation">@anim/slide_out_to_right</item>
-        <item name="android:activityCloseEnterAnimation">@anim/slide_in_from_left</item>
+    <style name="Theme.MaterialSheetFab.DragPhoto" parent="Theme.MaterialSheetFab.Base">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
 

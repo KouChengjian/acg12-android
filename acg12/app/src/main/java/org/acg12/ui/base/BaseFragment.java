@@ -10,12 +10,12 @@ import android.util.Log;
 import android.view.View;
 
 
-import com.skin.loader.entity.DynamicAttr;
-import com.skin.loader.listener.IDynamicNewView;
 
 import org.acg12.db.DaoBaseImpl;
+import org.acg12.listener.IDynamicNewView;
 import org.acg12.utlis.Toastor;
 import org.acg12.utlis.ViewUtil;
+import org.acg12.utlis.skin.entity.DynamicAttr;
 
 import java.util.List;
 

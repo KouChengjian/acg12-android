@@ -12,7 +12,7 @@ import org.acg12.config.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.ui.activity.BangumiPreviewActivity;
+import org.acg12.ui.activity.PreviewBangumiActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.views.TabBangumiView;
 import org.acg12.widget.IRecycleView;
@@ -35,7 +35,7 @@ public class TabBangumiFragment extends PresenterFragmentImpl<TabBangumiView> im
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
         Bundle bundle = new Bundle();
         bundle.putString("bangumiId" , mView.getBangumiId(position));
-        startAnimActivity(BangumiPreviewActivity.class , bundle);
+        startAnimActivity(PreviewBangumiActivity.class , bundle);
     }
 
     @Override

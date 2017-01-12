@@ -36,10 +36,10 @@
             android:name=".ui.activity.PalettePreviewActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
-            android:name=".ui.activity.AlbumPreviewActivity"
-            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+            android:name=".ui.activity.PreviewAlbumActivity"
+            android:theme="@style/Theme.MaterialSheetFab.DragPhoto" />
         <activity
-            android:name=".ui.activity.BangumiPreviewActivity"
+            android:name=".ui.activity.PreviewBangumiActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
 
         <activity android:name=".ui.activity.SkinActivity"

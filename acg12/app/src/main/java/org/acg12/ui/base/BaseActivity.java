@@ -12,19 +12,19 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.skin.loader.entity.DynamicAttr;
-import com.skin.loader.listener.IDynamicNewView;
-import com.skin.loader.listener.ISkinUpdate;
-import com.skin.loader.loader.SkinInflaterFactory;
-import com.skin.loader.loader.SkinManager;
 
 import org.acg12.config.Constant;
 import org.acg12.db.DaoBaseImpl;
+import org.acg12.listener.IDynamicNewView;
+import org.acg12.listener.ISkinUpdate;
 import org.acg12.utlis.ActivityTack;
 import org.acg12.utlis.SystemBarUtlis;
 import org.acg12.utlis.Toastor;
 import org.acg12.utlis.ViewServer;
 import org.acg12.utlis.ViewUtil;
+import org.acg12.utlis.skin.SkinInflaterFactory;
+import org.acg12.utlis.skin.SkinManager;
+import org.acg12.utlis.skin.entity.DynamicAttr;
 
 import java.util.List;
 

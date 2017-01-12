@@ -3,13 +3,12 @@ package org.acg12.ui.activity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.skin.loader.entity.AttrFactory;
-import com.skin.loader.entity.DynamicAttr;
-import com.skin.loader.loader.SkinManager;
 
 import org.acg12.R;
 import org.acg12.config.Constant;
 import org.acg12.ui.base.PresenterActivityImpl;
+import org.acg12.utlis.skin.entity.AttrFactory;
+import org.acg12.utlis.skin.entity.DynamicAttr;
 import org.acg12.views.SearchView;
 
 import java.util.ArrayList;

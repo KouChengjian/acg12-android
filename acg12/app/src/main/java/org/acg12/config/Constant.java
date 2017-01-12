@@ -14,7 +14,7 @@ public class Constant {
 	public static final int LIMIT_PAGER = 20;
 
 	// url常量
-	public static final String URL = Constant.debug ? "http://192.168.1.101:8080/acg12-api/" : "http://139.196.46.40:8080/api/" ;
+	public static final String URL = Constant.debug ? "http://192.168.1.102:8080/acg12-api/" : "http://139.196.46.40:8080/api/" ;
 
 	// 申请权限
 	public static final int PERMISSION_CAMERE = 301;

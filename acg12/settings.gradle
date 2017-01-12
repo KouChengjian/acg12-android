@@ -1,1 +1,1 @@
-include ':app', ':videoplayer', ':skinloader'
+include ':app', ':videoplayer'

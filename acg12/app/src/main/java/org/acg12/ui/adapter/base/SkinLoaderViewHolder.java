@@ -6,11 +6,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.skin.loader.loader.SkinManager;
 
 import org.acg12.R;
 import org.acg12.bean.Skin;
 import org.acg12.utlis.ViewUtil;
+import org.acg12.utlis.skin.SkinManager;
 
 /**
  * Created by DELL on 2016/12/29.

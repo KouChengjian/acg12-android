@@ -27,7 +27,7 @@ import butterknife.BindView;
 /**
  * Created by DELL on 2016/12/28.
  */
-public class BangumiPreviewView extends ViewImpl {
+public class PreviewBangumiView extends ViewImpl {
 
     @BindView(R.id.bangumi_swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -62,7 +62,7 @@ public class BangumiPreviewView extends ViewImpl {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_bangumi_preview;
+        return R.layout.activity_preview_bangumi;
     }
 
     @Override

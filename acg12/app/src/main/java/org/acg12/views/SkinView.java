@@ -3,20 +3,14 @@ package org.acg12.views;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.ViewStub;
-
-import com.skin.loader.loader.SkinManager;
 
 import org.acg12.R;
 import org.acg12.bean.Skin;
-import org.acg12.listener.ItemClickSupport;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.adapter.SkinLoaderAdapter;
 import org.acg12.ui.base.PresenterHelper;
 import org.acg12.widget.IRecycleView;
-
-import java.io.File;
 
 import butterknife.BindView;
 

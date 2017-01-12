@@ -6,12 +6,12 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.view.MenuItem;
 
-import com.skin.loader.entity.AttrFactory;
-import com.skin.loader.entity.DynamicAttr;
 
 import org.acg12.R;
 import org.acg12.config.Config;
 import org.acg12.ui.base.PresenterActivityImpl;
+import org.acg12.utlis.skin.entity.AttrFactory;
+import org.acg12.utlis.skin.entity.DynamicAttr;
 import org.acg12.views.MainView;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

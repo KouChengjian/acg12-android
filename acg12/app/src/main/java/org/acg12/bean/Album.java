@@ -21,9 +21,6 @@ public class Album extends Param {
 	private Integer resWidth; // 资源宽度
 	private Integer resHight; // 资源高度
 	private String imageUrl;
-	private ArrayList<String> urlList; // URL
-
-//	private ImageView transitionView; // 转场动画
 
 	public String getContent() {
 		return content;
@@ -73,13 +70,13 @@ public class Album extends Param {
 		this.resHight = resHight;
 	}
 
-	public ArrayList<String> getUrlList() {
-		return urlList;
-	}
-
-	public void setUrlList(ArrayList<String> urlList) {
-		this.urlList = urlList;
-	}
+//	public ArrayList<String> getUrlList() {
+//		return urlList;
+//	}
+//
+//	public void setUrlList(ArrayList<String> urlList) {
+//		this.urlList = urlList;
+//	}
 
 	public String getPinId() {
 		return pinId;
@@ -96,4 +93,6 @@ public class Album extends Param {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+
+
 }

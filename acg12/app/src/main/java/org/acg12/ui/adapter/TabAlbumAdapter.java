@@ -59,7 +59,6 @@ public class TabAlbumAdapter extends RecyclerView.Adapter<TabAlbumViewHolder>{
 
     @Override
     public void onBindViewHolder(TabAlbumViewHolder holder, int position) {
-        holder.bindData(mContext,mList.get(position));
-
+        holder.bindData(mContext,mList,position);
     }
 }

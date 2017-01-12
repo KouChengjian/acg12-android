@@ -10,11 +10,11 @@ import android.view.Window;
 import android.view.WindowManager;
 
 
-import com.skin.loader.loader.SkinManager;
 
 import org.acg12.R;
 
 import org.acg12.utlis.SystemBarTintManager;
+import org.acg12.utlis.skin.SkinManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

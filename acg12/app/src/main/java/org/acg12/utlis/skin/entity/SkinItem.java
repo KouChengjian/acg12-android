@@ -2,7 +2,6 @@ package org.acg12.utlis.skin.entity;
 
 import android.view.View;
 
-import com.skin.loader.utils.ListUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class SkinItem {
     }
 
     public void apply(){
-        if(ListUtils.isEmpty(attrs)){
+        if(attrs == null || attrs.size() == 0){
             return;
         }
         for(SkinAttr at : attrs){
@@ -29,7 +28,7 @@ public class SkinItem {
     }
 
     public void clean(){
-        if(ListUtils.isEmpty(attrs)){
+        if(attrs == null || attrs.size() == 0){
             return;
         }
         for(SkinAttr at : attrs){

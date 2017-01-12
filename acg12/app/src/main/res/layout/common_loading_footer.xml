@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#ffffff"
+        android:background="@color/background"
         android:gravity="center"
         android:paddingBottom="8dip"
         android:paddingTop="5dip">
