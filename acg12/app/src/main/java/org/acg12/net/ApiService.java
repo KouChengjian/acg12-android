@@ -1,19 +1,9 @@
 package org.acg12.net;
 
 
-import org.acg12.bean.User;
-import org.acg12.net.converter.LoginConverter;
-import org.acg12.net.converter.UserInfoConverter;
-import org.acg12.net.factory.ApiConverter;
-
 import okhttp3.ResponseBody;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 import rx.Observable;
 
 /**

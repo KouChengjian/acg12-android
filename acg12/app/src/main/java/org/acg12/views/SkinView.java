@@ -19,7 +19,6 @@ import butterknife.BindView;
  */
 public class SkinView extends ViewImpl {
 
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.mRecyclerView)
@@ -63,6 +62,7 @@ public class SkinView extends ViewImpl {
     public void bindData(){
         skinLoaderAdapter.add(new Skin(0xff3998e1 , "胖次蓝" , "default"));
         skinLoaderAdapter.add(new Skin(0xfffb7299 , "少女粉" , "skin_pink.skin"));
+        skinLoaderAdapter.add(new Skin(0xfff44336 , "姨妈红" , "skin_red.skin"));
         skinLoaderAdapter.notifyDataSetChanged();
 
     }
