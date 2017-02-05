@@ -1,12 +1,6 @@
 package org.acg12.bean;
 
-import android.widget.ImageView;
-
 import com.litesuits.orm.db.annotation.Table;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-
 
 @Table("album")
 public class Album extends Param {
@@ -14,12 +8,12 @@ public class Album extends Param {
 	private static final long serialVersionUID = -7180816291844644837L;
 
 	private String pinId = "";
-	private String content; // 内容
-	private Integer love; // 喜欢的个数  点赞
-	private Integer favorites;// 收藏的个数 采集
-	private String resType; // 资源类型
-	private Integer resWidth; // 资源宽度
-	private Integer resHight; // 资源高度
+	private String content;    // 内容
+	private Integer love;      // 喜欢的个数 点赞
+	private Integer favorites; // 收藏的个数 采集
+	private String resType;    // 资源类型
+	private Integer resWidth;  // 资源宽度
+	private Integer resHight;  // 资源高度
 	private String imageUrl;
 
 	public String getContent() {
