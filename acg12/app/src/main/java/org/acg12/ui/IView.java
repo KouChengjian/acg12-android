@@ -11,11 +11,8 @@ import android.view.ViewGroup;
 public interface IView {
     /**
      * 根据 getLayoutId 方法生成生成setContentView需要的根布局
-     * @param inflater
-     * @param container
-     * @return
      */
-    View create(LayoutInflater inflater, ViewGroup container);
+    View create(LayoutInflater inflater , ViewGroup container);
 
     /**
      * 当Activity的onCreate完毕后调用
@@ -24,21 +21,16 @@ public interface IView {
 
     /**
      * 返回当前视图需要的layout的id
-     * @return
      */
     int getLayoutId();
 
     /**
      * 根据id获取view
-     * @param id
-     * @param <V>
-     * @return
      */
     <V extends View> V findViewById(int id);
 
     /**
      * 绑定Presenter
-     * @param presenter
      */
     void bindPresenter(IPresenter presenter);
 
@@ -48,4 +40,6 @@ public interface IView {
      * 方法并且让你的Presenter实现相应接口。
      */
     void bindEvent();
+
+//    void destroy();
 }

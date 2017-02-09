@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by DELL on 2017/1/16.
  */
-public interface SkinLoaderListener {
+public interface ISkinLoaderListener {
 
     interface ISkinUpdate {
         void onThemeUpdate();
@@ -23,9 +23,9 @@ public interface SkinLoaderListener {
     }
 
     interface ILoaderListener {
-        public void onStart();
-        public void onSuccess();
-        public void onFailed();
+        void onStart();
+        void onSuccess();
+        void onFailed();
     }
 
     interface IDynamicNewView {

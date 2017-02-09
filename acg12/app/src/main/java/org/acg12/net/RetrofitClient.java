@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
-import org.acg12.bean.User;
+import org.acg12.bean.test;
 import org.acg12.config.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.net.factory.ApiConverterFactory;
@@ -65,7 +65,7 @@ public class RetrofitClient {
 //        });
     }
 
-    public static Request.Builder requestBuilder(User user){
+    public static Request.Builder requestBuilder(test user){
         return new Request.Builder()
                 .addHeader("p", user.getP())
                 .addHeader("s", user.getS())

@@ -5,9 +5,8 @@ import android.content.Context;
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.DataBase;
 
-import org.acg12.bean.User;
+import org.acg12.bean.test;
 import org.acg12.config.Constant;
-import org.acg12.db.DaoBase;
 
 import java.util.ArrayList;
 
@@ -33,13 +32,13 @@ public class DaoBaseImpl implements DaoBase {
     }
 
     @Override
-    public long saveUser(User user) {
+    public long saveUser(test user) {
         return mDataBase.save(user);
     }
 
     @Override
-    public User getCurrentUser() {
-        ArrayList<User> query = mDataBase.query(User.class);
+    public test getCurrentUser() {
+        ArrayList<test> query = mDataBase.query(test.class);
         if (query == null || query.isEmpty() || query.size() != 1) {
             return null;
         } else {
@@ -49,7 +48,7 @@ public class DaoBaseImpl implements DaoBase {
 
     @Override
     public long delTabUser(){
-        return mDataBase.deleteAll(User.class);
+        return mDataBase.deleteAll(test.class);
     }
 
 
