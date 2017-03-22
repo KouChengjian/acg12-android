@@ -196,6 +196,16 @@ public class RetrofitClient {
         return null;
     }
 
+    public static JSONObject getJSONObject(JSONObject json ,String key){
+        JSONObject array = null;
+        try {
+            array = json.getJSONObject(key);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
     public static String parseString(ResponseBody response) {
         String data = null;
         try {
@@ -233,11 +243,10 @@ public class RetrofitClient {
             String result = response.string();
             Log.e("success",result+"");
             JSONObject json = new JSONObject(result);
-            String code = json.getString("result");
+            int code = json.getInt("result");
             String desc = json.getString("desc");
-            if (code.equals(ApiErrorCode.HTTP_RESPONSE_SUCCEED+"")) {
-                String str = json.getString("data");
-                data = new JSONObject(str);
+            if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
+                data = json.getJSONObject("data");
             }else{
                 throw new ApiException(Integer.valueOf(code).intValue() , desc);
             }
@@ -308,6 +317,16 @@ public class RetrofitClient {
         JSONObject array = null;
         try {
             array = new JSONObject(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
+    public static JSONArray transformJSONObjectToJSONArray(JSONObject data , String key){
+        JSONArray array = null;
+        try {
+            array = data.getJSONArray(key);
         } catch (JSONException e) {
             e.printStackTrace();
         }

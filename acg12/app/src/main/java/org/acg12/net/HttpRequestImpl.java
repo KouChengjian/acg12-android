@@ -45,9 +45,9 @@ public class HttpRequestImpl implements HttpRequest {
                     @Override
                     public void call(ResponseBody response) {
                         List<Album> list = new ArrayList<Album>();
-                        String data = RetrofitClient.parseString(response);
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array =RetrofitClient.transformStringToJSONArray(data);
+                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "album");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Album album = new Album();
@@ -84,9 +84,9 @@ public class HttpRequestImpl implements HttpRequest {
                     @Override
                     public void call(ResponseBody response) {
                         List<Palette> list = new ArrayList<Palette>();
-                        String data = RetrofitClient.parseString(response);
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array =RetrofitClient.transformStringToJSONArray(data);
+                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "palette");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Palette palette = new Palette();
@@ -122,9 +122,9 @@ public class HttpRequestImpl implements HttpRequest {
                     @Override
                     public void call(ResponseBody response) {
                         List<Video> list = new ArrayList<Video>();
-                        String data = RetrofitClient.parseString(response);
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array =RetrofitClient.transformStringToJSONArray(data);
+                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "video");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Video video = new Video();
@@ -164,9 +164,9 @@ public class HttpRequestImpl implements HttpRequest {
                     @Override
                     public void call(ResponseBody response) {
                         List<Video> list = new ArrayList<Video>();
-                        String data = RetrofitClient.parseString(response);
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array =RetrofitClient.transformStringToJSONArray(data);
+                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "video");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Video video = new Video();
@@ -202,9 +202,9 @@ public class HttpRequestImpl implements HttpRequest {
                     @Override
                     public void call(ResponseBody response) {
                         List<Album> list = new ArrayList<Album>();
-                        String data = RetrofitClient.parseString(response);
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array =RetrofitClient.transformStringToJSONArray(data);
+                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "album");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Album album = new Album();
@@ -240,10 +240,10 @@ public class HttpRequestImpl implements HttpRequest {
                 .subscribe(new Action1<ResponseBody>() {
                     @Override
                     public void call(ResponseBody response) {
-                        String data = RetrofitClient.parseString(response);
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
                             Video video = new Video();
-                            JSONObject json = RetrofitClient.transformStringToJSONObject(data);
+                            JSONObject json = RetrofitClient.getJSONObject(data , "video");
                             video.setTitle(RetrofitClient.getString(json,"title"));
                             video.setSbutitle(RetrofitClient.getString(json,"sbutitle"));
                             video.setDescription(RetrofitClient.getString(json,"description"));
