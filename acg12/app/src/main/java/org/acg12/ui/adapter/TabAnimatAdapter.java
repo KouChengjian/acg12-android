@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
+
 import org.acg12.R;
 import org.acg12.bean.Home;
 import org.acg12.bean.Video;
@@ -22,6 +24,7 @@ public class TabAnimatAdapter extends RecyclerView.Adapter<TabAnimatViewHolder> 
     private Context mContext;
     private List<Video> mList;
     private final LayoutInflater mInflater;
+    private ListVideoUtil listVideoUtil;
 
     public TabAnimatAdapter(Context mContext){
         this(mContext , new ArrayList<Video>());
@@ -57,11 +60,21 @@ public class TabAnimatAdapter extends RecyclerView.Adapter<TabAnimatViewHolder> 
     @Override
     public TabAnimatViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_tab_animat, parent, false);
-        return new TabAnimatViewHolder(view);
+        return new TabAnimatViewHolder(mContext,view);
     }
 
     @Override
     public void onBindViewHolder(TabAnimatViewHolder holder, int position) {
-        holder.bindData(mContext ,mList.get(position));
+        holder.setListVideoUtil(listVideoUtil);
+        holder.setRecyclerBaseAdapter(this);
+        holder.bindData(mContext ,mList.get(position) ,position);
+    }
+
+    public ListVideoUtil getListVideoUtil() {
+        return listVideoUtil;
+    }
+
+    public void setListVideoUtil(ListVideoUtil listVideoUtil) {
+        this.listVideoUtil = listVideoUtil;
     }
 }

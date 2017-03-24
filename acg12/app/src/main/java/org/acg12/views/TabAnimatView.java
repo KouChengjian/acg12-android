@@ -1,19 +1,28 @@
 package org.acg12.views;
 
+import android.graphics.Point;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.shuyu.gsyvideoplayer.utils.CommonUtil;
+import com.shuyu.gsyvideoplayer.utils.Debuger;
+import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 
 import org.acg12.R;
 import org.acg12.bean.Album;
 import org.acg12.bean.Video;
 import org.acg12.listener.ItemClickSupport;
+import org.acg12.listener.SampleListener;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.adapter.HomeAdapter;
 import org.acg12.ui.adapter.TabAnimatAdapter;
+import org.acg12.ui.adapter.base.TabAnimatViewHolder;
 import org.acg12.utlis.PixelUtil;
 import org.acg12.utlis.ViewUtil;
 import org.acg12.widget.IRecycleView;
@@ -27,6 +36,8 @@ import butterknife.BindView;
  */
 public class TabAnimatView extends ViewImpl {
 
+    @BindView(R.id.video_full_container)
+    FrameLayout videoFullContainer;
     @BindView(R.id.mRecyclerView)
     IRecycleView mRecyclerView;
     @BindView(R.id.mSwipeRefreshLayout)
@@ -37,6 +48,10 @@ public class TabAnimatView extends ViewImpl {
     TextView loadNullTextview;
 
     TabAnimatAdapter tabAnimatAdapter;
+    ListVideoUtil listVideoUtil;
+    LinearLayoutManager layoutManager;
+    int lastVisibleItem;
+    int firstVisibleItem;
 
     @Override
     public int getLayoutId() {
@@ -47,7 +62,7 @@ public class TabAnimatView extends ViewImpl {
     public void created() {
         super.created();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setLoadingMoreEnabled(true);
@@ -58,6 +73,11 @@ public class TabAnimatView extends ViewImpl {
         mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_primary);
         mSwipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(50), PixelUtil.dp2px(24));
         mSwipeRefreshLayout.setRefreshing(true);
+
+        listVideoUtil = new ListVideoUtil(getContext());
+        listVideoUtil.setFullViewContainer(videoFullContainer);
+        listVideoUtil.setHideStatusBar(true);
+        tabAnimatAdapter.setListVideoUtil(listVideoUtil);
     }
 
     @Override
@@ -65,7 +85,8 @@ public class TabAnimatView extends ViewImpl {
         super.bindEvent();
         mSwipeRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
         mRecyclerView.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
-        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
+        //ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
+        setRecyclerViewListener();
     }
 
     public void bindData(List<Video> result , boolean refresh){
@@ -114,5 +135,72 @@ public class TabAnimatView extends ViewImpl {
                 loadNullImageview.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    public ListVideoUtil getListVideoUtil(){
+        return listVideoUtil;
+    }
+
+    public void setRecyclerViewListener(){
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                firstVisibleItem   = layoutManager.findFirstVisibleItemPosition();
+                lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+                Debuger.printfLog("firstVisibleItem " + firstVisibleItem +" lastVisibleItem " + lastVisibleItem);
+                //大于0说明有播放,//对应的播放列表TAG
+                if (listVideoUtil.getPlayPosition() >= 0 && listVideoUtil.getPlayTAG().equals(TabAnimatViewHolder.TAG)) {
+                    //当前播放的位置
+                    int position = listVideoUtil.getPlayPosition();
+                    //不可视的是时候
+                    if ((position < firstVisibleItem || position > lastVisibleItem)) {
+                        //如果是小窗口就不需要处理
+                        if (!listVideoUtil.isSmall() && !listVideoUtil.isFull()) {
+                            //小窗口
+                            int size = CommonUtil.dip2px(getContext(), 150);
+                            //actionbar为true才不会掉下面去
+                            listVideoUtil.showSmallVideo(new Point(size, size), true, true);
+                        }
+                    } else {
+                        if (listVideoUtil.isSmall()) {
+                            listVideoUtil.smallVideoToNormal();
+                        }
+                    }
+                }
+            }
+        });
+
+        //小窗口关闭被点击的时候回调处理回复页面
+        listVideoUtil.setVideoAllCallBack(new SampleListener() {
+            @Override
+            public void onPrepared(String url, Object... objects) {
+                super.onPrepared(url, objects);
+                Debuger.printfLog("Duration " + listVideoUtil.getDuration() + " CurrentPosition " + listVideoUtil.getCurrentPositionWhenPlaying());
+            }
+
+            @Override
+            public void onQuitSmallWidget(String url, Object... objects) {
+                super.onQuitSmallWidget(url, objects);
+                //大于0说明有播放,//对应的播放列表TAG
+                if (listVideoUtil.getPlayPosition() >= 0 && listVideoUtil.getPlayTAG().equals("TT2")) {
+                    //当前播放的位置
+                    int position = listVideoUtil.getPlayPosition();
+                    //不可视的是时候
+                    if ((position < firstVisibleItem || position > lastVisibleItem)) {
+                        //释放掉视频
+                        listVideoUtil.releaseVideoPlayer();
+                        tabAnimatAdapter.notifyDataSetChanged();
+                    }
+                }
+
+            }
+        });
+
     }
 }

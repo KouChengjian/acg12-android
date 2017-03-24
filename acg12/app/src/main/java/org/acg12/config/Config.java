@@ -3,6 +3,8 @@ package org.acg12.config;
 
 import android.content.Context;
 
+import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
+
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -11,6 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 public class Config {
 
     Context mContext ;
+    ListVideoUtil listVideoUtil;
     static EventBus eventbusNavigation;
 
     static {
@@ -19,6 +22,9 @@ public class Config {
 
     public Config(Context mContext){
         this.mContext = mContext;
+        listVideoUtil = new ListVideoUtil(mContext);
+        //listVideoUtil.setFullViewContainer(videoFullContainer);
+        listVideoUtil.setHideStatusBar(true);
     }
 
     public static EventBus navigationEventBus(){

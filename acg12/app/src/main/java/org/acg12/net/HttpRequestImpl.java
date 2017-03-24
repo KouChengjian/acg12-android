@@ -317,6 +317,155 @@ public class HttpRequestImpl implements HttpRequest {
         return null;
     }
 
+    @Override
+    public Subscription searchAlbum(String key , String page,final HttpRequestListener<List<Album>> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with().searchAlbum(key,page)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        List<Album> list = new ArrayList<Album>();
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if(data != null){
+                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "album");
+                            for(int i = 0 , num = array.length(); i < num ; i++){
+                                JSONObject item = RetrofitClient.getJSONObject(array , i);
+                                Album album = new Album();
+                                album.setPinId(RetrofitClient.getString(item ,"pinId"));
+                                album.setContent(RetrofitClient.getString(item ,"content"));
+                                album.setResWidth(RetrofitClient.getInt(item ,"resWidth"));
+                                album.setResHight(RetrofitClient.getInt(item ,"resHight"));
+                                album.setLove(RetrofitClient.getInt(item ,"love"));
+                                album.setFavorites(RetrofitClient.getInt(item ,"favorites"));
+                                JSONArray urls = RetrofitClient.getJSONArray(item ,"urlList");
+                                if(urls != null){
+                                    album.setImageUrl(RetrofitClient.getString(urls , 0));
+                                }
+                                list.add(album);
+                            }
+                            httpRequestListener.onSuccess(list);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription searchPalette(String key , String page,final HttpRequestListener<List<Palette>> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with().searchPalette(key,page)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        List<Palette> list = new ArrayList<Palette>();
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if(data != null){
+                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "palette");
+                            for(int i = 0 , num = array.length(); i < num ; i++){
+                                JSONObject item = RetrofitClient.getJSONObject(array , i);
+                                Palette palette = new Palette();
+                                palette.setBoardId(RetrofitClient.getString(item ,"boardId"));
+                                palette.setName(RetrofitClient.getString(item ,"name"));
+                                palette.setNum(RetrofitClient.getInt(item ,"num"));
+                                JSONArray urls = RetrofitClient.getJSONArray(item ,"urlAlbum");
+                                ArrayList<String> urlAlbum = new ArrayList<String>();
+                                for(int j = 0 , n = urls.length() ; j < n ; j ++) {
+                                    urlAlbum.add(RetrofitClient.getString(urls , j));
+                                }
+                                palette.setUrlAlbum(urlAlbum);
+                                list.add(palette);
+                            }
+                            httpRequestListener.onSuccess(list);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription searchBangumi(String key , String page, final HttpRequestListener<List<Video>> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with().searchBangumi(key,page)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        List<Video> list = new ArrayList<Video>();
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if(data != null){
+                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "video");
+                            for(int i = 0 , num = array.length(); i < num ; i++){
+                                JSONObject item = RetrofitClient.getJSONObject(array , i);
+                                Video video = new Video();
+                                video.setTitle(RetrofitClient.getString(item ,"title"));
+                                video.setPic(RetrofitClient.getString(item ,"pic"));
+                                video.setUpdateContent(RetrofitClient.getString(item ,"updateContent"));
+                                //video.setUrlInfo(RetrofitClient.getString(item ,"urlInfo"));
+                                video.setBmId(RetrofitClient.getString(item,"urlInfo").split("/anime/")[1]);
+                                list.add(video);
+                            }
+                            httpRequestListener.onSuccess(list);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription searchVideo(String key , String page,final HttpRequestListener<List<Video>> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with().searchVideo(key,page)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        List<Video> list = new ArrayList<Video>();
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if(data != null){
+                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "video");
+                            for(int i = 0 , num = array.length(); i < num ; i++){
+                                JSONObject item = RetrofitClient.getJSONObject(array , i);
+                                Video video = new Video();
+                                video.setAid(RetrofitClient.getString(item ,"aid"));
+                                video.setTitle(RetrofitClient.getString(item ,"title"));
+                                video.setPlay(RetrofitClient.getString(item ,"play"));
+                                video.setVideoReview(RetrofitClient.getString(item ,"videoReview"));
+                                video.setFavorites(RetrofitClient.getString(item ,"favorites"));
+                                video.setAuthor(RetrofitClient.getString(item ,"author"));
+                                video.setDescription(RetrofitClient.getString(item ,"description"));
+                                video.setCreate(RetrofitClient.getString(item ,"create"));
+                                video.setPic(RetrofitClient.getString(item ,"pic").replace("_320x200.jpg" , ""));
+                                list.add(video);
+                            }
+                            httpRequestListener.onSuccess(list);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
 //    @Override
 //    public void updateToken(final User user, HttpRequestListener<User> httpRequestListener) {
 //

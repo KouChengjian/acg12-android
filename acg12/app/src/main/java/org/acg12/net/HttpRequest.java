@@ -29,6 +29,14 @@ public interface HttpRequest {
 
     Subscription playVideo(String av ,HttpRequestListener<Video> httpRequestListener);
 
+    Subscription searchAlbum(String key , String page,HttpRequestListener<List<Album>> httpRequestListener);
+
+    Subscription searchPalette(String key , String page,HttpRequestListener<List<Palette>> httpRequestListener);
+
+    Subscription searchBangumi(String key , String page ,HttpRequestListener<List<Video>> httpRequestListener);
+
+    Subscription searchVideo(String key , String page , HttpRequestListener<List<Video>> httpRequestListener);
+
 //    void updateToken(User user, HttpRequestListener<User> httpRequestListener);
 //
 //    Subscription login(User user, HttpRequestListener<User> httpRequestListener);

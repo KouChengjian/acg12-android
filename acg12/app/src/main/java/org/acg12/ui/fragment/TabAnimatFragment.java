@@ -1,5 +1,6 @@
 package org.acg12.ui.fragment;
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -7,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import org.acg12.bean.Album;
+
+import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
+
 import org.acg12.bean.Video;
 import org.acg12.config.Constant;
 import org.acg12.listener.HttpRequestListener;
@@ -21,7 +24,7 @@ import org.acg12.widget.IRecycleView;
 import java.util.List;
 
 public class TabAnimatFragment extends PresenterFragmentImpl<TabAnimatView> implements IRecycleView.LoadingListener ,
-        SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener{
+        SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener {
 
     int type = 0;
     int page = 1;
@@ -88,4 +91,14 @@ public class TabAnimatFragment extends PresenterFragmentImpl<TabAnimatView> impl
             }
         });
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mView.getListVideoUtil().releaseVideoPlayer();
+        GSYVideoPlayer.releaseAllVideos();
+    }
+
+
 }

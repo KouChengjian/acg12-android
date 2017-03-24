@@ -37,7 +37,7 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         // if this is NOT enable to be skined , simplly skip it
-        Log.e("onCreateView","onCreateView = " +name);
+        //Log.e("onCreateView","onCreateView = " +name);
         boolean isSkinEnable = attrs.getAttributeBooleanValue(SkinConfig.NAMESPACE, SkinConfig.ATTR_SKIN_ENABLE, false);
         if (!isSkinEnable){
             return null;

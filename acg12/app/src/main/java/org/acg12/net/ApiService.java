@@ -33,6 +33,18 @@ public interface ApiService {
     @GET("res/v/playurl")
     Observable<ResponseBody> playUrl(@Query("action") String action ,@Query("av") String av);
 
+    @GET("res/v/search/album")
+    Observable<ResponseBody> searchAlbum(@Query("key") String key , @Query("page") String page);
+
+    @GET("res/v/search/palette")
+    Observable<ResponseBody> searchPalette(@Query("key") String key , @Query("page") String page);
+
+    @GET("res/v/search/bangunmi")
+    Observable<ResponseBody> searchBangumi(@Query("key") String key , @Query("page") String page);
+
+    @GET("res/v/search/video")
+    Observable<ResponseBody> searchVideo(@Query("key") String key , @Query("page") String page);
+
 
 //    @FormUrlEncoded
 //    @ApiConverter(converter = LoginConverter.class)

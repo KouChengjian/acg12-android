@@ -8,9 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.acg12.R;
+import org.acg12.bean.Palette;
 import org.acg12.bean.Video;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.adapter.TabBangumiAdapter;
+import org.acg12.ui.adapter.TabPaletteAdapter;
 import org.acg12.utlis.PixelUtil;
 import org.acg12.utlis.ViewUtil;
 import org.acg12.widget.IRecycleView;
@@ -33,7 +35,7 @@ public class SearchPaletteView extends ViewImpl {
     ImageView loadNullImageview;
     TextView loadNullTextview;
 
-    TabBangumiAdapter tabBangumiAdapter;
+    TabPaletteAdapter tabPaletteAdapter;
 
     @Override
     public int getLayoutId() {
@@ -45,26 +47,23 @@ public class SearchPaletteView extends ViewImpl {
         super.created();
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setLoadingMoreEnabled(true);
-        tabBangumiAdapter = new TabBangumiAdapter(getContext());
-        mRecyclerView.setAdapter(tabBangumiAdapter);
+        tabPaletteAdapter = new TabPaletteAdapter(getContext());
+        mRecyclerView.setAdapter(tabPaletteAdapter);
 
         mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_primary);
         mSwipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(50), PixelUtil.dp2px(24));
         mSwipeRefreshLayout.setRefreshing(true);
     }
 
-    public void bindData(List<Video> result , boolean refresh){
+    public void bindData(List<Palette> result , boolean refresh){
         if (refresh) {
-            tabBangumiAdapter.setList(result);
+            tabPaletteAdapter.setList(result);
         } else {
-            tabBangumiAdapter.addAll(result);
+            tabPaletteAdapter.addAll(result);
         }
-        tabBangumiAdapter.notifyDataSetChanged();
+        tabPaletteAdapter.notifyDataSetChanged();
     }
 
-    public String getBangumiId(int position){
-        return tabBangumiAdapter.getList().get(position).getBmId();
-    }
 
     public void stopLoading(){
         mRecyclerView.noMoreLoading();
@@ -79,7 +78,7 @@ public class SearchPaletteView extends ViewImpl {
     }
 
     private void loadNull() {
-        List<Video> mlist = tabBangumiAdapter.getList();
+        List<Palette> mlist = tabPaletteAdapter.getList();
         if (mlist != null && !mlist.isEmpty()) {
             if (loadNullImageview != null && loadNullTextview != null) {
                 ViewUtil.setText(loadNullTextview, "");
