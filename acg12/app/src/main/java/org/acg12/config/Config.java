@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 public class Config {
 
     Context mContext ;
-    ListVideoUtil listVideoUtil;
+    static ListVideoUtil listVideoUtil;
     static EventBus eventbusNavigation;
 
     static {
@@ -22,13 +22,22 @@ public class Config {
 
     public Config(Context mContext){
         this.mContext = mContext;
+
+    }
+
+    // init in activity
+    public static void initListVideoUtil(Context mContext){
         listVideoUtil = new ListVideoUtil(mContext);
-        //listVideoUtil.setFullViewContainer(videoFullContainer);
-        listVideoUtil.setHideStatusBar(true);
+        listVideoUtil.setHideActionBar(false);
+        listVideoUtil.setHideStatusBar(false);
     }
 
     public static EventBus navigationEventBus(){
         return eventbusNavigation;
+    }
+
+    public static ListVideoUtil ListVideoUtilInstance(){
+        return listVideoUtil;
     }
 
 }

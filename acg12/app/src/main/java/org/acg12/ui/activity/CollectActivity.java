@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.acg12.R;
+import org.acg12.config.Config;
 import org.acg12.config.Constant;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.views.CollectView;
@@ -15,6 +16,7 @@ public class CollectActivity extends PresenterActivityImpl<CollectView> implemen
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
+        //Config.initListVideoUtil(mContext);
     }
 
     @Override

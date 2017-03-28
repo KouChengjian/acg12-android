@@ -4,6 +4,7 @@ import android.graphics.Point;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
@@ -17,6 +18,7 @@ import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 import org.acg12.R;
 import org.acg12.bean.Album;
 import org.acg12.bean.Video;
+import org.acg12.config.Config;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.listener.SampleListener;
 import org.acg12.ui.ViewImpl;
@@ -74,9 +76,9 @@ public class TabAnimatView extends ViewImpl {
         mSwipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(50), PixelUtil.dp2px(24));
         mSwipeRefreshLayout.setRefreshing(true);
 
-        listVideoUtil = new ListVideoUtil(getContext());
+
+        listVideoUtil = Config.ListVideoUtilInstance();
         listVideoUtil.setFullViewContainer(videoFullContainer);
-        listVideoUtil.setHideStatusBar(true);
         tabAnimatAdapter.setListVideoUtil(listVideoUtil);
     }
 
@@ -154,20 +156,29 @@ public class TabAnimatView extends ViewImpl {
                 firstVisibleItem   = layoutManager.findFirstVisibleItemPosition();
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition();
                 Debuger.printfLog("firstVisibleItem " + firstVisibleItem +" lastVisibleItem " + lastVisibleItem);
+                Log.e("TAG","firstVisibleItem " + firstVisibleItem +" lastVisibleItem " + lastVisibleItem);
                 //大于0说明有播放,//对应的播放列表TAG
                 if (listVideoUtil.getPlayPosition() >= 0 && listVideoUtil.getPlayTAG().equals(TabAnimatViewHolder.TAG)) {
                     //当前播放的位置
                     int position = listVideoUtil.getPlayPosition();
+                    Log.e("TAG","position="+position +"   ======  listVideoUtil.getPlayTAG()= " +
+                            listVideoUtil.getPlayTAG() +"  ==== TabAnimatViewHolder.TAG "  +TabAnimatViewHolder.TAG);
                     //不可视的是时候
+                    Log.e("TAG",position +"====="+ firstVisibleItem);
+                    Log.e("TAG",position +"====="+ lastVisibleItem);
                     if ((position < firstVisibleItem || position > lastVisibleItem)) {
+                        Log.e("TAG","true1");
                         //如果是小窗口就不需要处理
+                        Log.e("TAG",!listVideoUtil.isSmall() +"====="+ !listVideoUtil.isFull());
                         if (!listVideoUtil.isSmall() && !listVideoUtil.isFull()) {
+                            Log.e("TAG","true2");
                             //小窗口
                             int size = CommonUtil.dip2px(getContext(), 150);
                             //actionbar为true才不会掉下面去
-                            listVideoUtil.showSmallVideo(new Point(size, size), true, true);
+                            listVideoUtil.showSmallVideo(new Point(size, size), false, false);
                         }
                     } else {
+                        Log.e("TAG","true3");
                         if (listVideoUtil.isSmall()) {
                             listVideoUtil.smallVideoToNormal();
                         }

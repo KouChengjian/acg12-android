@@ -93,12 +93,4 @@ public class TabAnimatFragment extends PresenterFragmentImpl<TabAnimatView> impl
     }
 
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mView.getListVideoUtil().releaseVideoPlayer();
-        GSYVideoPlayer.releaseAllVideos();
-    }
-
-
 }

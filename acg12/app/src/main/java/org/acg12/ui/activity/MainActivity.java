@@ -7,6 +7,8 @@ import android.support.v4.view.GravityCompat;
 import android.view.MenuItem;
 
 
+import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
+
 import org.acg12.R;
 import org.acg12.config.Config;
 import org.acg12.ui.base.PresenterActivityImpl;
@@ -26,6 +28,7 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
+        Config.initListVideoUtil(this);
         Config.navigationEventBus().register(this);
         List<DynamicAttr> mDynamicAttr = new ArrayList<DynamicAttr>();
         mDynamicAttr.add(new DynamicAttr(AttrFactory.NAVIGATIONVIEW, R.color.theme_primary));
@@ -69,8 +72,11 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
         if(mView.getDrawerLayout().isDrawerVisible(GravityCompat.START)){
             mView.toggleDrawer();
         } else {
+            if (Config.ListVideoUtilInstance().backFromFull()) {
+                return;
+            }
             if (firstTime + 2000 > System.currentTimeMillis()) {
-            super.onBackPressed();
+                super.onBackPressed();
             } else {
                 ShowToast(R.string.double_click_logout);
             }
@@ -82,6 +88,8 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
     protected void onDestroy() {
         super.onDestroy();
         Config.navigationEventBus().unregister(this);
+        Config.ListVideoUtilInstance().releaseVideoPlayer();
+        GSYVideoPlayer.releaseAllVideos();
     }
 
 }

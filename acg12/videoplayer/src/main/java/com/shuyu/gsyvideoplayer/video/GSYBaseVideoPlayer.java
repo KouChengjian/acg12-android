@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -497,15 +498,18 @@ public abstract class GSYBaseVideoPlayer extends FrameLayout implements GSYMedia
             FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(size.x, size.y);
             int marginLeft = CommonUtil.getScreenWidth(mContext) - size.x;
             int marginTop = CommonUtil.getScreenHeight(mContext) - size.y;
-
+//            Log.e("abc","Height = "+CommonUtil.getScreenHeight(mContext) +"=== Width="+CommonUtil.getScreenWidth(mContext));
+//            Log.e("123","marginLeft = "+marginLeft +"=== marginTop="+marginTop);
             if (actionBar) {
                 marginTop = marginTop - getActionBarHeight((Activity) mContext);
+//                Log.e("actionBar","actionBar = "+marginTop );
             }
 
             if (statusBar) {
                 marginTop = marginTop - getStatusBarHeight(mContext);
+//                Log.e("statusBar","statusBar = "+marginTop );
             }
-
+//            Log.e("456","marginLeft = "+marginLeft +"=== marginTop="+marginTop);
             lp.setMargins(marginLeft, marginTop, 0, 0);
             frameLayout.addView(gsyVideoPlayer, lp);
 
