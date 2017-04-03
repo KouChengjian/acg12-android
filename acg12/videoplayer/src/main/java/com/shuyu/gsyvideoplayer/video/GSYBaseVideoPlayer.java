@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.shuyu.gsyvideoplayer.GSYApplication;
 import com.shuyu.gsyvideoplayer.GSYTextureView;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
@@ -152,6 +153,7 @@ public abstract class GSYBaseVideoPlayer extends FrameLayout implements GSYMedia
 
     private ViewGroup getViewGroup() {
         return (ViewGroup) (CommonUtil.scanForActivity(getContext())).findViewById(Window.ID_ANDROID_CONTENT);
+        //return (ViewGroup) GSYApplication.getInstance().getWindow().findViewById(Window.ID_ANDROID_CONTENT);
     }
 
     /**
