@@ -16,7 +16,7 @@ public class CollectActivity extends PresenterActivityImpl<CollectView> implemen
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        //Config.initListVideoUtil(mContext);
+        Config.initListVideoUtil(mContext);
     }
 
     @Override
