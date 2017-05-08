@@ -33,6 +33,7 @@ public class ContactActivity extends BaseSwipeBackActivity implements EventListe
 		setContentView(R.layout.activity_contact);
 		setTitle(R.string.contact);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		initViews();
 	}
 	

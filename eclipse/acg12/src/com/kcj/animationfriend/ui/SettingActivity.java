@@ -75,6 +75,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 		setContentView(R.layout.activity_setting);
 		setTitle(R.string.user_setting);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		initViews();
 		initEvents();
 		initDatas();

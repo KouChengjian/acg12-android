@@ -39,6 +39,7 @@ public class NewFriendActivity extends BaseSwipeBackActivity implements OnItemLo
 		setContentView(R.layout.activity_newfriend);
 		setTitle(R.string.newfriend);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		initViews();
 		initEvent();
 		

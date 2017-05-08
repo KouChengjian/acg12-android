@@ -150,6 +150,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, Event
 		setContentView(R.layout.activity_chat);
 		setTitle(R.string.chat);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		initViews();
 		initEvent();
 		initBroadCast();

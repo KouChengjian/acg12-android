@@ -32,6 +32,7 @@ public class RecentActivity extends BaseSwipeBackActivity implements EventListen
 		setContentView(R.layout.activity_recent);
 		setTitle(R.string.message);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		initViews();
 	}
 	

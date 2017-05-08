@@ -40,6 +40,7 @@ public class BlackListActivity extends BaseActivity implements OnItemClickListen
 		setContentView(R.layout.activity_blacklist);
 		setTitle(R.string.blacklist);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		initViews();
 		initEvent();
 	}

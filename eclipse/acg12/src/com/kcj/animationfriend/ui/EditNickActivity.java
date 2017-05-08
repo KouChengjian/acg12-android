@@ -35,7 +35,7 @@ public class EditNickActivity extends BaseSwipeBackActivity{
 		setContentView(R.layout.activity_editnick);
         setTitle(R.string.user_nick);
 		setSupportActionBar(toolbar);
-		
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		nickInput = (EditText)findViewById(R.id.nick_comment_content);
 		nickCommit = (Button)findViewById(R.id.nick_comment_commit);
 		nickCommit.setOnClickListener(new OnClickListener() {

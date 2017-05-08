@@ -97,6 +97,7 @@ public class UserInfoActivity extends BaseSwipeBackActivity implements OnClickLi
 	public void initViews(){
 		setTitle(R.string.user_info);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	
 	public void initEvents(){

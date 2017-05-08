@@ -80,7 +80,7 @@ public class VideoFindInfoActivity extends BaseActivity implements ScrollTabHold
 		super.initViews();
 		setTitle(R.string.bankun_info);
 		setSupportActionBar(toolbar);
-		
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		header = mInflater.inflate(R.layout.include_video_info_2, null);
 		iv_video_icon = (ImageView)header.findViewById(R.id.iv_video_icon);
 		tv_video_title = (TextView)header.findViewById(R.id.tv_video_title);

@@ -128,6 +128,7 @@ public class AlbumPvwActivity extends BaseSwipeBackActivity implements OnClickLi
 	public void initViews(){
 		setTitle(R.string.home_album);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		dialog = new LoadingDialog(mContext);
 		drawableP = getResources().getDrawable(R.drawable.icon_love_p);
 		drawableP.setBounds(1, 1, 30, 30);

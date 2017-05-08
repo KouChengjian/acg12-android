@@ -69,6 +69,7 @@ public class VideoHomeInfoActivity extends BaseActivity implements ScrollTabHold
 		video = (Video) getIntent().getSerializableExtra("videoItemdata");
 		setTitle(R.string.video_info);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		initViews();
 		initEvent();
 		initDatas();

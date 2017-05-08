@@ -71,6 +71,7 @@ public class PersonInfoActivity extends BaseSwipeBackActivity implements OnClick
 		setContentView(R.layout.activity_person);
 		setTitle(R.string.personinfo);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		user = (User)getIntent().getSerializableExtra("data");
 		type = getIntent().getStringExtra("from");
 		initViews();

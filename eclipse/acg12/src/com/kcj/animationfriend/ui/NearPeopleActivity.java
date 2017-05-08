@@ -56,6 +56,7 @@ public class NearPeopleActivity extends BaseActivity implements OnItemClickListe
 		setContentView(R.layout.activity_near);
 		setTitle(R.string.nearpeople);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		initViews();
 		initEvent();
 		initDatas(false);

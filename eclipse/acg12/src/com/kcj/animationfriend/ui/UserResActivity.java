@@ -35,6 +35,7 @@ public class UserResActivity extends BaseSwipeBackActivity implements
 		setContentView(R.layout.activity_resource);
 		setTitle(R.string.user_res);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		user = (User) getIntent().getSerializableExtra("data");
 		initViews();
 		initEvent();

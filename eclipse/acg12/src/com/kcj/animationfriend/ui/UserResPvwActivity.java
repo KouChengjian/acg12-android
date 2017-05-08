@@ -58,6 +58,7 @@ public class UserResPvwActivity extends BaseActivity implements OnRecyclerViewIt
 		setContentView(R.layout.activity_paletteshow);
 		setTitle(R.string.home_album);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		palette = (Palette)getIntent().getSerializableExtra("data");
 		initView();
 		initEvents();

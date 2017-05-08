@@ -60,6 +60,7 @@ public class UserPltMagActivity extends BaseActivity implements OnClickListener 
 		setContentView(R.layout.activity_palette);
 		setTitle(R.string.user_plt_mag);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		curAlbum = (Album) getIntent().getSerializableExtra("data");
 		initViews();
 		initEvents();

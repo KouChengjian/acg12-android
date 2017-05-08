@@ -61,6 +61,7 @@ public class AddFriendActivity extends BaseActivity implements OnClickListener ,
 		setContentView(R.layout.activity_addfriend);
 		setTitle(R.string.addfriend);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		initViews();
 		initEvent();
 		

@@ -29,6 +29,7 @@ public class SearchActivity extends BaseSwipeBackActivity{
 		setContentView(R.layout.activity_resource);
 		setTitle(R.string.home_search);
 		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		initViews();
 	}
 	
