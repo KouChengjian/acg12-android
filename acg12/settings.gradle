@@ -1,1 +1,1 @@
-include ':app', ':videoplayer', ':acg12player'
+include ':app', ':videoplayer'
