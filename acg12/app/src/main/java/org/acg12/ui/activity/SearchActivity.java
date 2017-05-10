@@ -9,7 +9,7 @@ import org.acg12.config.Constant;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.utlis.skin.entity.AttrFactory;
 import org.acg12.utlis.skin.entity.DynamicAttr;
-import org.acg12.views.SearchView;
+import org.acg12.ui.views.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,13 +1,12 @@
 package org.acg12.ui.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import org.acg12.config.Config;
 import org.acg12.config.Constant;
 import org.acg12.ui.base.PresenterFragmentImpl;
-import org.acg12.views.SkinView;
+import org.acg12.ui.views.SkinView;
 
 /**
  * Created by DELL on 2017/1/11.

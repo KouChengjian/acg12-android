@@ -50,17 +50,17 @@ public class TabAnimatViewHolder extends RecyclerView.ViewHolder{
         listVideoUtil.addVideoPlayer(position, video_play_pic, TAG,
                 video_play_container, video_click_play);
 
-        video_click_play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getRecyclerBaseAdapter().notifyDataSetChanged();
-                //listVideoUtil.setLoop(true);
-                listVideoUtil.setPlayPositionAndTag(position, TAG);
-                final String url = "http://baobab.wdjcdn.com/14564977406580.mp4";
-                //listVideoUtil.setCachePath(new File(FileUtils.getPath()));
-                listVideoUtil.startPlay(url);
-            }
-        });
+//        video_click_play.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getRecyclerBaseAdapter().notifyDataSetChanged();
+//                //listVideoUtil.setLoop(true);
+//                listVideoUtil.setPlayPositionAndTag(position, TAG);
+//                final String url = "http://baobab.wdjcdn.com/14564977406580.mp4";
+//                //listVideoUtil.setCachePath(new File(FileUtils.getPath()));
+//                listVideoUtil.startPlay(url);
+//            }
+//        });
     }
 
     public RecyclerView.Adapter getRecyclerBaseAdapter() {

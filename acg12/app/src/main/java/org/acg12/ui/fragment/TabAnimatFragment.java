@@ -1,15 +1,11 @@
 package org.acg12.ui.fragment;
 
-import android.graphics.Point;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-
-import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 
 import org.acg12.bean.Video;
 import org.acg12.config.Constant;
@@ -17,8 +13,7 @@ import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterFragmentImpl;
-import org.acg12.views.TabAlbumView;
-import org.acg12.views.TabAnimatView;
+import org.acg12.ui.views.TabAnimatView;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;

@@ -11,7 +11,7 @@ import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterActivityImpl;
-import org.acg12.views.PreviewBangumiView;
+import org.acg12.ui.views.PreviewBangumiView;
 
 public class PreviewBangumiActivity extends PresenterActivityImpl<PreviewBangumiView> implements View.OnClickListener ,
         ItemClickSupport.OnItemClickListener{

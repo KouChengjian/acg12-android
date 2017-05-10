@@ -49,6 +49,7 @@ public class TabAlbumViewHolder extends RecyclerView.ViewHolder {
             imageView.setImageWidth(album.getResWidth());
             imageView.setImageHeight(album.getResHight());
             ImageLoadUtils.universalLoading(url , imageView);
+            //ImageLoadUtils.glideLoading(mContext , url , imageView);
         }
 
         // 内容
@@ -71,26 +72,5 @@ public class TabAlbumViewHolder extends RecyclerView.ViewHolder {
             tv_home_album_love.setText(love+"");
         }
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int location[] = new int[2];
-                imageView.getLocationOnScreen(location);
-                Log.e("left" ,"left = " +location[0]);
-                Log.e("top" ,"top = " +location[1]);
-                Log.e("getHeight" ,"getHeight = " +imageView.getHeight());
-                Log.e("getWidth" ,"getWidth = " +imageView.getWidth());
-
-                Intent intent = new Intent(context, PreviewAlbumActivity.class);
-                intent.putExtra("left", location[0]);
-                intent.putExtra("top", location[1]);
-                intent.putExtra("height", imageView.getHeight());
-                intent.putExtra("width", imageView.getWidth());
-                intent.putExtra("position", position);
-                intent.putExtra("albumList", (Serializable)(mList));
-                context.startActivity(intent);
-                ((AppCompatActivity)context).overridePendingTransition(0,0);
-            }
-        });
     }
 }

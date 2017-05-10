@@ -14,7 +14,7 @@ import org.acg12.ui.activity.DownloadActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.utlis.skin.entity.AttrFactory;
 import org.acg12.utlis.skin.entity.DynamicAttr;
-import org.acg12.views.HomeView;
+import org.acg12.ui.views.HomeView;
 
 import java.util.ArrayList;
 import java.util.List;

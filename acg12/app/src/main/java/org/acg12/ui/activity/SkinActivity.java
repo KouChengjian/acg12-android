@@ -5,7 +5,7 @@ import android.view.View;
 
 import org.acg12.config.Constant;
 import org.acg12.ui.base.PresenterActivityImpl;
-import org.acg12.views.SkinView;
+import org.acg12.ui.views.SkinView;
 
 public class SkinActivity extends PresenterActivityImpl<SkinView> implements View.OnClickListener {
 

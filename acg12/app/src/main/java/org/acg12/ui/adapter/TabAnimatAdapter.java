@@ -77,4 +77,8 @@ public class TabAnimatAdapter extends RecyclerView.Adapter<TabAnimatViewHolder> 
     public void setListVideoUtil(ListVideoUtil listVideoUtil) {
         this.listVideoUtil = listVideoUtil;
     }
+
+    public void startPlay(String url , String danmu){
+
+    }
 }

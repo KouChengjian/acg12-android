@@ -14,7 +14,7 @@ import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewBangumiActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
-import org.acg12.views.TabBangumiView;
+import org.acg12.ui.views.TabBangumiView;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;

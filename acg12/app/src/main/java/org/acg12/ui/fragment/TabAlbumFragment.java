@@ -1,5 +1,7 @@
 package org.acg12.ui.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -11,10 +13,13 @@ import org.acg12.config.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
+import org.acg12.ui.activity.PreviewAlbumActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
-import org.acg12.views.TabAlbumView;
+import org.acg12.ui.views.TabAlbumView;
+import org.acg12.utlis.LogUtil;
 import org.acg12.widget.IRecycleView;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implements IRecycleView.LoadingListener ,
@@ -39,22 +44,28 @@ public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implem
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == Constant.START_ACTIVITY_RESULT){
+                int position = data.getExtras().getInt("position");
+                mView.MoveToPosition(position);
+            }
+        }
+
+    }
+
+    @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-//            Album album = mView.getAlbum(position);
-//            album.getTransitionView().setTransitionName(album.getContent());
-//            Bundle bundle = new Bundle();
-//            bundle.putString("transitionName",album.getTransitionView().getTransitionName());
-//            bundle.putString("imageUrl",album.getImageUrl());
-//            //ViewUtil.startTransitionActivity(mContext , AlbumPreviewActivity.class , bundle ,album.getTransitionView());
-//            Intent intent = new Intent();
-//            intent.setClass(mContext, AlbumPreviewActivity.class);
-//            if (bundle != null) {
-//                intent.putExtras(bundle);
-//            }
-//            mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(
-//                    (Activity)mContext , album.getTransitionView() , album.getTransitionView().getTransitionName()).toBundle());
-//        }
+        Intent intent = new Intent(mContext , PreviewAlbumActivity.class  );
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        bundle.putSerializable("albumList", (Serializable)(mView.getAlbumList()));
+        intent.putExtras(bundle);
+        startActivityForResult(intent, Constant.START_ACTIVITY_RESULT);
     }
 
     @Override
@@ -84,7 +95,7 @@ public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implem
 
             @Override
             public void onFailure(int errorcode, String msg) {
-                Log.e(mTag , msg);
+                LogUtil.e(mTag , msg);
                 ShowToastView(msg);
                 mView.stopRefreshLoadMore(refresh);
             }

@@ -4,16 +4,18 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
 
-    defaultConfig {
-        applicationId "org.acg12"
-        minSdkVersion 19
-        targetSdkVersion 23
-        versionCode 20
-        versionName "3.0.0"
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+
+    defaultConfig {applicationId globalConfiguration.getAt("androidApplicationId")
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+        versionCode globalConfiguration.getAt("androidVersionCode")
+        versionName globalConfiguration.getAt("androidVersionName")
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,31 +31,30 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    //    compile('com.facebook.fresco:fresco:0.14.1'){
-    //        exclude module: 'support-v4'
-    //        exclude group: 'com.android.support'
-    //    }
-    //    compile "com.facebook.fresco:imagepipeline-okhttp3:0.14.1"
-    compile files('libs/lite-orm-1.9.2.jar')
-    compile 'com.android.support:cardview-v7:23.4.0'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-    compile 'com.android.support:support-v4:23.4.0'
     compile project(':videoplayer')
-    compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.facebook.stetho:stetho:1.3.1'
-    compile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.squareup.okhttp3:okhttp:3.4.2'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'io.reactivex:rxjava:1.1.6'
-    compile 'io.reactivex:rxandroid:1.2.1'
+    compile files('libs/lite-orm-1.9.2.jar')
+    def androidDependencies = rootProject.ext.androidDependencies
+    compile androidDependencies.design
+    compile androidDependencies.support_v4
+    compile androidDependencies.cardview_v7
+    compile androidDependencies.appcompat_v7
+    compile androidDependencies.recyclerView_v7
+    def httpDependencies = rootProject.ext.httpDependencies
+    compile httpDependencies.okhttp3
+    compile httpDependencies.retrofit2
+    compile httpDependencies.retrofit2_gson
+    compile httpDependencies.retrofit2_scalars
+    compile httpDependencies.retrofit2_rxjava
+    compile httpDependencies.rxjava
+    compile httpDependencies.rxandroid
+    def kotlinDependencies = rootProject.ext.kotlinDependencies
+    compile kotlinDependencies.kotlin
+    def otherDependencies = rootProject.ext.otherDependencies
+    compile otherDependencies.eventbus
+    apt otherDependencies.butterKnife_apt
+    compile otherDependencies.butterKnife
+    compile otherDependencies.stetho
+    compile otherDependencies.stetho_okhttp
+    compile otherDependencies.universal_image_loader
+    compile otherDependencies.glide
 }

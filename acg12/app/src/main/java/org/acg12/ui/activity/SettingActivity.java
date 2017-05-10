@@ -1,17 +1,12 @@
 package org.acg12.ui.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 
 import org.acg12.R;
 import org.acg12.config.Constant;
-import org.acg12.ui.base.BaseActivity;
 import org.acg12.ui.base.PresenterActivityImpl;
-import org.acg12.views.SettingView;
-
-import butterknife.BindView;
+import org.acg12.ui.views.SettingView;
 
 public class SettingActivity extends PresenterActivityImpl<SettingView> implements View.OnClickListener {
 

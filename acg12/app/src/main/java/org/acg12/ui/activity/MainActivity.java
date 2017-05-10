@@ -1,6 +1,7 @@
 package org.acg12.ui.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +13,10 @@ import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 import org.acg12.R;
 import org.acg12.config.Config;
 import org.acg12.ui.base.PresenterActivityImpl;
+import org.acg12.utlis.LogUtil;
 import org.acg12.utlis.skin.entity.AttrFactory;
 import org.acg12.utlis.skin.entity.DynamicAttr;
-import org.acg12.views.MainView;
+import org.acg12.ui.views.MainView;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -33,6 +35,16 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
         List<DynamicAttr> mDynamicAttr = new ArrayList<DynamicAttr>();
         mDynamicAttr.add(new DynamicAttr(AttrFactory.NAVIGATIONVIEW, R.color.theme_primary));
         dynamicAddView(mView.getNavigationView(), mDynamicAttr);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //LogUtil.e(requestCode+"===="+resultCode);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -57,8 +69,8 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
                 startAnimActivity(RecordActivity.class);
                 break;
             case R.id.nav_color_lens:
-                //startAnimActivity(SkinActivity.class);
-                mView.onTabSelect(1);
+                startAnimActivity(SkinActivity.class);
+                //mView.onTabSelect(1);
                 break;
             case R.id.nav_settings:
                 startAnimActivity(SettingActivity.class);

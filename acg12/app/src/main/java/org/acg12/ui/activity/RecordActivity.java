@@ -1,12 +1,11 @@
 package org.acg12.ui.activity;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 
 import org.acg12.config.Constant;
 import org.acg12.ui.base.PresenterActivityImpl;
-import org.acg12.views.RecordView;
+import org.acg12.ui.views.RecordView;
 
 public class RecordActivity extends PresenterActivityImpl<RecordView> implements View.OnClickListener {
 
