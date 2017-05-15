@@ -17,7 +17,7 @@
     </style>
 
     <style name="Theme.MaterialSheetFab.SwipeBackLayout" parent="Theme.MaterialSheetFab.Base">
-        <item name="android:windowAnimationStyle">@style/AnimFade</item>
+        <!--<item name="android:windowAnimationStyle">@style/AnimFade</item>-->
     </style>
 
     <style name="Theme.MaterialSheetFab.DragPhoto" parent="Theme.MaterialSheetFab.Base">

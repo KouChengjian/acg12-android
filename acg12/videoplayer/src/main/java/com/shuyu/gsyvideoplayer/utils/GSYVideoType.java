@@ -15,6 +15,9 @@ public class GSYVideoType {
     //4:3
     public final static int SCREEN_TYPE_4_3 = 2;
 
+    //全屏裁减显示
+    public final static int SCREEN_TYPE_FULL = 4;
+
 
     public final static int IJKPLAYER = 0;
 
@@ -56,7 +59,7 @@ public class GSYVideoType {
     }
 
     /**
-     * 设置显示比例
+     * 设置显示比例,注意，这是全局生效的
      */
     public static void setShowType(int type) {
         TYPE = type;

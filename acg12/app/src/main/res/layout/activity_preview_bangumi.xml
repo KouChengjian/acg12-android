@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/bangumi_swipeRefreshLayout"
     android:layout_width="match_parent"
@@ -20,6 +19,13 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
+
+                <!--<org.acg12.widget.DanmakuVideo-->
+                    <!--android:id="@+id/danmaku_video"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent">-->
+
+                <!--</org.acg12.widget.DanmakuVideo>-->
 
                 <ImageView
                     android:id="@+id/iv_video_icon"

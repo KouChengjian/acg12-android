@@ -3,7 +3,7 @@ package com.shuyu.gsyvideoplayer;
 
 import android.content.Context;
 import android.media.AudioManager;
-import android.media.MediaMetadataRetriever;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -17,20 +17,23 @@ import com.danikula.videocache.HttpProxyCacheServer;
 import com.danikula.videocache.file.Md5FileNameGenerator;
 import com.shuyu.gsyvideoplayer.listener.GSYMediaPlayerListener;
 import com.shuyu.gsyvideoplayer.model.GSYModel;
+import com.shuyu.gsyvideoplayer.model.VideoOptionModel;
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.CommonUtil;
 import com.shuyu.gsyvideoplayer.utils.Debuger;
 import com.shuyu.gsyvideoplayer.utils.FileUtils;
-import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.StorageUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.List;
 import java.util.Map;
 
 import tv.danmaku.ijk.media.exo.IjkExoMediaPlayer;
 import tv.danmaku.ijk.media.player.AbstractMediaPlayer;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.ijk.media.player.IjkLibLoader;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 /**
@@ -51,6 +54,8 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
     public static final int HANDLER_SETDISPLAY = 1;
     public static final int HANDLER_RELEASE = 2;
 
+    public static final int BUFFER_TIME_OUT_ERROR = -192;//外部超时错误码
+
     private AbstractMediaPlayer mediaPlayer;
     private HandlerThread mMediaHandlerThread;
     private MediaHandler mMediaHandler;
@@ -59,6 +64,11 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
     private WeakReference<GSYMediaPlayerListener> listener;
     private WeakReference<GSYMediaPlayerListener> lastListener;
 
+    // 单例模式实在不好给instance()加参数，还是直接设为静态变量吧
+    private static IjkLibLoader ijkLibLoader; //自定义so包加载类
+
+    private List<VideoOptionModel> optionModelList;//配置ijk option
+
     private HttpProxyCacheServer proxy; //视频代理
 
     private File cacheFile;
@@ -66,8 +76,6 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
     private String playTag = ""; //播放的tag，防止错位置，因为普通的url也可能重复
 
     private Context context;
-
-    private MediaMetadataRetriever mediaMetadataRetriever;//获取帧预览图片
 
     private int currentVideoWidth = 0; //当前播放的视频宽的高
 
@@ -79,14 +87,32 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
 
     private int buffterPoint;
 
+    private int timeOut = 8 * 1000;
+
     private int videoType = GSYVideoType.IJKPLAYER;
+
+    private boolean needMute = false; //是否需要静音
+
+    private boolean needTimeOutOther; //是否需要外部超时判断
 
 
     public static synchronized GSYVideoManager instance() {
         if (videoManager == null) {
-            videoManager = new GSYVideoManager();
+            videoManager = new GSYVideoManager(ijkLibLoader);
         }
         return videoManager;
+    }
+
+    /**
+     * 设置自定义so包加载类
+     * 需要在instance之前设置
+     */
+    public static void setIjkLibLoader(IjkLibLoader libLoader) {
+        ijkLibLoader = libLoader;
+    }
+
+    public static IjkLibLoader getIjkLibLoader() {
+       return ijkLibLoader;
     }
 
     /**
@@ -203,8 +229,16 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
             this.lastListener = new WeakReference<>(lastListener);
     }
 
-    public GSYVideoManager() {
-        mediaPlayer = new IjkMediaPlayer();
+    //public GSYVideoManager() {
+        //this(null);
+    //}
+
+    /***
+     * @param libLoader 是否使用外部动态加载so
+     * */
+    public GSYVideoManager(IjkLibLoader libLoader) {
+        mediaPlayer = (libLoader == null) ? new IjkMediaPlayer() : new IjkMediaPlayer(libLoader);
+        ijkLibLoader = libLoader;
         mMediaHandlerThread = new HandlerThread(TAG);
         mMediaHandlerThread.start();
         mMediaHandler = new MediaHandler((mMediaHandlerThread.getLooper()));
@@ -230,14 +264,12 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
                     if (mediaPlayer != null) {
                         mediaPlayer.release();
                     }
+                    setNeedMute(false);
                     if (proxy != null) {
                         proxy.unregisterCacheListener(GSYVideoManager.this);
                     }
-                    if (mediaMetadataRetriever != null) {
-                        mediaMetadataRetriever.release();
-                        mediaMetadataRetriever = null;
-                    }
                     buffterPoint = 0;
+                    cancelTimeOutBuffer();
                     break;
             }
         }
@@ -255,7 +287,7 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
             } else if (videoType == GSYVideoType.IJKEXOPLAYER) {
                 initEXOPlayer(msg);
             }
-
+            setNeedMute(needMute);
             mediaPlayer.setOnCompletionListener(GSYVideoManager.this);
             mediaPlayer.setOnBufferingUpdateListener(GSYVideoManager.this);
             mediaPlayer.setScreenOnWhilePlaying(true);
@@ -266,16 +298,13 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
             mediaPlayer.setOnVideoSizeChangedListener(GSYVideoManager.this);
             mediaPlayer.prepareAsync();
 
-            mediaMetadataRetriever = new MediaMetadataRetriever();
-            mediaMetadataRetriever.setDataSource(((GSYModel) msg.obj).getUrl(), ((GSYModel) msg.obj).getMapHeadData());
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void initIJKPlayer(Message msg) {
-        mediaPlayer = new IjkMediaPlayer();
+        mediaPlayer = (ijkLibLoader == null) ? new IjkMediaPlayer() : new IjkMediaPlayer(ijkLibLoader);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
             if (GSYVideoType.isMediaCodec()) {
@@ -289,6 +318,7 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
             if (((GSYModel) msg.obj).getSpeed() != 1 && ((GSYModel) msg.obj).getSpeed() > 0) {
                 ((IjkMediaPlayer) mediaPlayer).setSpeed(((GSYModel) msg.obj).getSpeed());
             }
+            initIJKOption((IjkMediaPlayer) mediaPlayer);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -303,6 +333,52 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
             e.printStackTrace();
         }
     }
+
+    private void initIJKOption(IjkMediaPlayer ijkMediaPlayer) {
+        if (optionModelList != null && optionModelList.size() > 0) {
+            for (VideoOptionModel videoOptionModel : optionModelList) {
+                if (videoOptionModel.getValueType() == VideoOptionModel.VALUE_TYPE_INT) {
+                    ijkMediaPlayer.setOption(videoOptionModel.getCategory(),
+                            videoOptionModel.getName(), videoOptionModel.getValueInt());
+                } else {
+                    ijkMediaPlayer.setOption(videoOptionModel.getCategory(),
+                            videoOptionModel.getName(), videoOptionModel.getValueString());
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 启动十秒的定时器进行 缓存操作
+     */
+    private void startTimeOutBuffer() {
+        // 启动定时
+        Debuger.printfError("startTimeOutBuffer");
+        mainThreadHandler.postDelayed(mTimeOutRunnable, timeOut);
+
+    }
+
+    /**
+     * 取消 十秒的定时器进行 缓存操作
+     */
+    private void cancelTimeOutBuffer() {
+        Debuger.printfError("cancelTimeOutBuffer");
+        // 取消定时
+        if (needTimeOutOther)
+            mainThreadHandler.removeCallbacks(mTimeOutRunnable);
+    }
+
+
+    private Runnable mTimeOutRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (listener != null) {
+                Debuger.printfError("time out for error listener");
+                listener().onError(BUFFER_TIME_OUT_ERROR, BUFFER_TIME_OUT_ERROR);
+            }
+        }
+    };
 
 
     private void showDisplay(Message msg) {
@@ -330,6 +406,9 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
         GSYModel fb = new GSYModel(url, mapHeadData, loop, speed);
         msg.obj = fb;
         mMediaHandler.sendMessage(msg);
+        if (needTimeOutOther) {
+            startTimeOutBuffer();
+        }
     }
 
     public void releaseMediaPlayer() {
@@ -352,6 +431,7 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
+                cancelTimeOutBuffer();
                 if (listener != null) {
                     listener().onPrepared();
                 }
@@ -364,6 +444,7 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
+                cancelTimeOutBuffer();
                 if (listener != null) {
                     listener().onAutoCompletion();
                 }
@@ -392,6 +473,7 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
+                cancelTimeOutBuffer();
                 if (listener != null) {
                     listener().onSeekComplete();
                 }
@@ -404,6 +486,7 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
+                cancelTimeOutBuffer();
                 if (listener != null) {
                     listener().onError(what, extra);
                 }
@@ -417,6 +500,13 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
+                if (needTimeOutOther) {
+                    if (what == MediaPlayer.MEDIA_INFO_BUFFERING_START) {
+                        startTimeOutBuffer();
+                    } else if (what == MediaPlayer.MEDIA_INFO_BUFFERING_END) {
+                        cancelTimeOutBuffer();
+                    }
+                }
                 if (listener != null) {
                     listener().onInfo(what, extra);
                 }
@@ -468,10 +558,6 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
         return mediaPlayer;
     }
 
-    public MediaMetadataRetriever getMediaMetadataRetriever() {
-        return mediaMetadataRetriever;
-    }
-
     public int getCurrentVideoWidth() {
         return currentVideoWidth;
     }
@@ -517,6 +603,17 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
         return videoType;
     }
 
+    public List<VideoOptionModel> getOptionModelList() {
+        return optionModelList;
+    }
+
+    /**
+     * 设置IJK视频的option
+     */
+    public void setOptionModelList(List<VideoOptionModel> optionModelList) {
+        this.optionModelList = optionModelList;
+    }
+
     /**
      * 设置了视频的播放类型
      * GSYVideoType IJKPLAYER = 0 or IJKEXOPLAYER = 1;
@@ -525,4 +622,54 @@ public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaP
         this.context = context.getApplicationContext();
         this.videoType = videoType;
     }
+
+    public boolean isNeedMute() {
+        return needMute;
+    }
+
+    /**
+     * 是否需要静音
+     */
+    public void setNeedMute(boolean needMute) {
+        this.needMute = needMute;
+        if (mediaPlayer != null) {
+            if (needMute) {
+                mediaPlayer.setVolume(0, 0);
+            } else {
+                mediaPlayer.setVolume(1, 1);
+            }
+        }
+    }
+
+    public int getTimeOut() {
+        return timeOut;
+    }
+
+    public boolean isNeedTimeOutOther() {
+        return needTimeOutOther;
+    }
+
+    /**
+     * 是否需要在buffer缓冲时，增加外部超时判断
+     *
+     * 超时后会走onError接口，播放器通过onPlayError回调出
+     *
+     * 错误码为 ： BUFFER_TIME_OUT_ERROR = -192
+     *
+     * 由于onError之后执行GSYVideoPlayer的OnError，如果不想触发错误，
+     * 可以重载onError，在super之前拦截处理。
+     *
+     * public void onError(int what, int extra){
+     *      do you want before super and return;
+     *      super.onError(what, extra)
+     * }
+     *
+     * @param timeOut          超时时间，毫秒 默认8000
+     * @param needTimeOutOther 是否需要延时设置，默认关闭
+     */
+    public void setTimeOut(int timeOut, boolean needTimeOutOther) {
+        this.timeOut = timeOut;
+        this.needTimeOutOther = needTimeOutOther;
+    }
+
 }

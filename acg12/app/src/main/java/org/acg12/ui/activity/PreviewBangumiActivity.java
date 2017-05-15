@@ -12,6 +12,7 @@ import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.ui.views.PreviewBangumiView;
+import org.acg12.utlis.LogUtil;
 
 public class PreviewBangumiActivity extends PresenterActivityImpl<PreviewBangumiView> implements View.OnClickListener ,
         ItemClickSupport.OnItemClickListener{
@@ -34,7 +35,8 @@ public class PreviewBangumiActivity extends PresenterActivityImpl<PreviewBangumi
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-        videoUrlOrXml(mView.getEpisode(position));
+        //getVideoUrlOrXml(mView.getAvId(position));
+        startAnimActivity(PlayBungumiActivity.class);
     }
 
     @Override
@@ -67,11 +69,11 @@ public class PreviewBangumiActivity extends PresenterActivityImpl<PreviewBangumi
         });
     }
 
-    public void videoUrlOrXml(String bgId) {
-        HttpRequestImpl.getInstance().playBangumi(bgId, new HttpRequestListener<Video>() {
+    public void getVideoUrlOrXml(String av) {
+        HttpRequestImpl.getInstance().playBangumi(av, new HttpRequestListener<Video>() {
             @Override
             public void onSuccess(Video result) {
-
+//                mView.setPlayer(true , result);
             }
 
             @Override

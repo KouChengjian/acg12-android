@@ -16,7 +16,6 @@ public class Video  extends Param {
     private String review;// 评论数
     private String videoReview;// 视频弹幕数
     private String favorites;// 视频收藏数
-    private String mid;
     private String author;// Up主
     private String description;// 视频简介
     private String create;// 视频发布时间
@@ -24,6 +23,8 @@ public class Video  extends Param {
     private String credit; // 创建时间
     private String coins;// 视频硬币数
     private String duration;// 视频长度
+    private String playUrl; // 视频url
+    private String cid; // 弹幕id
 
     private String bmId; // 番剧id
     private String updateContent;// 更新信息
@@ -95,14 +96,6 @@ public class Video  extends Param {
 
     public void setFavorites(String favorites) {
         this.favorites = favorites;
-    }
-
-    public String getMid() {
-        return mid;
-    }
-
-    public void setMid(String mid) {
-        this.mid = mid;
     }
 
     public String getAuthor() {
@@ -199,5 +192,21 @@ public class Video  extends Param {
 
     public void setSeasonList(List<Video> seasonList) {
         this.seasonList = seasonList;
+    }
+
+    public String getPlayUrl() {
+        return playUrl;
+    }
+
+    public void setPlayUrl(String playUrl) {
+        this.playUrl = playUrl;
+    }
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
     }
 }

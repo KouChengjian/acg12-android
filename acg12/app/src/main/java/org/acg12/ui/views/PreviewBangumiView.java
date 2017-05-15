@@ -3,6 +3,7 @@ package org.acg12.ui.views;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageView;
@@ -33,8 +34,12 @@ public class PreviewBangumiView extends ViewImpl {
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.layout_content)
     LinearLayout layoutContent;
+//    @BindView(R.id.danmaku_video)
+//    DanmakuVideo danmakuVideo;
     @BindView(R.id.iv_video_icon)
     ImageView ivVideoIcon;
+    @BindView(R.id.video_click_play)
+    ImageView video_click_play;
     @BindView(R.id.tv_video_title)
     TextView tvVideoTitle;
     @BindView(R.id.iv_video_arrow)
@@ -90,8 +95,24 @@ public class PreviewBangumiView extends ViewImpl {
         ItemClickSupport.addTo(episodeRecyclerView).setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
     }
 
-    public String getEpisode(int position){
-        return bangumiEpisodeAdapter.getList().get(position).getBmId();
+    public String getAvId(int position){
+        return bangumiEpisodeAdapter.getList().get(position).getAid();
+    }
+
+    public void setPlayer(boolean bool , Video video){
+        if (bool) {
+//            danmakuVideo.setVisibility(View.VISIBLE);
+            ivVideoIcon.setVisibility(View.GONE);
+            video_click_play.setVisibility(View.GONE);
+
+//            danmakuVideo.setUp(video.getPlayUrl() , true , "");
+        } else {
+//            danmakuVideo.setVisibility(View.GONE);
+            ivVideoIcon.setVisibility(View.VISIBLE);
+            video_click_play.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
     public void bindData(Video video) {
@@ -101,7 +122,12 @@ public class PreviewBangumiView extends ViewImpl {
             ImageLoadUtils.glideLoading(getContext(), url, ivVideoIcon);
         }
         ViewUtil.setText(tvVideoTitle, video.getTitle());
-        ViewUtil.setText(tvVideoLabel, video.getSbutitle());
+        if(TextUtils.isEmpty(video.getSbutitle())){
+            tvVideoLabel.setVisibility(View.GONE);
+        } else {
+            tvVideoLabel.setVisibility(View.VISIBLE);
+            ViewUtil.setText(tvVideoLabel, video.getSbutitle());
+        }
         ViewUtil.setText(tvVideoDuration, video.getDescription());
 
         bangumiEpisodeAdapter.setList(video.getEpisodeList());

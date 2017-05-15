@@ -28,7 +28,7 @@ public interface ApiService {
     Observable<ResponseBody> palettePreview(@Query("action") String action , @Query("max") String pinId ,@Query("boardId") String boardId);
 
     @GET("res/v/dangumi/info")
-    Observable<ResponseBody> bangumiPreview(@Query("av") String av);
+    Observable<ResponseBody> bangumiPreview(@Query("bmId") String bmId);
 
     @GET("res/v/playurl")
     Observable<ResponseBody> playUrl(@Query("action") String action ,@Query("av") String av);

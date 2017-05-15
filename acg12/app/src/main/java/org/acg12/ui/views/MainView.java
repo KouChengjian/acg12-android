@@ -31,7 +31,7 @@ public class MainView extends ViewImpl {
     MenuItem[] mTabs;
     Fragment[] fragments;
     HomeFragment homeFragment;
-    SkinFragment skinFragment;
+//    SkinFragment skinFragment;
 
     View headerView;
 
@@ -50,8 +50,8 @@ public class MainView extends ViewImpl {
         mTabs[1] = menu.findItem(R.id.nav_color_lens);
 
         homeFragment = new HomeFragment();
-        skinFragment = new SkinFragment();
-        fragments = new Fragment[]{homeFragment ,skinFragment};
+//        skinFragment = new SkinFragment();
+        fragments = new Fragment[]{homeFragment};
         ((AppCompatActivity) getContext()).getSupportFragmentManager().beginTransaction().
                 add(R.id.main_fragment_container, fragments[0]).show(fragments[0]).commit();
 

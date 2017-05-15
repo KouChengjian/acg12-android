@@ -132,7 +132,8 @@ public class HttpRequestImpl implements HttpRequest {
                                 video.setPic(RetrofitClient.getString(item ,"pic"));
                                 video.setUpdateContent(RetrofitClient.getString(item ,"updateContent"));
                                 //video.setUrlInfo(RetrofitClient.getString(item ,"urlInfo"));
-                                video.setBmId(RetrofitClient.getString(item,"urlInfo").split("/anime/")[1]);
+                                //video.setBmId(RetrofitClient.getString(item,"urlInfo").split("/anime/")[1]);
+                                video.setBmId(RetrofitClient.getString(item,"bmId"));
                                 list.add(video);
                             }
                             httpRequestListener.onSuccess(list);
@@ -255,7 +256,7 @@ public class HttpRequestImpl implements HttpRequest {
                                 Video item = new Video();
                                 JSONObject object = RetrofitClient.getJSONObject(allEpisode , i);
                                 item.setTitle(RetrofitClient.getString(object,"title"));
-                                item.setBmId(RetrofitClient.getString(object,"urlInfo").split("/anime/")[1]);
+                                item.setAid(RetrofitClient.getString(object,"aid"));
                                 episodeList.add(item);
                             }
                             video.setEpisodeList(episodeList);
@@ -267,7 +268,7 @@ public class HttpRequestImpl implements HttpRequest {
                                 JSONObject object = RetrofitClient.getJSONObject(allSeason , i);
                                 item.setTitle(RetrofitClient.getString(object,"title"));
                                 item.setPic(RetrofitClient.getString(object,"pic"));
-                                item.setBmId(RetrofitClient.getString(object,"urlInfo").split("/anime/")[1]);
+                                item.setBmId(RetrofitClient.getString(object ,"bmId"));
                                 seasonList.add(item);
                             }
                             video.setSeasonList(seasonList);
@@ -291,15 +292,13 @@ public class HttpRequestImpl implements HttpRequest {
                 .subscribe(new Action1<ResponseBody>() {
                     @Override
                     public void call(ResponseBody response) {
-                        String data = RetrofitClient.parseString(response);
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
                             Video video = new Video();
-                            JSONObject json = RetrofitClient.transformStringToJSONObject(data);
-                            video.setTitle(RetrofitClient.getString(json,"title"));
-                            video.setSbutitle(RetrofitClient.getString(json,"sbutitle"));
-                            video.setDescription(RetrofitClient.getString(json,"description"));
-                            video.setPic(RetrofitClient.getString(json,"pic").replace("_225x300.jpg",""));
-
+                            JSONObject json = RetrofitClient.getJSONObject(data , "info");
+                            video.setPlayUrl(RetrofitClient.getString(json,"url"));
+                            video.setCid(RetrofitClient.getString(json,"cid"));
+                            video.setPic(RetrofitClient.getString(json,"img"));
                             httpRequestListener.onSuccess(video);
                         }
                     }

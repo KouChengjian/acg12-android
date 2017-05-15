@@ -14,7 +14,7 @@ public class SmallVideoTouch implements View.OnTouchListener {
     private GSYBaseVideoPlayer mGsyBaseVideoPlayer;
 
 
-    public SmallVideoTouch(GSYBaseVideoPlayer gsyBaseVideoPlayer, int marginLeft, int marginTop) {
+    public SmallVideoTouch(GSYBaseVideoPlayer gsyBaseVideoPlayer, int marginLeft,  int marginTop) {
         super();
         mMarginLeft = marginLeft;
         mMarginTop = marginTop;

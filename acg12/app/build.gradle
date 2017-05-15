@@ -33,6 +33,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':videoplayer')
     compile files('libs/lite-orm-1.9.2.jar')
+    compile files('libs/jsoup-1.8.3.jar')
     def androidDependencies = rootProject.ext.androidDependencies
     compile androidDependencies.design
     compile androidDependencies.support_v4
