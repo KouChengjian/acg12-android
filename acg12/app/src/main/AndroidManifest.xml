@@ -64,7 +64,9 @@
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
 
         <activity android:name=".ui.activity.PlayBungumiActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:screenOrientation="landscape"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout"/>
     </application>
 
 </manifest>

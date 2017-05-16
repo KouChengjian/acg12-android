@@ -21,15 +21,8 @@ import butterknife.BindView;
  */
 public class PlayBungumiView extends ViewImpl {
 
-
-//    @BindView(R.id.post_detail_nested_scroll)
-//    NestedScrollView postDetailNestedScroll;
-
     @BindView(R.id.danmaku_player)
     DanmakuVideoPlayer danmakuVideoPlayer;
-
-//    @BindView(R.id.activity_detail_player)
-//    RelativeLayout activityDetailPlayer;
 
     private boolean isPlay;
     private boolean isPause;

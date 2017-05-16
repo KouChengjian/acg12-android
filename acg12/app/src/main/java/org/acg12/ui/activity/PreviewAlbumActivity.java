@@ -10,9 +10,11 @@ import org.acg12.config.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterActivityImpl;
+import org.acg12.ui.fragment.TabAlbumFragment;
 import org.acg12.ui.views.PreviewAlbumView;
 import org.acg12.utlis.LogUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PreviewAlbumActivity extends PresenterActivityImpl<PreviewAlbumView> implements View.OnClickListener , ViewPager.OnPageChangeListener {
@@ -25,7 +27,8 @@ public class PreviewAlbumActivity extends PresenterActivityImpl<PreviewAlbumView
         super.create(savedInstance);
         Intent intent = getIntent();
         position = intent.getExtras().getInt("position");
-        albumList = (List<Album>)intent.getSerializableExtra("albumList");
+        //albumList = (List<Album>)intent.getSerializableExtra("albumList");
+        albumList = TabAlbumFragment.mList;
     }
 
     @Override
@@ -56,9 +59,31 @@ public class PreviewAlbumActivity extends PresenterActivityImpl<PreviewAlbumView
     @Override
     public void onPageSelected(int position) {
        this.position = position;
-        int albumTotal = albumList.size();
-        if(albumTotal - position < 5){
-            //refresh(albumList.get(albumTotal - 1).getPinId());
+        LogUtil.e("position = "+position);
+//        int albumTotal = albumList.size();
+//        if(albumTotal - position < 1){
+//            List<Album> list = new ArrayList<>();
+//            list.add(new Album());
+//           mView.addList(list);
+//            //refresh(albumList.get(albumTotal - 1).getPinId());
+//        }
+        if (position == mView.getList().size()-1){
+            List<Album> list = new ArrayList<>();
+            list.add(new Album());
+            list.add(new Album());
+            list.add(new Album());
+            list.add(new Album());
+            list.add(new Album());
+            list.add(new Album());
+            list.add(new Album());
+            list.add(new Album());
+            list.add(new Album());
+            list.add(new Album());
+            list.add(new Album());
+            list.add(new Album());
+            list.add(new Album());
+            LogUtil.e("list = "+list.size());
+           mView.addList(list);
         }
     }
 

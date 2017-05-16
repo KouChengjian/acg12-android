@@ -20,6 +20,7 @@ import org.acg12.utlis.LogUtil;
 import org.acg12.widget.IRecycleView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implements IRecycleView.LoadingListener ,
@@ -27,6 +28,8 @@ public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implem
 
     boolean refresh = true;
     String boardId = "";
+    public static List<Album> mList = null;
+
 
     public static TabAlbumFragment newInstance(String boardId) {
         TabAlbumFragment fragment = new TabAlbumFragment();
@@ -40,6 +43,7 @@ public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implem
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
         boardId = getArguments().getString("boardId");
+        mList = mView.getAlbumList();
         refresh(boardId);
     }
 
@@ -63,7 +67,8 @@ public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implem
         Intent intent = new Intent(mContext , PreviewAlbumActivity.class  );
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);
-        bundle.putSerializable("albumList", (Serializable)(mView.getAlbumList()));
+        mList = mView.getAlbumList();
+        //bundle.putSerializable("albumList", (Serializable)(mView.getAlbumList()));
         intent.putExtras(bundle);
         startActivityForResult(intent, Constant.START_ACTIVITY_RESULT);
     }

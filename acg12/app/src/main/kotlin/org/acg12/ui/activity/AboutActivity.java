@@ -5,7 +5,7 @@ import android.view.View;
 
 import org.acg12.config.Constant;
 import org.acg12.ui.base.PresenterActivityImpl;
-import org.acg12.ui.views.AboutView;
+import org.acg12.ui.view.AboutView;
 
 /**
  * Created by Administrator on 2017/5/10.
