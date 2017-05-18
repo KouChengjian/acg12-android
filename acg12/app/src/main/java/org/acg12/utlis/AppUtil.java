@@ -28,7 +28,7 @@ public class AppUtil {
      * @param context
      * @return
      */
-    public PackageInfo getPackageInfo(Context context) {
+    public static PackageInfo getPackageInfo(Context context) {
         PackageManager packageManager = context.getPackageManager();
         PackageInfo packageInfo = null;
         try {

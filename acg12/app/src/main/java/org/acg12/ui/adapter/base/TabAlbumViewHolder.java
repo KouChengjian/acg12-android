@@ -48,8 +48,8 @@ public class TabAlbumViewHolder extends RecyclerView.ViewHolder {
         if(url != null){
             imageView.setImageWidth(album.getResWidth());
             imageView.setImageHeight(album.getResHight());
-            ImageLoadUtils.universalLoading(url , imageView);
-            //ImageLoadUtils.glideLoading(mContext , url , imageView);
+//            ImageLoadUtils.universalLoading(url , imageView);
+            ImageLoadUtils.glideLoading(mContext , url , imageView);
         }
 
         // 内容

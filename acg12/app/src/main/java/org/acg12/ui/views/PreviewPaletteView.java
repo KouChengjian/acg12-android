@@ -26,7 +26,7 @@ import butterknife.BindView;
 /**
  * Created by DELL on 2016/12/24.
  */
-public class PalettePreviewView extends ViewImpl {
+public class PreviewPaletteView extends ViewImpl {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -40,10 +40,11 @@ public class PalettePreviewView extends ViewImpl {
     TextView loadNullTextview;
 
     TabAlbumAdapter tabAlbumAdapter;
+    StaggeredGridLayoutManager staggeredGridLayoutManager;
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_palette_preview;
+        return R.layout.activity_preview_palette;
     }
 
     @Override
@@ -52,7 +53,8 @@ public class PalettePreviewView extends ViewImpl {
         toolbar.setNavigationIcon(R.mipmap.ic_action_back);
         toolbar.setTitle("");
 
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
         mRecyclerView.setLoadingMoreEnabled(true);
         tabAlbumAdapter = new TabAlbumAdapter(getContext());
         mRecyclerView.setAdapter(tabAlbumAdapter);
@@ -88,6 +90,10 @@ public class PalettePreviewView extends ViewImpl {
         return tabAlbumAdapter.getList().get(tabAlbumAdapter.getList().size() - 1).getPinId();
     }
 
+    public List<Album> getAlbumList() {
+        return tabAlbumAdapter.getList();
+    }
+
     public void stopLoading(){
         mRecyclerView.noMoreLoading();
     }
@@ -121,5 +127,13 @@ public class PalettePreviewView extends ViewImpl {
                 loadNullImageview.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    /**
+     * RecyclerView 移动到当前位置，
+     * @param n  要跳转的位置
+     */
+    public void MoveToPosition(int n) {
+        staggeredGridLayoutManager.scrollToPositionWithOffset(n, 0);
     }
 }

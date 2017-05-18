@@ -44,7 +44,7 @@ class test : Param {
         n = "unknown"
         d = AppUtil.getTelephonyMgr(context)
         v = "unknown"
-        a = AppUtil().getPackageInfo(context).versionName
+        a = AppUtil.getPackageInfo(context).versionName
         t = (System.currentTimeMillis() / 1000).toString().toString()
         g = ""
         c = ""

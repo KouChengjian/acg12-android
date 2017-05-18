@@ -28,8 +28,6 @@ public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implem
 
     boolean refresh = true;
     String boardId = "";
-    public static List<Album> mList = null;
-
 
     public static TabAlbumFragment newInstance(String boardId) {
         TabAlbumFragment fragment = new TabAlbumFragment();
@@ -40,10 +38,15 @@ public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implem
     }
 
     @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        PreviewAlbumActivity.mList = null;
+    }
+
+    @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
         boardId = getArguments().getString("boardId");
-        mList = mView.getAlbumList();
         refresh(boardId);
     }
 
@@ -56,6 +59,8 @@ public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implem
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == Constant.START_ACTIVITY_RESULT){
                 int position = data.getExtras().getInt("position");
+                List<Album> list = mView.getAlbumList();
+                list = PreviewAlbumActivity.mList;
                 mView.MoveToPosition(position);
             }
         }
@@ -67,8 +72,7 @@ public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implem
         Intent intent = new Intent(mContext , PreviewAlbumActivity.class  );
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);
-        mList = mView.getAlbumList();
-        //bundle.putSerializable("albumList", (Serializable)(mView.getAlbumList()));
+        PreviewAlbumActivity.mList = mView.getAlbumList();
         intent.putExtras(bundle);
         startActivityForResult(intent, Constant.START_ACTIVITY_RESULT);
     }

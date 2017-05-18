@@ -11,7 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class HomePagerAdapter extends FragmentPagerAdapter {
 
     private Fragment[] fragments;
-    private final String[] DONG_HUA_TITLE = new String[] {"图片","画集","番剧" ,"MAD.AMV" , "MMD.3D" , "闲谈"};
+    private final String[] DONG_HUA_TITLE = new String[] {"插画","画板","番剧" ,"MAD.AMV" , "MMD.3D" , "闲谈"};
 
     public HomePagerAdapter(FragmentManager fm , Fragment[] fragments) {
         super(fm);

@@ -10,6 +10,7 @@ import org.acg12.listener.HttpRequestListener;
 import org.acg12.net.factory.ApiConverterFactory;
 import org.acg12.net.factory.ApiErrorCode;
 import org.acg12.net.factory.ApiException;
+import org.acg12.utlis.LogUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,9 +36,9 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  */
 public class RetrofitClient {
 
-    public final static int CONNECT_TIMEOUT =10;
-    public final static int READ_TIMEOUT=10;
-    public final static int WRITE_TIMEOUT=10;
+    public final static int CONNECT_TIMEOUT = 10;
+    public final static int READ_TIMEOUT = 10;
+    public final static int WRITE_TIMEOUT = 10;
     private static OkHttpClient mOkHttpClient = null;
 
     static {
@@ -112,10 +113,10 @@ public class RetrofitClient {
     public static ApiService with(){
         OkHttpClient okHttpClient = initOkhttp();
         retrofit2.Retrofit retrofit = new retrofit2.Retrofit.Builder()
-                .baseUrl(Constant.URL)
                 .addConverterFactory(ApiConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)
+                .baseUrl(Constant.URL)
                 .build();
         ApiService netInterFace = retrofit.create(ApiService.class);
         return netInterFace;
@@ -338,12 +339,12 @@ public class RetrofitClient {
     }
 
     public static void failure(final Throwable e , final HttpRequestListener httpRequestListener){
-        failure(e.getMessage() ,httpRequestListener);
+        failure(e.toString() ,httpRequestListener);
     }
 
     public static void failure(final String e , final HttpRequestListener httpRequestListener){
         if(httpRequestListener != null){
-            httpRequestListener.onFailure(-1, e);
+            httpRequestListener.onFailure(0, e);
         }else{
             failure();
         }

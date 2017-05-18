@@ -10,31 +10,27 @@ import org.acg12.config.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterActivityImpl;
-import org.acg12.ui.fragment.TabAlbumFragment;
 import org.acg12.ui.views.PreviewAlbumView;
 import org.acg12.utlis.LogUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PreviewAlbumActivity extends PresenterActivityImpl<PreviewAlbumView> implements View.OnClickListener , ViewPager.OnPageChangeListener {
 
     int position;
-    List<Album> albumList ;
+    public static List<Album> mList = null;
 
     @Override
     public void create(Bundle savedInstance) {
         super.create(savedInstance);
         Intent intent = getIntent();
         position = intent.getExtras().getInt("position");
-        //albumList = (List<Album>)intent.getSerializableExtra("albumList");
-        albumList = TabAlbumFragment.mList;
     }
 
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        mView.bindData(position,albumList );
+        mView.bindData(position,mList);
     }
 
     @Override
@@ -59,31 +55,11 @@ public class PreviewAlbumActivity extends PresenterActivityImpl<PreviewAlbumView
     @Override
     public void onPageSelected(int position) {
        this.position = position;
-        LogUtil.e("position = "+position);
-//        int albumTotal = albumList.size();
-//        if(albumTotal - position < 1){
-//            List<Album> list = new ArrayList<>();
-//            list.add(new Album());
-//           mView.addList(list);
-//            //refresh(albumList.get(albumTotal - 1).getPinId());
-//        }
+//        LogUtil.e("position = "+position);
         if (position == mView.getList().size()-1){
-            List<Album> list = new ArrayList<>();
-            list.add(new Album());
-            list.add(new Album());
-            list.add(new Album());
-            list.add(new Album());
-            list.add(new Album());
-            list.add(new Album());
-            list.add(new Album());
-            list.add(new Album());
-            list.add(new Album());
-            list.add(new Album());
-            list.add(new Album());
-            list.add(new Album());
-            list.add(new Album());
-            LogUtil.e("list = "+list.size());
-           mView.addList(list);
+            ShowToast("正在加载更多");
+            int total = mList.size();
+            refresh(mList.get(total - 1).getPinId());
         }
     }
 
@@ -94,22 +70,15 @@ public class PreviewAlbumActivity extends PresenterActivityImpl<PreviewAlbumView
         HttpRequestImpl.getInstance().albumList(pinId, new HttpRequestListener<List<Album>>() {
             @Override
             public void onSuccess(List<Album> result) {
-                albumList.addAll(result);
-                mView.bindData(position,albumList );
-//                if (result.size() != 0 && result.get(result.size() - 1) != null) {
-//                    if (result.size() < Constant.LIMIT_PAGER) {
-//                        mView.stopLoading();
-//                    }
-//                    mView.bindData(result , refresh);
-//                }
-//                mView.stopRefreshLoadMore(refresh);
+                mList.addAll(result);
+                mView.addList(result);
             }
 
             @Override
             public void onFailure(int errorcode, String msg) {
+//                LogUtil.e(msg);
 //                LogUtil.e(mTag , msg);
 //                ShowToastView(msg);
-//                mView.stopRefreshLoadMore(refresh);
             }
         });
     }

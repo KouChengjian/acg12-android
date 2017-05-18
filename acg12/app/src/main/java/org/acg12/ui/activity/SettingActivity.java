@@ -7,6 +7,7 @@ import org.acg12.R;
 import org.acg12.config.Constant;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.ui.views.SettingView;
+import org.acg12.utlis.ImageLoadUtils;
 
 public class SettingActivity extends PresenterActivityImpl<SettingView> implements View.OnClickListener {
 
@@ -22,7 +23,8 @@ public class SettingActivity extends PresenterActivityImpl<SettingView> implemen
         if(id == Constant.TOOLBAR_ID){
             finish();
         } else if(id == R.id.settings_cache){
-
+            ImageLoadUtils.clearUniversalLoading();
+            ImageLoadUtils.clearImageAllCache(this);
         } else if(id == R.id.settings_update) {
 
         } else if(id == R.id.settings_feedback) {

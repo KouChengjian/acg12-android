@@ -7,6 +7,8 @@ import com.facebook.stetho.Stetho;
 import org.acg12.config.Config;
 import org.acg12.db.DaoBaseImpl;
 import org.acg12.net.HttpRequestImpl;
+import org.acg12.utlis.CacheUtils;
+import org.acg12.utlis.CrashHandler;
 import org.acg12.utlis.ImageLoadUtils;
 import org.acg12.utlis.Toastor;
 import org.acg12.utlis.skin.SkinManager;
@@ -54,6 +56,7 @@ public class ACGApplication extends Application {
 		new Config(this);
 		new Toastor(this);
 		new ImageLoadUtils(this);
+		new CrashHandler(999999);
 		new DaoBaseImpl(this);
 		new HttpRequestImpl(this);
 		SkinManager.getInstance().init(this);

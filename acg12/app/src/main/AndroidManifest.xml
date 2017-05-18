@@ -33,13 +33,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.PalettePreviewActivity"
+            android:name=".ui.activity.PreviewPaletteActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.PreviewAlbumActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.PreviewBangumiActivity"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+        <activity
+            android:name=".ui.activity.PreviewImageActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.SkinActivity"
@@ -62,11 +65,12 @@
         <activity
             android:name=".ui.activity.AboutActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
-
-        <activity android:name=".ui.activity.PlayBungumiActivity"
-            android:screenOrientation="landscape"
+        <activity
+            android:name=".ui.activity.PlayBungumiActivity"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout"/>
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+
     </application>
 
 </manifest>

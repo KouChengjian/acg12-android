@@ -6,6 +6,7 @@ import org.acg12.bean.Album;
 import org.acg12.bean.Palette;
 import org.acg12.bean.Video;
 import org.acg12.listener.HttpRequestListener;
+import org.acg12.utlis.LogUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -40,10 +42,13 @@ public class HttpRequestImpl implements HttpRequest {
     public Subscription albumList(String pinId, final HttpRequestListener<List<Album>> httpRequestListener) {
         Subscription subscription = RetrofitClient.with().albumList("album",pinId)
                 .subscribeOn(Schedulers.newThread())
+//                .unsubscribeOn(Schedulers.io())
+//                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
                     @Override
                     public void call(ResponseBody response) {
+                        LogUtil.e("call");
                         List<Album> list = new ArrayList<Album>();
                         JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
