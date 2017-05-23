@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.stetho.Stetho;
 
 import org.acg12.config.Config;
+import org.acg12.config.Constant;
 import org.acg12.db.DaoBaseImpl;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.utlis.CacheUtils;
@@ -12,6 +13,8 @@ import org.acg12.utlis.CrashHandler;
 import org.acg12.utlis.ImageLoadUtils;
 import org.acg12.utlis.Toastor;
 import org.acg12.utlis.skin.SkinManager;
+
+import cn.bmob.v3.Bmob;
 
 
 //                          _oo0oo_

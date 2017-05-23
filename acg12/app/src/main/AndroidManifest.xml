@@ -70,7 +70,8 @@
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
-
+        <activity android:name=".ui.activity.LoginActivity" />
+        <activity android:name=".ui.activity.UserInfoActivity"></activity>
     </application>
 
 </manifest>

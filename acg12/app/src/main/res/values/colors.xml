@@ -12,4 +12,9 @@
     <color name="line">#f2f2f2</color>
     <color name="title">#272e3e</color>
     <color name="title_hint">#999999</color>
+
+
+
+
+    <color name="spb_default_color">#33b5e5</color>
 </resources>

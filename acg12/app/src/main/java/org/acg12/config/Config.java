@@ -15,9 +15,11 @@ public class Config {
     Context mContext ;
     static ListVideoUtil listVideoUtil;
     static EventBus eventbusNavigation;
+    static EventBus eventbusUser;
 
     static {
         eventbusNavigation = EventBus.builder().build();
+        eventbusUser  = EventBus.builder().build();
     }
 
     public Config(Context mContext){
@@ -34,6 +36,10 @@ public class Config {
 
     public static EventBus navigationEventBus(){
         return eventbusNavigation;
+    }
+
+    public static EventBus userEventBus(){
+        return eventbusUser;
     }
 
     public static ListVideoUtil ListVideoUtilInstance(){

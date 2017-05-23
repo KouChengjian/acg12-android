@@ -1,5 +1,6 @@
 package org.acg12.widget;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentUris;
@@ -14,14 +15,19 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import org.acg12.R;
 
+import org.acg12.config.Constant;
 import org.acg12.utlis.CacheUtils;
+import org.acg12.utlis.premission.ApplyPermission;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -59,15 +65,15 @@ public class CommonPopupWindows {
         popupWindow.showAtLocation(rootView, Gravity.BOTTOM, 0, 0);
     }
 
-    public interface OnUpdateChooseCity{
-        void updateCity(String sex);
-    }
-
-    public void setOnUpdateChooseCity(OnUpdateChooseCity onUpdateChooseCity){
-        this.onUpdateChooseCity = onUpdateChooseCity;
-    }
-
-    OnUpdateChooseCity onUpdateChooseCity;
+//    public interface OnUpdateChooseCity{
+//        void updateCity(String sex);
+//    }
+//
+//    public void setOnUpdateChooseCity(OnUpdateChooseCity onUpdateChooseCity){
+//        this.onUpdateChooseCity = onUpdateChooseCity;
+//    }
+//
+//    OnUpdateChooseCity onUpdateChooseCity;
 
     /**
      * 修改城市
@@ -109,15 +115,15 @@ public class CommonPopupWindows {
 
 
 
-    public interface OnUpdateSex{
-        void updateSex(String sex, int i);
-    }
-
-    public void setOnUpdateSex(OnUpdateSex onUpdateSex){
-        this.onUpdateSex = onUpdateSex;
-    }
-
-    OnUpdateSex onUpdateSex;
+//    public interface OnUpdateSex{
+//        void updateSex(String sex, int i);
+//    }
+//
+//    public void setOnUpdateSex(OnUpdateSex onUpdateSex){
+//        this.onUpdateSex = onUpdateSex;
+//    }
+//
+//    OnUpdateSex onUpdateSex;
 
     /**
      * 修改性别
@@ -179,8 +185,31 @@ public class CommonPopupWindows {
     /**
      * 相机
      */
-//    public void initOpenCamera(View rootView){
-//        View view = LayoutInflater.from(mContext).inflate(R.layout.common_pop_user_avatar, null);
+    public void initOpenCamera(){
+        final AlertDialog albumDialog = new AlertDialog.Builder(mContext).create();
+        albumDialog.setCanceledOnTouchOutside(true);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.include_popup_user_avatar, null);
+        albumDialog.show();
+        albumDialog.setContentView(v);
+        albumDialog.getWindow().setGravity(Gravity.CENTER);
+        TextView albumPic = (TextView)v.findViewById(R.id.album_pic);
+        TextView cameraPic = (TextView)v.findViewById(R.id.camera_pic);
+        albumPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                albumDialog.dismiss();
+                getOpenPhotoAlbum();
+            }
+        });
+        cameraPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                albumDialog.dismiss();
+                ApplyPermission.with(((Activity)mContext)).addRequestCode(Constant.USER_APPLY_PERMISSION_CAMERE).permissions(Manifest.permission.CAMERA).request();
+            }
+        });
+
+//        View view = LayoutInflater.from(mContext).inflate(R.layout.include_popup_user_avatar, null);
 //        popupWindow = new PopupWindow(view, 0, 0);
 //        view.findViewById(R.id.tv_dismiss).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -219,7 +248,7 @@ public class CommonPopupWindows {
 //            }
 //        });
 //        popupwindows(view , rootView);
-//    }
+    }
 
     public interface OnUpdateAvatar{
         void updateAvatar(String url);
