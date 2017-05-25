@@ -59,7 +59,7 @@ public class UserInfoView extends ViewImpl {
     public void bindEvent() {
         super.bindEvent();
         PresenterHelper.click(mPresenter ,toolbar);
-        PresenterHelper.click(mPresenter ,rl_user_avatar ,rl_user_nick ,rl_user_account ,rl_user_sex ,rl_user_sign);
+        PresenterHelper.click(mPresenter ,rl_user_avatar ,rl_user_nick  ,iv_user_sex ,rl_user_sign);
     }
 
     public void paddingDate(User user) {
@@ -69,15 +69,19 @@ public class UserInfoView extends ViewImpl {
         String avatar = user.getAvatar();
         if(avatar != null){
             ImageLoadUtils.universalLoading(avatar , iv_user_avatar );
-            if(user.getSex().equals("male")){
-                iv_user_sex.setSelected(false);
-            }else {
-                iv_user_sex.setSelected(true);
-            }
+            setSexSelector(user.getSex());
             ViewUtil.setText(tv_user_account , user.getUsername());
             ViewUtil.setText(tv_user_nick , user.getNick());
             ViewUtil.setText(tv_user_sign , user.getSignature());
         }
 
+    }
+
+    public void setSexSelector(int sexSelector){
+        if(sexSelector == 0){
+            iv_user_sex.setSelected(false);
+        }else {
+            iv_user_sex.setSelected(true);
+        }
     }
 }

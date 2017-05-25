@@ -2,47 +2,28 @@ package org.acg12.bean;
 
 import android.content.Context;
 
-import com.litesuits.orm.db.annotation.Column;
-import com.litesuits.orm.db.annotation.Ignore;
-import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
-import com.litesuits.orm.db.enums.AssignType;
-
-import org.acg12.utlis.AppUtil;
-
-import cn.bmob.v3.BmobObject;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobGeoPoint;
 
 @Table("user")
-public class User extends BmobUser{
+public class User extends Param{;
 
-    private static final long serialVersionUID = -7180816291844644837L;
+    // header
 
-    @PrimaryKey(AssignType.AUTO_INCREMENT)
-    @Column("_id")
-    protected long id;
+    // 额外信息
+    private Boolean isUpdataToken;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-//	private String username;
-//	private String password;
+    private int uid = 0;
+	private String username;
+	private String password;
 	private String avatar;
 	private String signature; // 签名
-	private String sex; // 性别
+	private int sex; // 性别 0 男 1 女
 	private String nick;
-	private BmobGeoPoint location;
 
     public User(){}
 
 	public User(Context context){
-//		this.uid = 0;
+		this.uid = 0;
 //		p ="1";
 //		s = "unknown";
 //		n = "unknown";
@@ -72,11 +53,11 @@ public class User extends BmobUser{
         this.signature = signature;
     }
 
-    public String getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
@@ -88,11 +69,35 @@ public class User extends BmobUser{
         this.nick = nick;
     }
 
-    public BmobGeoPoint getLocation() {
-        return location;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLocation(BmobGeoPoint location) {
-        this.location = location;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getUpdataToken() {
+        return isUpdataToken;
+    }
+
+    public void setUpdataToken(Boolean updataToken) {
+        isUpdataToken = updataToken;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 }

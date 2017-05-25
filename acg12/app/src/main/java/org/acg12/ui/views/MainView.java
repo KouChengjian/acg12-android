@@ -91,7 +91,7 @@ public class MainView extends ViewImpl {
             if(avatar != null){
                 ImageLoadUtils.universalLoading(avatar , iv_nav_avatar );
                 iv_nav_sex.setVisibility(View.VISIBLE);
-                if(user.getSex().equals("male")){
+                if(user.getSex() == 0){
                     iv_nav_sex.setSelected(false);
                 }else {
                     iv_nav_sex.setSelected(true);

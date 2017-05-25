@@ -1,16 +1,43 @@
 package org.acg12.net;
 
 
+import org.acg12.bean.User;
+import org.acg12.net.converter.LoginConverter;
+import org.acg12.net.factory.ApiConverter;
+
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import rx.Observable;
+import rx.Subscription;
 
 /**
  * Created by DELL on 2016/11/29.
  */
 public interface ApiService {
 
+    @FormUrlEncoded
+    @POST("api/login")
+    @ApiConverter(converter = LoginConverter.class)
+    Observable<User> login(@Field("username") String username , @Field("password") String password);
+
+
+    @Multipart
+    @POST("api/alteruser")
+    Observable<ResponseBody> uploadFile(@PartMap Map<String, RequestBody> map);
+
+    @FormUrlEncoded
+    @POST("api/alteruser")
+    Observable<ResponseBody> userAlter(@Field("alterType") String type , @Field("param1") String param1 , @Field("param2") String param2);
 
     @GET("res/p/album")
     Observable<ResponseBody> albumList(@Query("action") String action , @Query("max") String pinId);

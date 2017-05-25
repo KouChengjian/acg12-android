@@ -1,9 +1,8 @@
 package org.acg12.ui.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import org.acg12.R;
@@ -13,16 +12,19 @@ import org.acg12.config.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterActivityImpl;
-import org.acg12.ui.views.LoginView;
+import org.acg12.ui.views.SignView;
 import org.acg12.utlis.LogUtil;
 import org.acg12.utlis.Network;
-import org.acg12.utlis.TelNumMatch;
 
-public class LoginActivity extends PresenterActivityImpl<LoginView> implements View.OnClickListener{
+public class SignActivity extends PresenterActivityImpl<SignView> implements View.OnClickListener {
+
+    User user;
 
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
+        user = (User)getIntent().getExtras().getSerializable("user");
+        mView.setSign(user.getSignature());
     }
 
     @Override
@@ -35,63 +37,49 @@ public class LoginActivity extends PresenterActivityImpl<LoginView> implements V
         int id = view.getId();
         if(id == Constant.TOOLBAR_ID){
             finish();
-        } else if(id == R.id.btn_login){
-            login();
+        } else if(id == R.id.title_right){
+            sign();
         }
     }
 
-    public void login(){
+    public void sign(){
         boolean isNetConnected = Network.isConnected(mContext);
         if (!isNetConnected) {
             ShowToastView(R.string.network_tips);
             return;
         }
 
-        String name = mView.getUsername();
-        String password = mView.getPassword();
-
-        if (TextUtils.isEmpty(name)) {
-            ShowToastView(R.string.toast_error_username_null);
+        String sign = mView.getSign();
+        if(sign.isEmpty()){
+            ShowToastView("签名不能为空");
             return;
         }
-
-        int type = new TelNumMatch(name).matchNum();
-        if (type == 4 || type == 5) {
-            ShowToastView(R.string.toast_error_username);
-            return;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            ShowToastView(R.string.toast_error_password_null);
-            return;
-        }
-
-        if (password.length() < 6 ) {
-            ShowToastView(R.string.toast_error_password);
+        LogUtil.e(sign.length()+"==");
+        if(sign.length() > 20){
+            ShowToastView("签名不能超过20位");
             return;
         }
 
         final ProgressDialog progress = new ProgressDialog(mContext);
-        progress.setMessage(getResources().getString(R.string.toast_login_loading));
+        progress.setMessage("正在更新签名...");
         progress.setCanceledOnTouchOutside(false);
         progress.show();
-        final User user = new User(mContext);
-        user.setUsername(name);
-        user.setPassword(password);
 
-        HttpRequestImpl.getInstance().login(user, new HttpRequestListener<User>() {
+        user.setSignature(sign);
+        HttpRequestImpl.getInstance().sign(user, new HttpRequestListener<User>() {
             @Override
             public void onSuccess(User result) {
-                progress.dismiss();
+                ShowToastView("更新成功");
                 Config.userEventBus().post(result);
+                progress.dismiss();
                 finish();
             }
 
             @Override
             public void onFailure(int errorcode, String msg) {
-                progress.dismiss();
                 LogUtil.e(msg);
                 ShowToastView(msg);
+                progress.dismiss();
             }
         });
     }

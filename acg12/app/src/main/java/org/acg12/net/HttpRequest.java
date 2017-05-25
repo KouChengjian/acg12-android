@@ -4,6 +4,7 @@ package org.acg12.net;
 
 import org.acg12.bean.Album;
 import org.acg12.bean.Palette;
+import org.acg12.bean.User;
 import org.acg12.bean.Video;
 import org.acg12.listener.HttpRequestListener;
 
@@ -12,6 +13,22 @@ import java.util.List;
 import rx.Subscription;
 
 public interface HttpRequest {
+
+    Subscription login(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription register(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription verify(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription resetPwd(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription avatar(User user ,HttpRequestListener<User> httpRequestListener);
+
+    Subscription sex(User user ,HttpRequestListener<User> httpRequestListener);
+
+    Subscription nick(User user ,HttpRequestListener<User> httpRequestListener);
+
+    Subscription sign(User user ,HttpRequestListener<User> httpRequestListener);
 
     Subscription albumList(String pinId ,HttpRequestListener<List<Album>> httpRequestListener);
 

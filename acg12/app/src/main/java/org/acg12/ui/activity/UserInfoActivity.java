@@ -11,20 +11,21 @@ import org.acg12.bean.User;
 import org.acg12.config.Config;
 import org.acg12.config.Constant;
 import org.acg12.db.DaoBaseImpl;
+import org.acg12.listener.HttpRequestListener;
+import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.ui.views.UserInfoView;
 import org.acg12.utlis.LogUtil;
+import org.acg12.utlis.Network;
 import org.acg12.utlis.premission.ApplyPermission;
 import org.acg12.utlis.premission.FailPermission;
 import org.acg12.utlis.premission.SuccessPermission;
 import org.acg12.widget.CommonPopupWindows;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.listener.UpdateListener;
-import cn.bmob.v3.listener.UploadFileListener;
 
 public class UserInfoActivity extends PresenterActivityImpl<UserInfoView> implements View.OnClickListener ,CommonPopupWindows.OnUpdateAvatar {
 
@@ -34,6 +35,7 @@ public class UserInfoActivity extends PresenterActivityImpl<UserInfoView> implem
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
+        Config.userEventBus().register(this);
         user = (User) getIntent().getExtras().getSerializable("user");
         mView.paddingDate(user);
         commonPopupWindows = new CommonPopupWindows(this);
@@ -66,6 +68,10 @@ public class UserInfoActivity extends PresenterActivityImpl<UserInfoView> implem
         ApplyPermission.showMissingPermissionDialog(this);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateUser(User user){
+        mView.paddingDate(user);
+    }
 
     @Override
     public void onClick(View view) {
@@ -76,13 +82,21 @@ public class UserInfoActivity extends PresenterActivityImpl<UserInfoView> implem
             commonPopupWindows.initOpenCamera();
             commonPopupWindows.setOnUpdateAvatar(this);
         } else if(id == R.id.rl_user_nick){
-
-        } else if(id == R.id.rl_user_account){
-
-        } else if(id == R.id.rl_user_sex){
-
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user",user);
+            startAnimActivity(NickActivity.class,bundle);
         } else if(id == R.id.rl_user_sign){
-
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user",user);
+            startAnimActivity(SignActivity.class,bundle);
+        } else if(id == R.id.iv_user_sex){
+            if(user.getSex() == 0){
+                user.setSex(1);
+            }else {
+                user.setSex(0);
+            }
+            mView.setSexSelector(user.getSex());
+            updateSex();
         }
     }
 
@@ -97,7 +111,7 @@ public class UserInfoActivity extends PresenterActivityImpl<UserInfoView> implem
         progress.setCanceledOnTouchOutside(false);
         progress.show();
 
-        final BmobFile file = new BmobFile(new File(url));
+//        final BmobFile file = new BmobFile(new File(url));
 //        file.upload(mContext, new UploadFileListener() {
 //
 //            @Override
@@ -115,7 +129,7 @@ public class UserInfoActivity extends PresenterActivityImpl<UserInfoView> implem
 //        });
     }
 
-    public void updateAvatar(final ProgressDialog progress , BmobFile file){
+    public void updateAvatar(final ProgressDialog progress ){
 //        final User currentUser = BmobUser.getCurrentUser(mContext, User.class);
 //        currentUser.setAvatar(file.getFileUrl(mContext));
 //        currentUser.update(mContext, new UpdateListener() {
@@ -140,37 +154,32 @@ public class UserInfoActivity extends PresenterActivityImpl<UserInfoView> implem
     }
 
 
-//        if(url!=null){
+    public void updateSex(){
+        boolean isNetConnected = Network.isConnected(mContext);
+        if (!isNetConnected) {
+            ShowToastView(R.string.network_tips);
+            return;
+        }
+        HttpRequestImpl.getInstance().sex(user, new HttpRequestListener<User>() {
+            @Override
+            public void onSuccess(User result) {
+                ShowToastView("更新成功");
+                Config.userEventBus().post(result);
 
-//            file.upload(mContext, new UploadFileListener() {
-//                @Override
-//                public void onSuccess() {
-//                    User currentUser = HttpProxy.getCurrentUser(mContext);
-//                    currentUser.setAvatar(file.getFileUrl(mContext));
-//                    currentUser.update(mContext, new UpdateListener() {
-//
-//                        @Override
-//                        public void onSuccess() {
-//                            ShowToast("更改头像成功。");
-//                        }
-//
-//                        @Override
-//                        public void onFailure(int arg0, String arg1) {
-//                            ShowToast("更新头像失败。请检查网络~");
-//                        }
-//                    });
-//                }
-//
-//                @Override
-//                public void onProgress(Integer arg0) {
-//
-//                }
-//
-//                @Override
-//                public void onFailure(int arg0, String arg1) {
-//                    ShowToast("上传头像失败。请检查网络~"+arg1);
-//                }
-//            });
-//        }
-//    }
+            }
+
+            @Override
+            public void onFailure(int errorcode, String msg) {
+                LogUtil.e(msg);
+                ShowToastView(msg);
+            }
+        });
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Config.userEventBus().unregister(this);
+    }
 }

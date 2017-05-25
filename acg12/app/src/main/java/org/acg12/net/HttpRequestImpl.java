@@ -4,20 +4,28 @@ import android.content.Context;
 
 import org.acg12.bean.Album;
 import org.acg12.bean.Palette;
+import org.acg12.bean.User;
 import org.acg12.bean.Video;
+import org.acg12.db.DaoBaseImpl;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.utlis.LogUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -37,6 +45,163 @@ public class HttpRequestImpl implements HttpRequest {
         return instance;
     }
 
+    public Observable<User> isUpdataToken(User user) {
+        return Observable.just(user)
+                .map(new Func1<User, User>() {
+                    @Override
+                    public User call(User user) {
+                        Boolean hasUpdataToken = false;
+                        user.setUpdataToken(hasUpdataToken);
+                        return user;
+                    }
+                });
+    }
+
+    @Override
+    public Subscription login(final User user, final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with(user).login(user.getUsername(),user.getPassword())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(Schedulers.io())
+                .doOnNext(new Action1<User>() {
+                    @Override
+                    public void call(User u) {
+                        user.setUid(u.getUid());
+                        user.setNick(u.getNick());
+                        user.setSex(u.getSex());
+                        user.setAvatar(u.getAvatar());
+                        user.setSignature(u.getSignature());
+                        DaoBaseImpl.getInstance().delTabUser();
+                        DaoBaseImpl.getInstance().saveUser(user);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<User>() {
+                    @Override
+                    public void call(User u) {
+                        httpRequestListener.onSuccess(user);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription register(User user, HttpRequestListener<User> httpRequestListener) {
+        return null;
+    }
+
+    @Override
+    public Subscription verify(User user, HttpRequestListener<User> httpRequestListener) {
+        return null;
+    }
+
+    @Override
+    public Subscription resetPwd(User user, HttpRequestListener<User> httpRequestListener) {
+        return null;
+    }
+
+    @Override
+    public Subscription avatar(final User user, final HttpRequestListener<User> httpRequestListener) {
+        File file = new File(user.getAvatar());
+        Map<String, RequestBody> map = new HashMap<String, RequestBody>();
+        map.put("alterType", RetrofitClient.parseRequestBody("3"));
+        map.put("param1" +"\"; filename=\""+file.getName(), RetrofitClient.parseImageRequestBody(file));
+        map.put("param2", RetrofitClient.parseRequestBody(""));
+
+        Subscription subscription = RetrofitClient.with(user).uploadFile(map)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if (data != null) {
+                            user.setAvatar(RetrofitClient.getString(data,"avatar"));
+                            DaoBaseImpl.getInstance().saveUser(user);
+                            httpRequestListener.onSuccess(user);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable, httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription sex(final User user,final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with(user).userAlter("4" , user.getSex()+"" , "")
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if (data != null) {
+                            DaoBaseImpl.getInstance().saveUser(user);
+                            httpRequestListener.onSuccess(user);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription nick(final User user,final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with(user).userAlter("1" , user.getNick() , "")
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if (data != null) {
+                            DaoBaseImpl.getInstance().saveUser(user);
+                            httpRequestListener.onSuccess(user);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription sign(final User user,final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with(user).userAlter("2" , user.getSignature() , "")
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if (data != null) {
+                            DaoBaseImpl.getInstance().saveUser(user);
+                            httpRequestListener.onSuccess(user);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
 
     @Override
     public Subscription albumList(String pinId, final HttpRequestListener<List<Album>> httpRequestListener) {
@@ -48,7 +213,6 @@ public class HttpRequestImpl implements HttpRequest {
                 .subscribe(new Action1<ResponseBody>() {
                     @Override
                     public void call(ResponseBody response) {
-                        LogUtil.e("call");
                         List<Album> list = new ArrayList<Album>();
                         JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){

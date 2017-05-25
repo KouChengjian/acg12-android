@@ -60,8 +60,6 @@ public class SettingActivity extends PresenterActivityImpl<SettingView> implemen
     }
 
     public void logout(){
-        User user = DaoBaseImpl.getInstance().getCurrentUser();
-        user.logOut();
         DaoBaseImpl.getInstance().delTabUser();
         Config.userEventBus().post(new User(mContext));
         finish();
