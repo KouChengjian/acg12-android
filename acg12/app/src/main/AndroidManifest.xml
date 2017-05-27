@@ -20,11 +20,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:theme="@style/Theme.MaterialSheetFab">
         <activity
             android:name=".ui.activity.MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +30,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+        <activity
+            android:name=".ui.activity.UserInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+        <activity
+            android:name=".ui.activity.NickActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+        <activity
+            android:name=".ui.activity.SignActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.PreviewPaletteActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
@@ -70,10 +84,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
-        <activity android:name=".ui.activity.LoginActivity" />
-        <activity android:name=".ui.activity.UserInfoActivity" />
-        <activity android:name=".ui.activity.NickActivity" />
-        <activity android:name=".ui.activity.SignActivity"></activity>
+        <activity
+            android:name=".ui.activity.IndexActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
     </application>
 
 </manifest>

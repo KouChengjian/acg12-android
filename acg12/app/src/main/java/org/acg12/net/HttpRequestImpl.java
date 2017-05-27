@@ -105,6 +105,35 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
+    public Subscription userInfo(final User user,final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with(user).userInfo()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if (data != null) {
+                            JSONObject json = RetrofitClient.getJSONObject(data , "user");
+                            user.setUid(RetrofitClient.getInt(json, "id"));
+                            user.setSex(RetrofitClient.getInt(json, "sex"));
+                            user.setNick(RetrofitClient.getString(json, "nick"));
+                            user.setAvatar(RetrofitClient.getString(json, "avatar"));
+                            user.setSignature(RetrofitClient.getString(json, "sign"));
+                            DaoBaseImpl.getInstance().saveUser(user);
+                            httpRequestListener.onSuccess(user);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
     public Subscription avatar(final User user, final HttpRequestListener<User> httpRequestListener) {
         File file = new File(user.getAvatar());
         Map<String, RequestBody> map = new HashMap<String, RequestBody>();

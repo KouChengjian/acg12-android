@@ -22,6 +22,8 @@ public interface HttpRequest {
 
     Subscription resetPwd(User user, HttpRequestListener<User> httpRequestListener);
 
+    Subscription userInfo(User user ,HttpRequestListener<User> httpRequestListener);
+
     Subscription avatar(User user ,HttpRequestListener<User> httpRequestListener);
 
     Subscription sex(User user ,HttpRequestListener<User> httpRequestListener);

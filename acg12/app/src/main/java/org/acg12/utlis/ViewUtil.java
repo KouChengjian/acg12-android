@@ -14,6 +14,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.acg12.R;
 import org.acg12.ui.activity.MainActivity;
 
 public class ViewUtil {
@@ -106,7 +107,7 @@ public class ViewUtil {
 	}
 
 	public static void exitAnimActivity(Context mContext) {
-		//((Activity)mContext).overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+//		((Activity)mContext).overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
 	}
 
 	@TargetApi(21)

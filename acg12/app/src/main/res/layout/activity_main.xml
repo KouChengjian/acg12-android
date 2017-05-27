@@ -4,7 +4,8 @@
     xmlns:skin="http://schemas.android.com/android/skin"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:id="@+id/main_fragment_container"

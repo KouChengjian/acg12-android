@@ -2,11 +2,15 @@ package org.acg12.ui.activity;
 
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
@@ -16,9 +20,12 @@ import org.acg12.bean.User;
 import org.acg12.config.Config;
 import org.acg12.config.Constant;
 import org.acg12.db.DaoBaseImpl;
+import org.acg12.listener.HttpRequestListener;
+import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.ui.views.LoginView;
 import org.acg12.utlis.LogUtil;
+import org.acg12.utlis.Network;
 import org.acg12.utlis.skin.entity.AttrFactory;
 import org.acg12.utlis.skin.entity.DynamicAttr;
 import org.acg12.ui.views.MainView;
@@ -43,7 +50,8 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
         mDynamicAttr.add(new DynamicAttr(AttrFactory.NAVIGATIONVIEW, R.color.theme_primary));
         dynamicAddView(mView.getNavigationView(), mDynamicAttr);
 
-}
+        pudateUser();
+    }
 
     @Override
     protected void onResume() {
@@ -75,7 +83,7 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
                 break;
             case R.id.nav_star:
                 if(DaoBaseImpl.getInstance().getCurrentUser() == null){
-                    startAnimActivity(LoginActivity.class);
+                    startAnimActivity(IndexActivity.class);
                 } else {
                     startAnimActivity(CollectActivity.class);
                 }
@@ -116,20 +124,45 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
         }
     }
 
+    public void pudateUser(){
+        boolean isNetConnected = Network.isConnected(mContext);
+        if (!isNetConnected) {
+            return;
+        }
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        if(user == null) return;
+        HttpRequestImpl.getInstance().userInfo(user, new HttpRequestListener<User>() {
+            @Override
+            public void onSuccess(User result) {
+                mView.paddingDate(result);
+            }
+
+            @Override
+            public void onFailure(int errorcode, String msg) {
+
+            }
+        });
+    }
+
     @Override
-    public void onBackPressed() {
-        if(mView.getDrawerLayout().isDrawerVisible(GravityCompat.START)){
-            mView.toggleDrawer();
-        } else {
-            if (Config.ListVideoUtilInstance().backFromFull()) {
-                return;
-            }
-            if (firstTime + 2000 > System.currentTimeMillis()) {
-                super.onBackPressed();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            if(mView.getDrawerLayout().isDrawerVisible(GravityCompat.START)){
+                mView.toggleDrawer();
             } else {
-                ShowToast(R.string.double_click_logout);
+                if (Config.ListVideoUtilInstance().backFromFull()) {
+                    return true;
+                }
+                if (firstTime + 2000 > System.currentTimeMillis()) {
+                   finish();
+                } else {
+                    ShowToast(R.string.double_click_logout);
+                }
+                firstTime = System.currentTimeMillis();
             }
-            firstTime = System.currentTimeMillis();
+            return true;
+        }else {
+            return super.onKeyDown(keyCode, event);
         }
     }
 

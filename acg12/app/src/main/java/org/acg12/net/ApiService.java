@@ -30,6 +30,8 @@ public interface ApiService {
     @ApiConverter(converter = LoginConverter.class)
     Observable<User> login(@Field("username") String username , @Field("password") String password);
 
+    @POST("api/userInfo")
+    Observable<ResponseBody> userInfo();
 
     @Multipart
     @POST("api/alteruser")
@@ -38,6 +40,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/alteruser")
     Observable<ResponseBody> userAlter(@Field("alterType") String type , @Field("param1") String param1 , @Field("param2") String param2);
+
+
 
     @GET("res/p/album")
     Observable<ResponseBody> albumList(@Query("action") String action , @Query("max") String pinId);

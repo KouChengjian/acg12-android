@@ -45,11 +45,11 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
 
         AppCompatDelegate delegate = ((AppCompatActivity)context).getDelegate();
         View view = delegate.createView(parent, name, context, attrs);
-        if(view == null){
-            Log.e("v","null");
-        } else {
-            Log.e("v","!null");
-        }
+//        if(view == null){
+//            Log.e("v","null");
+//        } else {
+//            Log.e("v","!null");
+//        }
 
         //View view = createView(context, name, attrs);
 

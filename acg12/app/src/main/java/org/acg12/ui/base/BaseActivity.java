@@ -3,10 +3,12 @@ package org.acg12.ui.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -32,9 +34,7 @@ import butterknife.ButterKnife;
 
 /**
  * @ClassName: BaseActivity
- * @Description: 重构 
- * @author: KCJ
- * @date: 2016-07-26 10:30
+ * @Description: 重构
  */
 public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDynamicNewView {
 
@@ -42,6 +42,9 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 	protected Context mContext;
 	protected String mTag;
 	protected ActivityTack mActivityTack = ActivityTack.getInstanse();
+
+	protected int activityCloseEnterAnimation;
+	protected int activityCloseExitAnimation;
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -50,10 +53,18 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 		mContext = this;
 		mTag = this.getClass().getSimpleName();
 		mActivityTack.addActivity(this);
-		SystemBarUtlis.skinThemeUpdate(this ,replace);
+//		SystemBarUtlis.skinThemeUpdate(this ,replace);
 		if(Constant.debug){
 			ViewServer.get(this).addWindow(this);
 		}
+
+		TypedArray activityStyle = getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowAnimationStyle});
+		int windowAnimationStyleResId = activityStyle.getResourceId(0, 0);
+		activityStyle.recycle();
+		activityStyle = getTheme().obtainStyledAttributes(windowAnimationStyleResId, new int[] {android.R.attr.activityCloseEnterAnimation, android.R.attr.activityCloseExitAnimation});
+		activityCloseEnterAnimation = activityStyle.getResourceId(0, 0);
+		activityCloseExitAnimation = activityStyle.getResourceId(1, 0);
+		activityStyle.recycle();
 	}
 	
 	@Override
@@ -85,19 +96,25 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 		super.setContentView(layoutResID);
 		ButterKnife.bind(this);
 	}
-	
+
+	public void aminFinish(){
+		super.finish();
+		overridePendingTransition(activityCloseEnterAnimation, activityCloseExitAnimation);
+	}
+
 	@Override
 	public void finish() {
 		super.finish();
-		mActivityTack.removeActivity(this);
-		ViewUtil.exitAnimActivity(this);
 	}
-	
+
 	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-		mActivityTack.removeActivity(this);
-		ViewUtil.exitAnimActivity(this);
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+			aminFinish();
+			return true;
+		}else {
+			return super.onKeyDown(keyCode, event);
+		}
 	}
 	
 	/*-------内部调用类---------*/
@@ -218,7 +235,7 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 	public void onThemeUpdate() {
 		if(!isResponseOnSkinChanging) return;
 		mSkinInflaterFactory.applySkin();
-		SystemBarUtlis.skinThemeUpdate(this ,replace);
+//		SystemBarUtlis.skinThemeUpdate(this ,replace);
 	}
 
 	@Override
