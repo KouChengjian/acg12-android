@@ -24,6 +24,7 @@ import org.acg12.ui.base.PresenterHelper;
 import org.acg12.utlis.ImageLoadUtils;
 import org.acg12.utlis.LogUtil;
 import org.acg12.utlis.ViewUtil;
+import org.acg12.widget.DragImageView;
 import org.acg12.widget.ViewPagerFixed;
 import org.acg12.widget.dargphoto.PhotoView;
 import java.util.ArrayList;
@@ -41,7 +42,8 @@ public class PreviewAlbumView extends ViewImpl {
     @BindView(R.id.preAlbum_viewpage)
     ViewPagerFixed preAlbumViewpage;
 
-    ArrayList<View> mList = new ArrayList<>();
+    ArrayList<DragView> mDragView = new ArrayList<>();
+    ArrayList<Album> albumList = new ArrayList<>();
     DragPagerAdapter dragPagerAdapter;
 
     @Override
@@ -54,6 +56,19 @@ public class PreviewAlbumView extends ViewImpl {
         super.created();
         toolbar.setNavigationIcon(R.mipmap.ic_action_back);
         toolbar.setTitle("预览");
+
+        for (int i = 0; i < 4; i++) {
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.common_preview_album, null, false);
+            ProgressBar spinner = (ProgressBar) view.findViewById(R.id.page_loading);
+            DragImageView dragPhotoView = (DragImageView) view.findViewById(R.id.page_image);
+            TextView pageText = (TextView)view.findViewById(R.id.page_text);
+            DragView dragView = new DragView();
+            dragView.setView(view);
+            dragView.setDragPhotoView(dragPhotoView);
+            dragView.setSpinner(spinner);
+            dragView.setPageText(pageText);
+            mDragView.add(dragView);
+        }
     }
 
     @Override
@@ -63,51 +78,49 @@ public class PreviewAlbumView extends ViewImpl {
         preAlbumViewpage.addOnPageChangeListener((ViewPager.OnPageChangeListener)mPresenter);
     }
 
-    public void bindData(int position ,List<Album> albumList){
-        paddingViewList(albumList);
-        dragPagerAdapter = new DragPagerAdapter(mList);
+    public void bindData(int position ,List<Album> mList){
+        albumList.addAll(mList);
+        dragPagerAdapter = new DragPagerAdapter();
         preAlbumViewpage.setOffscreenPageLimit(1);
         preAlbumViewpage.setAdapter(dragPagerAdapter);
         preAlbumViewpage.setCurrentItem(position);
     }
 
-    public ArrayList<View> paddingViewList(List<Album> albumList){
-        for (int i = 0 , num = albumList.size(); i < num; i++) {
-            View view = initItemView(albumList.get(i) , i);
-            mList.add(view);
-        }
-        return mList;
-    }
+//    public ArrayList<DragView> paddingViewList(List<Album> albumList){
+//        for (int i = 0 , num = albumList.size(); i < num; i++) {
+//            View view = initItemView(albumList.get(i) , i);
+//            DragView dragView = new DragView();
+//            dragView.setView(view);
+//            mList.add(dragView);
+//        }
+//        return mList;
+//    }
 
-    public View initItemView(Album album, int position) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.common_preview_album, null, false);
-        return view;
-    }
+//    public View initItemView(Album album, int position) {
+//
+//        return view;
+//    }
 
-    public void  addList(List<Album> albumList){
-//        LogUtil.e(albumList.size()+"====");
-        paddingViewList(albumList);
-        dragPagerAdapter.setListViews(mList);
+    public void  addList(List<Album> mList){
+        albumList.addAll(mList);
+        dragPagerAdapter.setListViews();
         dragPagerAdapter.notifyDataSetChanged();
     }
 
-    public List<View> getList(){
-        return mList;
+    public List<Album> getList(){
+        return albumList;
     }
 
     class DragPagerAdapter extends PagerAdapter{
 
         private int size;
-        ArrayList<View> mList = new ArrayList<>();
 
-        public DragPagerAdapter(ArrayList<View> mList){
-            this.mList = mList;
-            size = mList == null ? 0 : mList.size();
+        public DragPagerAdapter(){
+            size = albumList == null ? 0 : albumList.size();
         }
 
-        public void setListViews(ArrayList<View> mList) {// 自己写的一个方法用来添加数据
-            this.mList = mList;
-            size = mList == null ? 0 : mList.size();
+        public void setListViews() { // 自己写的一个方法用来添加数据
+            size = albumList == null ? 0 : albumList.size();
         }
 
         @Override
@@ -117,25 +130,27 @@ public class PreviewAlbumView extends ViewImpl {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-//            LogUtil.e("instantiateItem = "+position+"====");
-            View view = mList.get(position % size);
-            ProgressBar spinner = (ProgressBar) view.findViewById(R.id.page_loading);
-            ImageView dragPhotoView = (ImageView) view.findViewById(R.id.page_image);
-            TextView pageText = (TextView)view.findViewById(R.id.page_text);
+            LogUtil.e("instantiateItem = "+position+"====");
+
+            int i = position % 4;
+            final DragView dragView = mDragView.get(i);
             if( PreviewAlbumActivity.mList.size() > position){
-                Album album = PreviewAlbumActivity.mList.get(position);
-                ViewUtil.setText(pageText , album.getContent());
-                //loaderImage(album ,spinner , dragPhotoView);
+                Album album = albumList.get(position);
+                ViewUtil.setText(dragView.getPageText() , album.getContent());
+                loaderImage(album ,dragView.getSpinner() , dragView.getDragPhotoView());
             }
 
-            container.addView(view, 0);
-            return view;
+            container.addView(dragView.getView(), 0);
+            return dragView.getView();
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-//            LogUtil.e("destroyItem = "+position+"====");
-            container.removeView(mList.get(position % size));
+            LogUtil.e("destroyItem = "+position+"====");
+            int i = position % 4;
+            final DragView dragView = mDragView.get(i);
+            ImageLoadUtils.releaseImageViewResouce(dragView.getDragPhotoView());
+            container.removeView(dragView.getView());
         }
 
         @Override
@@ -146,34 +161,72 @@ public class PreviewAlbumView extends ViewImpl {
         public void loaderImage(final Album album ,final ProgressBar spinner ,final ImageView dragPhotoView){
             spinner.setVisibility(View.GONE);
             dragPhotoView.setVisibility(View.VISIBLE);
-            ImageLoadUtils.glideLoading(getContext() , album.getImageUrl() , dragPhotoView);
-//            ImageLoadUtils.universalLoading(album.getImageUrl() , dragPhotoView , new SimpleImageLoadingListener(){
-//                @Override
-//                public void onLoadingStarted(String imageUri,View view) {
-//                    spinner.setVisibility(View.VISIBLE);
-//                }
-//
-//                @Override
-//                public void onLoadingFailed(String imageUri,View view, FailReason failReason) {
-//                    spinner.setVisibility(View.GONE);
-//                }
-//
-//                @Override
-//                public void onLoadingComplete(String imageUri,	View view, Bitmap loadedImage) {
-//                    spinner.setVisibility(View.GONE);
-//                    dragPhotoView.setVisibility(View.VISIBLE);
-//                }
-//            });
-
-            dragPhotoView.setOnClickListener(new View.OnClickListener() {
+//            ImageLoadUtils.glideLoading(getContext() , album.getImageUrl() , dragPhotoView);
+            ImageLoadUtils.universalLoading(album.getImageUrl() , dragPhotoView , new SimpleImageLoadingListener(){
                 @Override
-                public void onClick(View view) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("url",album.getImageUrl());
-                    ViewUtil.startAnimActivity(getContext() , PreviewImageActivity.class,bundle);
+                public void onLoadingStarted(String imageUri,View view) {
+                    spinner.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onLoadingFailed(String imageUri,View view, FailReason failReason) {
+                    spinner.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri,	View view, Bitmap loadedImage) {
+                    spinner.setVisibility(View.GONE);
+                    dragPhotoView.setVisibility(View.VISIBLE);
                 }
             });
+
+//            dragPhotoView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("url",album.getImageUrl());
+//                    ViewUtil.startAnimActivity(getContext() , PreviewImageActivity.class,bundle);
+//                }
+//            });
+        }
+    }
+
+    class DragView {
+        private View view;
+        private ProgressBar spinner;
+        private DragImageView dragPhotoView;
+        private TextView pageText;
+
+        public View getView() {
+            return view;
         }
 
+        public void setView(View view) {
+            this.view = view;
+        }
+
+        public ProgressBar getSpinner() {
+            return spinner;
+        }
+
+        public void setSpinner(ProgressBar spinner) {
+            this.spinner = spinner;
+        }
+
+        public DragImageView getDragPhotoView() {
+            return dragPhotoView;
+        }
+
+        public void setDragPhotoView(DragImageView dragPhotoView) {
+            this.dragPhotoView = dragPhotoView;
+        }
+
+        public TextView getPageText() {
+            return pageText;
+        }
+
+        public void setPageText(TextView pageText) {
+            this.pageText = pageText;
+        }
     }
 }

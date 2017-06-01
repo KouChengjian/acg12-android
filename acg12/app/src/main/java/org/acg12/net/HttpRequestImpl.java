@@ -138,7 +138,7 @@ public class HttpRequestImpl implements HttpRequest {
         File file = new File(user.getAvatar());
         Map<String, RequestBody> map = new HashMap<String, RequestBody>();
         map.put("alterType", RetrofitClient.parseRequestBody("3"));
-        map.put("param1" +"\"; filename=\""+file.getName(), RetrofitClient.parseImageRequestBody(file));
+        map.put("param1" + "\"; filename=\""+file.getName(), RetrofitClient.parseImageRequestBody(file));
         map.put("param2", RetrofitClient.parseRequestBody(""));
 
         Subscription subscription = RetrofitClient.with(user).uploadFile(map)

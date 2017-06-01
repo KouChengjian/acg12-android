@@ -3,6 +3,7 @@ package org.acg12.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.View;
 
 import org.acg12.bean.Album;
@@ -45,7 +46,7 @@ public class PreviewAlbumActivity extends PresenterActivityImpl<PreviewAlbumView
             Intent intent = new Intent();
             intent.putExtra("position", position);
             setResult(RESULT_OK, intent);
-            finish();
+            aminFinish();
         }
     }
 
@@ -84,12 +85,11 @@ public class PreviewAlbumActivity extends PresenterActivityImpl<PreviewAlbumView
     }
 
     @Override
-    public void onBackPressed() {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         Intent intent = new Intent();
         intent.putExtra("position", position);
         setResult(RESULT_OK, intent);
-        super.onBackPressed();
-
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
