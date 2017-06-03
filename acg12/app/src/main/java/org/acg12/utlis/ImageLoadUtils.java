@@ -65,11 +65,11 @@ public class ImageLoadUtils {
     public static DisplayImageOptions getOptions() {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 // // 设置图片在下载期间显示的图片
-                 .showImageOnLoading(R.mipmap.bg_pic_loading)
+                 .showImageOnLoading(R.mipmap.bg_loading_pic)
                 // // 设置图片Uri为空或是错误的时候显示的图片
-                 .showImageForEmptyUri(R.mipmap.bg_pic_loading)
+                 .showImageForEmptyUri(R.mipmap.bg_loading_pic)
                 // // 设置图片加载/解码过程中错误时候显示的图片
-                 .showImageOnFail(R.mipmap.bg_pic_loading)
+                 .showImageOnFail(R.mipmap.bg_loading_pic)
                 .cacheInMemory(true)
                 // 设置下载的图片是否缓存在内存中
                 .cacheOnDisc(true)
@@ -108,9 +108,9 @@ public class ImageLoadUtils {
 
     public static void glideLoading(Context mContext ,String url ,ImageView imageview){
         Glide.with(mContext).load(url)
-                .placeholder(R.mipmap.bg_pic_loading)
+                .placeholder(R.mipmap.bg_loading_pic)
                 .animate(R.anim.glide_loading_image_alpha_in)
-                .error(R.mipmap.bg_pic_loading)
+                .error(R.mipmap.bg_loading_pic)
                 .centerCrop()
                 .into(imageview);
     }

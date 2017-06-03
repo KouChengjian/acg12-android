@@ -41,7 +41,6 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
  * 目前使用的是IJK封装的谷歌EXOPlayer
  * Created by shuyu on 2016/11/11.
  */
-
 public class GSYVideoManager implements IMediaPlayer.OnPreparedListener, IMediaPlayer.OnCompletionListener,
         IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.OnSeekCompleteListener, IMediaPlayer.OnErrorListener,
         IMediaPlayer.OnVideoSizeChangedListener, IMediaPlayer.OnInfoListener, CacheListener {

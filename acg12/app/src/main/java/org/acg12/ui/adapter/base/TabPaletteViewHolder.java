@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.acg12.R;
-import org.acg12.bean.Album;
 import org.acg12.bean.Palette;
 import org.acg12.utlis.ImageLoadUtils;
 import org.acg12.utlis.ViewUtil;
@@ -53,16 +52,16 @@ public class TabPaletteViewHolder extends RecyclerView.ViewHolder {
             for (int i = 0; i < paletteList.size(); i++) {
                 if(i == 0){
                     ImageLoadUtils.glideLoading(context , paletteList.get(i) , imageView);
-                    iv_palete_icon_1.setImageResource(R.mipmap.bg_pic_loading);
-                    iv_palete_icon_2.setImageResource(R.mipmap.bg_pic_loading);
-                    iv_palete_icon_3.setImageResource(R.mipmap.bg_pic_loading);
+                    iv_palete_icon_1.setImageResource(R.mipmap.bg_loading_pic);
+                    iv_palete_icon_2.setImageResource(R.mipmap.bg_loading_pic);
+                    iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
                 } else if(i == 1){
                     ImageLoadUtils.glideLoading(context , paletteList.get(i) , iv_palete_icon_1);
-                    iv_palete_icon_2.setImageResource(R.mipmap.bg_pic_loading);
-                    iv_palete_icon_3.setImageResource(R.mipmap.bg_pic_loading);
+                    iv_palete_icon_2.setImageResource(R.mipmap.bg_loading_pic);
+                    iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
                 } else if(i == 2){
                     ImageLoadUtils.glideLoading(context , paletteList.get(i) , iv_palete_icon_2);
-                    iv_palete_icon_3.setImageResource(R.mipmap.bg_pic_loading);
+                    iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
                 } else if(i == 3){
                     ImageLoadUtils.glideLoading(context , paletteList.get(i) , iv_palete_icon_3);
                 }

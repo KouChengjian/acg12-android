@@ -22,7 +22,7 @@
                 android:layout_marginBottom="3dp"
                 android:layout_marginTop="3dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/bg_pic_loading" />
+                android:src="@mipmap/bg_loading_pic" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginRight="5dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/bg_pic_loading" />
+                    android:src="@mipmap/bg_loading_pic" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -90,7 +90,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginRight="5dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/bg_pic_loading" />
+                    android:src="@mipmap/bg_loading_pic" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -107,7 +107,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginRight="5dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/bg_pic_loading" />
+                    android:src="@mipmap/bg_loading_pic" />
             </RelativeLayout>
 
         </LinearLayout>

@@ -45,7 +45,6 @@ import static com.shuyu.gsyvideoplayer.utils.CommonUtil.hideNavKey;
  * 标准播放器
  * Created by shuyu on 2016/11/11.
  */
-
 public class StandardGSYVideoPlayer extends GSYVideoPlayer {
 
 
@@ -165,7 +164,6 @@ public class StandardGSYVideoPlayer extends GSYVideoPlayer {
                 }
             }
         });
-
     }
 
     /**

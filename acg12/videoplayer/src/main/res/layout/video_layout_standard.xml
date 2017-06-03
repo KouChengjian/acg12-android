@@ -139,7 +139,6 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical" />
 
-
     <ImageView
         android:id="@+id/small_close"
         android:layout_width="30dp"

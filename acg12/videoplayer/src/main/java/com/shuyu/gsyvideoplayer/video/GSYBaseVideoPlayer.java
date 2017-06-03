@@ -40,8 +40,8 @@ import static com.shuyu.gsyvideoplayer.utils.CommonUtil.showSupportActionBar;
 
 /**
  * Created by shuyu on 2016/11/17.
+ * 主要对视图层进行封装操作
  */
-
 public abstract class GSYBaseVideoPlayer extends FrameLayout implements GSYMediaPlayerListener {
 
     public static final int SMALL_ID = 84778;

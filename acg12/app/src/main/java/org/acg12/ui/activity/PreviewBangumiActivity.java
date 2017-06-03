@@ -1,12 +1,17 @@
 package org.acg12.ui.activity;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import org.acg12.R;
 import org.acg12.bean.Video;
+import org.acg12.config.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
@@ -24,6 +29,9 @@ public class PreviewBangumiActivity extends PresenterActivityImpl<PreviewBangumi
     public void create(Bundle savedInstance) {
         super.create(savedInstance);
         replace = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
     }
 
     @Override
@@ -35,14 +43,17 @@ public class PreviewBangumiActivity extends PresenterActivityImpl<PreviewBangumi
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-        //getVideoUrlOrXml(mView.getAvId(position));
-        startAnimActivity(PlayBungumiActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("video", mView.getVideo(position));
+        startAnimActivity(PlayBungumiActivity.class , bundle);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.iv_video_arrow){
+        if(id == Constant.TOOLBAR_ID){
+            aminFinish();
+        } else if(id == R.id.iv_video_arrow){
             if(hasShow){
                 hasShow = false;
             } else {
@@ -69,19 +80,16 @@ public class PreviewBangumiActivity extends PresenterActivityImpl<PreviewBangumi
         });
     }
 
-    public void getVideoUrlOrXml(String av) {
-        HttpRequestImpl.getInstance().playBangumi(av, new HttpRequestListener<Video>() {
-            @Override
-            public void onSuccess(Video result) {
-//                mView.setPlayer(true , result);
-            }
-
-            @Override
-            public void onFailure(int errorcode, String msg) {
-                Log.e(mTag , msg);
-                ShowToastView(msg);
-            }
-        });
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
-
 }

@@ -1,11 +1,14 @@
 package org.acg12.widget;
 
+import android.app.Activity;
 import android.content.Context;
 
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -16,7 +19,9 @@ import com.shuyu.gsyvideoplayer.video.GSYBaseVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import org.acg12.R;
+import org.acg12.bean.Video;
 import org.acg12.utlis.CompressionTools;
+import org.acg12.utlis.LogUtil;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
@@ -24,6 +29,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.logging.Handler;
 import java.util.zip.DataFormatException;
 
 import master.flame.danmaku.controller.IDanmakuView;
@@ -56,10 +62,14 @@ public class DanmakuVideoPlayer extends StandardGSYVideoPlayer {
     private BaseDanmakuParser mParser;//解析器对象
     private IDanmakuView mDanmakuView;//弹幕view
     private DanmakuContext mDanmakuContext;
+    private ImageView bili_anim;
+    private TextView video_start_info;
+    public String startText = "初始化播放器...";
 
-    private TextView mSendDanmaku, mToogleDanmaku;
     private long mDanmakuStartSeekPosition = -1;
     private boolean mDanmaKuShow = true;
+
+    Video video;
 
     public DanmakuVideoPlayer(Context context, Boolean fullFlag) {
         super(context, fullFlag);
@@ -82,25 +92,24 @@ public class DanmakuVideoPlayer extends StandardGSYVideoPlayer {
     protected void init(Context context) {
         super.init(context);
         mDanmakuView = (DanmakuView) findViewById(R.id.danmaku_view);
-        mSendDanmaku = (TextView) findViewById(R.id.send_danmaku);
-        mToogleDanmaku = (TextView) findViewById(R.id.toogle_danmaku);
-
+        bili_anim = (ImageView) findViewById(R.id.bili_anim);
+        video_start_info = (TextView) findViewById(R.id.video_start_info);
+        setVideStartInfo("【完成】\n解析视频地址...");
         //初始化弹幕显示
-        //initDanmaku();
-
-        mSendDanmaku.setOnClickListener(this);
-        mToogleDanmaku.setOnClickListener(this);
+//        initDanmaku();
     }
 
     @Override
     public void onPrepared() {
         super.onPrepared();
+//        LogUtil.e("onPrepared");
         onPrepareDanmaku(this);
     }
 
     @Override
     public void onVideoPause() {
         super.onVideoPause();
+//        LogUtil.e("onVideoPause");
         if (mDanmakuView != null && mDanmakuView.isPrepared()) {
             mDanmakuView.pause();
         }
@@ -109,21 +118,29 @@ public class DanmakuVideoPlayer extends StandardGSYVideoPlayer {
     @Override
     public void onVideoResume() {
         super.onVideoResume();
+//        LogUtil.e("onVideoResume");
         if (mDanmakuView != null && mDanmakuView.isPrepared() && mDanmakuView.isPaused()) {
             mDanmakuView.resume();
         }
     }
 
-
     @Override
     public void onCompletion() {
+        LogUtil.e("onCompletion");
         releaseDanmaku(this);
     }
 
+    @Override
+    public void onAutoCompletion() {
+        super.onAutoCompletion();
+        LogUtil.e("onAutoCompletion");
+        ((Activity)getContext()).finish();
+    }
 
     @Override
     public void onSeekComplete() {
         super.onSeekComplete();
+//        LogUtil.e("onSeekComplete");
         int time = mProgressBar.getProgress() * getDuration() / 100;
         //如果已经初始化过的，直接seek到对于位置
         if (mHadPlay && getDanmakuView() != null && getDanmakuView().isPrepared()) {
@@ -137,15 +154,15 @@ public class DanmakuVideoPlayer extends StandardGSYVideoPlayer {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.send_danmaku:
-                addDanmaku(true);
-                break;
-            case R.id.toogle_danmaku:
-                mDanmaKuShow = !mDanmaKuShow;
-                resolveDanmakuShow();
-                break;
-        }
+//        switch (v.getId()) {
+//            case R.id.send_danmaku:
+//                addDanmaku(true);
+//                break;
+//            case R.id.toogle_danmaku:
+//                mDanmaKuShow = !mDanmaKuShow;
+//                resolveDanmakuShow();
+//                break;
+//        }
     }
 
     /**
@@ -184,7 +201,8 @@ public class DanmakuVideoPlayer extends StandardGSYVideoPlayer {
         }
     }
 
-    private void initDanmaku() {
+    public void initDanmaku(final Video video) {
+        this.video = video;
         // 设置最大显示行数
         HashMap<Integer, Integer> maxLinesPair = new HashMap<Integer, Integer>();
         maxLinesPair.put(BaseDanmaku.TYPE_SCROLL_RL, 5); // 滚动弹幕最大显示5行
@@ -199,58 +217,67 @@ public class DanmakuVideoPlayer extends StandardGSYVideoPlayer {
                 .setCacheStuffer(new SpannedCacheStuffer(), danamakuAdapter) // 图文混排使用SpannedCacheStuffer
                 .setMaximumLines(maxLinesPair)
                 .preventOverlapping(overlappingEnablePair);
-        if (mDanmakuView != null) {
-            //todo 替换成你的数据流
-            mParser = createParser(this.getResources().openRawResource(R.raw.comments));
-            mDanmakuView.setCallback(new master.flame.danmaku.controller.DrawHandler.Callback() {
-                @Override
-                public void updateTimer(DanmakuTimer timer) {
-                }
+        if (mDanmakuView == null) return;
+        mDanmakuView.setCallback(new master.flame.danmaku.controller.DrawHandler.Callback() {
+            @Override
+            public void updateTimer(DanmakuTimer timer) {
+            }
 
-                @Override
-                public void drawingFinished() {
+            @Override
+            public void drawingFinished() {
 
-                }
+            }
 
-                @Override
-                public void danmakuShown(BaseDanmaku danmaku) {
-                }
+            @Override
+            public void danmakuShown(BaseDanmaku danmaku) {
+            }
 
-                @Override
-                public void prepared() {
-                    if (getDanmakuView() != null) {
-                        getDanmakuView().start();
-                        if (getDanmakuStartSeekPosition() != -1) {
-                            resolveDanmakuSeek(DanmakuVideoPlayer.this, getDanmakuStartSeekPosition());
-                            setDanmakuStartSeekPosition(-1);
-                        }
-                        resolveDanmakuShow();
-                    }
-                }
-            });
-            mDanmakuView.enableDanmakuDrawingCache(true);
-        }
+            @Override
+            public void prepared() {
+//                if (getDanmakuView() != null) {
+//                    getDanmakuView().start();
+//                    if (getDanmakuStartSeekPosition() != -1) {
+//                        resolveDanmakuSeek(DanmakuVideoPlayer.this, getDanmakuStartSeekPosition());
+//                        setDanmakuStartSeekPosition(-1);
+//                    }
+//                    resolveDanmakuShow();
+//                }
+            }
+        });
+        mDanmakuView.enableDanmakuDrawingCache(true);
+        new DanmakuTask().execute(video.getCid());
     }
 
     /**
      * 弹幕的显示与关闭
      */
     private void resolveDanmakuShow() {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                if (mDanmaKuShow) {
-                    if (!getDanmakuView().isShown())
-                        getDanmakuView().show();
-                    mToogleDanmaku.setText("弹幕关");
-                } else {
-                    if (getDanmakuView().isShown()) {
-                        getDanmakuView().hide();
-                    }
-                    mToogleDanmaku.setText("弹幕开");
-                }
+//        post(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (mDanmaKuShow) {
+//                    if (!getDanmakuView().isShown())
+//                        getDanmakuView().show();
+//                    mToogleDanmaku.setText("弹幕关");
+//                } else {
+//                    if (getDanmakuView().isShown()) {
+//                        getDanmakuView().hide();
+//                    }
+//                    mToogleDanmaku.setText("弹幕开");
+//                }
+//            }
+//        });
+    }
+
+    public void startDanmaku() {
+        if (getDanmakuView() != null) {
+            getDanmakuView().start();
+            if (getDanmakuStartSeekPosition() != -1) {
+                resolveDanmakuSeek(DanmakuVideoPlayer.this, getDanmakuStartSeekPosition());
+                setDanmakuStartSeekPosition(-1);
             }
-        });
+            resolveDanmakuShow();
+        }
     }
 
     /**
@@ -305,6 +332,12 @@ public class DanmakuVideoPlayer extends StandardGSYVideoPlayer {
 
     }
 
+    /**
+     * 创建解析器对象，解析输入连接
+     *
+     * @param uri
+     * @return
+     */
     private BaseDanmakuParser createParser(String uri) {
         InputStream stream = null;
         if (uri == null) {
@@ -398,4 +431,37 @@ public class DanmakuVideoPlayer extends StandardGSYVideoPlayer {
 
     }
 
+    public TextView getVideStartInfo(){
+        return video_start_info;
+    }
+
+    public void setVideStartInfo(String s){
+        startText = startText + s;
+        video_start_info.setText(startText);
+    }
+
+    @SuppressWarnings("WrongThread")
+    class DanmakuTask extends AsyncTask<String, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(String... strings) {
+            mParser = createParser(strings[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            if(mParser == null){
+                setVideStartInfo("【失败】\n视频缓冲中...");
+            } else {
+                setVideStartInfo("【成功】\n视频缓冲中...");
+            }
+            getThumbImageViewLayout().setVisibility(View.GONE);
+            setUp(video.getPlayUrl(), true, null, "");
+            getBackButton().setVisibility(View.VISIBLE);
+            startPlayLogic();
+            startDanmaku();
+        }
+    }
 }

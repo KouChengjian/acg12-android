@@ -11,13 +11,13 @@
     <!--android:layout_height="300dp"-->
     <!--fresco:actualImageScaleType="centerCrop"-->
     <!--fresco:fadeDuration="300"-->
-    <!--fresco:failureImage="@mipmap/bg_pic_loading"-->
+    <!--fresco:failureImage="@mipmap/bg_loading_pic"-->
     <!--fresco:failureImageScaleType="centerCrop"-->
-    <!--fresco:placeholderImage="@mipmap/bg_pic_loading"-->
+    <!--fresco:placeholderImage="@mipmap/bg_loading_pic"-->
     <!--fresco:placeholderImageScaleType="fitCenter"-->
-    <!--fresco:progressBarImage="@mipmap/bg_pic_loading"-->
+    <!--fresco:progressBarImage="@mipmap/bg_loading_pic"-->
     <!--fresco:progressBarImageScaleType="centerCrop"-->
-    <!--fresco:retryImage="@mipmap/bg_pic_loading"-->
+    <!--fresco:retryImage="@mipmap/bg_loading_pic"-->
     <!--fresco:retryImageScaleType="centerCrop" />-->
 
     <!--

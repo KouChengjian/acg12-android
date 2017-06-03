@@ -48,7 +48,6 @@ import static com.shuyu.gsyvideoplayer.utils.CommonUtil.hideNavKey;
 /**
  * Created by shuyu on 2016/11/11.
  */
-
 public abstract class GSYVideoPlayer extends GSYBaseVideoPlayer implements View.OnClickListener, View.OnTouchListener, SeekBar.OnSeekBarChangeListener, TextureView.SurfaceTextureListener {
 
     public static final String TAG = "GSYVideoPlayer";

@@ -5,13 +5,11 @@ import android.util.Log;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import org.acg12.bean.User;
-import org.acg12.bean.test;
 import org.acg12.config.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.net.factory.ApiConverterFactory;
 import org.acg12.net.factory.ApiErrorCode;
 import org.acg12.net.factory.ApiException;
-import org.acg12.utlis.LogUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,33 +65,33 @@ public class RetrofitClient {
 //        });
     }
 
-    public static Request.Builder requestBuilder(test user){
-        return new Request.Builder()
-                .addHeader("p", user.getP())
-                .addHeader("s", user.getS())
-                .addHeader("n", user.getN())
-                .addHeader("d", user.getD())
-                .addHeader("v", user.getV())
-                .addHeader("a", user.getA())
-                .addHeader("t", user.getT())
-                .addHeader("u", user.getUid()+"")
-                .addHeader("g", user.getG())
-                .addHeader("c", user.getC());
-    }
+//    public static Request.Builder requestBuilder(test user){
+//        return new Request.Builder()
+//                .addHeader("p", user.getP())
+//                .addHeader("s", user.getS())
+//                .addHeader("n", user.getN())
+//                .addHeader("d", user.getD())
+//                .addHeader("v", user.getV())
+//                .addHeader("a", user.getA())
+//                .addHeader("t", user.getT())
+//                .addHeader("u", user.getUid()+"")
+//                .addHeader("g", user.getG())
+//                .addHeader("c", user.getC());
+//    }
 
-    public static FormBody.Builder formBodyBuilder(){
-        return new FormBody.Builder();
-    }
-
-    public static Response execute(Request request) throws IOException {
-        return mOkHttpClient.newCall(request).execute();
-    }
-
-    public static Call enqueue(Request request, Callback responseCallback) {
-        Call call = mOkHttpClient.newCall(request);
-        call.enqueue(responseCallback);
-        return call;
-    }
+//    public static FormBody.Builder formBodyBuilder(){
+//        return new FormBody.Builder();
+//    }
+//
+//    public static Response execute(Request request) throws IOException {
+//        return mOkHttpClient.newCall(request).execute();
+//    }
+//
+//    public static Call enqueue(Request request, Callback responseCallback) {
+//        Call call = mOkHttpClient.newCall(request);
+//        call.enqueue(responseCallback);
+//        return call;
+//    }
 
     public static OkHttpClient initOkhttp() {
         return new OkHttpClient.Builder().addInterceptor(new Interceptor() {

@@ -3,11 +3,14 @@ package org.acg12.ui.views;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.acg12.R;
@@ -18,6 +21,7 @@ import org.acg12.ui.adapter.BangumiEpisodeAdapter;
 import org.acg12.ui.adapter.BangumiSeasonAdapter;
 import org.acg12.ui.base.PresenterHelper;
 import org.acg12.utlis.ImageLoadUtils;
+import org.acg12.utlis.LogUtil;
 import org.acg12.utlis.PixelUtil;
 import org.acg12.utlis.ViewUtil;
 
@@ -34,8 +38,8 @@ public class PreviewBangumiView extends ViewImpl {
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.layout_content)
     LinearLayout layoutContent;
-//    @BindView(R.id.danmaku_video)
-//    DanmakuVideo danmakuVideo;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.iv_video_icon)
     ImageView ivVideoIcon;
     @BindView(R.id.video_click_play)
@@ -73,30 +77,38 @@ public class PreviewBangumiView extends ViewImpl {
     @Override
     public void created() {
         super.created();
+        toolbar.setNavigationIcon(R.mipmap.ic_action_back_press);
 
         episodeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         seasonRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
         bangumiEpisodeAdapter = new BangumiEpisodeAdapter(getContext());
         episodeRecyclerView.setAdapter(bangumiEpisodeAdapter);
-
         bangumiSeasonAdapter = new BangumiSeasonAdapter(getContext());
         seasonRecyclerView.setAdapter(bangumiSeasonAdapter);
 
         mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_primary);
         mSwipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(50), PixelUtil.dp2px(24));
         mSwipeRefreshLayout.setRefreshing(true);
+
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0, getStatusBarHeight(), 0, 0);
+        toolbar.setLayoutParams(layoutParams);
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter , ivVideoArrow);
+        PresenterHelper.click(mPresenter ,toolbar, ivVideoArrow);
         ItemClickSupport.addTo(episodeRecyclerView).setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
     }
 
     public String getAvId(int position){
         return bangumiEpisodeAdapter.getList().get(position).getAid();
+    }
+
+    public Video getVideo(int position){
+        return bangumiEpisodeAdapter.getList().get(position);
     }
 
     public void setPlayer(boolean bool , Video video){
@@ -111,8 +123,6 @@ public class PreviewBangumiView extends ViewImpl {
             ivVideoIcon.setVisibility(View.VISIBLE);
             video_click_play.setVisibility(View.VISIBLE);
         }
-
-
     }
 
     public void bindData(Video video) {
@@ -145,6 +155,15 @@ public class PreviewBangumiView extends ViewImpl {
             tvVideoDuration.setMaxLines(2);
             ivVideoArrow.setSelected(false);
         }
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getContext().getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     public void stopRefreshLoadMore(boolean refresh) {

@@ -83,9 +83,9 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
                 break;
             case R.id.nav_star:
                 if(DaoBaseImpl.getInstance().getCurrentUser() == null){
-                    startAnimActivity(IndexActivity.class);
+                    startAnimActivity(IndexActivity.class); //IndexActivity CollectActivity
                 } else {
-                    startAnimActivity(CollectActivity.class);
+                    startAnimActivity(IndexActivity.class);
                 }
                 break;
             case R.id.nav_down:
