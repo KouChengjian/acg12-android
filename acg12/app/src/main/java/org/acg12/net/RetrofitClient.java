@@ -5,7 +5,7 @@ import android.util.Log;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import org.acg12.bean.User;
-import org.acg12.config.Constant;
+import org.acg12.conf.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.net.factory.ApiConverterFactory;
 import org.acg12.net.factory.ApiErrorCode;
@@ -18,9 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;

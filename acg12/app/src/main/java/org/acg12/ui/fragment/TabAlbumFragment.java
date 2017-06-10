@@ -5,11 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import org.acg12.bean.Album;
-import org.acg12.config.Constant;
+import org.acg12.conf.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
@@ -19,8 +18,6 @@ import org.acg12.ui.views.TabAlbumView;
 import org.acg12.utlis.LogUtil;
 import org.acg12.widget.IRecycleView;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implements IRecycleView.LoadingListener ,

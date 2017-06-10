@@ -11,13 +11,12 @@ import android.view.WindowManager;
 
 import org.acg12.R;
 import org.acg12.bean.Video;
-import org.acg12.config.Constant;
+import org.acg12.conf.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.ui.views.PreviewBangumiView;
-import org.acg12.utlis.LogUtil;
 
 public class PreviewBangumiActivity extends PresenterActivityImpl<PreviewBangumiView> implements View.OnClickListener ,
         ItemClickSupport.OnItemClickListener{

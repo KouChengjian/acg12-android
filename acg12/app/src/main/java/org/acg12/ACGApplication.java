@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.facebook.stetho.Stetho;
 
-import org.acg12.config.Config;
+import org.acg12.conf.Config;
 import org.acg12.db.DaoBaseImpl;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.utlis.CrashHandler;

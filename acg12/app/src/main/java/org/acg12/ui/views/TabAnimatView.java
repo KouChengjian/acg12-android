@@ -17,7 +17,7 @@ import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 
 import org.acg12.R;
 import org.acg12.bean.Video;
-import org.acg12.config.Config;
+import org.acg12.conf.Config;
 import org.acg12.listener.SampleListener;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.adapter.TabAnimatAdapter;

@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import org.acg12.bean.Palette;
-import org.acg12.config.Constant;
+import org.acg12.conf.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;

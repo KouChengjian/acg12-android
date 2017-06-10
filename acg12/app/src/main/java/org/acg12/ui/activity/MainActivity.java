@@ -2,28 +2,23 @@ package org.acg12.ui.activity;
 
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 
 
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 
 import org.acg12.R;
 import org.acg12.bean.User;
-import org.acg12.config.Config;
-import org.acg12.config.Constant;
+import org.acg12.conf.Config;
 import org.acg12.db.DaoBaseImpl;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterActivityImpl;
-import org.acg12.ui.views.LoginView;
 import org.acg12.utlis.LogUtil;
 import org.acg12.utlis.Network;
 import org.acg12.utlis.skin.entity.AttrFactory;

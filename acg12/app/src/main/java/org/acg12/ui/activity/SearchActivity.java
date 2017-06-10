@@ -5,7 +5,7 @@ import android.view.View;
 
 
 import org.acg12.R;
-import org.acg12.config.Constant;
+import org.acg12.conf.Constant;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.utlis.skin.entity.AttrFactory;
 import org.acg12.utlis.skin.entity.DynamicAttr;

@@ -15,12 +15,11 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 
-import org.acg12.config.Constant;
+import org.acg12.conf.Constant;
 import org.acg12.db.DaoBaseImpl;
 import org.acg12.listener.IDynamicNewView;
 import org.acg12.listener.ISkinUpdate;
 import org.acg12.utlis.ActivityTack;
-import org.acg12.utlis.SystemBarUtlis;
 import org.acg12.utlis.Toastor;
 import org.acg12.utlis.ViewServer;
 import org.acg12.utlis.ViewUtil;

@@ -1,6 +1,5 @@
 package org.acg12.ui.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +7,8 @@ import android.view.View;
 
 import org.acg12.R;
 import org.acg12.bean.User;
-import org.acg12.config.Config;
-import org.acg12.config.Constant;
-import org.acg12.db.DaoBaseImpl;
+import org.acg12.conf.Config;
+import org.acg12.conf.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterActivityImpl;
@@ -23,8 +21,6 @@ import org.acg12.utlis.premission.SuccessPermission;
 import org.acg12.widget.CommonPopupWindows;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.io.File;
 
 
 public class UserInfoActivity extends PresenterActivityImpl<UserInfoView> implements View.OnClickListener ,CommonPopupWindows.OnUpdateAvatar {

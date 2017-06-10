@@ -1,4 +1,4 @@
-package org.acg12.config;
+package org.acg12.conf;
 
 
 import android.content.Context;

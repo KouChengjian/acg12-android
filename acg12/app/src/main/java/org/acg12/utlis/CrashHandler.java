@@ -8,6 +8,14 @@ import android.widget.Toast;
 
 import org.acg12.ACGApplication;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/5/9.
  */
@@ -68,6 +76,24 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             sb.append("versionCode=" + versionCode + "\n");
         }
         sb.append("Throwable = " + ex.toString());
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日- HH:mm:ss");
+        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+        String str = formatter.format(curDate);
+        String toFile = CacheUtils.getCacheDirectory(ACGApplication.getInstance(), true, "log") + File.separator + str;
+        File f = new File(toFile);
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(f,true);
+            out.write(sb.toString().getBytes("UTF-8"));
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 //        Log.e("tag",sb.toString());
         new Thread() {

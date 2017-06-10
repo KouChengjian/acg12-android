@@ -3,7 +3,7 @@ package org.acg12.ui.activity;
 import android.os.Bundle;
 import android.view.View;
 
-import org.acg12.config.Constant;
+import org.acg12.conf.Constant;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.ui.views.SkinView;
 

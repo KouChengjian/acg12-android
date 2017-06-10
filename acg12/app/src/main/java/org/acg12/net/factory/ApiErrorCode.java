@@ -1,7 +1,7 @@
 package org.acg12.net.factory;
 
 
-import org.acg12.config.Constant;
+import org.acg12.conf.Constant;
 
 /**
  * Created by DELL on 2016/12/6.

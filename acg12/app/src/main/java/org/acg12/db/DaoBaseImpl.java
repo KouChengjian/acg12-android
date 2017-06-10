@@ -6,7 +6,7 @@ import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.DataBase;
 
 import org.acg12.bean.User;
-import org.acg12.config.Constant;
+import org.acg12.conf.Constant;
 
 import java.util.ArrayList;
 
