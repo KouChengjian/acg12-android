@@ -12,9 +12,6 @@ public class Constant {
 	public static final String DB_NAME = "manyou.db";
 	public static final int TOOLBAR_ID = -1;
 	public static final int LIMIT_PAGER = 20;
-	public static final String BMOB_APP_ID = "92b8ccc3c129b72251e817155d955485";
-	public static final String SEX_MALE = "male";
-	public static final String SEX_FEMALE = "female";
 
 	// url常量 http://192.168.1.107:8080/acg12-api/
 	public static final String URL = Constant.debug ? "http://192.168.1.101:8080/acg12/" : "http://139.196.46.40:8080/api-v2/" ;
