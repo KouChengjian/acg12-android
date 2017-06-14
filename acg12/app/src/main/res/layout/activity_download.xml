@@ -8,5 +8,6 @@
 
     <include layout="@layout/common_action_bar"/>
 
+    <include layout="@layout/common_loading_recyclerview"/>
 
 </LinearLayout>

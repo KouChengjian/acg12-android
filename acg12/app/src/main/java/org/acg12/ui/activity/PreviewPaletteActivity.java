@@ -60,7 +60,7 @@ public class PreviewPaletteActivity extends PresenterActivityImpl<PreviewPalette
     public void onClick(View v) {
         int id = v.getId();
         if(id == Constant.TOOLBAR_ID){
-            finish();
+            aminFinish();
         }
     }
 

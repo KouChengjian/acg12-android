@@ -7,7 +7,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,14 +19,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <org.acg12.widget.DragImageView
+                <ImageView
                     android:id="@+id/page_image"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:scaleType="centerCrop"
                     android:visibility="gone"
-                    android:layout_margin="5dp"/>
+                    android:layout_margin="2dp"/>
 
                 <ProgressBar
                     android:id="@+id/page_loading"
@@ -44,7 +44,6 @@
                 android:textSize="16sp" />
 
         </LinearLayout>
-
 
     </ScrollView>
 

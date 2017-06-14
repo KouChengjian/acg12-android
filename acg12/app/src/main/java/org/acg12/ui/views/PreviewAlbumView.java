@@ -56,11 +56,12 @@ public class PreviewAlbumView extends ViewImpl {
         super.created();
         toolbar.setNavigationIcon(R.mipmap.ic_action_back);
         toolbar.setTitle("预览");
+        toolbar.inflateMenu(R.menu.menu_save);
 
         for (int i = 0; i < 4; i++) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.common_preview_album, null, false);
             ProgressBar spinner = (ProgressBar) view.findViewById(R.id.page_loading);
-            DragImageView dragPhotoView = (DragImageView) view.findViewById(R.id.page_image);
+            ImageView dragPhotoView = (ImageView) view.findViewById(R.id.page_image);
             TextView pageText = (TextView)view.findViewById(R.id.page_text);
             DragView dragView = new DragView();
             dragView.setView(view);
@@ -76,6 +77,7 @@ public class PreviewAlbumView extends ViewImpl {
         super.bindEvent();
         PresenterHelper.click(mPresenter ,toolbar);
         preAlbumViewpage.addOnPageChangeListener((ViewPager.OnPageChangeListener)mPresenter);
+        toolbar.setOnMenuItemClickListener((Toolbar.OnMenuItemClickListener)mPresenter);
     }
 
     public void bindData(int position ,List<Album> mList){
@@ -130,7 +132,7 @@ public class PreviewAlbumView extends ViewImpl {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            LogUtil.e("instantiateItem = "+position+"====");
+//            LogUtil.e("instantiateItem = "+position+"====");
 
             int i = position % 4;
             final DragView dragView = mDragView.get(i);
@@ -146,7 +148,7 @@ public class PreviewAlbumView extends ViewImpl {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            LogUtil.e("destroyItem = "+position+"====");
+//            LogUtil.e("destroyItem = "+position+"====");
             int i = position % 4;
             final DragView dragView = mDragView.get(i);
             ImageLoadUtils.releaseImageViewResouce(dragView.getDragPhotoView());
@@ -194,7 +196,7 @@ public class PreviewAlbumView extends ViewImpl {
     class DragView {
         private View view;
         private ProgressBar spinner;
-        private DragImageView dragPhotoView;
+        private ImageView dragPhotoView;
         private TextView pageText;
 
         public View getView() {
@@ -213,11 +215,11 @@ public class PreviewAlbumView extends ViewImpl {
             this.spinner = spinner;
         }
 
-        public DragImageView getDragPhotoView() {
+        public ImageView getDragPhotoView() {
             return dragPhotoView;
         }
 
-        public void setDragPhotoView(DragImageView dragPhotoView) {
+        public void setDragPhotoView(ImageView dragPhotoView) {
             this.dragPhotoView = dragPhotoView;
         }
 

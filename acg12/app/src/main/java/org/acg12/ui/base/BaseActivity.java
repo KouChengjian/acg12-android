@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
  * @ClassName: BaseActivity
  * @Description: 重构
  */
-public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDynamicNewView {
+public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDynamicNewView ,View.OnClickListener{
 
 	protected boolean replace = true;
 	protected Context mContext;
@@ -241,5 +241,13 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 	public void dynamicAddView(View view, List<DynamicAttr> pDAttrs) {
 		mSkinInflaterFactory.dynamicAddSkinEnableView(this, view, pDAttrs);
 		SkinManager.getInstance().load();
+	}
+
+	@Override
+	public void onClick(View view) {
+		int id = view.getId();
+		if(id == Constant.TOOLBAR_ID){
+			aminFinish();
+		}
 	}
 }

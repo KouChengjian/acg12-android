@@ -7,8 +7,10 @@ import com.litesuits.orm.db.DataBase;
 
 import org.acg12.bean.User;
 import org.acg12.conf.Constant;
+import org.acg12.net.download.DownLoad;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -51,5 +53,40 @@ public class DaoBaseImpl implements DaoBase {
         return mDataBase.deleteAll(User.class);
     }
 
+    @Override
+    public long saveDownload(DownLoad download) {
+        return mDataBase.save(download);
+    }
 
+    @Override
+    public List<DownLoad> queryDownloadList() {
+        return mDataBase.query(DownLoad.class);
+    }
+
+    @Override
+    public DownLoad queryUrlDownLoad(String url) {
+        List<DownLoad> list = queryDownloadList();
+        for(DownLoad dl:list){
+            if(dl.getName().equals(url)){
+                return dl;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public long delDownLoad(String url) {
+        List<DownLoad> list = queryDownloadList();
+        for(DownLoad dl:list){
+            if(dl.getUrl().equals(url)){
+                return delDownLoad(dl);
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public long delDownLoad(DownLoad download) {
+        return mDataBase.delete(download);
+    }
 }
