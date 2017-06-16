@@ -5,6 +5,7 @@ import android.content.Context;
 
 import org.acg12.conf.Constant;
 import org.acg12.db.DaoBaseImpl;
+import org.acg12.utlis.LogUtil;
 import org.acg12.utlis.ThreadPool;
 
 import java.io.InputStream;
@@ -41,6 +42,18 @@ public class DownloadManger  {
 
     private DownloadManger(Context context) {
         this.context = context;
+        List<DownLoad> list = DaoBaseImpl.getInstance().queryDownloadList();
+        for (DownLoad dl : list){
+            DownloadProgressHandler progressHandler = new DownloadProgressHandler(context, dl, null);
+            progressHandler.setCurrentState(Constant.PAUSE);
+            DownloadFileTask fileTask = new DownloadFileTask(context, dl, progressHandler.getHandler());
+            progressHandler.setFileTask(fileTask);
+
+            downloadDataMap.put(dl.getName(), dl);
+            callbackMap.put(dl.getName(), null);
+            fileTaskMap.put(dl.getName(), fileTask);
+            progressHandlerMap.put(dl.getName(), progressHandler);
+        }
     }
 
     public void init(String url, String path, String name, int childTaskCount) {
@@ -49,7 +62,6 @@ public class DownloadManger  {
         downloadData.setPath(path);
         downloadData.setName(name);
         downloadData.setChildTaskCount(childTaskCount);
-
     }
 
     /**
@@ -107,8 +119,9 @@ public class DownloadManger  {
     public void setOnDownloadCallback(DownLoad downloadData, DownLoadCallback downloadCallback) {
         downloadDataMap.put(downloadData.getName(), downloadData);
         callbackMap.put(downloadData.getName(), downloadCallback);
-
-//        execute(downloadData, downloadCallback);
+        if(progressHandlerMap.get(downloadData.getName()) != null) {
+            progressHandlerMap.get(downloadData.getName()).setDownLoadCallback(downloadCallback);
+        }
     }
 
     /**
@@ -123,11 +136,11 @@ public class DownloadManger  {
     /**
      * 获得数据库中对应url下载数据
      *
-     * @param url
+     * @param name
      * @return
      */
-    public DownLoad getDbData(String url) {
-        return DaoBaseImpl.getInstance().queryUrlDownLoad(url);
+    public DownLoad getDbData(String name) {
+        return DaoBaseImpl.getInstance().queryUrlDownLoad(name);
     }
 
     /**
@@ -160,11 +173,6 @@ public class DownloadManger  {
         if (progressHandlerMap.get(downloadData.getName()) != null) {
             return;
         }
-
-//        //默认每个任务不通过多个异步任务下载
-//        if (downloadData.getChildTaskCount() == 0) {
-//            downloadData.setChildTaskCount(1);
-//        }
 
         DownloadProgressHandler progressHandler = new DownloadProgressHandler(context, downloadData, downloadCallback);
         DownloadFileTask fileTask = new DownloadFileTask(context, downloadData, progressHandler.getHandler());
@@ -205,6 +213,8 @@ public class DownloadManger  {
                         progressHandlerMap.get(url).getCurrentState() == Constant.ERROR)) {
             progressHandlerMap.remove(url);
             execute(downloadDataMap.get(url), callbackMap.get(url));
+        } else {
+            LogUtil.e("下载初始化异常");
         }
     }
 
@@ -284,5 +294,14 @@ public class DownloadManger  {
                 destroy(url);
             }
         }
+    }
+
+    public void destroy() {
+        List<DownLoad> list = DaoBaseImpl.getInstance().queryDownloadList();
+        for (DownLoad dl : list){
+            LogUtil.e("pause");
+            pause(dl.getName());
+        }
+        downloadManager = null;
     }
 }

@@ -18,6 +18,7 @@ import org.acg12.conf.Config;
 import org.acg12.db.DaoBaseImpl;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.net.HttpRequestImpl;
+import org.acg12.net.download.DownloadManger;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.utlis.LogUtil;
 import org.acg12.utlis.Network;
@@ -163,11 +164,13 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
 
     @Override
     protected void onDestroy() {
+        DownloadManger.getInstance(mContext).destroy();
         super.onDestroy();
         Config.navigationEventBus().unregister(this);
         Config.userEventBus().unregister(this);
         Config.ListVideoUtilInstance().releaseVideoPlayer();
         GSYVideoPlayer.releaseAllVideos();
+
     }
 
 

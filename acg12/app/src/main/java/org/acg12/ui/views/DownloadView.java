@@ -1,23 +1,31 @@
 package org.acg12.ui.views;
 
+import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.acg12.R;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.download.DownLoad;
+import org.acg12.net.download.DownLoadCallback;
+import org.acg12.net.download.DownloadManger;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.adapter.DownloadAdapter;
 import org.acg12.ui.base.PresenterHelper;
+import org.acg12.utlis.DUtil;
+import org.acg12.utlis.IOUtils;
+import org.acg12.utlis.LogUtil;
 import org.acg12.utlis.PixelUtil;
 import org.acg12.utlis.ViewUtil;
 import org.acg12.widget.IRecycleView;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;

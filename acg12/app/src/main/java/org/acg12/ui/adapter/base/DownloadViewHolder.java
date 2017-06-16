@@ -14,7 +14,14 @@ import org.acg12.net.download.DownloadManger;
 import org.acg12.utlis.IOUtils;
 import org.acg12.utlis.LogUtil;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 /**
  * Created by Administrator on 2017/6/14.
@@ -31,6 +38,8 @@ public class DownloadViewHolder extends RecyclerView.ViewHolder{
     TextView cancel;
     TextView restart;
 
+    TextView tv_download_state;
+
 
     public DownloadViewHolder(View itemView) {
         super(itemView);
@@ -43,6 +52,7 @@ public class DownloadViewHolder extends RecyclerView.ViewHolder{
         resume = (TextView) itemView.findViewById(R.id.resume);
         cancel = (TextView) itemView.findViewById(R.id.cancel);
         restart = (TextView) itemView.findViewById(R.id.restart);
+        tv_download_state  = (TextView) itemView.findViewById(R.id.tv_download_state);
     }
 
     public void bindData(final Context mContext , final DownLoad data){
@@ -82,19 +92,33 @@ public class DownloadViewHolder extends RecyclerView.ViewHolder{
                 DownloadManger.getInstance(mContext).restart(data.getName());
             }
         });
+        tv_download_state.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DownLoad dl = DownloadManger.getInstance(mContext).getDbData(data.getName());
+                LogUtil.e(dl.getState() +"====");
+                data.setState(dl.getState());
+                if(data.getState() == Constant.PAUSE){
+                    tv_download_state.setText("暂停");
+                    DownloadManger.getInstance(mContext).resume(data.getName());
+                } else if(data.getState() == Constant.START || data.getState() == Constant.NONE){
+                    tv_download_state.setText("开始");
+                    DownloadManger.getInstance(mContext).pause(data.getName());
+                }
+            }
+        });
 
         setListener(mContext , data);
 
 
         if(data.getState() == Constant.PAUSE){
-            name.setText(data.getName() + ":已暂停");
-            LogUtil.e("PAUSE====");
-        } else { // if(data.getState() == Constant.PROGRESS)
-            LogUtil.e("1====");
-            DownloadManger.getInstance(mContext).pause(data.getName());
-            LogUtil.e("2====");
-//            DownloadManger.getInstance(mContext).resume(data.getName());
-            LogUtil.e("3====");
+            tv_download_state.setText("开始");
+            tv_download_state.setVisibility(View.VISIBLE);
+        } else if(data.getState() == Constant.FINISH){
+            tv_download_state.setVisibility(View.INVISIBLE);
+        } else{
+            tv_download_state.setText("暂停");
+            tv_download_state.setVisibility(View.VISIBLE);
         }
     }
 
@@ -109,6 +133,7 @@ public class DownloadViewHolder extends RecyclerView.ViewHolder{
 
             @Override
             public void onProgress(long currentSize, long totalSize, float progress) {
+//                LogUtil.e("progress = "+progress);
                 name.setText( downloadData.getName() + ":下载中");
                 download_size.setText(IOUtils.formatSize(currentSize) + "/" + IOUtils.formatSize(totalSize));
                 percentage.setText( progress + "%");
@@ -128,6 +153,7 @@ public class DownloadViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onFinish(File file) {
                 name.setText( downloadData.getName() + ":已完成");
+                tv_download_state.setVisibility(View.INVISIBLE);
             }
 
             @Override

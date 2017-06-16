@@ -10,6 +10,7 @@ import org.acg12.db.DaoBaseImpl;
 import org.acg12.utlis.IOUtils;
 import org.acg12.utlis.LogUtil;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,8 +47,6 @@ public class DownloadFileTask implements Runnable  {
     private boolean IS_CANCEL;
     private ArrayList<Call> callList;
 
-    private int tempChildTaskCount;
-
     public DownloadFileTask(Context context, DownLoad downloadData, Handler handler) {
         this.context = context;
         this.url = downloadData.getUrl();
@@ -69,9 +68,11 @@ public class DownloadFileTask implements Runnable  {
 //                LogUtil.e("有 ====");
                 Response response = OkHttpManager.getInstance().initRequest(url, data.getLastModify());
                 if (response != null && response.isSuccessful() && IOUtils.isNotServerFileChanged(response)) {
+//                    LogUtil.e("服务器修改 ====");
                     TEMP_FILE_TOTAL_SIZE = EACH_TEMP_SIZE * data.getChildTaskCount();
                     onStart(data.getTotalLength(), data.getCurrentLength(), "", true);
                 } else {
+//                    LogUtil.e("服务器无修改 ====");
                     prepareRangeFile(response);
                 }
                 saveRangeFile();
@@ -138,7 +139,7 @@ public class DownloadFileTask implements Runnable  {
             e.printStackTrace();
         }
         callList.add(call);
-        startSaveRangeFile(response, 0, range, saveFile, tempFile);
+        startSaveRangeFile(response, range, saveFile, tempFile);
     }
 
     private void saveCommonFile(Response response) {
@@ -220,43 +221,34 @@ public class DownloadFileTask implements Runnable  {
     /**
      * 分段保存文件
      */
-    private void startSaveRangeFile(Response response, int index, Ranges range, File saveFile, File tempFile) {
+    private void startSaveRangeFile(Response response, Ranges range, File saveFile, File tempFile) {
         InputStream inputStream = null;
-        OutputStream saveOutputStream = null;
-        OutputStream tempOutputStream = null;
-
+        FileOutputStream fileOutputStream = null;
         try {
             inputStream = response.body().byteStream();
-            saveOutputStream  = new FileOutputStream(saveFile);
-//            tempOutputStream = new FileOutputStream(tempFile);
+            fileOutputStream  = new FileOutputStream(saveFile ,true);
             int len;
-            long time = 0;
             byte[] buffer = new byte[BUFFER_SIZE];
 
             while ((len = inputStream.read(buffer)) != -1) {
 //                LogUtil.e("读取======" + len);
                 if (IS_CANCEL) {
                     handler.sendEmptyMessage(Constant.CANCEL);
-                    callList.get(index).cancel();
+                    callList.get(0).cancel();
                     break;
                 }
 
-                saveOutputStream.write(buffer, 0, len);
-//                saveBuffer.put(buffer, 0, len);
-//                tempBuffer.putLong(index * EACH_TEMP_SIZE, tempBuffer.getLong(index * EACH_TEMP_SIZE) + len);
+                fileOutputStream.write(buffer, 0, len);
 
                 Ranges rang = readDownloadRange(tempFile);
                 long star = rang.start + len;
 //                LogUtil.e("rang.start = "+rang.start +"  len = "+len);
                 String str = star + "\r\n" + rang.end;
 //                LogUtil.e("star = "+star +"  end = "+rang.end);
-                if(tempFile.exists()){
-                    tempFile.delete();
-//                    tempFile.createNewFile();
-                } else {
-//                    tempFile.createNewFile();
-                }
-                tempOutputStream = new FileOutputStream(tempFile);
+//                if(tempFile.exists()){
+//                    tempFile.delete();
+//                }
+                OutputStream tempOutputStream = new FileOutputStream(tempFile);
                 byte[] bytes = str.getBytes();
                 tempOutputStream.write(bytes);
                 tempOutputStream.flush();
@@ -264,33 +256,26 @@ public class DownloadFileTask implements Runnable  {
 
                 onProgress(len);
 
-
                 if (IS_DESTROY) {
                     handler.sendEmptyMessage(Constant.DESTROY);
-                    callList.get(index).cancel();
+                    callList.get(0).cancel();
                     break;
                 }
 
                 if (IS_PAUSE) {
                     handler.sendEmptyMessage(Constant.PAUSE);
-                    callList.get(index).cancel();
+                    callList.get(0).cancel();
                     break;
                 }
             }
-            saveOutputStream.flush();
-            addCount();
+            fileOutputStream.flush();
         } catch (Exception e) {
             onError(e.toString());
         } finally {
-            IOUtils.close(tempOutputStream);
-            IOUtils.close(saveOutputStream);
+            IOUtils.close(fileOutputStream);
             IOUtils.close(inputStream);
             IOUtils.close(response);
         }
-    }
-
-    private synchronized void addCount() {
-        ++tempChildTaskCount;
     }
 
     public void onProgress(int length) {

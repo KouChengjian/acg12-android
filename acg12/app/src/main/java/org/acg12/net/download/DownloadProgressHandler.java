@@ -48,6 +48,10 @@ public class DownloadProgressHandler {
     private long lastProgressTime;
 
 
+    public void setDownLoadCallback(DownLoadCallback downloadCallback){
+        this.downloadCallback = downloadCallback;
+    }
+
     public DownloadProgressHandler(Context context, DownLoad downloadData, DownLoadCallback downloadCallback) {
         this.context = context;
         this.downloadCallback = downloadCallback;
@@ -67,6 +71,10 @@ public class DownloadProgressHandler {
 
     public int getCurrentState() {
         return mCurrentState;
+    }
+
+    public void setCurrentState(int mCurrentState){
+        this.mCurrentState = mCurrentState;
     }
 
     public DownLoad getDownloadData() {
@@ -128,13 +136,22 @@ public class DownloadProgressHandler {
                     String lastModify = bundle.getString("lastModify");
                     isSupportRange = bundle.getBoolean("isSupportRange");
 
-                    if (!isSupportRange) {
-                        childTaskCount = 1;
-                    } else if (currentLength == 0) {
-                        DownLoad dl = new DownLoad(url, path, childTaskCount, name, currentLength, totalLength, lastModify, System.currentTimeMillis());
-                        DaoBaseImpl.getInstance().saveDownload(dl);
-//                        CacheUtils.getInstance(context).insertData();
+                    if (currentLength == 0) {
+                        DownLoad dl = DaoBaseImpl.getInstance().queryUrlDownLoad(name);
+                        if(dl == null){
+                            DownLoad d = new DownLoad(url, path, childTaskCount, name, currentLength, totalLength, lastModify, System.currentTimeMillis());
+                            DaoBaseImpl.getInstance().saveDownload(d);
+                        }
+                    } else {
+                        DownLoad dl = DaoBaseImpl.getInstance().queryUrlDownLoad(name);
+                        if(dl != null){
+                            dl.setState(Constant.START);
+                            dl.setCurrentLength(currentLength);
+                            dl.setPercentage(IOUtils.getPercentage(currentLength, totalLength));
+                            DaoBaseImpl.getInstance().saveDownload(dl);
+                        }
                     }
+
                     if (downloadCallback != null) {
                         downloadCallback.onStart(currentLength, totalLength, IOUtils.getPercentage(currentLength, totalLength));
                     }
@@ -144,7 +161,7 @@ public class DownloadProgressHandler {
                         currentLength += msg.arg1;
                         downloadData.setPercentage(IOUtils.getPercentage(currentLength, totalLength));
 
-                        if (downloadCallback != null && (System.currentTimeMillis() - lastProgressTime >= 20 || currentLength == totalLength)) {
+                        if (downloadCallback != null && (System.currentTimeMillis() - lastProgressTime >= 1000 || currentLength == totalLength)) {
                             downloadCallback.onProgress(currentLength, totalLength, IOUtils.getPercentage(currentLength, totalLength));
                             lastProgressTime = System.currentTimeMillis();
                         }
@@ -152,14 +169,6 @@ public class DownloadProgressHandler {
                         if (currentLength == totalLength) {
                             sendEmptyMessage(Constant.FINISH);
                         }
-
-//                        if (isSupportRange) {
-//                            DownLoad dl = DaoBaseImpl.getInstance().queryUrlDownLoad(name);
-//                            dl.setState(Constant.PROGRESS);
-//                            dl.setCurrentLength(currentLength);
-//                            dl.setPercentage(IOUtils.getPercentage(currentLength, totalLength));
-//                            DaoBaseImpl.getInstance().saveDownload(dl);
-//                        }
                     }
                     break;
                 case Constant.CANCEL:
@@ -191,17 +200,16 @@ public class DownloadProgressHandler {
                     synchronized (this) {
                         if (isSupportRange) {
                             DownLoad dl = DaoBaseImpl.getInstance().queryUrlDownLoad(name);
-                            dl.setState(Constant.PAUSE);
-                            dl.setCurrentLength(currentLength);
-                            dl.setPercentage(IOUtils.getPercentage(currentLength, totalLength));
-                            DaoBaseImpl.getInstance().saveDownload(dl);
-                        }
-                        tempChildTaskCount++;
-                        if (tempChildTaskCount == childTaskCount) {
-                            if (downloadCallback != null) {
-                                downloadCallback.onPause();
+                            if(dl != null){
+                                dl.setState(Constant.PAUSE);
+                                dl.setCurrentLength(currentLength);
+                                dl.setPercentage(IOUtils.getPercentage(currentLength, totalLength));
+                                DaoBaseImpl.getInstance().saveDownload(dl);
                             }
-                            tempChildTaskCount = 0;
+                        }
+
+                        if (downloadCallback != null) {
+                            downloadCallback.onPause();
                         }
                     }
                     break;
@@ -210,10 +218,12 @@ public class DownloadProgressHandler {
                         IOUtils.deleteFile(new File(path, name + ".temp"));
                         if (isSupportRange) {
                             DownLoad dl = DaoBaseImpl.getInstance().queryUrlDownLoad(name);
-                            dl.setState(Constant.FINISH);
-                            dl.setCurrentLength(currentLength);
-                            dl.setPercentage(IOUtils.getPercentage(currentLength, totalLength));
-                            DaoBaseImpl.getInstance().saveDownload(dl);
+                            if(dl != null){
+                                dl.setState(Constant.FINISH);
+                                dl.setCurrentLength(currentLength);
+                                dl.setPercentage(IOUtils.getPercentage(currentLength, totalLength));
+                                DaoBaseImpl.getInstance().saveDownload(dl);
+                            }
                         }
 //                        DaoBaseImpl.getInstance().delDownLoad(name);
                     }
@@ -225,20 +235,24 @@ public class DownloadProgressHandler {
                     synchronized (this) {
                         if (isSupportRange) {
                             DownLoad dl = DaoBaseImpl.getInstance().queryUrlDownLoad(name);
-                            dl.setState(Constant.DESTROY);
-                            dl.setCurrentLength(currentLength);
-                            dl.setPercentage(IOUtils.getPercentage(currentLength, totalLength));
-                            DaoBaseImpl.getInstance().saveDownload(dl);
+                            if(dl != null){
+                                dl.setState(Constant.DESTROY);
+                                dl.setCurrentLength(currentLength);
+                                dl.setPercentage(IOUtils.getPercentage(currentLength, totalLength));
+                                DaoBaseImpl.getInstance().saveDownload(dl);
+                            }
                         }
                     }
                     break;
                 case Constant.ERROR:
                     if (isSupportRange) {
                         DownLoad dl = DaoBaseImpl.getInstance().queryUrlDownLoad(url);
-                        dl.setState(Constant.ERROR);
-                        dl.setCurrentLength(currentLength);
-                        dl.setPercentage(IOUtils.getPercentage(currentLength, totalLength));
-                        DaoBaseImpl.getInstance().saveDownload(dl);
+                        if(dl != null){
+                            dl.setState(Constant.ERROR);
+                            dl.setCurrentLength(currentLength);
+                            dl.setPercentage(IOUtils.getPercentage(currentLength, totalLength));
+                            DaoBaseImpl.getInstance().saveDownload(dl);
+                        }
                     }
                     if (downloadCallback != null) {
                         downloadCallback.onError((String) msg.obj);

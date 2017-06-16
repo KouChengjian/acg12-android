@@ -110,9 +110,9 @@ public class PreviewAlbumActivity extends PresenterActivityImpl<PreviewAlbumView
         String name = System.currentTimeMillis()+"";
 
         downloadManger = DUtil.initDownloadBuilder(mContext)
-                .url("http://1.82.242.43/imtt.dd.qq.com/16891/DC9E925209B19E7913477E7A0CCE6E52.apk")
+                .url("http://shouji.360tpcdn.com/170602/c5966f391f74ef437042aae4976987cd/com.qiyi.video_80880.apk")
                 .path(Environment.getExternalStorageDirectory() + "/Pictures/漫友/")
-                .name(name + ".jpg")
+                .name(name + ".apk")
                 .childTaskCount(1)
                 .build()
                 .start(new DownLoadCallback() {
