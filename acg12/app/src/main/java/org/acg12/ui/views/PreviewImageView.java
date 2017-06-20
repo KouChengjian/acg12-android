@@ -1,11 +1,23 @@
 package org.acg12.ui.views;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.acg12.R;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.base.PresenterHelper;
 import org.acg12.utlis.ImageLoadUtils;
+import org.acg12.utlis.LogUtil;
 import org.acg12.widget.dargphoto.PhotoView;
 
 import butterknife.BindView;
@@ -19,6 +31,8 @@ public class PreviewImageView extends ViewImpl {
     Toolbar preview_image_toolbar;
     @BindView(R.id.page_image)
     PhotoView dragPhotoView;
+    @BindView(R.id.page_loading)
+    ProgressBar page_loading;
 
     @Override
     public int getLayoutId() {
@@ -40,6 +54,26 @@ public class PreviewImageView extends ViewImpl {
     }
 
     public void loaderImage(String url){
-        ImageLoadUtils.universalLoading(url , dragPhotoView);
+        url = url.replace("_fw658" , "");
+        LogUtil.e(url+"====");
+        ImageLoadUtils.glideLoading(getContext() , url , new GlideDrawableImageViewTarget(dragPhotoView){
+
+            @Override
+            public void onLoadStarted(Drawable placeholder) {
+                page_loading.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                page_loading.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                super.onResourceReady(resource, glideAnimation);
+                page_loading.setVisibility(View.GONE);
+                dragPhotoView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 }

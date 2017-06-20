@@ -13,6 +13,7 @@ import org.acg12.conf.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
+import org.acg12.ui.activity.PreviewBangumiActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.ui.views.SearchBangunView;
 import org.acg12.widget.IRecycleView;
@@ -37,7 +38,6 @@ public class SearchBangunFragment extends PresenterFragmentImpl<SearchBangunView
         return fragment;
     }
 
-
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
@@ -47,7 +47,9 @@ public class SearchBangunFragment extends PresenterFragmentImpl<SearchBangunView
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
+        Bundle bundle = new Bundle();
+        bundle.putString("bangumiId" , mView.getBangumiId(position));
+        startAnimActivity(PreviewBangumiActivity.class , bundle);
     }
 
     @Override

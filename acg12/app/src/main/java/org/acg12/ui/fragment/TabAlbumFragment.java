@@ -58,10 +58,10 @@ public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implem
                 int position = data.getExtras().getInt("position");
                 List<Album> list = mView.getAlbumList();
                 list = PreviewAlbumActivity.mList;
+                PreviewAlbumActivity.mList = null;
                 mView.MoveToPosition(position);
             }
         }
-
     }
 
     @Override

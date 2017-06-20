@@ -2,18 +2,13 @@ package org.acg12.ui.views;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.View;
-import android.view.ViewStub;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.acg12.R;
 import org.acg12.bean.Album;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.adapter.TabAlbumAdapter;
-import org.acg12.utlis.PixelUtil;
-import org.acg12.utlis.ViewUtil;
+import org.acg12.widget.CommonRecycleview;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;
@@ -25,16 +20,10 @@ import butterknife.BindView;
  */
 public class SearchAlbumView extends ViewImpl {
 
-    @BindView(R.id.mRecyclerView)
-    IRecycleView mRecyclerView;
-    @BindView(R.id.mSwipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    @BindView(R.id.layout_load_null)
-    ViewStub layoutLoadNull;
-    ImageView loadNullImageview;
-    TextView loadNullTextview;
-
+    @BindView(R.id.common_recyclerview)
+    CommonRecycleview commonRecycleview;
     TabAlbumAdapter tabAlbumAdapter;
+    StaggeredGridLayoutManager staggeredGridLayoutManager;
 
     @Override
     public int getLayoutId() {
@@ -44,35 +33,36 @@ public class SearchAlbumView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-        mRecyclerView.setLoadingMoreEnabled(true);
+        staggeredGridLayoutManager = commonRecycleview.setStaggeredGridLayoutManager();
         tabAlbumAdapter = new TabAlbumAdapter(getContext());
-        mRecyclerView.setAdapter(tabAlbumAdapter);
-
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_primary);
-        mSwipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(50), PixelUtil.dp2px(24));
-        mSwipeRefreshLayout.setRefreshing(true);
+        commonRecycleview.setAdapter(tabAlbumAdapter);
+        commonRecycleview.startRefreshing();
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        mSwipeRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
-        mRecyclerView.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
-        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
+        commonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
+        commonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
+        commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
     }
 
     public void bindData(List<Album> result , boolean refresh){
         if (refresh) {
             tabAlbumAdapter.setList(result);
+            commonRecycleview.notifyChanged();
         } else {
             tabAlbumAdapter.addAll(result);
+            commonRecycleview.notifyChanged(tabAlbumAdapter.getList().size() - result.size() , tabAlbumAdapter.getList().size());
         }
-        tabAlbumAdapter.notifyDataSetChanged();
     }
 
     public String getPicId(){
         return tabAlbumAdapter.getList().get(tabAlbumAdapter.getList().size() - 1).getPinId();
+    }
+
+    public List<Album> getAlbumList() {
+        return tabAlbumAdapter.getList();
     }
 
     public Album getAlbum(int position) {
@@ -80,37 +70,19 @@ public class SearchAlbumView extends ViewImpl {
     }
 
     public void stopLoading(){
-        mRecyclerView.noMoreLoading();
+        commonRecycleview.stopLoading();
     }
 
     public void stopRefreshLoadMore(boolean refresh) {
-        if (refresh)
-            mSwipeRefreshLayout.setRefreshing(false);
-        else
-            mRecyclerView.loadMoreComplete();
-        loadNull();
+        commonRecycleview.stopRefreshLoadMore(refresh);
     }
 
-    private void loadNull() {
-        List<Album> mlist = tabAlbumAdapter.getList();
-        if (mlist != null && !mlist.isEmpty()) {
-            if (loadNullImageview != null && loadNullTextview != null) {
-                ViewUtil.setText(loadNullTextview, "");
-                if (loadNullImageview.getVisibility() == View.VISIBLE) {
-                    loadNullImageview.setVisibility(View.GONE);
-                }
-            }
-        } else {
-            if (loadNullImageview == null && loadNullTextview == null) {
-                View view = layoutLoadNull.inflate();
-                loadNullImageview = (ImageView) view.findViewById(R.id.iv_load_null);
-                loadNullTextview = (TextView) view.findViewById(R.id.tv_load_null);
-            }
-            //loadNullImageview.setImageResource(R.mipmap.ic_error);
-            ViewUtil.setText(loadNullTextview, "暂时没有消息");
-            if (loadNullImageview.getVisibility() == View.GONE) {
-                loadNullImageview.setVisibility(View.VISIBLE);
-            }
-        }
+    /**
+     * RecyclerView 移动到当前位置，
+     * @param n  要跳转的位置
+     */
+    public void MoveToPosition(int n) {
+        staggeredGridLayoutManager.scrollToPositionWithOffset(n, 0);
+//        manager.setStackFromEnd(true);
     }
 }

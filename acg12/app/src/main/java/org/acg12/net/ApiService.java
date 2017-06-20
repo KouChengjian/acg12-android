@@ -2,10 +2,9 @@ package org.acg12.net;
 
 
 import org.acg12.bean.User;
-import org.acg12.net.converter.LoginConverter;
+import org.acg12.net.converter.UserConverter;
 import org.acg12.net.factory.ApiConverter;
 
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.RequestBody;
@@ -18,7 +17,6 @@ import retrofit2.http.POST;
 import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import rx.Observable;
-import rx.Subscription;
 
 /**
  * Created by DELL on 2016/11/29.
@@ -27,7 +25,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("api/login")
-    @ApiConverter(converter = LoginConverter.class)
+    @ApiConverter(converter = UserConverter.class)
     Observable<User> login(@Field("username") String username , @Field("password") String password);
 
     @POST("api/userInfo")

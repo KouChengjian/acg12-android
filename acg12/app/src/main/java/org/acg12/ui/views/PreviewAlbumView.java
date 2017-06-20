@@ -1,11 +1,11 @@
 package org.acg12.ui.views;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import org.acg12.R;
@@ -22,11 +25,10 @@ import org.acg12.ui.activity.PreviewAlbumActivity;
 import org.acg12.ui.activity.PreviewImageActivity;
 import org.acg12.ui.base.PresenterHelper;
 import org.acg12.utlis.ImageLoadUtils;
-import org.acg12.utlis.LogUtil;
 import org.acg12.utlis.ViewUtil;
-import org.acg12.widget.DragImageView;
+import org.acg12.widget.MyImageView;
 import org.acg12.widget.ViewPagerFixed;
-import org.acg12.widget.dargphoto.PhotoView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,9 +61,9 @@ public class PreviewAlbumView extends ViewImpl {
         toolbar.inflateMenu(R.menu.menu_save);
 
         for (int i = 0; i < 4; i++) {
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.common_preview_album, null, false);
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.include_preview_album, null, false);
             ProgressBar spinner = (ProgressBar) view.findViewById(R.id.page_loading);
-            ImageView dragPhotoView = (ImageView) view.findViewById(R.id.page_image);
+            MyImageView dragPhotoView = (MyImageView) view.findViewById(R.id.page_image);
             TextView pageText = (TextView)view.findViewById(R.id.page_text);
             DragView dragView = new DragView();
             dragView.setView(view);
@@ -87,21 +89,6 @@ public class PreviewAlbumView extends ViewImpl {
         preAlbumViewpage.setAdapter(dragPagerAdapter);
         preAlbumViewpage.setCurrentItem(position);
     }
-
-//    public ArrayList<DragView> paddingViewList(List<Album> albumList){
-//        for (int i = 0 , num = albumList.size(); i < num; i++) {
-//            View view = initItemView(albumList.get(i) , i);
-//            DragView dragView = new DragView();
-//            dragView.setView(view);
-//            mList.add(dragView);
-//        }
-//        return mList;
-//    }
-
-//    public View initItemView(Album album, int position) {
-//
-//        return view;
-//    }
 
     public void  addList(List<Album> mList){
         albumList.addAll(mList);
@@ -148,10 +135,10 @@ public class PreviewAlbumView extends ViewImpl {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-//            LogUtil.e("destroyItem = "+position+"====");
             int i = position % 4;
             final DragView dragView = mDragView.get(i);
             ImageLoadUtils.releaseImageViewResouce(dragView.getDragPhotoView());
+            dragView.getDragPhotoView().setOnClickListener(null);
             container.removeView(dragView.getView());
         }
 
@@ -163,40 +150,41 @@ public class PreviewAlbumView extends ViewImpl {
         public void loaderImage(final Album album ,final ProgressBar spinner ,final ImageView dragPhotoView){
             spinner.setVisibility(View.GONE);
             dragPhotoView.setVisibility(View.VISIBLE);
-//            ImageLoadUtils.glideLoading(getContext() , album.getImageUrl() , dragPhotoView);
-            ImageLoadUtils.universalLoading(album.getImageUrl() , dragPhotoView , new SimpleImageLoadingListener(){
+            ImageLoadUtils.glideLoading(getContext() , album.getImageUrl() , new GlideDrawableImageViewTarget(dragPhotoView){
+
                 @Override
-                public void onLoadingStarted(String imageUri,View view) {
+                public void onLoadStarted(Drawable placeholder) {
                     spinner.setVisibility(View.VISIBLE);
                 }
 
                 @Override
-                public void onLoadingFailed(String imageUri,View view, FailReason failReason) {
+                public void onLoadFailed(Exception e, Drawable errorDrawable) {
                     spinner.setVisibility(View.GONE);
                 }
 
                 @Override
-                public void onLoadingComplete(String imageUri,	View view, Bitmap loadedImage) {
+                public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                    super.onResourceReady(resource, glideAnimation);
                     spinner.setVisibility(View.GONE);
                     dragPhotoView.setVisibility(View.VISIBLE);
                 }
             });
 
-//            dragPhotoView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("url",album.getImageUrl());
-//                    ViewUtil.startAnimActivity(getContext() , PreviewImageActivity.class,bundle);
-//                }
-//            });
+            dragPhotoView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("url",album.getImageUrl());
+                    ViewUtil.startAnimActivity(getContext() , PreviewImageActivity.class,bundle);
+                }
+            });
         }
     }
 
     class DragView {
         private View view;
         private ProgressBar spinner;
-        private ImageView dragPhotoView;
+        private MyImageView dragPhotoView;
         private TextView pageText;
 
         public View getView() {
@@ -215,11 +203,11 @@ public class PreviewAlbumView extends ViewImpl {
             this.spinner = spinner;
         }
 
-        public ImageView getDragPhotoView() {
+        public MyImageView getDragPhotoView() {
             return dragPhotoView;
         }
 
-        public void setDragPhotoView(ImageView dragPhotoView) {
+        public void setDragPhotoView(MyImageView dragPhotoView) {
             this.dragPhotoView = dragPhotoView;
         }
 

@@ -30,7 +30,7 @@ public class PreviewImageActivity extends PresenterActivityImpl<PreviewImageView
     public void onClick(View v) {
         int id = v.getId();
         if (id == Constant.TOOLBAR_ID) {
-            finish();
+            aminFinish();
         }
     }
 }

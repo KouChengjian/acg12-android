@@ -51,19 +51,19 @@ public class TabPaletteViewHolder extends RecyclerView.ViewHolder {
             imageView.setImageHeight(350);
             for (int i = 0; i < paletteList.size(); i++) {
                 if(i == 0){
-                    ImageLoadUtils.glideLoading(context , paletteList.get(i) , imageView);
+                    ImageLoadUtils.glideLoading(context , paletteList.get(i).replace("_fw658" , "_fw236") , imageView);
                     iv_palete_icon_1.setImageResource(R.mipmap.bg_loading_pic);
                     iv_palete_icon_2.setImageResource(R.mipmap.bg_loading_pic);
                     iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
                 } else if(i == 1){
-                    ImageLoadUtils.glideLoading(context , paletteList.get(i) , iv_palete_icon_1);
+                    ImageLoadUtils.glideLoading(context , paletteList.get(i).replace("_fw658" , "_fw236") , iv_palete_icon_1);
                     iv_palete_icon_2.setImageResource(R.mipmap.bg_loading_pic);
                     iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
                 } else if(i == 2){
-                    ImageLoadUtils.glideLoading(context , paletteList.get(i) , iv_palete_icon_2);
+                    ImageLoadUtils.glideLoading(context , paletteList.get(i).replace("_fw658" , "_fw236") , iv_palete_icon_2);
                     iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
                 } else if(i == 3){
-                    ImageLoadUtils.glideLoading(context , paletteList.get(i) , iv_palete_icon_3);
+                    ImageLoadUtils.glideLoading(context , paletteList.get(i).replace("_fw658" , "_fw236") , iv_palete_icon_3);
                 }
             }
         }

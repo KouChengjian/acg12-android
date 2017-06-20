@@ -84,7 +84,7 @@ public class MainView extends ViewImpl {
         if (user == null || user.getUsername() == null){
             iv_nav_avatar.setImageResource(R.mipmap.bg_avatar_default);
             iv_nav_sex.setVisibility(View.GONE);
-            ViewUtil.setText(tv_nav_nick , "请登录");
+            ViewUtil.setText(tv_nav_nick , "点击头像登录");
             ViewUtil.setText(tv_nav_signature , "");
         } else {
             String avatar = user.getAvatar();

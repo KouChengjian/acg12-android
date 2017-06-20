@@ -15,12 +15,13 @@ import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.utlis.skin.entity.AttrFactory;
 import org.acg12.utlis.skin.entity.DynamicAttr;
 import org.acg12.ui.views.HomeView;
+import org.acg12.widget.SearchPopWindow;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends PresenterFragmentImpl<HomeView> implements Toolbar.OnMenuItemClickListener ,
-        View.OnClickListener {
+        View.OnClickListener ,SearchPopWindow.OnPopupShowOrDismiss{
 
     @Override
     public void created(Bundle savedInstance) {
@@ -49,5 +50,14 @@ public class HomeFragment extends PresenterFragmentImpl<HomeView> implements Too
                 break;
         }
         return false;
+    }
+
+    @Override
+    public void popupStatus(boolean status) {
+        if(status){
+            showSoftInputView();
+        }else {
+            hideSoftInputView();
+        }
     }
 }

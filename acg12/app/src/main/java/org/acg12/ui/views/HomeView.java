@@ -66,6 +66,7 @@ public class HomeView extends ViewImpl {
         mTabLayout.setupWithViewPager(mViewpager);
 
         searchPopWindow = new SearchPopWindow((AppCompatActivity)getContext());
+        searchPopWindow.setOnPopupShowOrDismiss((SearchPopWindow.OnPopupShowOrDismiss)mPresenter);
     }
 
     @Override

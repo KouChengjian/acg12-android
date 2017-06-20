@@ -13,6 +13,7 @@ import org.acg12.conf.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
+import org.acg12.ui.activity.PreviewPaletteActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.ui.views.SearchPaletteView;
 import org.acg12.widget.IRecycleView;
@@ -46,7 +47,9 @@ public class SearchPaletteFragment extends PresenterFragmentImpl<SearchPaletteVi
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("palette",mView.getPalette(position));
+        startAnimActivity(PreviewPaletteActivity.class , bundle);
     }
 
     @Override

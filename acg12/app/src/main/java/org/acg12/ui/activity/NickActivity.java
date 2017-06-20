@@ -35,7 +35,7 @@ public class NickActivity extends PresenterActivityImpl<NickView> implements Vie
     public void onClick(View view) {
         int id = view.getId();
         if(id == Constant.TOOLBAR_ID){
-            finish();
+            aminFinish();
         } else if(id == R.id.title_right){
             nick();
         }

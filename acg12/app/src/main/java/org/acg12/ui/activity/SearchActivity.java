@@ -31,7 +31,7 @@ public class SearchActivity extends PresenterActivityImpl<SearchView> implements
     public void onClick(View v) {
         int id = v.getId();
         if(id == Constant.TOOLBAR_ID){
-            finish();
+            aminFinish();
         }
     }
 }

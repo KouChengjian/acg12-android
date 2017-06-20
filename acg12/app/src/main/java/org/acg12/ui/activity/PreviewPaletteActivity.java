@@ -16,6 +16,7 @@ import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.ui.views.PreviewPaletteView;
+import org.acg12.utlis.ImageLoadUtils;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;
@@ -106,5 +107,11 @@ public class PreviewPaletteActivity extends PresenterActivityImpl<PreviewPalette
                 mView.stopRefreshLoadMore(refresh);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImageLoadUtils.clearImageMemoryCache(mContext);
     }
 }

@@ -20,7 +20,7 @@ public class CollectActivity extends PresenterActivityImpl<CollectView> implemen
     public void onClick(View v) {
         int id = v.getId();
         if(id == Constant.TOOLBAR_ID){
-            finish();
+            aminFinish();
         }
     }
 }

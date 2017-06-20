@@ -4,5 +4,9 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <include layout="@layout/common_loading_recyclerview"/>
+    <org.acg12.widget.CommonRecycleview
+        android:id="@+id/common_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>

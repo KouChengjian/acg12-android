@@ -20,6 +20,7 @@ import org.acg12.net.download.DownloadManger;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.ui.views.PreviewAlbumView;
 import org.acg12.utlis.DUtil;
+import org.acg12.utlis.ImageLoadUtils;
 import org.acg12.utlis.LogUtil;
 
 import java.io.File;
@@ -173,6 +174,7 @@ public class PreviewAlbumActivity extends PresenterActivityImpl<PreviewAlbumView
     protected void onDestroy() {
         super.onDestroy();
         mList = null;
+        ImageLoadUtils.clearImageMemoryCache(mContext);
     }
 
 

@@ -8,7 +8,8 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 
 import org.acg12.db.DaoBaseImpl;
@@ -106,6 +107,19 @@ public class BaseFragment extends Fragment implements IDynamicNewView {
 				Toastor.ShowToastView(resId);
 			}
 		});
+	}
+
+	public void showSoftInputView(){
+		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+	}
+
+	public void hideSoftInputView() {
+		InputMethodManager manager = ((InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE));
+		if (getActivity().getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
+			if (getActivity().getCurrentFocus() != null)
+				manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+		}
 	}
 
 	public void initViews(){}

@@ -16,9 +16,9 @@ import okhttp3.ResponseBody;
 /**
  * Created by DELL on 2016/12/6.
  */
-public class LoginConverter extends AbstractResponseConverter<User> {
+public class UserConverter extends AbstractResponseConverter<User> {
 
-    public LoginConverter(Gson gson){
+    public UserConverter(Gson gson){
         super(gson);
     }
 

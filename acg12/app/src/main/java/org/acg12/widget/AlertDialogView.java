@@ -21,7 +21,7 @@ public class AlertDialogView {
 		window = dlg.getWindow();
 		// *** 主要就是在这里实现这种效果的.
 		// 设置窗口的内容页面,shrew_exit_dialog.xml文件中定义view内容
-		window.setContentView(R.layout.include_alert_dialog);
+		window.setContentView(R.layout.include_dialog_alert);
 		if (title != null && !title.equals("")) {
 			LinearLayout ll_title = (LinearLayout) window
 					.findViewById(R.id.ll_title);

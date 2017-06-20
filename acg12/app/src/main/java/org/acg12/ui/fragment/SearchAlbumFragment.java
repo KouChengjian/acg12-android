@@ -1,6 +1,8 @@
 package org.acg12.ui.fragment;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,7 @@ import org.acg12.conf.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
+import org.acg12.ui.activity.PreviewAlbumActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.ui.views.SearchAlbumView;
 import org.acg12.widget.IRecycleView;
@@ -40,9 +43,26 @@ public class SearchAlbumFragment extends PresenterFragmentImpl<SearchAlbumView> 
         refresh(title , page);
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == Constant.START_ACTIVITY_RESULT){
+                int position = data.getExtras().getInt("position");
+                List<Album> list = mView.getAlbumList();
+                list = PreviewAlbumActivity.mList;
+                PreviewAlbumActivity.mList = null;
+                mView.MoveToPosition(position);
+            }
+        }
+    }
+
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
+        Intent intent = new Intent(mContext , PreviewAlbumActivity.class  );
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        PreviewAlbumActivity.mList = mView.getAlbumList();
+        intent.putExtras(bundle);
+        startActivityForResult(intent, Constant.START_ACTIVITY_RESULT);
     }
 
     @Override

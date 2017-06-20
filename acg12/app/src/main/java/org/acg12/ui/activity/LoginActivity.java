@@ -33,7 +33,7 @@ public class LoginActivity extends PresenterActivityImpl<LoginView> implements V
     public void onClick(View view) {
         int id = view.getId();
         if(id == Constant.TOOLBAR_ID){
-            finish();
+            aminFinish();
         } else if(id == R.id.btn_login){
             login();
         }

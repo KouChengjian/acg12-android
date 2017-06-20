@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -22,14 +24,15 @@ public class SearchPopWindow extends PopupWindow implements View.OnClickListener
 
     private View view;
     private Context mContext;
-    private ImageView search;
+    private ImageView search , finish;
     DeletableEditText deletableEditText;
 
     public SearchPopWindow(final Activity context){
         mContext = context;
         LayoutInflater inflater = context. getLayoutInflater();
-        view = inflater.inflate(R.layout.common_pop_search, null);
+        view = inflater.inflate(R.layout.include_pop_search, null);
         search = (ImageView)view.findViewById(R.id.tv_search);
+        finish = (ImageView)view.findViewById(R.id.tv_search_finish);
         deletableEditText = (DeletableEditText)view.findViewById(R.id.edt_search);
         // 设置SelectPicPopupWindow的View
         this.setContentView(view);
@@ -50,17 +53,23 @@ public class SearchPopWindow extends PopupWindow implements View.OnClickListener
         this.setAnimationStyle(R.style.Animations_SearchPopWindow);
 
         search.setOnClickListener(this);
+        finish.setOnClickListener(this);
     }
 
-    public void showPopupWindow(View parent ) {
+    public void showPopupWindow(View parent) {
         int[] location = new int[2];
         parent.getLocationOnScreen(location);
         showAtLocation(parent, Gravity.NO_GRAVITY, location[0], location[1] - this.getHeight());
-//		showAsDropDown(parent);
+        if(onPopupShowOrDismiss != null){
+            onPopupShowOrDismiss.popupStatus(true);
+        }
     }
 
     public void dismissPopupWindow() {
         dismiss();
+        if(onPopupShowOrDismiss != null){
+            onPopupShowOrDismiss.popupStatus(false);
+        }
     }
 
     @Override
@@ -73,6 +82,18 @@ public class SearchPopWindow extends PopupWindow implements View.OnClickListener
             bundle.putString("title", str);
             ViewUtil.startAnimActivity(mContext , SearchActivity.class , bundle);
             dismissPopupWindow();
+        } else if(v.getId() == R.id.tv_search_finish){
+            dismissPopupWindow();
         }
+    }
+
+    OnPopupShowOrDismiss onPopupShowOrDismiss;
+
+    public void setOnPopupShowOrDismiss(OnPopupShowOrDismiss onPopupShowOrDismiss){
+        this.onPopupShowOrDismiss = onPopupShowOrDismiss;
+    }
+
+    public interface OnPopupShowOrDismiss{
+        void popupStatus(boolean status);
     }
 }

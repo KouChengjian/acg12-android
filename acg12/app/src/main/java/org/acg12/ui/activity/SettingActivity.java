@@ -25,7 +25,7 @@ public class SettingActivity extends PresenterActivityImpl<SettingView> implemen
     public void onClick(View v) {
         int id = v.getId();
         if(id == Constant.TOOLBAR_ID){
-            finish();
+            aminFinish();
         } else if(id == R.id.settings_cache){
             ImageLoadUtils.clearUniversalLoading();
             ImageLoadUtils.clearImageAllCache(this);

@@ -25,6 +25,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import retrofit2.adapter.rxjava.HttpException;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
@@ -364,7 +365,13 @@ public class RetrofitClient {
     }
 
     public static void failure(final Throwable e , final HttpRequestListener httpRequestListener){
-        failure(e.toString() ,httpRequestListener);
+        if(e instanceof ApiException){
+            failure(e.getMessage() ,httpRequestListener);
+        } else if(e instanceof HttpException){
+            failure(e.getMessage() ,httpRequestListener);
+        } else {
+            failure(e.toString() ,httpRequestListener);
+        }
     }
 
     public static void failure(final String e , final HttpRequestListener httpRequestListener){

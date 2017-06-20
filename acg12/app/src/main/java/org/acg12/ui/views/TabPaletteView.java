@@ -1,19 +1,13 @@
 package org.acg12.ui.views;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.View;
-import android.view.ViewStub;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.acg12.R;
 import org.acg12.bean.Palette;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.adapter.TabPaletteAdapter;
-import org.acg12.utlis.PixelUtil;
-import org.acg12.utlis.ViewUtil;
+import org.acg12.widget.CommonRecycleview;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;
@@ -25,15 +19,8 @@ import butterknife.BindView;
  */
 public class TabPaletteView extends ViewImpl {
 
-    @BindView(R.id.mRecyclerView)
-    IRecycleView mRecyclerView;
-    @BindView(R.id.mSwipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    @BindView(R.id.layout_load_null)
-    ViewStub layoutLoadNull;
-    ImageView loadNullImageview;
-    TextView loadNullTextview;
-
+    @BindView(R.id.common_recyclerview)
+    CommonRecycleview commonRecycleview;
     TabPaletteAdapter tabPaletteAdapter;
 
     @Override
@@ -44,31 +31,29 @@ public class TabPaletteView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-        mRecyclerView.setLoadingMoreEnabled(true);
+        commonRecycleview.setStaggeredGridLayoutManager();
         tabPaletteAdapter = new TabPaletteAdapter(getContext());
-        mRecyclerView.setAdapter(tabPaletteAdapter);
-
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_primary);
-        mSwipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(50), PixelUtil.dp2px(24));
-        mSwipeRefreshLayout.setRefreshing(true);
+        commonRecycleview.setAdapter(tabPaletteAdapter);
+        commonRecycleview.startRefreshing();
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        mSwipeRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
-        mRecyclerView.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
-        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
+        commonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
+        commonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
+        commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
     }
 
     public void bindData(List<Palette> result , boolean refresh){
         if (refresh) {
             tabPaletteAdapter.setList(result);
+            commonRecycleview.notifyChanged();
         } else {
             tabPaletteAdapter.addAll(result);
+            commonRecycleview.notifyChanged(tabPaletteAdapter.getList().size() - result.size() , tabPaletteAdapter.getList().size());
         }
-        tabPaletteAdapter.notifyDataSetChanged();
+
     }
 
     public String getBoardId(){
@@ -80,37 +65,10 @@ public class TabPaletteView extends ViewImpl {
     }
 
     public void stopLoading(){
-        mRecyclerView.noMoreLoading();
+        commonRecycleview.stopLoading();
     }
 
     public void stopRefreshLoadMore(boolean refresh) {
-        if (refresh)
-            mSwipeRefreshLayout.setRefreshing(false);
-        else
-            mRecyclerView.loadMoreComplete();
-        loadNull();
-    }
-
-    private void loadNull() {
-        List<Palette> mlist = tabPaletteAdapter.getList();
-        if (mlist != null && !mlist.isEmpty()) {
-            if (loadNullImageview != null && loadNullTextview != null) {
-                ViewUtil.setText(loadNullTextview, "");
-                if (loadNullImageview.getVisibility() == View.VISIBLE) {
-                    loadNullImageview.setVisibility(View.GONE);
-                }
-            }
-        } else {
-            if (loadNullImageview == null && loadNullTextview == null) {
-                View view = layoutLoadNull.inflate();
-                loadNullImageview = (ImageView) view.findViewById(R.id.iv_load_null);
-                loadNullTextview = (TextView) view.findViewById(R.id.tv_load_null);
-            }
-            //loadNullImageview.setImageResource(R.mipmap.ic_error);
-            ViewUtil.setText(loadNullTextview, "暂时没有消息");
-            if (loadNullImageview.getVisibility() == View.GONE) {
-                loadNullImageview.setVisibility(View.VISIBLE);
-            }
-        }
+        commonRecycleview.stopRefreshLoadMore(refresh);
     }
 }

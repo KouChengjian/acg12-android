@@ -2,10 +2,13 @@ package org.acg12.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import org.acg12.utlis.LogUtil;
 
 /**
  * 
@@ -157,4 +160,12 @@ public class ScaleImageView extends ImageView {
         }
     }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+        try {
+            super.onDraw(canvas);
+        } catch (Exception e) {
+            LogUtil.e("MyImageView  -> onDraw() Canvas: trying to use a recycled bitmap");
+        }
+    }
 }

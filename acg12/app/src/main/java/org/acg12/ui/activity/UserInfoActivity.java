@@ -73,7 +73,7 @@ public class UserInfoActivity extends PresenterActivityImpl<UserInfoView> implem
     public void onClick(View view) {
         int id = view.getId();
         if(id == Constant.TOOLBAR_ID){
-            finish();
+            aminFinish();
         } else if(id == R.id.rl_user_avatar){
             commonPopupWindows.initOpenCamera();
             commonPopupWindows.setOnUpdateAvatar(this);

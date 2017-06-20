@@ -1,10 +1,12 @@
 package org.acg12.ui.views;
 
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.acg12.R;
+import org.acg12.db.DaoBaseImpl;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.base.PresenterHelper;
 
@@ -38,6 +40,10 @@ public class SettingView extends ViewImpl {
         super.created();
         toolbar.setNavigationIcon(R.mipmap.ic_action_back);
         toolbar.setTitle(getContext().getString(R.string.setting));
+
+        if(DaoBaseImpl.getInstance().getCurrentUser() == null ){
+            userLogout.setVisibility(View.GONE);
+        }
     }
 
     @Override

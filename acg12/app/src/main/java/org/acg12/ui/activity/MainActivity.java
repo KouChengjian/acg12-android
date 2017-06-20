@@ -79,9 +79,9 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
                 break;
             case R.id.nav_star:
                 if(DaoBaseImpl.getInstance().getCurrentUser() == null){
-                    startAnimActivity(IndexActivity.class); //IndexActivity CollectActivity
+                    startAnimActivity(LoginActivity.class); //IndexActivity CollectActivity
                 } else {
-                    startAnimActivity(IndexActivity.class);
+                    startAnimActivity(CollectActivity.class);
                 }
                 break;
             case R.id.nav_down:
@@ -94,11 +94,7 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
                 startAnimActivity(SkinActivity.class);
                 break;
             case R.id.nav_settings:
-                if(DaoBaseImpl.getInstance().getCurrentUser() == null){
-                    startAnimActivity(LoginActivity.class);
-                } else {
-                    startAnimActivity(SettingActivity.class);
-                }
+                startAnimActivity(SettingActivity.class);
                 break;
         }
         return false;

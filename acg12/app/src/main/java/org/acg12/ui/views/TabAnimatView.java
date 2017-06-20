@@ -5,11 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewStub;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.shuyu.gsyvideoplayer.utils.CommonUtil;
 import com.shuyu.gsyvideoplayer.utils.Debuger;
@@ -22,8 +18,7 @@ import org.acg12.listener.SampleListener;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.adapter.TabAnimatAdapter;
 import org.acg12.ui.adapter.base.TabAnimatViewHolder;
-import org.acg12.utlis.PixelUtil;
-import org.acg12.utlis.ViewUtil;
+import org.acg12.widget.CommonRecycleview;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;
@@ -37,14 +32,8 @@ public class TabAnimatView extends ViewImpl {
 
     @BindView(R.id.video_full_container)
     FrameLayout videoFullContainer;
-    @BindView(R.id.mRecyclerView)
-    IRecycleView mRecyclerView;
-    @BindView(R.id.mSwipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    @BindView(R.id.layout_load_null)
-    ViewStub layoutLoadNull;
-    ImageView loadNullImageview;
-    TextView loadNullTextview;
+    @BindView(R.id.common_recyclerview)
+    CommonRecycleview commonRecycleview;
 
     TabAnimatAdapter tabAnimatAdapter;
     ListVideoUtil listVideoUtil;
@@ -60,19 +49,10 @@ public class TabAnimatView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-
-        layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setLoadingMoreEnabled(true);
-        mRecyclerView.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
+        layoutManager = commonRecycleview.setLinearLayoutManager();
         tabAnimatAdapter = new TabAnimatAdapter(getContext());
-        mRecyclerView.setAdapter(tabAnimatAdapter);
-
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_primary);
-        mSwipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(50), PixelUtil.dp2px(24));
-        mSwipeRefreshLayout.setRefreshing(true);
-
+        commonRecycleview.setAdapter(tabAnimatAdapter);
+        commonRecycleview.startRefreshing();
 
         listVideoUtil = Config.ListVideoUtilInstance();
         listVideoUtil.setFullViewContainer(videoFullContainer);
@@ -82,19 +62,21 @@ public class TabAnimatView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-        mSwipeRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
-        mRecyclerView.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
-        //ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
+        commonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
+        commonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
+//        commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
         setRecyclerViewListener();
     }
 
     public void bindData(List<Video> result , boolean refresh){
         if (refresh) {
             tabAnimatAdapter.setList(result);
+            commonRecycleview.notifyChanged();
         } else {
             tabAnimatAdapter.addAll(result);
+            commonRecycleview.notifyChanged(tabAnimatAdapter.getList().size() - result.size() , tabAnimatAdapter.getList().size());
         }
-        tabAnimatAdapter.notifyDataSetChanged();
+
     }
 
     public Video getVideo(int position){
@@ -102,38 +84,11 @@ public class TabAnimatView extends ViewImpl {
     }
 
     public void stopLoading(){
-        mRecyclerView.noMoreLoading();
+        commonRecycleview.stopLoading();
     }
 
     public void stopRefreshLoadMore(boolean refresh) {
-        if (refresh)
-            mSwipeRefreshLayout.setRefreshing(false);
-        else
-            mRecyclerView.loadMoreComplete();
-        loadNull();
-    }
-
-    private void loadNull() {
-        List<Video> mlist = tabAnimatAdapter.getList();
-        if (mlist != null && !mlist.isEmpty()) {
-            if (loadNullImageview != null && loadNullTextview != null) {
-                ViewUtil.setText(loadNullTextview, "");
-                if (loadNullImageview.getVisibility() == View.VISIBLE) {
-                    loadNullImageview.setVisibility(View.GONE);
-                }
-            }
-        } else {
-            if (loadNullImageview == null && loadNullTextview == null) {
-                View view = layoutLoadNull.inflate();
-                loadNullImageview = (ImageView) view.findViewById(R.id.iv_load_null);
-                loadNullTextview = (TextView) view.findViewById(R.id.tv_load_null);
-            }
-            //loadNullImageview.setImageResource(R.mipmap.ic_error);
-            ViewUtil.setText(loadNullTextview, "暂时没有信息");
-            if (loadNullImageview.getVisibility() == View.GONE) {
-                loadNullImageview.setVisibility(View.VISIBLE);
-            }
-        }
+        commonRecycleview.stopRefreshLoadMore(refresh);
     }
 
     public ListVideoUtil getListVideoUtil(){
@@ -141,7 +96,7 @@ public class TabAnimatView extends ViewImpl {
     }
 
     public void setRecyclerViewListener(){
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        commonRecycleview.getIRecycleView().addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);

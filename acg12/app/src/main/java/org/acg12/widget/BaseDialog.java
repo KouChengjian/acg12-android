@@ -35,7 +35,7 @@ public class BaseDialog extends Dialog implements View.OnClickListener{
 
     public BaseDialog(Context mContext) {
         super(mContext, R.style.Theme_Light_FullScreenDialogAct);
-        setContentView(R.layout.common_dialog_base);
+        setContentView(R.layout.include_dialog_base);
         this.mContext = mContext;
         initEvent();
         initViews();

@@ -57,7 +57,7 @@
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.PreviewImageActivity"
-            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+            android:theme="@style/Theme.MaterialSheetFab" />
         <activity
             android:name=".ui.activity.SkinActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />

@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
 import org.acg12.R;
+
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
@@ -115,6 +117,15 @@ public class ImageLoadUtils {
                 .into(imageview);
     }
 
+    public static void glideLoading(Context mContext ,String url, GlideDrawableImageViewTarget glideDrawableImageViewTarget){
+        Glide.with(mContext).load(url)
+                .placeholder(R.mipmap.bg_loading_pic)
+                .animate(R.anim.glide_loading_image_alpha_in)
+                .error(R.mipmap.bg_loading_pic)
+//                .centerCrop()
+                .into(glideDrawableImageViewTarget);
+    }
+
     /**
      * 清除图片磁盘缓存
      */
@@ -139,7 +150,7 @@ public class ImageLoadUtils {
     /**
      * 清除图片内存缓存
      */
-    private static void clearImageMemoryCache(Context context) {
+    public static void clearImageMemoryCache(Context context) {
         try {
             if (Looper.myLooper() == Looper.getMainLooper()) { //只能在主线程执行
                 Glide.get(context).clearMemory();
@@ -342,9 +353,21 @@ public class ImageLoadUtils {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
             Bitmap bitmap = bitmapDrawable.getBitmap();
             if (bitmap != null && !bitmap.isRecycled()) {
+//                imageView.setImageResource(R.mipmap.bg_loading_pic);
                 bitmap.recycle();
             }
         }
+    }
+
+    public static Bitmap ImageViewResouceBitmap(ImageView imageView){
+        if (imageView == null) return null;
+        Drawable drawable = imageView.getDrawable();
+        if (drawable != null && drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+            return bitmap;
+        }
+        return null;
     }
 
 }
