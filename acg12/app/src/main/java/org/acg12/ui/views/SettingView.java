@@ -9,6 +9,9 @@ import org.acg12.R;
 import org.acg12.db.DaoBaseImpl;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.base.PresenterHelper;
+import org.acg12.utlis.AppUtil;
+import org.acg12.utlis.ImageLoadUtils;
+import org.acg12.utlis.ViewUtil;
 
 import butterknife.BindView;
 
@@ -21,8 +24,14 @@ public class SettingView extends ViewImpl {
     Toolbar toolbar;
     @BindView(R.id.settings_cache)
     RelativeLayout settingsCache;
+    @BindView(R.id.tv_setting_cache)
+    TextView tv_setting_cache;
     @BindView(R.id.settings_update)
     RelativeLayout settingsUpdate;
+    @BindView(R.id.tv_setting_update)
+    TextView tv_setting_update;
+    @BindView(R.id.settings_amdpwd)
+    RelativeLayout settingsAmdpwd;
     @BindView(R.id.settings_feedback)
     RelativeLayout settingsFeedback;
     @BindView(R.id.settings_about)
@@ -43,12 +52,17 @@ public class SettingView extends ViewImpl {
 
         if(DaoBaseImpl.getInstance().getCurrentUser() == null ){
             userLogout.setVisibility(View.GONE);
+            settingsAmdpwd.setVisibility(View.GONE);
         }
+
+        ViewUtil.setText(tv_setting_cache , ImageLoadUtils.getCacheSize(getContext()));
+        ViewUtil.setText(tv_setting_update , AppUtil.getPackageInfo(getContext()).versionName);
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter ,toolbar , settingsCache ,settingsUpdate , settingsFeedback , settingsAbout ,userLogout );
+        PresenterHelper.click(mPresenter ,toolbar , settingsCache ,settingsUpdate ,
+                settingsAmdpwd, settingsFeedback , settingsAbout ,userLogout );
     }
 }

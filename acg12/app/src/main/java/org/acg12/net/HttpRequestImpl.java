@@ -233,6 +233,28 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
+    public Subscription alterPwd(final User user,final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with(user).userAlter("5" , user.getPassword() , user.getNewPassword())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if (data != null) {
+                            httpRequestListener.onSuccess(user);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
     public Subscription albumList(String pinId, final HttpRequestListener<List<Album>> httpRequestListener) {
         Subscription subscription = RetrofitClient.with().albumList("album",pinId)
                 .subscribeOn(Schedulers.newThread())

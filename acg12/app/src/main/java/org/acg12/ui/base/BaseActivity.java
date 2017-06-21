@@ -46,6 +46,7 @@ public class BaseActivity extends AppCompatActivity implements ISkinUpdate, IDyn
 	protected int activityCloseExitAnimation;
 	
 	@Override
+	@SuppressWarnings("ResourceType")
 	protected void onCreate(Bundle bundle) {
 		initSkin();
 		super.onCreate(bundle);

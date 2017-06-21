@@ -32,6 +32,8 @@ public interface HttpRequest {
 
     Subscription sign(User user ,HttpRequestListener<User> httpRequestListener);
 
+    Subscription alterPwd(User user ,HttpRequestListener<User> httpRequestListener);
+
     Subscription albumList(String pinId ,HttpRequestListener<List<Album>> httpRequestListener);
 
     Subscription paletteList(String pinId ,HttpRequestListener<List<Palette>> httpRequestListener);

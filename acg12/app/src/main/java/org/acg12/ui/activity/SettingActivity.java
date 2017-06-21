@@ -15,7 +15,6 @@ import org.acg12.widget.AlertDialogView;
 
 public class SettingActivity extends PresenterActivityImpl<SettingView> implements View.OnClickListener {
 
-
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
@@ -31,8 +30,10 @@ public class SettingActivity extends PresenterActivityImpl<SettingView> implemen
             ImageLoadUtils.clearImageAllCache(this);
         } else if(id == R.id.settings_update) {
 
-        } else if(id == R.id.settings_feedback) {
-
+        } else if(id == R.id.settings_amdpwd) {
+            startAnimActivity(AlterPwdActivity.class);
+        }  else if(id == R.id.settings_feedback) {
+            startAnimActivity(FeedbackActivity.class);
         } else if(id == R.id.settings_about) {
             startAnimActivity(AboutActivity.class);
         } else if(id == R.id.user_logout) {
@@ -64,4 +65,5 @@ public class SettingActivity extends PresenterActivityImpl<SettingView> implemen
         Config.userEventBus().post(new User(mContext));
         finish();
      }
+
 }

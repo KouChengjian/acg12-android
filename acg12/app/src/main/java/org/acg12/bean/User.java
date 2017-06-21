@@ -11,6 +11,7 @@ public class User extends Param{;
 
     // 额外信息
     private Boolean isUpdataToken;
+    private String newPassword;
 
     private int uid = 0;
 	private String username;
@@ -99,5 +100,13 @@ public class User extends Param{;
 
     public void setUid(int uid) {
         this.uid = uid;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 }
