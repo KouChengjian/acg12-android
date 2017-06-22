@@ -10,6 +10,7 @@ public class Constant {
 
 	public static final Boolean debug = BuildConfig.DEBUG;
 	public static final String DB_NAME = "manyou.db";
+	public static final String KEY = "manyou";
 	public static final int TOOLBAR_ID = -1;
 	public static final int LIMIT_PAGER = 20;
 	// 下载

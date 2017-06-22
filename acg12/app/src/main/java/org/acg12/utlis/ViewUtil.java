@@ -3,6 +3,7 @@ package org.acg12.utlis;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -119,5 +120,14 @@ public class ViewUtil {
 		}
 		mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(
 				(Activity)mContext , view , view.getTransitionName()).toBundle());
+	}
+
+	public static ProgressDialog startLoading(Context activity , String msg){
+		ProgressDialog progress = new ProgressDialog(activity);
+		progress.setMessage(msg);
+		progress.setCanceledOnTouchOutside(false);
+		progress.setCancelable(false);
+		progress.show();
+		return progress;
 	}
 }

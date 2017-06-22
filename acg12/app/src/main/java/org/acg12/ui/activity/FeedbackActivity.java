@@ -1,14 +1,21 @@
 package org.acg12.ui.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
 import org.acg12.R;
+import org.acg12.bean.User;
+import org.acg12.db.DaoBaseImpl;
+import org.acg12.listener.HttpRequestListener;
+import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.base.PresenterActivityImpl;
 import org.acg12.ui.views.FeedbackView;
+import org.acg12.utlis.LogUtil;
 import org.acg12.utlis.Network;
+import org.acg12.utlis.ViewUtil;
 
 public class FeedbackActivity extends PresenterActivityImpl<FeedbackView> implements View.OnClickListener{
 
@@ -48,6 +55,24 @@ public class FeedbackActivity extends PresenterActivityImpl<FeedbackView> implem
             return;
         }
 
+        final ProgressDialog progress = ViewUtil.startLoading(mContext , "正在提交...");
+
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        HttpRequestImpl.getInstance().feedback(user, feedback, new HttpRequestListener<User>() {
+            @Override
+            public void onSuccess(User result) {
+                progress.dismiss();
+                ShowToast("提交成功");
+                finish();
+            }
+
+            @Override
+            public void onFailure(int errorcode, String msg) {
+                progress.dismiss();
+                LogUtil.e(msg);
+                ShowToastView(msg);
+            }
+        });
 
     }
 }

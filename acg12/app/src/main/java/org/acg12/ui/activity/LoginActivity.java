@@ -16,6 +16,7 @@ import org.acg12.ui.views.LoginView;
 import org.acg12.utlis.LogUtil;
 import org.acg12.utlis.Network;
 import org.acg12.utlis.TelNumMatch;
+import org.acg12.utlis.ViewUtil;
 
 public class LoginActivity extends PresenterActivityImpl<LoginView> implements View.OnClickListener{
 
@@ -70,10 +71,8 @@ public class LoginActivity extends PresenterActivityImpl<LoginView> implements V
             return;
         }
 
-        final ProgressDialog progress = new ProgressDialog(mContext);
-        progress.setMessage(getResources().getString(R.string.toast_login_loading));
-        progress.setCanceledOnTouchOutside(false);
-        progress.show();
+        final ProgressDialog progress = ViewUtil.startLoading(mContext , getResources().getString(R.string.toast_login_loading));
+
         final User user = new User(mContext);
         user.setUsername(name);
         user.setPassword(password);

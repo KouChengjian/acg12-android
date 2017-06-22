@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.acg12.bean.Album;
 import org.acg12.bean.Palette;
+import org.acg12.bean.Update;
 import org.acg12.bean.User;
 import org.acg12.bean.Video;
 import org.acg12.db.DaoBaseImpl;
@@ -45,7 +46,7 @@ public class HttpRequestImpl implements HttpRequest {
         return instance;
     }
 
-    public Observable<User> isUpdataToken(User user) {
+    public Observable<User> initUser(User user) {
         return Observable.just(user)
                 .map(new Func1<User, User>() {
                     @Override
@@ -255,11 +256,79 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
-    public Subscription albumList(String pinId, final HttpRequestListener<List<Album>> httpRequestListener) {
-        Subscription subscription = RetrofitClient.with().albumList("album",pinId)
+    public Subscription feedback(final User user, String msg,final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with(user).feedback(msg)
                 .subscribeOn(Schedulers.newThread())
-//                .unsubscribeOn(Schedulers.io())
-//                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if (data != null) {
+                            httpRequestListener.onSuccess(user);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription updateApp(User user, final int versionCode, final HttpRequestListener<Update> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with(user).updateApp(versionCode+"")
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if (data != null) {
+                            Update update = new Update();
+                            JSONObject json = RetrofitClient.getJSONObject(data , "update");
+                            update.setVersionName(RetrofitClient.getString(json , "versionName"));
+                            update.setVersionCode(RetrofitClient.getString(json , "versionCode"));
+                            update.setMessage(RetrofitClient.getString(json , "message"));
+                            int status = RetrofitClient.getInt(json , "status");
+
+                            Update up = DaoBaseImpl.getInstance().getCurrentUpdate();
+                            if(up != null){
+                                update.setId(up.getId() );
+                                update.setIgnore(up.isIgnore());
+                                update.setOldVersionCode(up.getOldVersionCode());
+                            }
+
+                            if(status == 2){ // 强制升级
+                                update.setDialogStatus(2);
+                            } else {
+                                if(versionCode >= Integer.valueOf(update.getVersionCode()).intValue()){ // 是否为最新
+                                    update.setDialogStatus(0);
+                                } else if(update.getVersionCode().equals(update.getOldVersionCode())){  // 是否为忽略版本
+                                    update.setDialogStatus(3);
+                                } else {   // 正常更新
+                                    update.setDialogStatus(1);
+                                }
+                            }
+                            httpRequestListener.onSuccess(update);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription albumList(String pinId, final HttpRequestListener<List<Album>> httpRequestListener) {
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        Subscription subscription = RetrofitClient.with(user).albumList("album",pinId)
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
                     @Override
@@ -267,7 +336,7 @@ public class HttpRequestImpl implements HttpRequest {
                         List<Album> list = new ArrayList<Album>();
                         JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "album");
+                            JSONArray array = RetrofitClient.getJSONArray(data , "album");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Album album = new Album();
@@ -297,7 +366,8 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription paletteList(String pinId, final HttpRequestListener<List<Palette>> httpRequestListener) {
-        Subscription subscription = RetrofitClient.with().paletteList("palette",pinId)
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        Subscription subscription = RetrofitClient.with(user).paletteList("palette",pinId)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -306,7 +376,7 @@ public class HttpRequestImpl implements HttpRequest {
                         List<Palette> list = new ArrayList<Palette>();
                         JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "palette");
+                            JSONArray array = RetrofitClient.getJSONArray(data , "palette");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Palette palette = new Palette();
@@ -335,7 +405,8 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription bangumiList(String page,final HttpRequestListener<List<Video>> httpRequestListener) {
-        Subscription subscription = RetrofitClient.with().bangumiList(page)
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        Subscription subscription = RetrofitClient.with(user).bangumiList(page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -344,7 +415,7 @@ public class HttpRequestImpl implements HttpRequest {
                         List<Video> list = new ArrayList<Video>();
                         JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "video");
+                            JSONArray array = RetrofitClient.getJSONArray(data , "video");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Video video = new Video();
@@ -378,7 +449,8 @@ public class HttpRequestImpl implements HttpRequest {
         }else if(type == 2){
             requestType = "default-27";
         }
-        Subscription subscription = RetrofitClient.with().videoList("video",requestType,page)
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        Subscription subscription = RetrofitClient.with(user).videoList("video",requestType,page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -387,7 +459,7 @@ public class HttpRequestImpl implements HttpRequest {
                         List<Video> list = new ArrayList<Video>();
                         JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "video");
+                            JSONArray array = RetrofitClient.getJSONArray(data , "video");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Video video = new Video();
@@ -416,7 +488,8 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription palettePreview(String boardId ,String pinId , final HttpRequestListener<List<Album>> httpRequestListener) {
-        Subscription subscription = RetrofitClient.with().palettePreview("palettealbum",pinId ,boardId)
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        Subscription subscription = RetrofitClient.with(user).palettePreview("palettealbum",pinId ,boardId)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -425,7 +498,7 @@ public class HttpRequestImpl implements HttpRequest {
                         List<Album> list = new ArrayList<Album>();
                         JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "album");
+                            JSONArray array = RetrofitClient.getJSONArray(data , "album");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Album album = new Album();
@@ -455,7 +528,8 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription bangumiPreview(String bangumiId , final HttpRequestListener<Video> httpRequestListener) {
-        Subscription subscription = RetrofitClient.with().bangumiPreview(bangumiId)
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        Subscription subscription = RetrofitClient.with(user).bangumiPreview(bangumiId)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -506,7 +580,8 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription playBangumi(String av,final HttpRequestListener<Video> httpRequestListener) {
-        Subscription subscription = RetrofitClient.with().playUrl("bangumi" , av)
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        Subscription subscription = RetrofitClient.with(user).playUrl("bangumi" , av)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -538,7 +613,8 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription searchAlbum(String key , String page,final HttpRequestListener<List<Album>> httpRequestListener) {
-        Subscription subscription = RetrofitClient.with().searchAlbum(key,page)
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        Subscription subscription = RetrofitClient.with(user).searchAlbum(key,page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -547,7 +623,7 @@ public class HttpRequestImpl implements HttpRequest {
                         List<Album> list = new ArrayList<Album>();
                         JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "album");
+                            JSONArray array = RetrofitClient.getJSONArray(data , "album");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Album album = new Album();
@@ -577,7 +653,8 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription searchPalette(String key , String page,final HttpRequestListener<List<Palette>> httpRequestListener) {
-        Subscription subscription = RetrofitClient.with().searchPalette(key,page)
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        Subscription subscription = RetrofitClient.with(user).searchPalette(key,page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -586,7 +663,7 @@ public class HttpRequestImpl implements HttpRequest {
                         List<Palette> list = new ArrayList<Palette>();
                         JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "palette");
+                            JSONArray array = RetrofitClient.getJSONArray(data , "palette");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Palette palette = new Palette();
@@ -615,7 +692,8 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription searchBangumi(String key , String page, final HttpRequestListener<List<Video>> httpRequestListener) {
-        Subscription subscription = RetrofitClient.with().searchBangumi(key,page)
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        Subscription subscription = RetrofitClient.with(user).searchBangumi(key,page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -624,7 +702,7 @@ public class HttpRequestImpl implements HttpRequest {
                         List<Video> list = new ArrayList<Video>();
                         JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "video");
+                            JSONArray array = RetrofitClient.getJSONArray(data , "video");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Video video = new Video();
@@ -649,7 +727,8 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription searchVideo(String key , String page,final HttpRequestListener<List<Video>> httpRequestListener) {
-        Subscription subscription = RetrofitClient.with().searchVideo(key,page)
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        Subscription subscription = RetrofitClient.with(user).searchVideo(key,page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -658,7 +737,7 @@ public class HttpRequestImpl implements HttpRequest {
                         List<Video> list = new ArrayList<Video>();
                         JSONObject data = RetrofitClient.parseJSONObject(response);
                         if(data != null){
-                            JSONArray array = RetrofitClient.transformJSONObjectToJSONArray(data , "video");
+                            JSONArray array = RetrofitClient.getJSONArray(data , "video");
                             for(int i = 0 , num = array.length(); i < num ; i++){
                                 JSONObject item = RetrofitClient.getJSONObject(array , i);
                                 Video video = new Video();

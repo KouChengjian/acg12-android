@@ -108,7 +108,7 @@ public class Toastor {
     }
 
     public static void ShowToastView(String s) {
-        View layoutView =  LayoutInflater.from(context).inflate(R.layout.common_toast_layout, null);
+        View layoutView =  LayoutInflater.from(context).inflate(R.layout.include_toast_layout, null);
         //设置文本的参数 设置加载文本文件的参数，必须通过LayoutView获取。
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         //layoutView.setLayoutParams(params);

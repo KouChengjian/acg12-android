@@ -47,7 +47,6 @@
                     android:layout_centerVertical="true"
                     android:paddingBottom="8dip"
                     android:paddingTop="8dip"
-
                     android:textColor="@color/title_1"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -179,7 +178,7 @@
             <TextView
                 android:id="@+id/user_logout"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="50dp"
                 android:layout_marginBottom="48dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/selector_ripple_default"

@@ -92,7 +92,10 @@
             android:name=".ui.activity.AlterPwdActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
-        <activity android:name=".ui.activity.FeedbackActivity"></activity>
+        <activity
+            android:name=".ui.activity.FeedbackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
     </application>
 
 </manifest>

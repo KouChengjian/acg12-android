@@ -4,6 +4,7 @@ package org.acg12.net;
 
 import org.acg12.bean.Album;
 import org.acg12.bean.Palette;
+import org.acg12.bean.Update;
 import org.acg12.bean.User;
 import org.acg12.bean.Video;
 import org.acg12.listener.HttpRequestListener;
@@ -33,6 +34,10 @@ public interface HttpRequest {
     Subscription sign(User user ,HttpRequestListener<User> httpRequestListener);
 
     Subscription alterPwd(User user ,HttpRequestListener<User> httpRequestListener);
+
+    Subscription feedback(User user , String msg,HttpRequestListener<User> httpRequestListener);
+
+    Subscription updateApp(User user , int versionCode,HttpRequestListener<Update> httpRequestListener);
 
     Subscription albumList(String pinId ,HttpRequestListener<List<Album>> httpRequestListener);
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.DataBase;
 
+import org.acg12.bean.Update;
 import org.acg12.bean.User;
 import org.acg12.conf.Constant;
 import org.acg12.net.download.DownLoad;
@@ -89,4 +90,26 @@ public class DaoBaseImpl implements DaoBase {
     public long delDownLoad(DownLoad download) {
         return mDataBase.delete(download);
     }
+
+    @Override
+    public long saveUpdate(Update update) {
+        return mDataBase.save(update);
+    }
+
+    @Override
+    public Update getCurrentUpdate() {
+        ArrayList<Update> query = mDataBase.query(Update.class);
+        if (query == null || query.isEmpty() || query.size() != 1) {
+            return null;
+        } else {
+            return query.get(0);
+        }
+    }
+
+    @Override
+    public long delTabUpdate() {
+        return mDataBase.deleteAll(Update.class);
+    }
+
+
 }

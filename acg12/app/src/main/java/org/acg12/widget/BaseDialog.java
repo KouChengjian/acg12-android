@@ -17,7 +17,7 @@ import org.acg12.R;
  */
 public class BaseDialog extends Dialog implements View.OnClickListener{
 
-    private Context mContext;// 上下文
+    protected Context mContext;// 上下文
     private LinearLayout mLayoutRoot;// 总体根布局
     private LinearLayout mLayoutTop;// 头部根布局
     private LinearLayout mLayoutTitle;// 标题根布局
@@ -37,8 +37,8 @@ public class BaseDialog extends Dialog implements View.OnClickListener{
         super(mContext, R.style.Theme_Light_FullScreenDialogAct);
         setContentView(R.layout.include_dialog_base);
         this.mContext = mContext;
-        initEvent();
         initViews();
+        initEvent();
     }
 
     private void initViews() {

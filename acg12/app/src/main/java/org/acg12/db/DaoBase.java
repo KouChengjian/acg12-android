@@ -1,6 +1,7 @@
 package org.acg12.db;
 
 
+import org.acg12.bean.Update;
 import org.acg12.bean.User;
 import org.acg12.net.download.DownLoad;
 
@@ -27,4 +28,9 @@ public interface DaoBase {
 
     long delDownLoad(DownLoad Download);
 
+    long saveUpdate(Update update);
+
+    Update getCurrentUpdate();
+
+    long delTabUpdate();
 }

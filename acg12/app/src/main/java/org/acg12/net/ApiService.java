@@ -39,7 +39,13 @@ public interface ApiService {
     @POST("api/alteruser")
     Observable<ResponseBody> userAlter(@Field("alterType") String type , @Field("param1") String param1 , @Field("param2") String param2);
 
+    @FormUrlEncoded
+    @POST("api/feedback")
+    Observable<ResponseBody> feedback(@Field("message") String message);
 
+    @FormUrlEncoded
+    @POST("api/update")
+    Observable<ResponseBody> updateApp(@Field("versionCode") String versionCode);
 
     @GET("res/p/album")
     Observable<ResponseBody> albumList(@Query("action") String action , @Query("max") String pinId);

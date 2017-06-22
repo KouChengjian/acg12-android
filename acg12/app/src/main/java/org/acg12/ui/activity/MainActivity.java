@@ -1,6 +1,7 @@
 package org.acg12.ui.activity;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,6 +14,7 @@ import android.view.View;
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 
 import org.acg12.R;
+import org.acg12.bean.Update;
 import org.acg12.bean.User;
 import org.acg12.conf.Config;
 import org.acg12.db.DaoBaseImpl;
@@ -20,11 +22,14 @@ import org.acg12.listener.HttpRequestListener;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.net.download.DownloadManger;
 import org.acg12.ui.base.PresenterActivityImpl;
+import org.acg12.utlis.AppUtil;
 import org.acg12.utlis.LogUtil;
 import org.acg12.utlis.Network;
+import org.acg12.utlis.ViewUtil;
 import org.acg12.utlis.skin.entity.AttrFactory;
 import org.acg12.utlis.skin.entity.DynamicAttr;
 import org.acg12.ui.views.MainView;
+import org.acg12.widget.UpdateDialog;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -47,6 +52,7 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
         dynamicAddView(mView.getNavigationView(), mDynamicAttr);
 
         pudateUser();
+        updateApp();
     }
 
     @Override
@@ -132,6 +138,35 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
             @Override
             public void onFailure(int errorcode, String msg) {
 
+            }
+        });
+    }
+
+    private void showUpdateApp(Update result){
+        UpdateDialog updateDialog = new UpdateDialog(mContext ,result);
+        updateDialog.setTitle("漫友更新啦");
+        updateDialog.setTitleGravity();
+        updateDialog.show();
+    }
+
+    private void updateApp(){
+        boolean isNetConnected = Network.isConnected(mContext);
+        if (!isNetConnected) {
+            ShowToastView(R.string.network_tips);
+            return;
+        }
+
+        User user = DaoBaseImpl.getInstance().getCurrentUser();
+        HttpRequestImpl.getInstance().updateApp(user, AppUtil.getPackageInfo(mContext).versionCode, new HttpRequestListener<Update>() {
+            @Override
+            public void onSuccess(Update result) {
+                showUpdateApp(result);
+            }
+
+            @Override
+            public void onFailure(int errorcode, String msg) {
+                LogUtil.e(msg);
+//                ShowToastView(msg);
             }
         });
     }
