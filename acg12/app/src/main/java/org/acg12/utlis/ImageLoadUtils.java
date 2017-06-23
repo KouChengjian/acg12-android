@@ -167,7 +167,8 @@ public class ImageLoadUtils {
         clearImageDiskCache(context);
         clearImageMemoryCache(context);
         String ImageExternalCatchDir=context.getExternalCacheDir()+ ExternalCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR;
-        deleteFolderFile(ImageExternalCatchDir, true);
+        File storageDirectory = CacheUtils.getCacheDirectory(context , "/cache/image");
+//        deleteFolderFile(storageDirectory.getPath(), true);
     }
 
     /**
@@ -175,7 +176,8 @@ public class ImageLoadUtils {
      */
     public static String getCacheSize(Context context) {
         try {
-            return getFormatSize(getFolderSize(new File(context.getCacheDir() + "/"+ InternalCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR)));
+            File storageDirectory = CacheUtils.getCacheDirectory(context , "/cache/image");
+            return getFormatSize(getFolderSize(storageDirectory));
         } catch (Exception e) {
             e.printStackTrace();
         }

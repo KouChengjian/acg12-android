@@ -31,24 +31,25 @@ public class TabAnimatViewHolder extends RecyclerView.ViewHolder{
     public TabAnimatViewHolder(Context mContext , View itemView) {
         super(itemView);
         video_play_container = (FrameLayout) itemView.findViewById(R.id.video_play_container);
-        //video_play_pic = (ImageView) itemView.findViewById(R.id.video_play_pic);
+
         video_click_play = (ImageView) itemView.findViewById(R.id.video_click_play);
         video_title = (TextView) itemView.findViewById(R.id.video_title);
         video_des = (TextView) itemView.findViewById(R.id.video_des);
-        video_play_pic = new ImageView(mContext);
+//        video_play_pic = new ImageView(mContext);
+        video_play_pic = (ImageView) itemView.findViewById(R.id.video_play_pic);
     }
 
     public void bindData(Context mContext , Video video, final int position){
         String url = video.getPic();
         if(url != null && !url.isEmpty()){
-            ImageLoadUtils.glideLoading(mContext,url , video_play_pic);
+            ImageLoadUtils.glideLoading(mContext , url , video_play_pic);
         }
         ViewUtil.setText(video_title , video.getTitle());
         ViewUtil.setText(video_des , video.getDescription());
 
         // 视频播放
-        listVideoUtil.addVideoPlayer(position, video_play_pic, TAG,
-                video_play_container, video_click_play);
+//        listVideoUtil.addVideoPlayer(position, video_play_pic, TAG,
+//                video_play_container, video_click_play);
 
 //        video_click_play.setOnClickListener(new View.OnClickListener() {
 //            @Override

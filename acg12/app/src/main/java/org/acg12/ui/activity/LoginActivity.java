@@ -32,20 +32,19 @@ public class LoginActivity extends PresenterActivityImpl<LoginView> implements V
 
     @Override
     public void onClick(View view) {
+        super.onClick(view);
         int id = view.getId();
-        if(id == Constant.TOOLBAR_ID){
-            aminFinish();
+        if(id == R.id.title_right){
+            startAnimActivity(ResetPwdActivity.class);
         } else if(id == R.id.btn_login){
             login();
+        } else if(id == R.id.btn_register){
+            startAnimActivity(RegisterActivity.class);
         }
     }
 
     public void login(){
-        boolean isNetConnected = Network.isConnected(mContext);
-        if (!isNetConnected) {
-            ShowToastView(R.string.network_tips);
-            return;
-        }
+        if(!ViewUtil.isNetConnected(mContext)) return;
 
         String name = mView.getUsername();
         String password = mView.getPassword();

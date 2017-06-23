@@ -33,6 +33,10 @@ public class CacheUtils {
 		return appCacheDir;
 	}
 
+	public static File getCacheDirectory(Context context, String dirName) {
+		return getCacheDirectory(context , true , dirName);
+	}
+
 	public static File getCacheDirectory(Context context,boolean preferExternal, String dirName) {
 		File appCacheDir = null;
 		if (preferExternal&& MEDIA_MOUNTED.equals(Environment.getExternalStorageState())&& hasExternalStoragePermission(context)) {
@@ -52,8 +56,8 @@ public class CacheUtils {
 
 	private static File getExternalCacheDir(Context context, String dirName) {
 		File dataDir = new File(new File(Environment.getExternalStorageDirectory(), "Android"), "data");
-		File appCacheDir2 = new File(new File(dataDir, context.getPackageName()), "cache");
-		File appCacheDir = new File(appCacheDir2, dirName);
+		File appCacheDir = new File(new File(dataDir, context.getPackageName()), dirName);
+//		File appCacheDir = new File(appCacheDir2, dirName);
 		if (!appCacheDir.exists()) {
 			if (!appCacheDir.mkdirs()) {
 				Log.w(TAG, "Unable to create external cache directory");

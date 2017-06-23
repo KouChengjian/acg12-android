@@ -8,56 +8,12 @@
 
     <include layout="@layout/common_action_bar" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/login_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_login_tab"
-            android:gravity="center"
-            android:padding="8dip"
-            android:text="登录"
-            android:textColor="@color/title"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/register_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="8dip"
-            android:text="注册"
-            android:textColor="@color/title"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/reset_password_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="8dip"
-            android:text="找回密码"
-            android:textColor="@color/title"
-            android:textSize="16sp" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/diviver"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/theme_primary"
-        android:visibility="gone" />
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/ic_logo"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
 
     <org.acg12.widget.DeletableEditText
         android:id="@+id/et_input_name"
@@ -89,7 +45,7 @@
         android:layout_height="48dip"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:drawablePadding="10dp"
         android:textColor="@color/title"
         android:textColorHint="@color/title_hint"
@@ -104,30 +60,36 @@
         android:paddingRight="4dip"
         android:singleLine="true" />
 
-    <Button
-        android:id="@+id/btn_login"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginTop="25dp"
-        android:background="@color/theme_primary"
-        android:text="登录"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:layout_marginTop="25dp">
 
-    <org.acg12.widget.SmoothProgressBar
-        android:id="@+id/sm_progressbar"
-        style="@style/GPlusProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/btn_login"
-        android:layout_alignRight="@id/btn_login"
-        android:layout_below="@id/btn_login"
-        android:layout_marginTop="-9dp"
-        android:indeterminate="true"
-        android:paddingLeft="1dip"
-        android:paddingRight="1dip"
-        android:visibility="gone" />
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_stroke_red_solid_tran"
+            android:text="注册账号"
+            android:textColor="@color/theme_primary"
+            android:textSize="16sp"
+            android:layout_marginRight="5dp"/>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_stroke_red_solid_red"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 </LinearLayout>

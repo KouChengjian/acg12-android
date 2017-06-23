@@ -35,6 +35,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+        <activity
+            android:name=".ui.activity.ResetPwdActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+        <activity
             android:name=".ui.activity.UserInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
@@ -96,6 +104,12 @@
             android:name=".ui.activity.FeedbackActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+
+
+        <meta-data
+            android:name="org.acg12.utlis.GlideCache"
+            android:value="GlideModule" />
+
     </application>
 
 </manifest>

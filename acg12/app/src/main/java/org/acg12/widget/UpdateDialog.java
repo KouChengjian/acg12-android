@@ -39,6 +39,12 @@ public class UpdateDialog extends BaseDialog implements View.OnClickListener{
 	private RemoteViews mRemoteViews;
 	float mProgress = 0;
 	private int notifyId = 100;
+
+	Form form = Form.set;
+
+	public enum Form{
+		main ,set;
+	}
 	
 	public UpdateDialog(Context context , Update update) {
 		super(context);
@@ -80,9 +86,16 @@ public class UpdateDialog extends BaseDialog implements View.OnClickListener{
 		}
 	}
 
+	public void show(Form f) {
+		form = f;
+		show();
+	}
+
 	public void show() {
 		if(update.getDialogStatus() == 0){
-			Toastor.ShowToast("当前版本为最新");
+			if(form == Form.set){
+				Toastor.ShowToast("当前版本为最新");
+			}
 			return ;
 		}else if(update.getDialogStatus() == 1){ // 普通更新
 			setCancelable(true);

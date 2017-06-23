@@ -130,4 +130,13 @@ public class ViewUtil {
 		progress.show();
 		return progress;
 	}
+
+	public static boolean isNetConnected(Context mContext){
+		boolean isNetConnected = Network.isConnected(mContext);
+		if (!isNetConnected) {
+			Toastor.ShowToastView(R.string.network_tips);
+			return false;
+		}
+		return true;
+	}
 }

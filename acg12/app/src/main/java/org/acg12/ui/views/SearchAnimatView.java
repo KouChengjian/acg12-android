@@ -44,9 +44,9 @@ public class SearchAnimatView extends ViewImpl {
         commonRecycleview.setAdapter(tabAnimatAdapter);
         commonRecycleview.startRefreshing();
 
-        listVideoUtil = Config.ListVideoUtilInstance();
-        listVideoUtil.setFullViewContainer(videoFullContainer);
-        tabAnimatAdapter.setListVideoUtil(listVideoUtil);
+//        listVideoUtil = Config.ListVideoUtilInstance();
+//        listVideoUtil.setFullViewContainer(videoFullContainer);
+//        tabAnimatAdapter.setListVideoUtil(listVideoUtil);
     }
 
     @Override
@@ -65,6 +65,10 @@ public class SearchAnimatView extends ViewImpl {
             tabAnimatAdapter.addAll(result);
             commonRecycleview.notifyChanged(tabAnimatAdapter.getList().size() - result.size() , tabAnimatAdapter.getList().size());
         }
+    }
+
+    public Video getVideo(int position){
+        return tabAnimatAdapter.getList().get(position);
     }
 
     public void stopLoading(){

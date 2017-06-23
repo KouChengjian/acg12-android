@@ -16,6 +16,7 @@ import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewPaletteActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.ui.views.SearchPaletteView;
+import org.acg12.utlis.ViewUtil;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;
@@ -64,7 +65,8 @@ public class SearchPaletteFragment extends PresenterFragmentImpl<SearchPaletteVi
         refresh(title , page);
     }
 
-    public void refresh(String key , int page){
+    public void refresh(String key , int page) {
+        if(!ViewUtil.isNetConnected(mContext)) return;
         HttpRequestImpl.getInstance().searchPalette(key, page+"", new HttpRequestListener<List<Palette>>() {
             @Override
             public void onSuccess(List<Palette> result) {

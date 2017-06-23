@@ -16,6 +16,7 @@ import org.acg12.ui.activity.PreviewAlbumActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.ui.views.TabAlbumView;
 import org.acg12.utlis.LogUtil;
+import org.acg12.utlis.ViewUtil;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;
@@ -87,6 +88,7 @@ public class TabAlbumFragment extends PresenterFragmentImpl<TabAlbumView> implem
     }
 
     public void refresh(String pinId){
+        if(!ViewUtil.isNetConnected(mContext)) return;
         HttpRequestImpl.getInstance().albumList(pinId, new HttpRequestListener<List<Album>>() {
             @Override
             public void onSuccess(List<Album> result) {

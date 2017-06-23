@@ -2,6 +2,7 @@ package org.acg12.ui.views;
 
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
+import android.widget.TextView;
 
 import org.acg12.R;
 import org.acg12.ui.ViewImpl;
@@ -18,13 +19,16 @@ public class LoginView extends ViewImpl {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.title_right)
+    TextView title_right;
     @BindView(R.id.et_input_name)
     DeletableEditText et_input_name;
     @BindView(R.id.et_input_password)
     DeletableEditText et_input_password;
     @BindView(R.id.btn_login)
     Button btn_login;
-
+    @BindView(R.id.btn_register)
+    Button btn_register;
 
     @Override
     public int getLayoutId() {
@@ -36,12 +40,13 @@ public class LoginView extends ViewImpl {
         super.created();
         toolbar.setNavigationIcon(R.mipmap.ic_action_back);
         toolbar.setTitle(getContext().getString(R.string.login));
+        ViewUtil.setText(title_right,"忘记密码?");
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter ,toolbar ,btn_login);
+        PresenterHelper.click(mPresenter ,toolbar , title_right , btn_login ,btn_register);
     }
 
     public String getUsername(){

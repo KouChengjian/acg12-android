@@ -12,8 +12,8 @@ ext {
     androidApplicationId = "org.acg12"
     androidMinSdkVersion = 19
     androidTargetSdkVersion = 23
-    androidVersionCode = 20
-    androidVersionName = "3.0.0"
+    androidVersionCode = 21
+    androidVersionName = "3.0.1"
     supportLibraryVersion = '23.4.0'
     otherLibraryVersion = '23.4.0'
 

@@ -44,7 +44,7 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        Config.initListVideoUtil(this);
+//        Config.initListVideoUtil(this);
         Config.navigationEventBus().register(this);
         Config.userEventBus().register(this);
         List<DynamicAttr> mDynamicAttr = new ArrayList<DynamicAttr>();
@@ -146,7 +146,7 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
         UpdateDialog updateDialog = new UpdateDialog(mContext ,result);
         updateDialog.setTitle("漫友更新啦");
         updateDialog.setTitleGravity();
-        updateDialog.show();
+        updateDialog.show(UpdateDialog.Form.main);
     }
 
     private void updateApp(){
@@ -177,9 +177,9 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
             if(mView.getDrawerLayout().isDrawerVisible(GravityCompat.START)){
                 mView.toggleDrawer();
             } else {
-                if (Config.ListVideoUtilInstance().backFromFull()) {
-                    return true;
-                }
+//                if (Config.ListVideoUtilInstance().backFromFull()) {
+//                    return true;
+//                }
                 if (firstTime + 2000 > System.currentTimeMillis()) {
                    finish();
                 } else {
@@ -199,7 +199,7 @@ public class MainActivity extends PresenterActivityImpl<MainView> implements Nav
         super.onDestroy();
         Config.navigationEventBus().unregister(this);
         Config.userEventBus().unregister(this);
-        Config.ListVideoUtilInstance().releaseVideoPlayer();
+//        Config.ListVideoUtilInstance().releaseVideoPlayer();
         GSYVideoPlayer.releaseAllVideos();
 
     }

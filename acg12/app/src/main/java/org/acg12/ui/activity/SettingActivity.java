@@ -2,6 +2,7 @@ package org.acg12.ui.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import org.acg12.R;
@@ -37,6 +38,13 @@ public class SettingActivity extends PresenterActivityImpl<SettingView> implemen
         } else if(id == R.id.settings_cache){
             ImageLoadUtils.clearUniversalLoading();
             ImageLoadUtils.clearImageAllCache(this);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mView.calculateCache();
+                    ShowToast("清理完成");
+                }
+            } , 1000);
         } else if(id == R.id.settings_update) {
             updateApp();
         } else if(id == R.id.settings_amdpwd) {

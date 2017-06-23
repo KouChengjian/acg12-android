@@ -24,6 +24,7 @@ public class User extends Param{;
     // 额外信息
     private Boolean isUpdataToken;
     private String newPassword;
+    private String verify;
 
     private int uid = 0;
 	private String username;
@@ -183,5 +184,13 @@ public class User extends Param{;
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    public String getVerify() {
+        return verify;
+    }
+
+    public void setVerify(String verify) {
+        this.verify = verify;
     }
 }

@@ -15,6 +15,7 @@ import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewBangumiActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.ui.views.TabBangumiView;
+import org.acg12.utlis.ViewUtil;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;
@@ -53,6 +54,7 @@ public class TabBangumiFragment extends PresenterFragmentImpl<TabBangumiView> im
     }
 
     public void refresh(int page){
+        if(!ViewUtil.isNetConnected(mContext)) return;
         HttpRequestImpl.getInstance().bangumiList(page + "", new HttpRequestListener<List<Video>>() {
             @Override
             public void onSuccess(List<Video> result) {

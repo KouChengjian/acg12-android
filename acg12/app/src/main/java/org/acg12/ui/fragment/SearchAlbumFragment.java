@@ -17,6 +17,7 @@ import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewAlbumActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.ui.views.SearchAlbumView;
+import org.acg12.utlis.ViewUtil;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;
@@ -78,6 +79,7 @@ public class SearchAlbumFragment extends PresenterFragmentImpl<SearchAlbumView> 
     }
 
     public void refresh(String key , int page){
+        if(!ViewUtil.isNetConnected(mContext)) return;
         HttpRequestImpl.getInstance().searchAlbum(key, page+"",new HttpRequestListener<List<Album>>() {
             @Override
             public void onSuccess(List<Album> result) {

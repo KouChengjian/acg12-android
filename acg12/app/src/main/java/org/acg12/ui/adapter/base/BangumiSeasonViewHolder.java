@@ -32,7 +32,8 @@ public class BangumiSeasonViewHolder extends RecyclerView.ViewHolder {
     public void bindData(Context context , Video video) {
         String url = video.getPic();
         if(url != null && !url.isEmpty()){
-            ImageLoadUtils.universalLoading(url , icon);
+//            ImageLoadUtils.universalLoading(url , icon);
+            ImageLoadUtils.glideLoading(context ,url , icon);
         }
         ViewUtil.setText(msg , video.getTitle());
     }

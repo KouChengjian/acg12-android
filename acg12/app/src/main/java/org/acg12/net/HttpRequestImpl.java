@@ -91,18 +91,69 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
-    public Subscription register(User user, HttpRequestListener<User> httpRequestListener) {
-        return null;
+    public Subscription register(final User user,final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with(user).register(user.getUsername() , user.getPassword() , user.getVerify())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if (data != null) {
+                            httpRequestListener.onSuccess(user);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
     }
 
     @Override
-    public Subscription verify(User user, HttpRequestListener<User> httpRequestListener) {
-        return null;
+    public Subscription verify(final User user,final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with(user).verify(user.getUsername())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if (data != null) {
+                            httpRequestListener.onSuccess(user);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
     }
 
     @Override
-    public Subscription resetPwd(User user, HttpRequestListener<User> httpRequestListener) {
-        return null;
+    public Subscription resetPwd(final User user,final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = RetrofitClient.with(user).restPwd(user.getUsername() , user.getPassword() , user.getVerify())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if (data != null) {
+                            httpRequestListener.onSuccess(user);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
+        return subscription;
     }
 
     @Override

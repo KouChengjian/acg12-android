@@ -13,8 +13,10 @@ import org.acg12.conf.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
+import org.acg12.ui.activity.PlayBungumiActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.ui.views.SearchAnimatView;
+import org.acg12.utlis.ViewUtil;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;
@@ -47,7 +49,9 @@ public class SearchAnimatFragment extends PresenterFragmentImpl<SearchAnimatView
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("video", mView.getVideo(position));
+        startAnimActivity(PlayBungumiActivity.class , bundle);
     }
 
     @Override
@@ -63,6 +67,7 @@ public class SearchAnimatFragment extends PresenterFragmentImpl<SearchAnimatView
     }
 
     public void refresh(String key , int page){
+        if(!ViewUtil.isNetConnected(mContext)) return;
         HttpRequestImpl.getInstance().searchVideo(key , page+"" , new HttpRequestListener<List<Video>>() {
             @Override
             public void onSuccess(List<Video> result) {

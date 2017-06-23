@@ -6,6 +6,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.acg12.R;
+import org.acg12.conf.Constant;
 import org.acg12.db.DaoBaseImpl;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.base.PresenterHelper;
@@ -55,8 +56,13 @@ public class SettingView extends ViewImpl {
             settingsAmdpwd.setVisibility(View.GONE);
         }
 
-        ViewUtil.setText(tv_setting_cache , ImageLoadUtils.getCacheSize(getContext()));
-        ViewUtil.setText(tv_setting_update , AppUtil.getPackageInfo(getContext()).versionName);
+        String online = "";
+        if(Constant.debug){
+            online = "内测：";
+        }
+        ViewUtil.setText(tv_setting_update, online + new AppUtil().getPackageInfo(getContext()).versionName);
+
+        calculateCache();
     }
 
     @Override
@@ -64,5 +70,9 @@ public class SettingView extends ViewImpl {
         super.bindEvent();
         PresenterHelper.click(mPresenter ,toolbar , settingsCache ,settingsUpdate ,
                 settingsAmdpwd, settingsFeedback , settingsAbout ,userLogout );
+    }
+
+    public void calculateCache(){
+        ViewUtil.setText(tv_setting_cache , ImageLoadUtils.getCacheSize(getContext()));
     }
 }

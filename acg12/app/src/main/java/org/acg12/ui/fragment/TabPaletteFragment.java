@@ -15,6 +15,7 @@ import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewPaletteActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.ui.views.TabPaletteView;
+import org.acg12.utlis.ViewUtil;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;
@@ -50,6 +51,7 @@ public class TabPaletteFragment extends PresenterFragmentImpl<TabPaletteView>  i
     }
 
     public void refresh(String pinId){
+        if(!ViewUtil.isNetConnected(mContext)) return;
         HttpRequestImpl.getInstance().paletteList(pinId, new HttpRequestListener<List<Palette>>() {
             @Override
             public void onSuccess(List<Palette> result) {

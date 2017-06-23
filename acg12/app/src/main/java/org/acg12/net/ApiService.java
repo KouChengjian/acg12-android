@@ -28,6 +28,18 @@ public interface ApiService {
     @ApiConverter(converter = UserConverter.class)
     Observable<User> login(@Field("username") String username , @Field("password") String password);
 
+    @FormUrlEncoded
+    @POST("api/register")
+    Observable<ResponseBody> register(@Field("username") String username , @Field("password") String password , @Field("verify") String verify);
+
+    @FormUrlEncoded
+    @POST("api/verify")
+    Observable<ResponseBody> verify(@Field("username") String username);
+
+    @FormUrlEncoded
+    @POST("api/restPwd")
+    Observable<ResponseBody> restPwd(@Field("username") String username , @Field("password") String password , @Field("verify") String verify);
+
     @POST("api/userInfo")
     Observable<ResponseBody> userInfo();
 

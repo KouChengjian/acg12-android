@@ -12,8 +12,10 @@ import org.acg12.conf.Constant;
 import org.acg12.listener.HttpRequestListener;
 import org.acg12.listener.ItemClickSupport;
 import org.acg12.net.HttpRequestImpl;
+import org.acg12.ui.activity.PlayBungumiActivity;
 import org.acg12.ui.base.PresenterFragmentImpl;
 import org.acg12.ui.views.TabAnimatView;
+import org.acg12.utlis.ViewUtil;
 import org.acg12.widget.IRecycleView;
 
 import java.util.List;
@@ -48,7 +50,9 @@ public class TabAnimatFragment extends PresenterFragmentImpl<TabAnimatView> impl
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-        Log.e("Video",mView.getVideo(position).getAid());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("video", mView.getVideo(position));
+        startAnimActivity(PlayBungumiActivity.class , bundle);
     }
 
     @Override
@@ -66,6 +70,7 @@ public class TabAnimatFragment extends PresenterFragmentImpl<TabAnimatView> impl
     }
 
     public void refresh(int page){
+        if(!ViewUtil.isNetConnected(mContext)) return;
         HttpRequestImpl.getInstance().videoList(page+"" , type, new HttpRequestListener<List<Video>>() {
             @Override
             public void onSuccess(List<Video> result) {

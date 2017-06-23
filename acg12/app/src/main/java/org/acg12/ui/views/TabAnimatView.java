@@ -14,6 +14,7 @@ import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 import org.acg12.R;
 import org.acg12.bean.Video;
 import org.acg12.conf.Config;
+import org.acg12.listener.ItemClickSupport;
 import org.acg12.listener.SampleListener;
 import org.acg12.ui.ViewImpl;
 import org.acg12.ui.adapter.TabAnimatAdapter;
@@ -54,9 +55,9 @@ public class TabAnimatView extends ViewImpl {
         commonRecycleview.setAdapter(tabAnimatAdapter);
         commonRecycleview.startRefreshing();
 
-        listVideoUtil = Config.ListVideoUtilInstance();
-        listVideoUtil.setFullViewContainer(videoFullContainer);
-        tabAnimatAdapter.setListVideoUtil(listVideoUtil);
+//        listVideoUtil = Config.ListVideoUtilInstance();
+//        listVideoUtil.setFullViewContainer(videoFullContainer);
+//        tabAnimatAdapter.setListVideoUtil(listVideoUtil);
     }
 
     @Override
@@ -64,8 +65,8 @@ public class TabAnimatView extends ViewImpl {
         super.bindEvent();
         commonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
         commonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
-//        commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
-        setRecyclerViewListener();
+        commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
+//        setRecyclerViewListener();
     }
 
     public void bindData(List<Video> result , boolean refresh){
