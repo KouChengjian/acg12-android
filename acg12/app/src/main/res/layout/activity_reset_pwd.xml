@@ -127,7 +127,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/bg_stroke_red_solid_red"
+        android:background="@drawable/bg_rect_red"
         android:text="确定重置"
         android:textColor="@color/white"
         android:textSize="16sp" />
