@@ -65,7 +65,7 @@
             android:drawableRight="@mipmap/ic_login_delete"
             android:ems="10"
             android:hint="请输入验证码"
-            android:inputType="textPassword"
+            android:inputType="number"
             android:paddingRight="4dip"
             android:singleLine="true"
             android:textColor="@color/title"

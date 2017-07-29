@@ -30,11 +30,12 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("api/register")
-    Observable<ResponseBody> register(@Field("username") String username , @Field("password") String password , @Field("verify") String verify);
+    @ApiConverter(converter = UserConverter.class)
+    Observable<User> register(@Field("username") String username , @Field("password") String password , @Field("verify") String verify);
 
     @FormUrlEncoded
     @POST("api/verify")
-    Observable<ResponseBody> verify(@Field("username") String username);
+    Observable<ResponseBody> verify(@Field("username") String username ,@Field("type") String type);
 
     @FormUrlEncoded
     @POST("api/restPwd")

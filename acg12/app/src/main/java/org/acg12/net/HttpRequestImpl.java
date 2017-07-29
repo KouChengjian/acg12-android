@@ -94,14 +94,22 @@ public class HttpRequestImpl implements HttpRequest {
     public Subscription register(final User user,final HttpRequestListener<User> httpRequestListener) {
         Subscription subscription = RetrofitClient.with(user).register(user.getUsername() , user.getPassword() , user.getVerify())
                 .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<ResponseBody>() {
+                .observeOn(Schedulers.io())
+                .doOnNext(new Action1<User>() {
                     @Override
-                    public void call(ResponseBody response) {
-                        JSONObject data = RetrofitClient.parseJSONObject(response);
-                        if (data != null) {
-                            httpRequestListener.onSuccess(user);
-                        }
+                    public void call(User u) {
+                        user.setUid(u.getUid());
+                        user.setNick(u.getNick());
+                        user.setSex(u.getSex());
+                        user.setAvatar(u.getAvatar());
+                        user.setSignature(u.getSignature());
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<User>() {
+                    @Override
+                    public void call(User response) {
+                        httpRequestListener.onSuccess(user);
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -114,7 +122,7 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription verify(final User user,final HttpRequestListener<User> httpRequestListener) {
-        Subscription subscription = RetrofitClient.with(user).verify(user.getUsername())
+        Subscription subscription = RetrofitClient.with(user).verify(user.getUsername() , "1")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {

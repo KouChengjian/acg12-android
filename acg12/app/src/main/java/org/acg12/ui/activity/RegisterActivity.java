@@ -63,6 +63,7 @@ public class RegisterActivity extends PresenterActivityImpl<RegisterView> implem
         final CountDownTimerUtils timerUtils = new CountDownTimerUtils(mView.getBtnVerify(), 60000, 1000);;
         final ProgressDialog progress = ViewUtil.startLoading(mContext , "正在获取验证码...");
 
+        user.setUsername(name);
         HttpRequestImpl.getInstance().verify(user, new HttpRequestListener<User>() {
             @Override
             public void onSuccess(User result) {
