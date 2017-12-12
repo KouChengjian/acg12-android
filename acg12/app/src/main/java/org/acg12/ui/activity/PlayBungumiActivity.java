@@ -38,6 +38,7 @@ public class PlayBungumiActivity extends  PresenterActivityImpl<PlayBungumiView>
             @Override
             public void onSuccess(Video result) {
                 mView.setPlayer(result);
+//                LogUtil.e(result.toString());
             }
 
             @Override

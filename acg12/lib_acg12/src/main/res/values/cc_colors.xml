@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="cc_transparent">#00000000</color>
+    <color name="cc_white">#ffffff</color>
+    <color name="cc_red">#f82d30</color>
+    <color name="cc_green">#1eb65f</color>
+    <color name="cc_black">#000000</color>
+    <color name="cc_blue">#00acff</color>
+
+
+    <color name="cc_theme_body">#fd688f</color>
+</resources>

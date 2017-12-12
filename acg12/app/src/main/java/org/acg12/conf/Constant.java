@@ -27,7 +27,7 @@ public class Constant {
 	public static final int DESTROY = 1010; //释放资源
 
 	// url常量 http://192.168.1.107:8080/acg12-api/
-	public static final String URL = Constant.debug ? "http://192.168.8.113:8080/acg12/" : "http://139.196.46.40:8080/api-v2/" ;
+	public static final String URL = Constant.debug ? "http://192.168.1.92:8080/acg12/" : "http://139.196.46.40:8080/api-v2/" ;
 
 	// 申请权限
 	public static final int USER_APPLY_PERMISSION_CAMERE = 301;

@@ -1,40 +1,30 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 android {
-
     def globalConfiguration = rootProject.extensions.getByName("ext")
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
     buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
 
     defaultConfig {
-        applicationId globalConfiguration.getAt("androidApplicationId")
-        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
-        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
-        versionCode globalConfiguration.getAt("androidVersionCode")
-        versionName globalConfiguration.getAt("androidVersionName")
+        defaultConfig {
+            minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+            targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+            versionCode globalConfiguration.getAt("androidVersionLibCode")
+            versionName globalConfiguration.getAt("androidVersionLibName")
+        }
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile project(':videoplayer')
     compile files('libs/lite-orm-1.9.2.jar')
-    compile files('libs/jsoup-1.8.3.jar')
     def androidDependencies = rootProject.ext.androidDependencies
     compile androidDependencies.design
     compile androidDependencies.support_v4
@@ -57,6 +47,5 @@ dependencies {
     compile otherDependencies.butterKnife
     compile otherDependencies.stetho
     compile otherDependencies.stetho_okhttp
-    compile otherDependencies.universal_image_loader
     compile otherDependencies.glide
 }

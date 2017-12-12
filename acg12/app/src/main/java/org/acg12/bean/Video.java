@@ -209,4 +209,32 @@ public class Video  extends Param {
     public void setCid(String cid) {
         this.cid = cid;
     }
+
+    @Override
+    public String toString() {
+        return "Video{" +
+                "aid='" + aid + '\'' +
+                ", typeid='" + typeid + '\'' +
+                ", title='" + title + '\'' +
+                ", sbutitle='" + sbutitle + '\'' +
+                ", play='" + play + '\'' +
+                ", review='" + review + '\'' +
+                ", videoReview='" + videoReview + '\'' +
+                ", favorites='" + favorites + '\'' +
+                ", author='" + author + '\'' +
+                ", description='" + description + '\'' +
+                ", create='" + create + '\'' +
+                ", pic='" + pic + '\'' +
+                ", credit='" + credit + '\'' +
+                ", coins='" + coins + '\'' +
+                ", duration='" + duration + '\'' +
+                ", playUrl='" + playUrl + '\'' +
+                ", cid='" + cid + '\'' +
+                ", bmId='" + bmId + '\'' +
+                ", updateContent='" + updateContent + '\'' +
+                ", urlInfo='" + urlInfo + '\'' +
+                ", episodeList=" + episodeList +
+                ", seasonList=" + seasonList +
+                '}';
+    }
 }
