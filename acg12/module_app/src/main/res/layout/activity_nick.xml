@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/kk_common_action_bar" />
+
+    <com.acg12.kk.widget.DeletableEditText
+        android:id="@+id/edt_nick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_edittext_account"
+        android:drawableRight="@mipmap/ic_login_delete"
+        android:ems="10"
+        android:hint="昵称"
+        android:minHeight="40dp"
+        android:paddingLeft="4dip"
+        android:textColor="@color/title"
+        android:textColorHint="@color/title1"
+        android:textSize="16sp">
+
+        <requestFocus />
+    </com.acg12.kk.widget.DeletableEditText>
+
+
+</LinearLayout>

@@ -6,18 +6,24 @@ allprojects {
 
 ext {
 
+    // 开启组件调试模式
+    isModule = true
+
     // Android
-    androidCompileSdkVersion = 23
-    androidBuildToolsVersion = "23.0.2"
+    androidCompileSdkVersion = 25
+    androidBuildToolsVersion = "25.0.2"
+    supportLibraryVersion = '25.3.1'
     androidApplicationId = "org.acg12"
     androidMinSdkVersion = 19
     androidTargetSdkVersion = 23
-    androidVersionCode = 21
-    androidVersionName = "3.0.1"
+
+    // 版本
+    androidVersionCode = 24
+    androidVersionName = "3.1.0"
+
+    // acg12 lib
     androidVersionLibCode = 1
     androidVersionLibName = "1.0.0"
-    supportLibraryVersion = '23.4.0'
-    otherLibraryVersion = '23.4.0'
 
     // http version
     okhttp3Version = '3.4.2'
@@ -48,6 +54,7 @@ ext {
             cardview_v7    : "com.android.support:cardview-v7:${supportLibraryVersion}",
             appcompat_v7   : "com.android.support:appcompat-v7:${supportLibraryVersion}",
             recyclerView_v7: "com.android.support:recyclerview-v7:${supportLibraryVersion}",
+            multidex       : "com.android.support:multidex:1.0.1",
     ]
 
     httpDependencies = [
@@ -81,7 +88,13 @@ ext {
 
     kotlinDependencies = [
             kotlin : "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}",
+    ]
 
+    toolDependencies = [
+            bugly       : "com.tencent.bugly:crashreport:latest.release",
+            buglynation : "com.tencent.bugly:nativecrashreport:latest.release",
+            arouter     : "com.alibaba:arouter-api:1.2.4",
+            arouter_apt : "com.alibaba:arouter-compiler:1.1.4",
     ]
 
     otherDependencies = [

@@ -1,10 +1,11 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
     buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+    publishNonDefault true
 
     defaultConfig {
         defaultConfig {
@@ -24,13 +25,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile files('libs/lite-orm-1.9.2.jar')
     def androidDependencies = rootProject.ext.androidDependencies
     compile androidDependencies.design
     compile androidDependencies.support_v4
     compile androidDependencies.cardview_v7
     compile androidDependencies.appcompat_v7
     compile androidDependencies.recyclerView_v7
+    compile androidDependencies.multidex
     def httpDependencies = rootProject.ext.httpDependencies
     compile httpDependencies.okhttp3
     compile httpDependencies.retrofit2
@@ -41,9 +42,11 @@ dependencies {
     compile httpDependencies.rxandroid
     def kotlinDependencies = rootProject.ext.kotlinDependencies
     compile kotlinDependencies.kotlin
+    def toolDependencies = rootProject.ext.toolDependencies
+//    compile toolDependencies.bugly
+//    compile toolDependencies.arouter
     def otherDependencies = rootProject.ext.otherDependencies
     compile otherDependencies.eventbus
-    apt otherDependencies.butterKnife_apt
     compile otherDependencies.butterKnife
     compile otherDependencies.stetho
     compile otherDependencies.stetho_okhttp

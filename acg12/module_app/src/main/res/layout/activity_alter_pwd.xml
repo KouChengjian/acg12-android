@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/kk_common_action_bar" />
+
+    <com.acg12.kk.widget.DeletableEditText
+        android:id="@+id/et_input_pwd_old"
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/selector_edittext_account"
+        android:drawableRight="@mipmap/ic_login_delete"
+        android:textColor="@color/title"
+        android:textColorHint="@color/title1"
+        android:inputType="number"
+        android:textSize="16sp"
+        android:ems="10"
+        android:hint="请输入旧密码"
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip"
+        android:singleLine="true"/>
+
+    <com.acg12.kk.widget.DeletableEditText
+        android:id="@+id/et_input_pwd_new"
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/title"
+        android:textColorHint="@color/title1"
+        android:inputType="textPassword"
+        android:textSize="16sp"
+        android:background="@drawable/selector_edittext_account"
+        android:drawableRight="@mipmap/ic_login_delete"
+        android:ems="10"
+        android:hint="请输入新密码"
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip"
+        android:singleLine="true" />
+
+</LinearLayout>

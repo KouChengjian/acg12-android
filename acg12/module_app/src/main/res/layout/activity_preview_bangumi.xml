@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bangumi_swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/layout_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+
+                <ImageView
+                    android:id="@+id/iv_video_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/kk_bg_loading_pic" />
+
+                <ImageView
+                    android:id="@+id/video_click_play"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/selector_video_click_play" />
+
+
+                <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/toolbar"
+                    style="@style/Widget.MaterialSheetFab.ToolBar"
+                    android:background="@color/transparent"
+                    app:titleTextColor="@color/white" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_video_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center|left"
+                        android:paddingBottom="5dp"
+                        android:textColor="@color/title"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_video_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:scaleType="center"
+                        android:src="@drawable/selector_bangumi_arrow" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_video_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/title1"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_video_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="自制 大家好，我是钠盐，感谢大家一直以来对我的支持"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:paddingBottom="5dp"
+                    android:text="选集"
+                    android:textColor="@color/title"
+                    android:textSize="16sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/episode_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:fastScrollEnabled="true"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbars="none" />
+
+                <TextView
+                    android:id="@+id/episode_null"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="暂时没有数据哦 o(︶︿︶)o "
+                    android:textColor="@color/title1"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_season"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:paddingBottom="5dp"
+                    android:text="相关视频"
+                    android:textColor="@color/title"
+                    android:textSize="16sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/season_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:fastScrollEnabled="true"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbars="none" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ViewStub
+        android:id="@+id/layout_load_null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/kk_common_loading_null" />
+</android.support.v4.widget.SwipeRefreshLayout>
+
+
+
