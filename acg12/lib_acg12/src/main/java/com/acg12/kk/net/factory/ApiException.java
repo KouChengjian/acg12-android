@@ -5,10 +5,16 @@ package com.acg12.kk.net.factory;
  */
 public class ApiException extends RuntimeException {
     private int errorCode;
+    private String msg;
 
     public ApiException(int code, String msg) {
         super(msg);
         this.errorCode = code;
+        this.msg = msg;
+    }
+
+    public String getMsg() {
+        return msg;
     }
 
     public int getErrorCode() {

@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
+import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.PreviewImageView;
 
 public class PreviewImageActivity extends BaseActivity<PreviewImageView> implements View.OnClickListener {

@@ -22,10 +22,10 @@ import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
-import org.acg12.ui.base.BaseActivity;
+import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.MainView;
-import org.acg12.utlis.skin.entity.AttrFactory;
-import org.acg12.utlis.skin.entity.DynamicAttr;
+import com.acg12.common.utils.skin.AttrFactory;
+import com.acg12.common.utils.skin.entity.DynamicAttr;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -68,7 +68,6 @@ public class MainActivity extends BaseActivity<MainView> implements NavigationVi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateUser(User user) {
-        LogUtil.e("updateUser = main");
         mView.paddingDate(user);
     }
 
@@ -142,8 +141,7 @@ public class MainActivity extends BaseActivity<MainView> implements NavigationVi
     }
 
     private void updateApp() {
-        User user = DaoBaseImpl.getInstance(mContext).getCurrentUser();
-        UserHttpRequestImpl.getInstance(mContext).updateApp(user, AppUtil.getPackageInfo(mContext).versionCode, new HttpRequestListener<Update>() {
+        UserHttpRequestImpl.getInstance(mContext).updateApp(currentUser(), AppUtil.getPackageInfo(mContext).versionCode, new HttpRequestListener<Update>() {
             @Override
             public void onSuccess(Update result) {
                 showUpdateApp(result);

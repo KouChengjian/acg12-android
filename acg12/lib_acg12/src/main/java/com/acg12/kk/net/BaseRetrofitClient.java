@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.ConnectException;
 
 import okhttp3.MediaType;
@@ -40,12 +39,12 @@ public class BaseRetrofitClient {
             if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
                 data = json.getJSONObject("data");
             }else{
-                throw new ApiException(Integer.valueOf(code).intValue() , desc);
+                throw new ApiException(code , desc);
             }
         } catch (Exception e) {
             e.printStackTrace();
             if(BaseConstant.debug){
-                throw new ApiException(ApiErrorCode.EXCEPTION_IO , e.toString());
+                throw new ApiException(ApiErrorCode.EXCEPTION_IO , e.getMessage());
             } else {
                 throw new ApiException(ApiErrorCode.EXCEPTION_IO , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_IO));
             }
@@ -59,7 +58,7 @@ public class BaseRetrofitClient {
 
     public static void failure(final Throwable e , final HttpRequestListener httpRequestListener){
         if(e instanceof ApiException){
-            failure(e.getMessage() ,httpRequestListener);
+            failure(((ApiException)e).getMsg() ,httpRequestListener);
         } else if(e instanceof HttpException){
             failure(e.getMessage() ,httpRequestListener);
         } else if(e instanceof ConnectException){

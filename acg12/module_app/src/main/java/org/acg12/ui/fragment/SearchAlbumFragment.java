@@ -17,7 +17,7 @@ import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewAlbumActivity;
-import org.acg12.ui.base.BaseFragment;
+import com.acg12.common.ui.base.BaseFragment;
 import org.acg12.ui.views.SearchAlbumView;
 
 import java.util.List;

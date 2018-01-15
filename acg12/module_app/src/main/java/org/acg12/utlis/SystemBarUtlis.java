@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,8 +12,7 @@ import android.view.WindowManager;
 
 import org.acg12.R;
 
-import org.acg12.utlis.SystemBarTintManager;
-import org.acg12.utlis.skin.SkinManager;
+import com.acg12.common.utils.skin.SkinManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

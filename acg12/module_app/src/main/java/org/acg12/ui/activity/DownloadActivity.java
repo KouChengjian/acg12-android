@@ -11,7 +11,7 @@ import com.acg12.kk.listener.ItemClickSupport;
 import com.acg12.kk.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
+import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.DownloadView;
 import org.acg12.widget.AlertDialogView;
 

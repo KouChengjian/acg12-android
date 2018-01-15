@@ -1,1 +1,1 @@
-include ':module_app', ':module_videoplayer', ':lib_acg12', ':module_common'
+include ':module_app', ':lib_videoplayer', ':lib_acg12', ':module_common', ':module_comics'

@@ -15,7 +15,7 @@ import org.acg12.conf.Constant;
 import org.acg12.entity.Video;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewBangumiActivity;
-import org.acg12.ui.base.BaseFragment;
+import com.acg12.common.ui.base.BaseFragment;
 import org.acg12.ui.views.TabBangumiView;
 
 import java.util.List;

@@ -20,7 +20,7 @@ import org.acg12.R;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.ui.base.BaseActivity;
+import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.PreviewAlbumView;
 
 import java.io.File;

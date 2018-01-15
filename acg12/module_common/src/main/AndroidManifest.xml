@@ -4,7 +4,7 @@
     <application android:allowBackup="true"
         android:supportsRtl="true">
         <activity
-            android:name="com.acg12.common.ui.activity.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity

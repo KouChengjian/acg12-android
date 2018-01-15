@@ -16,7 +16,7 @@ import com.acg12.kk.utils.premission.SuccessPermission;
 import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
+import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.UserInfoView;
 import org.acg12.widget.CommonPopupWindows;
 import org.greenrobot.eventbus.Subscribe;

@@ -7,6 +7,7 @@ import com.acg12.common.entity.Update;
 import com.acg12.common.entity.User;
 import com.acg12.common.net.base.UserHttpRequest;
 import com.acg12.kk.listener.HttpRequestListener;
+import com.acg12.kk.utils.LogUtil;
 
 import org.json.JSONObject;
 
@@ -66,6 +67,7 @@ public class UserHttpRequestImpl implements UserHttpRequest {
                         user.setSex(u.getSex());
                         user.setAvatar(u.getAvatar());
                         user.setSignature(u.getSignature());
+                        user.updataSign();
                         DaoBaseImpl.getInstance(mContext).delTabUser();
                         DaoBaseImpl.getInstance(mContext).saveUser(user);
                     }
@@ -175,6 +177,7 @@ public class UserHttpRequestImpl implements UserHttpRequest {
                             user.setNick(UserRetrofitClient.getString(json, "nick"));
                             user.setAvatar(UserRetrofitClient.getString(json, "avatar"));
                             user.setSignature(UserRetrofitClient.getString(json, "sign"));
+                            user.updataSign();
                             DaoBaseImpl.getInstance(mContext).saveUser(user);
                             httpRequestListener.onSuccess(user);
                         }

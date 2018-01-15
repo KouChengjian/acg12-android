@@ -38,16 +38,19 @@ public class User extends Param{;
 
 	public User(Context context){
 		uid = 0;
-		p ="1";
+		p = "1";
 		s = "unknown";
 		n = "unknown";
-		d = AppUtil.getTelephonyMgr(context);
+		d = "unknown"; //AppUtil.getTelephonyMgr(context);
 		v = "unknown";
 		a = new AppUtil().getPackageInfo(context).versionName;
 		t = String.valueOf(System.currentTimeMillis() / 1000).toString();
 		g = MD5Util.encryption(p + s + n + d + v + a + t + uid + BaseConstant.USER_KEY);
 	}
 
+	public void updataSign(){
+        g = MD5Util.encryption(p + s + n + d + v + a + t + uid + BaseConstant.USER_KEY);
+    }
 
     public String getP() {
         return p;

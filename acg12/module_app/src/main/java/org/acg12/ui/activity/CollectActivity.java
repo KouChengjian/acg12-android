@@ -5,7 +5,7 @@ import android.view.View;
 
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
+import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.CollectView;
 
 public class CollectActivity extends BaseActivity<CollectView> implements View.OnClickListener {

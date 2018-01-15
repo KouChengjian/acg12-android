@@ -13,7 +13,7 @@ import com.acg12.kk.utils.LogUtil;
 import com.acg12.kk.utils.ViewUtil;
 
 import org.acg12.R;
-import org.acg12.ui.base.BaseActivity;
+import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.FeedbackView;
 import org.acg12.utlis.Network;
 

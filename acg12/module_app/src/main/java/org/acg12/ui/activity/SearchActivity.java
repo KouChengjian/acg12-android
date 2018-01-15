@@ -6,9 +6,9 @@ import android.view.View;
 
 import org.acg12.R;
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
-import org.acg12.utlis.skin.entity.AttrFactory;
-import org.acg12.utlis.skin.entity.DynamicAttr;
+import com.acg12.common.ui.base.BaseActivity;
+import com.acg12.common.utils.skin.AttrFactory;
+import com.acg12.common.utils.skin.entity.DynamicAttr;
 import org.acg12.ui.views.SearchView;
 
 import java.util.ArrayList;

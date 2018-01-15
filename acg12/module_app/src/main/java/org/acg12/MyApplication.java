@@ -4,7 +4,7 @@ import com.acg12.common.BaseApplication;
 
 import org.acg12.conf.Config;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.utlis.skin.SkinManager;
+import com.acg12.common.utils.skin.SkinManager;
 
 
 //                          _oo0oo_

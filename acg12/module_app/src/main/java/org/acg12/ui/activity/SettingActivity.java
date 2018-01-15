@@ -19,7 +19,7 @@ import com.acg12.kk.utils.loadimage.ImageLoadUtils;
 import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
+import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.SettingView;
 import org.acg12.widget.AlertDialogView;
 

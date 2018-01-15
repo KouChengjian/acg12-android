@@ -17,7 +17,7 @@ import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
 import org.acg12.entity.Palette;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.ui.base.BaseActivity;
+import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.PreviewPaletteView;
 
 import java.util.List;

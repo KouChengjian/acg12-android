@@ -12,9 +12,9 @@ import com.acg12.kk.utils.Toastor;
 
 import org.acg12.R;
 import org.acg12.entity.Skin;
-import org.acg12.listener.ILoaderListener;
+import com.acg12.common.utils.skin.listener.ILoaderListener;
 import org.acg12.ui.adapter.base.SkinLoaderViewHolder;
-import org.acg12.utlis.skin.SkinManager;
+import com.acg12.common.utils.skin.SkinManager;
 
 import java.io.File;
 import java.io.FileOutputStream;

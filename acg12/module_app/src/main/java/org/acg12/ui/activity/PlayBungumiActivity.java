@@ -8,7 +8,7 @@ import com.acg12.kk.listener.HttpRequestListener;
 
 import org.acg12.entity.Video;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.ui.base.BaseActivity;
+import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.PlayBungumiView;
 
 public class PlayBungumiActivity extends BaseActivity<PlayBungumiView> {

@@ -37,8 +37,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    debugCompile project(path: ':module_videoplayer', configuration: "debug")
-    releaseCompile project(path: ':module_videoplayer', configuration: "release")
+    debugCompile project(path: ':lib_videoplayer', configuration: "debug")
+    releaseCompile project(path: ':lib_videoplayer', configuration: "release")
     debugCompile project(path: ':module_common', configuration: "debug")
     releaseCompile project(path: ':module_common', configuration: "release")
 
