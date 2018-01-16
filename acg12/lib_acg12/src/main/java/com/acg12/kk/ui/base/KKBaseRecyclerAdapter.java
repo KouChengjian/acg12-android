@@ -10,10 +10,10 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/12/11.
  */
-public class KKBaseRecyclerAdapter extends RecyclerView.Adapter {
+public abstract class KKBaseRecyclerAdapter extends RecyclerView.Adapter {
 
-    private Context mContext;
-    private List<Object> mList;
+    protected Context mContext;
+    protected List<Object> mList;
 
     public KKBaseRecyclerAdapter(Context mContext) {
         this(mContext, new ArrayList<Object>());
@@ -47,19 +47,23 @@ public class KKBaseRecyclerAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return createViewHolder(parent, viewType);
+        return createView(parent, viewType);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        bindViewHolder(holder, position);
+        bindView(holder, position);
     }
 
+    public abstract RecyclerView.ViewHolder createView(ViewGroup parent, int viewType);
 
-    public RecyclerView.ViewHolder createView(ViewGroup parent, int viewType) {
-        return null;
-    }
-    public void bindView(RecyclerView.ViewHolder holder, int position) {
+    public abstract void bindView(RecyclerView.ViewHolder holder, int position) ;
 
-    }
+//    public RecyclerView.ViewHolder createView(ViewGroup parent, int viewType) {
+//        return null;
+//    }
+//
+//    public void bindView(RecyclerView.ViewHolder holder, int position) {
+//
+//    }
 }

@@ -30,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.UserInfoActivity"
             android:screenOrientation="portrait"
@@ -71,7 +70,7 @@
             android:name=".ui.activity.CollectActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
-            android:name=".ui.activity.SearchActivity"
+            android:name=".ui.activity.SearchInfoActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.AboutActivity"
@@ -93,10 +92,9 @@
             android:name=".ui.activity.FeedbackActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
-
-
-
-
+        <activity android:name=".ui.activity.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
     </application>
 
 </manifest>

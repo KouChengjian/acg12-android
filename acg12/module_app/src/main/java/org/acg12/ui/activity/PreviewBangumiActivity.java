@@ -1,14 +1,12 @@
 package org.acg12.ui.activity;
 
-import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
+import com.acg12.common.ui.base.BaseActivity;
 import com.acg12.kk.listener.HttpRequestListener;
 import com.acg12.kk.listener.ItemClickSupport;
 
@@ -16,7 +14,6 @@ import org.acg12.R;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Video;
 import org.acg12.net.HttpRequestImpl;
-import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.PreviewBangumiView;
 
 public class PreviewBangumiActivity extends BaseActivity<PreviewBangumiView> implements View.OnClickListener,
@@ -77,18 +74,5 @@ public class PreviewBangumiActivity extends BaseActivity<PreviewBangumiView> imp
                 mView.stopRefreshLoadMore(false);
             }
         });
-    }
-
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
     }
 }

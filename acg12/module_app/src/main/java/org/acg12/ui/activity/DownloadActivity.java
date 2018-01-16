@@ -7,11 +7,11 @@ import android.view.View;
 
 import com.acg12.common.dao.DaoBaseImpl;
 import com.acg12.common.entity.DownLoad;
+import com.acg12.common.ui.base.BaseActivity;
 import com.acg12.kk.listener.ItemClickSupport;
 import com.acg12.kk.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
-import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.DownloadView;
 import org.acg12.widget.AlertDialogView;
 
@@ -76,13 +76,6 @@ public class DownloadActivity extends BaseActivity<DownloadView> implements View
                 alertDialog.cancel();
             }
         });
-//        alertDialog.setContent2("返回", new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View arg0) {
-//                alertDialog.cancel();
-//            }
-//        });
     }
 
     @Override

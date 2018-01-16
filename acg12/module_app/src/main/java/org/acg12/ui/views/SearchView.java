@@ -1,42 +1,32 @@
 package org.acg12.ui.views;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.acg12.kk.listener.ParameCallBack;
 import com.acg12.kk.ui.ViewImpl;
-import com.acg12.kk.ui.base.PresenterHelper;
+import com.acg12.kk.widget.DeletableEditText;
 
 import org.acg12.R;
-import org.acg12.ui.adapter.SearchPagerAdapter;
-import org.acg12.ui.fragment.SearchAlbumFragment;
-import org.acg12.ui.fragment.SearchAnimatFragment;
-import org.acg12.ui.fragment.SearchBangunFragment;
-import org.acg12.ui.fragment.SearchPaletteFragment;
+import org.acg12.widget.FlowLayout;
+
+import java.util.Iterator;
+import java.util.List;
 
 import butterknife.BindView;
 
 /**
- * Created by DELL on 2017/1/3.
+ * Created by Administrator on 2018/1/16.
  */
+
 public class SearchView extends ViewImpl {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.search_tabLayout)
-    TabLayout mTabLayout;
-    @BindView(R.id.search_viewpager)
-    ViewPager mViewpager;
-
-    Fragment[] fragments;
-    SearchPagerAdapter searchPagerAdapter;
-    SearchAlbumFragment searchAlbumFragment;
-    SearchPaletteFragment searchPaletteFragment;
-    SearchBangunFragment searchBangunFragment;
-    SearchAnimatFragment searchAnimatFragment;
-
+    @BindView(R.id.edt_search)
+    DeletableEditText edt_search;
+    @BindView(R.id.history_flowlayout)
+    FlowLayout mHistoryFlowlayout;
 
     @Override
     public int getLayoutId() {
@@ -46,33 +36,47 @@ public class SearchView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        toolbar.setTitle(getContext().getString(R.string.search));
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter, toolbar);
     }
 
-    public void bindData(String title) {
-        toolbar.setTitle(title);
-
-        searchAlbumFragment = SearchAlbumFragment.newInstance(title);
-        searchPaletteFragment = SearchPaletteFragment.newInstance(title);
-        searchBangunFragment = SearchBangunFragment.newInstance(title);
-        searchAnimatFragment = SearchAnimatFragment.newInstance(title);
-        fragments = new Fragment[]{searchAlbumFragment, searchPaletteFragment, searchBangunFragment, searchAnimatFragment};
-
-        searchPagerAdapter = new SearchPagerAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), fragments);
-        mViewpager.setAdapter(searchPagerAdapter);
-        mViewpager.setOffscreenPageLimit(fragments.length);
-        mTabLayout.setupWithViewPager(mViewpager);
+    public void bindHistorySearch(final List<String> historyList){
+        for (int i = 0; i < historyList.size(); i++) {
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.include_search_history_item, mHistoryFlowlayout , false);
+            TextView tv_search_history = (TextView) view.findViewById(R.id.tv_search_history) ;
+            ImageView iv_search_history = (ImageView) view.findViewById(R.id.iv_search_history) ;
+            tv_search_history.setText(historyList.get(i));
+            final String str = tv_search_history.getText().toString();
+            //点击事件
+            tv_search_history.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mPresenter != null){
+                        ((ParameCallBack) mPresenter).onCall(str);
+                    }
+                }
+            });
+            iv_search_history.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Iterator<String> stringIterator = historyList.iterator();
+                    while (stringIterator.hasNext()){
+                        String str1 = stringIterator.next();
+                        if(str1.equals(str)){
+                            stringIterator.remove();
+                        }
+                    }
+                    mHistoryFlowlayout.removeAllViews();
+                    bindHistorySearch(historyList);
+                    if(mPresenter != null){
+                        ((ParameCallBack) mPresenter).onCall(historyList);
+                    }
+                }
+            });
+            mHistoryFlowlayout.addView(view);
+        }
     }
-
-    public TabLayout getTabLayout(){
-        return mTabLayout;
-    }
-
 }

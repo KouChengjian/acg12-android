@@ -1,6 +1,7 @@
 package org.acg12.ui.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,9 @@ import com.acg12.common.entity.User;
 import com.acg12.common.net.UserHttpRequestImpl;
 import com.acg12.common.net.download.DownloadManger;
 import com.acg12.common.ui.activity.LoginActivity;
+import com.acg12.common.ui.base.BaseActivity;
+import com.acg12.common.utils.skin.AttrFactory;
+import com.acg12.common.utils.skin.entity.DynamicAttr;
 import com.acg12.common.widget.UpdateDialog;
 import com.acg12.kk.listener.HttpRequestListener;
 import com.acg12.kk.utils.AppUtil;
@@ -22,10 +26,7 @@ import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
-import com.acg12.common.ui.base.BaseActivity;
 import org.acg12.ui.views.MainView;
-import com.acg12.common.utils.skin.AttrFactory;
-import com.acg12.common.utils.skin.entity.DynamicAttr;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -35,6 +36,14 @@ import java.util.List;
 public class MainActivity extends BaseActivity<MainView> implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     public static long firstTime;
+
+    @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
+    }
 
     @Override
     public void created(Bundle savedInstance) {
@@ -77,6 +86,9 @@ public class MainActivity extends BaseActivity<MainView> implements NavigationVi
         switch (item.getItemId()) {
             case R.id.nav_home:
                 mView.onTabSelect(0);
+                break;
+            case R.id.nav_home_1:
+                mView.onTabSelect(1);
                 break;
             case R.id.nav_star:
                 if (DaoBaseImpl.getInstance(mContext).getCurrentUser() == null) {

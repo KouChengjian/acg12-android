@@ -1,63 +1,50 @@
 package org.acg12.ui.fragment;
 
-
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
+import com.acg12.common.ui.base.BaseFragment;
 
 import org.acg12.R;
-import org.acg12.conf.Config;
-import org.acg12.conf.Constant;
-import org.acg12.ui.activity.DownloadActivity;
-import com.acg12.common.ui.base.BaseFragment;
-import com.acg12.common.utils.skin.AttrFactory;
-import com.acg12.common.utils.skin.entity.DynamicAttr;
+import org.acg12.ui.activity.SearchActivity;
 import org.acg12.ui.views.HomeView;
-import org.acg12.widget.SearchPopWindow;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends BaseFragment<HomeView> implements Toolbar.OnMenuItemClickListener ,
-        View.OnClickListener ,SearchPopWindow.OnPopupShowOrDismiss{
+public class HomeFragment extends BaseFragment<HomeView> implements SwipeRefreshLayout.OnRefreshListener ,View.OnClickListener{
 
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        List<DynamicAttr> mDynamicAttr = new ArrayList<DynamicAttr>();
-        mDynamicAttr.add(new DynamicAttr(AttrFactory.TABLAYOUT, R.color.theme_primary));
-        dynamicAddView(mView.getTabLayout(), mDynamicAttr);
+        refresh();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        if(id == Constant.TOOLBAR_ID){
-            Config.navigationEventBus().post(true);
+        if(v.getId() == R.id.btn_home_search){
+            startAnimActivity(SearchActivity.class);
         }
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_main_search:
-                mView.showPopupWindow();
-                break;
-            case R.id.menu_main_download:
-                startAnimActivity(DownloadActivity.class);
-                break;
-        }
-        return false;
+    public void onRefresh() {
+
     }
 
-    @Override
-    public void popupStatus(boolean status) {
-        if(status){
-            showSoftInputView();
-        }else {
-            hideSoftInputView();
+    public void refresh(){
+        List<Object > objectList = new ArrayList<>();
+        for (int i = 0 ; i < 10 ; i++){
+            objectList.add(new Object());
         }
+        mView.addObjectList(objectList);
     }
+
+
 }

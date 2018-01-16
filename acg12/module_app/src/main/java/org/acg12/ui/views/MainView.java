@@ -20,6 +20,7 @@ import com.acg12.kk.utils.ViewUtil;
 import com.acg12.kk.utils.loadimage.ImageLoadUtils;
 
 import org.acg12.R;
+import org.acg12.ui.fragment.FindFragemnt;
 import org.acg12.ui.fragment.HomeFragment;
 
 import butterknife.BindView;
@@ -30,20 +31,21 @@ import butterknife.BindView;
 public class MainView extends ViewImpl {
 
     @BindView(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
+    protected DrawerLayout drawerLayout;
     @BindView(R.id.navigation_view)
-    NavigationView navigationView;
+    protected NavigationView navigationView;
 
-    int currentTabIndex;
-    MenuItem[] mTabs;
-    Fragment[] fragments;
-    HomeFragment homeFragment;
+    private int currentTabIndex;
+    private MenuItem[] mTabs;
+    private Fragment[] fragments;
+    private HomeFragment homeFragment;
+    private FindFragemnt findFragemnt;
 
-    View headerView;
-    ImageView iv_nav_avatar;
-    TextView tv_nav_nick;
-    ImageView iv_nav_sex;
-    TextView tv_nav_signature;
+    private View headerView;
+    private ImageView iv_nav_avatar;
+    private TextView tv_nav_nick;
+    private ImageView iv_nav_sex;
+    private TextView tv_nav_signature;
 
     @Override
     public int getLayoutId() {
@@ -65,9 +67,10 @@ public class MainView extends ViewImpl {
         mTabs[1] = menu.findItem(R.id.nav_color_lens);
 
         homeFragment = new HomeFragment();
-        fragments = new Fragment[]{homeFragment};
-        ((AppCompatActivity) getContext()).getSupportFragmentManager().beginTransaction().
-                add(R.id.main_fragment_container, fragments[0]).show(fragments[0]).commit();
+        findFragemnt = new FindFragemnt();
+        fragments = new Fragment[]{homeFragment ,findFragemnt};
+        ((AppCompatActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                .add(R.id.main_fragment_container, fragments[0]).add(R.id.main_fragment_container, fragments[1]).show(fragments[0]).hide(fragments[1]).commit();
 
         paddingDate(DaoBaseImpl.getInstance(getContext()).getCurrentUser());
     }

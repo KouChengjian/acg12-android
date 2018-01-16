@@ -1,9 +1,12 @@
 package com.acg12.common.ui.base;
 
+import android.annotation.TargetApi;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.acg12.common.dao.DaoBaseImpl;
 import com.acg12.common.entity.User;
@@ -14,6 +17,7 @@ import com.acg12.common.utils.skin.listener.IDynamicNewView;
 import com.acg12.common.utils.skin.listener.ISkinUpdate;
 import com.acg12.kk.ui.IView;
 import com.acg12.kk.ui.base.PresenterActivityImpl;
+
 import java.util.List;
 
 /**
@@ -59,6 +63,19 @@ public class BaseActivity<T extends IView> extends PresenterActivityImpl<T> impl
         } else {
             return user;
         }
+    }
+
+    @TargetApi(19)
+    protected void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 
     /** --------------------skin 切换-------------------------*/

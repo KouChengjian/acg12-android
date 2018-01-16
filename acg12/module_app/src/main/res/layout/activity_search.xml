@@ -1,37 +1,74 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:skin="http://schemas.android.com/android/skin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/search_appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <android.support.v7.widget.Toolbar
+        style="@style/Widget.MaterialSheetFab.ToolBar"
+        android:background="@color/white"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:titleTextColor="@color/title">
 
-        <include layout="@layout/kk_common_action_bar"/>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/search_tabLayout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/theme_primary"
-            app:tabIndicatorColor="@color/white"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@color/grey400"
-            skin:enable="true" />
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
 
-    </android.support.design.widget.AppBarLayout>
+            <com.acg12.kk.widget.DeletableEditText
+                android:id="@+id/edt_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_rect_search"
+                android:drawableLeft="@mipmap/ic_action_title_search"
+                android:drawablePadding="10dp"
+                android:drawableRight="@mipmap/ic_login_delete"
+                android:gravity="center|left"
+                android:hint="搜索感兴趣的内容..."
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/title"
+                android:textColorHint="@color/title1"
+                android:textSize="12sp" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/search_viewpager"
+
+            <TextView
+                android:id="@+id/tv_search_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="取消"
+                android:textColor="@color/title" />
+        </LinearLayout>
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/appbar"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-</android.support.design.widget.CoordinatorLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="历史搜索"
+            android:textColor="@color/title1"
+            android:textSize="14sp" />
+
+        <org.acg12.widget.FlowLayout
+            android:id="@+id/history_flowlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

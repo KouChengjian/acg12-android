@@ -3,35 +3,39 @@ package org.acg12.ui.activity;
 import android.os.Bundle;
 import android.view.View;
 
-
-import org.acg12.R;
-import org.acg12.conf.Constant;
 import com.acg12.common.ui.base.BaseActivity;
-import com.acg12.common.utils.skin.AttrFactory;
-import com.acg12.common.utils.skin.entity.DynamicAttr;
+import com.acg12.kk.listener.ParameCallBack;
+
 import org.acg12.ui.views.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchActivity extends BaseActivity<SearchView> implements View.OnClickListener{
+public class SearchActivity extends BaseActivity<SearchView> implements View.OnClickListener , ParameCallBack {
 
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        String title = getIntent().getExtras().getString("title");
-        mView.bindData(title);
 
-        List<DynamicAttr> mDynamicAttr = new ArrayList<DynamicAttr>();
-        mDynamicAttr.add(new DynamicAttr(AttrFactory.TABLAYOUT, R.color.theme_primary));
-        dynamicAddView(mView.getTabLayout(), mDynamicAttr);
+        List<String> strList = new ArrayList<>();
+        strList.add("xixi");
+        strList.add("xixi");
+        strList.add("xixi");
+        strList.add("xixi");
+        strList.add("xixi");
+        strList.add("xixi");
+        strList.add("xixi");
+        strList.add("xixi");
+        mView.bindHistorySearch(strList);
     }
 
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if(id == Constant.TOOLBAR_ID){
-            aminFinish();
-        }
+    public void onClick(View view) {
+        super.onClick(view);
+    }
+
+    @Override
+    public void onCall(Object object) {
+
     }
 }
