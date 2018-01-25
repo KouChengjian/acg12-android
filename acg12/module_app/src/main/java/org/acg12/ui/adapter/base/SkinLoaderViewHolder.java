@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.acg12.kk.utils.ViewUtil;
 
 import org.acg12.R;
-import org.acg12.entity.Skin;
+import com.acg12.common.entity.Skin;
 import com.acg12.common.utils.skin.SkinManager;
 
 /**

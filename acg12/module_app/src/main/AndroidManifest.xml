@@ -68,10 +68,10 @@
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.CollectActivity"
-            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+            android:theme="@style/Theme.MaterialSheetFab.NoActionBar" />
         <activity
             android:name=".ui.activity.SearchInfoActivity"
-            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+            android:theme="@style/Theme.MaterialSheetFab.NoActionBar" />
         <activity
             android:name=".ui.activity.AboutActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />

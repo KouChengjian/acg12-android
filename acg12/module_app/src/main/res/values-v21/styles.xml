@@ -9,12 +9,12 @@
         <!--<item name="android:windowContentOverlay">@null</item>-->
     <!--</style>-->
 
-    <style name="Theme.MaterialSheetFab" parent="Theme.MaterialSheetFab.Base">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <!--<item name="android:navigationBarColor">@android:color/transparent</item>-->
-        <!--<item name="android:windowTranslucentNavigation">true</item>-->
-    </style>
+    <!--<style name="Theme.MaterialSheetFab" parent="Theme.MaterialSheetFab.Base">-->
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+        <!--&lt;!&ndash;<item name="android:navigationBarColor">@android:color/transparent</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:windowTranslucentNavigation">true</item>&ndash;&gt;-->
+    <!--</style>-->
 
 
     <!--<style name="Theme.MaterialSheetFab.SwipeBackLayout" parent="Theme.MaterialSheetFab.Base">-->

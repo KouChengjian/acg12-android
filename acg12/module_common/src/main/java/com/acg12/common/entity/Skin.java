@@ -1,4 +1,4 @@
-package org.acg12.entity;
+package com.acg12.common.entity;
 
 /**
  * Created by DELL on 2016/12/29.

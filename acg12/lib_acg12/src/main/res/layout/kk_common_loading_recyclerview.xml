@@ -3,11 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ViewStub
-        android:id="@+id/layout_load_null"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout="@layout/kk_common_loading_null" />
+    <include layout="@layout/kk_common_loading_schedule"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/mSwipeRefreshLayout"

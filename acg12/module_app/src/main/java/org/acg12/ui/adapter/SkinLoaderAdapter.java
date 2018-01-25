@@ -11,7 +11,7 @@ import com.acg12.kk.utils.CacheUtils;
 import com.acg12.kk.utils.Toastor;
 
 import org.acg12.R;
-import org.acg12.entity.Skin;
+import com.acg12.common.entity.Skin;
 import com.acg12.common.utils.skin.listener.ILoaderListener;
 import org.acg12.ui.adapter.base.SkinLoaderViewHolder;
 import com.acg12.common.utils.skin.SkinManager;

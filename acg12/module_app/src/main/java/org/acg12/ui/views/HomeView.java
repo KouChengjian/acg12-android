@@ -1,17 +1,25 @@
 package org.acg12.ui.views;
 
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.acg12.kk.conf.CollapsingToolbarLayoutState;
 import com.acg12.kk.ui.ViewImpl;
 import com.acg12.kk.ui.base.PresenterHelper;
 import com.acg12.kk.utils.PixelUtil;
-import com.acg12.kk.widget.CommonRecycleview;
+import com.acg12.kk.utils.loadimage.ImageLoadUtils;
 
 import org.acg12.R;
+import org.acg12.entity.Home;
 import org.acg12.ui.adapter.HomeTagAdapter;
 
 import java.util.List;
@@ -23,13 +31,28 @@ import butterknife.BindView;
  */
 public class HomeView extends ViewImpl {
 
-    @BindView(R.id.common_recyclerview)
-    CommonRecycleview commonRecycleview;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.search_appbar)
+    AppBarLayout appbar;
+    @BindView(R.id.collapsingToolbarLayout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    @BindView(R.id.home_toolbar)
+    Toolbar toolbar;
 
+    @BindView(R.id.layout_container)
     protected RelativeLayout layout_container;
+    @BindView(R.id.iv_home_cover)
+    ImageView iv_home_cover;
+    @BindView(R.id.btn_home_search)
     View btn_home_search;
+    @BindView(R.id.common_recyclerview)
+    RecyclerView commonRecycleview;
 
     HomeTagAdapter homeTagAdapter;
+
+    MenuItem searchMenu;
+    CollapsingToolbarLayoutState state = CollapsingToolbarLayoutState.EXPANDED;
 
     @Override
     public int getLayoutId() {
@@ -39,35 +62,70 @@ public class HomeView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        View header = LayoutInflater.from(getContext()).inflate(R.layout.include_home_header, null);
-        layout_container = (RelativeLayout) header.findViewById(R.id.layout_container);
-        btn_home_search = header.findViewById(R.id.btn_home_search);
+        toolbar.setNavigationIcon(R.mipmap.ic_action_home);
+        toolbar.inflateMenu(R.menu.menu_main);
+
+        searchMenu = toolbar.getMenu().findItem(R.id.menu_main_search);
+        searchMenu.setVisible(false);
+
         ViewGroup.LayoutParams layoutParams = layout_container.getLayoutParams();
         layoutParams.height = PixelUtil.getScreenWidthPx(getContext()) / 4 * 3;
         layout_container.setLayoutParams(layoutParams);
 
-        commonRecycleview.addHeader(header, true);
-        commonRecycleview.setStaggeredGridLayoutManager();
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        commonRecycleview.setLayoutManager(staggeredGridLayoutManager);
         homeTagAdapter = new HomeTagAdapter(getContext());
         commonRecycleview.setAdapter(homeTagAdapter);
-//      commonRecycleview.startRefreshing();
 
-
+        swipeRefreshLayout.setColorSchemeResources(com.acg12.kk.R.color.theme_body);
+        swipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(getContext(), 50), PixelUtil.dp2px(getContext(), 24));
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter , btn_home_search);
-        commonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
+        PresenterHelper.click(mPresenter, toolbar, btn_home_search);
+        swipeRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
+        appbar.addOnOffsetChangedListener((AppBarLayout.OnOffsetChangedListener) mPresenter);
+    }
+
+    public void bindData(Home home) {
+        ImageLoadUtils.glideLoading(home.getCover(), iv_home_cover);
+        addObjectList(home.getTagsList());
     }
 
     public void addObjectList(List list) {
         homeTagAdapter.addAll(list);
+        homeTagAdapter.notifyDataSetChanged();
     }
 
+    public void toolbarExpanded() {
+        if (state != CollapsingToolbarLayoutState.EXPANDED) {
+            state = CollapsingToolbarLayoutState.EXPANDED;//修改状态标记为展开
+            swipeRefreshLayout.setEnabled(true);
+        }
+    }
+
+    public void toolbarCollapsed() {
+        if (state != CollapsingToolbarLayoutState.COLLAPSED) {
+            collapsingToolbarLayout.setTitle("");//设置title不显示
+            searchMenu.setVisible(true);
+            state = CollapsingToolbarLayoutState.COLLAPSED;//修改状态标记为折叠
+        }
+    }
+
+    public void toolbarInternediate() {
+        if (state != CollapsingToolbarLayoutState.INTERNEDIATE) {
+            if (state == CollapsingToolbarLayoutState.COLLAPSED) {
+                searchMenu.setVisible(false);
+            }
+            state = CollapsingToolbarLayoutState.INTERNEDIATE;//修改状态标记为中间
+        }
+        swipeRefreshLayout.setEnabled(false);
+    }
 
     public void stopRefreshing() {
-        commonRecycleview.stopRefreshLoadMore(true);
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

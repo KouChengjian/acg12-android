@@ -1,10 +1,11 @@
 package org.acg12;
 
 import com.acg12.common.BaseApplication;
+import com.acg12.common.utils.skin.SkinManager;
 
 import org.acg12.conf.Config;
 import org.acg12.net.HttpRequestImpl;
-import com.acg12.common.utils.skin.SkinManager;
+import org.acg12.utlis.cache.Cache;
 
 
 //                          _oo0oo_
@@ -40,6 +41,7 @@ public class MyApplication extends BaseApplication {
 	public void onCreate() {
 		super.onCreate();
 		new Config(this);
+		new Cache(this);
 		new HttpRequestImpl(this);
 		SkinManager.getInstance().init(this);
 		SkinManager.getInstance().load();

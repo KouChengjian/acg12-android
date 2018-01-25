@@ -1,24 +1,32 @@
 package org.acg12.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.acg12.common.ui.base.BaseFragment;
+import com.acg12.kk.listener.HttpRequestListener;
+import com.acg12.kk.utils.LogUtil;
 
 import org.acg12.R;
+import org.acg12.entity.Home;
+import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.SearchActivity;
 import org.acg12.ui.views.HomeView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class HomeFragment extends BaseFragment<HomeView> implements SwipeRefreshLayout.OnRefreshListener ,View.OnClickListener{
+public class HomeFragment extends BaseFragment<HomeView> implements SwipeRefreshLayout.OnRefreshListener ,View.OnClickListener , AppBarLayout.OnOffsetChangedListener {
 
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        refresh();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refresh();
+            }
+        },2 * 1000);
     }
 
     @Override
@@ -34,17 +42,39 @@ public class HomeFragment extends BaseFragment<HomeView> implements SwipeRefresh
     }
 
     @Override
-    public void onRefresh() {
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if (verticalOffset == 0) {
+            mView.toolbarExpanded();
+        } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
+            mView.toolbarCollapsed();
+        } else {
+            mView.toolbarInternediate();
+        }
 
+    }
+
+    @Override
+    public void onRefresh() {
+        refresh();
     }
 
     public void refresh(){
-        List<Object > objectList = new ArrayList<>();
-        for (int i = 0 ; i < 10 ; i++){
-            objectList.add(new Object());
-        }
-        mView.addObjectList(objectList);
+        HttpRequestImpl.getInstance().index(currentUser(), new HttpRequestListener<Home>() {
+            @Override
+            public void onSuccess(Home result) {
+                mView.bindData(result);
+                mView.stopRefreshing();
+            }
+
+            @Override
+            public void onFailure(int errorcode, String msg) {
+                ShowToast(msg);
+                LogUtil.e(msg);
+                mView.stopRefreshing();
+            }
+        });
     }
+
 
 
 }

@@ -6,9 +6,13 @@ import com.acg12.common.entity.User;
 import com.acg12.kk.listener.HttpRequestListener;
 
 import org.acg12.entity.Album;
+import org.acg12.entity.Home;
 import org.acg12.entity.Palette;
+import org.acg12.entity.Search;
+import org.acg12.entity.Tags;
 import org.acg12.entity.Video;
 import org.acg12.net.base.HttpRequest;
+import org.acg12.utlis.URLEncoderUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -36,6 +40,42 @@ public class HttpRequestImpl implements HttpRequest {
 
     public static HttpRequestImpl getInstance() {
         return instance;
+    }
+
+    @Override
+    public Subscription index(User user,final HttpRequestListener<Home> httpRequestListener) {
+        return RetrofitClient.with(user).index()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if(data != null){
+                            JSONObject index = RetrofitClient.getJSONObject(data , "list");
+                            Home home = new Home();
+                            home.setCover(RetrofitClient.getString(index , "cover"));
+
+                            List<Tags> list = new ArrayList<>();
+                            JSONArray array = RetrofitClient.getJSONArray(index , "list");
+                            for(int i = 0 , num = array.length(); i < num ; i++){
+                                JSONObject item = RetrofitClient.getJSONObject(array , i);
+                                Tags tags = new Tags();
+                                tags.setTitle(RetrofitClient.getString(item , "title"));
+                                tags.setCover(RetrofitClient.getString(item , "cover"));
+                                list.add(tags);
+                            }
+                            home.setTagsList(list);
+
+                            httpRequestListener.onSuccess(home);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
     }
 
     @Override
@@ -465,6 +505,37 @@ public class HttpRequestImpl implements HttpRequest {
                     }
                 });
         return subscription;
+    }
+
+    @Override
+    public Subscription searchKeyList(User user, String key, final HttpRequestListener<List<Search>> httpRequestListener) {
+        return RetrofitClient.with(user).searchKeyList(URLEncoderUtil.encode(key))
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        List<Search> list = new ArrayList<>();
+                        JSONObject data = RetrofitClient.parseJSONObject(response);
+                        if(data != null){
+                            JSONArray array = RetrofitClient.getJSONArray(data , "list");
+                            for(int i = 0 , num = array.length(); i < num ; i++){
+                                JSONObject item = RetrofitClient.getJSONObject(array , i);
+                                Search search = new Search();
+                                search.setSearchId(RetrofitClient.getInt(item ,"pageid"));
+                                search.setTitle(RetrofitClient.getString(item ,"title"));
+                                search.setSource(RetrofitClient.getString(item ,"source"));
+                                list.add(search);
+                            }
+                            httpRequestListener.onSuccess(list);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitClient.failure(throwable , httpRequestListener);
+                    }
+                });
     }
 
 //    @Override

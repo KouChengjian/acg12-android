@@ -5,7 +5,9 @@ import com.acg12.common.entity.User;
 import com.acg12.kk.listener.HttpRequestListener;
 
 import org.acg12.entity.Album;
+import org.acg12.entity.Home;
 import org.acg12.entity.Palette;
+import org.acg12.entity.Search;
 import org.acg12.entity.Video;
 
 import java.util.List;
@@ -14,7 +16,7 @@ import rx.Subscription;
 
 public interface HttpRequest {
 
-
+    Subscription index(User user , HttpRequestListener<Home> httpRequestListener);
 
     Subscription albumList(User user , String pinId , HttpRequestListener<List<Album>> httpRequestListener);
 
@@ -39,6 +41,8 @@ public interface HttpRequest {
     Subscription searchBangumi(User user ,String key , String page ,HttpRequestListener<List<Video>> httpRequestListener);
 
     Subscription searchVideo(User user ,String key , String page , HttpRequestListener<List<Video>> httpRequestListener);
+
+    Subscription searchKeyList(User user ,String key ,HttpRequestListener<List<Search>> httpRequestListener);
 
 //    void updateToken(User user, HttpRequestListener<User> httpRequestListener);
 //

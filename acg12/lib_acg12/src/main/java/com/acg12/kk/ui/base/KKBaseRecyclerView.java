@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/12/13.
  */
-public class KKBaseRecyclerView extends RecyclerView.ViewHolder {
+public abstract class KKBaseRecyclerView extends RecyclerView.ViewHolder {
 
     public KKBaseRecyclerView(View itemView) {
         super(itemView);
@@ -22,5 +22,5 @@ public class KKBaseRecyclerView extends RecyclerView.ViewHolder {
     protected void initEvent() {}
 
 
-    public void bindData(Context mContext, final List<Object> list, int position) {}
+    public abstract void bindData(Context mContext, final List list, int position) ;
 }

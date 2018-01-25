@@ -16,6 +16,7 @@ import com.acg12.kk.utils.LogUtil;
 import org.acg12.R;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/6/14.
@@ -50,6 +51,11 @@ public class DownloadViewHolder extends KKBaseRecyclerView {
         cancel = (TextView) itemView.findViewById(R.id.cancel);
         restart = (TextView) itemView.findViewById(R.id.restart);
         tv_download_state = (TextView) itemView.findViewById(R.id.tv_download_state);
+    }
+
+    @Override
+    public void bindData(Context mContext, List list, int position) {
+
     }
 
     public void bindData(final Context mContext, final DownLoad data) {

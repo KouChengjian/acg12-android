@@ -11,6 +11,9 @@ import rx.Observable;
  */
 public interface ApiService {
 
+    @GET("res/index")
+    Observable<ResponseBody> index();
+
     @GET("res/p/album")
     Observable<ResponseBody> albumList(@Query("action") String action , @Query("max") String pinId);
 
@@ -43,6 +46,9 @@ public interface ApiService {
 
     @GET("res/v/search/video")
     Observable<ResponseBody> searchVideo(@Query("key") String key , @Query("page") String page);
+
+    @GET("res/search/key")
+    Observable<ResponseBody> searchKeyList(@Query("key") String key);
 
 
 //    @FormUrlEncoded

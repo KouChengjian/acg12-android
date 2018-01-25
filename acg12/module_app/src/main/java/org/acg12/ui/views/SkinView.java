@@ -7,7 +7,7 @@ import com.acg12.kk.ui.base.PresenterHelper;
 import com.acg12.kk.widget.CommonRecycleview;
 
 import org.acg12.R;
-import org.acg12.entity.Skin;
+import com.acg12.common.entity.Skin;
 import org.acg12.ui.adapter.SkinLoaderAdapter;
 
 import butterknife.BindView;

@@ -6,10 +6,11 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/search_toolbar"
         style="@style/Widget.MaterialSheetFab.ToolBar"
-        android:background="@color/white"
+        android:background="@color/theme_primary"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:titleTextColor="@color/title">
+        app:titleTextColor="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,8 +33,9 @@
                 android:paddingRight="10dp"
                 android:textColor="@color/title"
                 android:textColorHint="@color/title1"
-                android:textSize="12sp" />
-
+                android:textSize="14sp"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"/>
 
             <TextView
                 android:id="@+id/tv_search_finish"
@@ -44,13 +46,15 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="取消"
-                android:textColor="@color/title" />
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </LinearLayout>
 
 
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
+        android:id="@+id/layout_search_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -70,5 +74,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <com.acg12.kk.widget.CommonRecycleview
+        android:id="@+id/common_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="gone"/>
 
 </LinearLayout>

@@ -1,5 +1,7 @@
 package org.acg12.ui.views;
 
+import android.graphics.Color;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -23,14 +25,16 @@ import butterknife.BindView;
  */
 public class SearchInfoView extends ViewImpl {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.search_toolbar)
+    protected Toolbar toolbar;
     @BindView(R.id.search_tabLayout)
-    TabLayout mTabLayout;
+    protected TabLayout mTabLayout;
     @BindView(R.id.search_viewpager)
-    ViewPager mViewpager;
+    protected ViewPager mViewpager;
+    @BindView(R.id.collapsingToolbarLayout)
+    CollapsingToolbarLayout mCollapsingToolbarLayout;
 
-    Fragment[] fragments;
+    protected Fragment[] fragments;
     SearchPagerAdapter searchPagerAdapter;
     SearchAlbumFragment searchAlbumFragment;
     SearchPaletteFragment searchPaletteFragment;
@@ -48,6 +52,9 @@ public class SearchInfoView extends ViewImpl {
         super.created();
         toolbar.setNavigationIcon(R.mipmap.ic_action_back);
         toolbar.setTitle(getContext().getString(R.string.search));
+        mCollapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);//设置还没收缩时状态下字体颜色
+        mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);//设置收缩后Toolbar上字体的颜色
+        mCollapsingToolbarLayout.setTitleEnabled(false);
     }
 
     @Override

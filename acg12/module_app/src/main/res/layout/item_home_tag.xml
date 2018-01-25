@@ -4,9 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.acg12.kk.widget.ScaleImageView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:src="@mipmap/bg_loading_pic"/>
+        android:src="@mipmap/bg_loading_pic"
+        android:scaleType="fitXY"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
 </LinearLayout>
