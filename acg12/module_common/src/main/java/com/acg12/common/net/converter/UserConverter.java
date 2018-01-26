@@ -2,7 +2,7 @@ package com.acg12.common.net.converter;
 
 import com.acg12.common.entity.User;
 import com.acg12.common.net.UserRetrofitClient;
-import com.acg12.kk.net.factory.AbstractResponseConverter;
+import com.acg12.lib.net.factory.AbstractResponseConverter;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;

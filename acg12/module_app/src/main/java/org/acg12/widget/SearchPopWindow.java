@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
-import com.acg12.kk.utils.ViewUtil;
-import com.acg12.kk.widget.DeletableEditText;
+import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.widget.DeletableEditText;
 
 import org.acg12.R;
 import org.acg12.conf.Constant;

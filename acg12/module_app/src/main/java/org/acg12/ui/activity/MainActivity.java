@@ -9,23 +9,23 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.acg12.common.dao.DaoBaseImpl;
-import com.acg12.common.entity.Update;
-import com.acg12.common.entity.User;
-import com.acg12.common.net.UserHttpRequestImpl;
-import com.acg12.common.net.download.DownloadManger;
-import com.acg12.common.ui.activity.LoginActivity;
-import com.acg12.common.ui.base.BaseActivity;
-import com.acg12.common.utils.skin.AttrFactory;
-import com.acg12.common.utils.skin.entity.DynamicAttr;
-import com.acg12.common.widget.UpdateDialog;
-import com.acg12.kk.listener.HttpRequestListener;
-import com.acg12.kk.utils.AppUtil;
-import com.acg12.kk.utils.LogUtil;
+import com.acg12.lib.dao.DaoBaseImpl;
+import com.acg12.lib.entity.Update;
+import com.acg12.lib.entity.User;
+import com.acg12.lib.listener.HttpRequestListener;
+import com.acg12.lib.net.UserHttpRequestImpl;
+import com.acg12.lib.net.download.DownloadManger;
+import com.acg12.lib.ui.activity.LoginActivity;
+import com.acg12.lib.utils.AppUtil;
+import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.utils.skin.AttrFactory;
+import com.acg12.lib.utils.skin.entity.DynamicAttr;
+import com.acg12.lib.widget.UpdateDialog;
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
+import org.acg12.ui.base.BaseActivity;
 import org.acg12.ui.views.MainView;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -87,7 +87,7 @@ public class MainActivity extends BaseActivity<MainView> implements NavigationVi
             case R.id.nav_home:
                 mView.onTabSelect(0);
                 break;
-            case R.id.nav_home_1:
+            case R.id.nav_find:
                 mView.onTabSelect(1);
                 break;
             case R.id.nav_star:

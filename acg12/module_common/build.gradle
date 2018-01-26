@@ -24,7 +24,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    debugCompile project(path: ':lib_acg12', configuration: "debug")
-    releaseCompile project(path: ':lib_acg12', configuration: "release")
+    debugCompile project(path: ':module_libs', configuration: "debug")
+    releaseCompile project(path: ':module_libs', configuration: "release")
 //    compile project(':lib_acg12')
 }

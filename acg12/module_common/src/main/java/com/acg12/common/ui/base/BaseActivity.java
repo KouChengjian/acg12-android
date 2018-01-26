@@ -15,8 +15,8 @@ import com.acg12.common.utils.skin.SkinManager;
 import com.acg12.common.utils.skin.entity.DynamicAttr;
 import com.acg12.common.utils.skin.listener.IDynamicNewView;
 import com.acg12.common.utils.skin.listener.ISkinUpdate;
-import com.acg12.kk.ui.IView;
-import com.acg12.kk.ui.base.PresenterActivityImpl;
+import com.acg12.lib.ui.IView;
+import com.acg12.lib.ui.base.PresenterActivityImpl;
 
 import java.util.List;
 

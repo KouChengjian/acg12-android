@@ -8,15 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.acg12.kk.listener.HttpRequestListener;
-import com.acg12.kk.listener.ItemClickSupport;
-import com.acg12.kk.widget.IRecycleView;
+import com.acg12.lib.listener.HttpRequestListener;
+import com.acg12.lib.listener.ItemClickSupport;
+import com.acg12.lib.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.Palette;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewPaletteActivity;
-import com.acg12.common.ui.base.BaseFragment;
+import org.acg12.ui.base.BaseFragment;
 import org.acg12.ui.views.SearchPaletteView;
 
 import java.util.List;

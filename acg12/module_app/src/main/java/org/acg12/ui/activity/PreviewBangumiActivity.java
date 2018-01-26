@@ -6,14 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.acg12.common.ui.base.BaseActivity;
-import com.acg12.kk.listener.HttpRequestListener;
-import com.acg12.kk.listener.ItemClickSupport;
+import com.acg12.lib.listener.HttpRequestListener;
+import com.acg12.lib.listener.ItemClickSupport;
 
 import org.acg12.R;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Video;
 import org.acg12.net.HttpRequestImpl;
+import org.acg12.ui.base.BaseActivity;
 import org.acg12.ui.views.PreviewBangumiView;
 
 public class PreviewBangumiActivity extends BaseActivity<PreviewBangumiView> implements View.OnClickListener,

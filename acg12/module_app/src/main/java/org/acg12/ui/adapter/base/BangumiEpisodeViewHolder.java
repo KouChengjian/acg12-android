@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.acg12.kk.utils.ViewUtil;
+import com.acg12.lib.utils.ViewUtil;
 
 import org.acg12.R;
 import org.acg12.entity.Video;

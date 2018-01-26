@@ -1,6 +1,6 @@
 package org.acg12.entity;
 
-import com.acg12.common.entity.Param;
+import com.acg12.lib.entity.Param;
 import com.litesuits.orm.db.annotation.Table;
 
 @Table("album")

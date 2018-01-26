@@ -11,12 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.acg12.kk.conf.CollapsingToolbarLayoutState;
-import com.acg12.kk.ui.ViewImpl;
-import com.acg12.kk.ui.base.PresenterHelper;
-import com.acg12.kk.utils.PixelUtil;
-import com.acg12.kk.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.conf.CollapsingToolbarLayoutState;
+import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.utils.PixelUtil;
+import com.acg12.lib.utils.loadimage.ImageLoadUtils;
 
 import org.acg12.R;
 import org.acg12.entity.Home;
@@ -46,6 +47,10 @@ public class HomeView extends ViewImpl {
     ImageView iv_home_cover;
     @BindView(R.id.btn_home_search)
     View btn_home_search;
+    @BindView(R.id.btn_newest_news)
+    TextView btn_newest_news;
+    @BindView(R.id.btn_newest_illustration)
+    TextView btn_newest_illustration;
     @BindView(R.id.common_recyclerview)
     RecyclerView commonRecycleview;
 
@@ -77,7 +82,7 @@ public class HomeView extends ViewImpl {
         homeTagAdapter = new HomeTagAdapter(getContext());
         commonRecycleview.setAdapter(homeTagAdapter);
 
-        swipeRefreshLayout.setColorSchemeResources(com.acg12.kk.R.color.theme_body);
+        swipeRefreshLayout.setColorSchemeResources(com.acg12.lib.R.color.theme_body);
         swipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(getContext(), 50), PixelUtil.dp2px(getContext(), 24));
         swipeRefreshLayout.setRefreshing(true);
     }
@@ -85,13 +90,15 @@ public class HomeView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter, toolbar, btn_home_search);
+        PresenterHelper.click(mPresenter, toolbar, btn_home_search ,btn_newest_news ,btn_newest_illustration);
+        toolbar.setOnMenuItemClickListener((Toolbar.OnMenuItemClickListener) mPresenter);
         swipeRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
         appbar.addOnOffsetChangedListener((AppBarLayout.OnOffsetChangedListener) mPresenter);
     }
 
     public void bindData(Home home) {
         ImageLoadUtils.glideLoading(home.getCover(), iv_home_cover);
+        homeTagAdapter.getList().clear();
         addObjectList(home.getTagsList());
     }
 

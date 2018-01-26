@@ -10,11 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.acg12.kk.listener.ParameCallBack;
-import com.acg12.kk.ui.ViewImpl;
-import com.acg12.kk.ui.base.PresenterHelper;
-import com.acg12.kk.widget.CommonRecycleview;
-import com.acg12.kk.widget.DeletableEditText;
+import com.acg12.lib.listener.ParameCallBack;
+import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.widget.CommonRecycleview;
+import com.acg12.lib.widget.DeletableEditText;
 
 import org.acg12.R;
 import org.acg12.ui.adapter.SearchAdapter;
@@ -68,6 +68,7 @@ public class SearchView extends ViewImpl {
         super.bindEvent();
         PresenterHelper.click(mPresenter, tv_search_finish);
         edt_search.addTextChangedListener((TextWatcher)mPresenter);
+        edt_search.setOnEditorActionListener((TextView.OnEditorActionListener)mPresenter);
     }
 
     public void startLoading(){

@@ -3,10 +3,10 @@ package org.acg12.ui.view;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-import com.acg12.kk.ui.ViewImpl;
-import com.acg12.kk.ui.base.PresenterHelper;
-import com.acg12.kk.utils.AppUtil;
-import com.acg12.kk.utils.ViewUtil;
+import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.utils.AppUtil;
+import com.acg12.lib.utils.ViewUtil;
 
 import org.acg12.R;
 

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.acg12.kk.ui.base.KKBaseRecyclerAdapter;
+import com.acg12.lib.ui.base.CommonRecyclerAdapter;
 
 import org.acg12.R;
 import org.acg12.ui.adapter.base.SearchViewHolder;
@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Administrator on 2018/1/18.
  */
 
-public class SearchAdapter extends KKBaseRecyclerAdapter {
+public class SearchAdapter extends CommonRecyclerAdapter {
 
     public SearchAdapter(Context mContext) {
         super(mContext);

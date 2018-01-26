@@ -7,7 +7,7 @@ import com.acg12.common.dao.DaoBaseImpl;
 import com.acg12.common.entity.DownLoad;
 import com.acg12.common.listener.DownLoadCallback;
 import com.acg12.common.utils.ThreadPool;
-import com.acg12.kk.utils.LogUtil;
+import com.acg12.lib.utils.LogUtil;
 
 import java.io.InputStream;
 import java.util.HashMap;

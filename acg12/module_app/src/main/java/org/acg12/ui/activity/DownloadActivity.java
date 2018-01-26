@@ -5,13 +5,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.acg12.common.dao.DaoBaseImpl;
-import com.acg12.common.entity.DownLoad;
-import com.acg12.common.ui.base.BaseActivity;
-import com.acg12.kk.listener.ItemClickSupport;
-import com.acg12.kk.widget.IRecycleView;
+import com.acg12.lib.dao.DaoBaseImpl;
+import com.acg12.lib.entity.DownLoad;
+import com.acg12.lib.listener.ItemClickSupport;
+import com.acg12.lib.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
+import org.acg12.ui.base.BaseActivity;
 import org.acg12.ui.views.DownloadView;
 import org.acg12.widget.AlertDialogView;
 

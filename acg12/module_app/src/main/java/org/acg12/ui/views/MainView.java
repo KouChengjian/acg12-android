@@ -12,12 +12,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.acg12.common.dao.DaoBaseImpl;
-import com.acg12.common.entity.User;
-import com.acg12.kk.ui.ViewImpl;
-import com.acg12.kk.ui.base.PresenterHelper;
-import com.acg12.kk.utils.ViewUtil;
-import com.acg12.kk.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.dao.DaoBaseImpl;
+import com.acg12.lib.entity.User;
+import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.utils.loadimage.ImageLoadUtils;
 
 import org.acg12.R;
 import org.acg12.ui.fragment.FindFragemnt;
@@ -64,7 +64,7 @@ public class MainView extends ViewImpl {
         Menu menu = navigationView.getMenu();
         mTabs = new MenuItem[menu.size()];
         mTabs[0] = menu.findItem(R.id.nav_home);
-        mTabs[1] = menu.findItem(R.id.nav_color_lens);
+        mTabs[1] = menu.findItem(R.id.nav_find);
 
         homeFragment = new HomeFragment();
         findFragemnt = new FindFragemnt();

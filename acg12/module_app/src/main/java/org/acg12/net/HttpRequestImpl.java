@@ -2,8 +2,8 @@ package org.acg12.net;
 
 import android.content.Context;
 
-import com.acg12.common.entity.User;
-import com.acg12.kk.listener.HttpRequestListener;
+import com.acg12.lib.entity.User;
+import com.acg12.lib.listener.HttpRequestListener;
 
 import org.acg12.entity.Album;
 import org.acg12.entity.Home;
@@ -43,7 +43,7 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
-    public Subscription index(User user,final HttpRequestListener<Home> httpRequestListener) {
+    public Subscription index(User user, final HttpRequestListener<Home> httpRequestListener) {
         return RetrofitClient.with(user).index()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

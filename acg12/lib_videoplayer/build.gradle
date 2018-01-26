@@ -23,8 +23,8 @@ android {
 }
 
 dependencies {
-    debugCompile project(path: ':lib_acg12', configuration: "debug")
-    releaseCompile project(path: ':lib_acg12', configuration: "release")
+    debugCompile project(path: ':module_libs', configuration: "debug")
+    releaseCompile project(path: ':module_libs', configuration: "release")
 
     compile 'com.github.ctiao:DanmakuFlameMaster:0.6.4'
     compile 'com.github.ctiao:ndkbitmap-armv7a:0.6.4'
@@ -33,7 +33,6 @@ dependencies {
     compile 'tv.danmaku.ijk.media:ijkplayer-exo:0.7.5'
     compile 'com.andkulikov:transitionseverywhere:1.7.0'
     compile 'com.danikula:videocache:2.6.4'
-    //    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 repositories {

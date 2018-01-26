@@ -6,8 +6,8 @@ import com.acg12.common.dao.DaoBaseImpl;
 import com.acg12.common.entity.Update;
 import com.acg12.common.entity.User;
 import com.acg12.common.net.base.UserHttpRequest;
-import com.acg12.kk.listener.HttpRequestListener;
-import com.acg12.kk.utils.LogUtil;
+import com.acg12.lib.listener.HttpRequestListener;
+import com.acg12.lib.utils.LogUtil;
 
 import org.json.JSONObject;
 

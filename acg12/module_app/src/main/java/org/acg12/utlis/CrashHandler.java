@@ -4,9 +4,9 @@ import android.content.pm.PackageInfo;
 import android.os.Looper;
 import android.util.Log;
 
-import com.acg12.kk.utils.AppUtil;
-import com.acg12.kk.utils.CacheUtils;
-import com.acg12.kk.utils.Toastor;
+import com.acg12.lib.utils.AppUtil;
+import com.acg12.lib.utils.CacheUtils;
+import com.acg12.lib.utils.Toastor;
 
 import org.acg12.MyApplication;
 

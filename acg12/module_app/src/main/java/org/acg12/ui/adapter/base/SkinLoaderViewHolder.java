@@ -5,11 +5,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.acg12.kk.utils.ViewUtil;
+import com.acg12.lib.entity.Skin;
+import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.utils.skin.SkinManager;
 
 import org.acg12.R;
-import com.acg12.common.entity.Skin;
-import com.acg12.common.utils.skin.SkinManager;
 
 /**
  * Created by DELL on 2016/12/29.
@@ -29,7 +29,7 @@ public class SkinLoaderViewHolder extends RecyclerView.ViewHolder {
         skin_switch = (TextView) itemView.findViewById(R.id.skin_switch);
     }
 
-    public void bindData(int position ,Skin skin, View.OnClickListener listener) {
+    public void bindData(int position , Skin skin, View.OnClickListener listener) {
         skin_bg.setBackgroundColor(skin.getColor());
         skin_name.setTextColor(skin.getColor());
         ViewUtil.setText(skin_name, skin.getName());

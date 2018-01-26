@@ -5,23 +5,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
-import com.acg12.common.dao.DaoBaseImpl;
-import com.acg12.common.entity.Update;
-import com.acg12.common.entity.User;
-import com.acg12.common.net.UserHttpRequestImpl;
-import com.acg12.common.widget.UpdateDialog;
-import com.acg12.kk.listener.HttpRequestListener;
-import com.acg12.kk.utils.AppUtil;
-import com.acg12.kk.utils.LogUtil;
-import com.acg12.kk.utils.ViewUtil;
-import com.acg12.kk.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.dao.DaoBaseImpl;
+import com.acg12.lib.entity.Update;
+import com.acg12.lib.entity.User;
+import com.acg12.lib.listener.HttpRequestListener;
+import com.acg12.lib.net.UserHttpRequestImpl;
+import com.acg12.lib.utils.AppUtil;
+import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.widget.UpdateDialog;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
-import com.acg12.common.ui.base.BaseActivity;
+import org.acg12.ui.base.BaseActivity;
 import org.acg12.ui.views.SettingView;
 import org.acg12.widget.AlertDialogView;
+
 
 public class SettingActivity extends BaseActivity<SettingView> implements View.OnClickListener {
 

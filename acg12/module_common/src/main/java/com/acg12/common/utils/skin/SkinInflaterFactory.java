@@ -11,7 +11,7 @@ import android.view.View;
 import com.acg12.common.utils.skin.entity.DynamicAttr;
 import com.acg12.common.utils.skin.entity.SkinAttr;
 import com.acg12.common.utils.skin.entity.SkinItem;
-import com.acg12.kk.utils.LogUtil;
+import com.acg12.lib.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;

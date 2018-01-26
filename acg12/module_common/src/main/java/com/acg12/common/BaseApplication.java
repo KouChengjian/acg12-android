@@ -4,9 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-import com.acg12.kk.conf.BaseConstant;
-import com.acg12.kk.utils.Toastor;
-import com.acg12.kk.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.conf.BaseConstant;
+import com.acg12.lib.utils.Toastor;
+import com.acg12.lib.utils.loadimage.ImageLoadUtils;
 import com.facebook.stetho.Stetho;
 
 //                          _oo0oo_

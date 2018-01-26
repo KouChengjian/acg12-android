@@ -3,12 +3,12 @@ package org.acg12.ui.activity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.acg12.common.ui.base.BaseActivity;
-import com.acg12.common.utils.skin.AttrFactory;
-import com.acg12.common.utils.skin.entity.DynamicAttr;
+import com.acg12.lib.utils.skin.AttrFactory;
+import com.acg12.lib.utils.skin.entity.DynamicAttr;
 
 import org.acg12.R;
 import org.acg12.conf.Constant;
+import org.acg12.ui.base.BaseActivity;
 import org.acg12.ui.views.SearchInfoView;
 
 import java.util.ArrayList;

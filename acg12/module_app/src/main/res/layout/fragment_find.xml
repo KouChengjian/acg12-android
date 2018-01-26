@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
-            <include layout="@layout/kk_common_action_bar" />
+            <include layout="@layout/common_action_bar" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

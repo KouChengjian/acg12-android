@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/kk_common_action_bar" />
+    <include layout="@layout/common_action_bar" />
 
     <com.acg12.kk.widget.DeletableEditText
         android:id="@+id/edt_nick"

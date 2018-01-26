@@ -5,11 +5,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.acg12.common.entity.User;
-import com.acg12.kk.ui.ViewImpl;
-import com.acg12.kk.ui.base.PresenterHelper;
-import com.acg12.kk.utils.ViewUtil;
-import com.acg12.kk.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.entity.User;
+import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.utils.loadimage.ImageLoadUtils;
 
 import org.acg12.R;
 

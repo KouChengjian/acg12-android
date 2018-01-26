@@ -7,9 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.acg12.kk.utils.ViewUtil;
-import com.acg12.kk.utils.loadimage.ImageLoadUtils;
-import com.acg12.kk.widget.ScaleImageView;
+import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.widget.ScaleImageView;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SizeReadyCallback;

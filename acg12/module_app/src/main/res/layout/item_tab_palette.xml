@@ -15,14 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.acg12.kk.widget.ScaleImageView
+            <com.acg12.lib.widget.ScaleImageView
                 android:id="@+id/iv_fragment_palete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
                 android:layout_marginTop="3dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/kk_bg_loading_pic" />
+                android:src="@mipmap/bg_loading_pic" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginRight="5dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/kk_bg_loading_pic" />
+                    android:src="@mipmap/bg_loading_pic" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -90,7 +90,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginRight="5dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/kk_bg_loading_pic" />
+                    android:src="@mipmap/bg_loading_pic" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -107,7 +107,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginRight="5dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/kk_bg_loading_pic" />
+                    android:src="@mipmap/bg_loading_pic" />
             </RelativeLayout>
 
         </LinearLayout>

@@ -2,7 +2,7 @@ package com.acg12.common.net.base;
 
 import com.acg12.common.entity.Update;
 import com.acg12.common.entity.User;
-import com.acg12.kk.listener.HttpRequestListener;
+import com.acg12.lib.listener.HttpRequestListener;
 
 import rx.Subscription;
 

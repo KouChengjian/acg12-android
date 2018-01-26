@@ -5,12 +5,12 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.acg12.common.dao.DaoBaseImpl;
-import com.acg12.kk.ui.ViewImpl;
-import com.acg12.kk.ui.base.PresenterHelper;
-import com.acg12.kk.utils.AppUtil;
-import com.acg12.kk.utils.ViewUtil;
-import com.acg12.kk.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.dao.DaoBaseImpl;
+import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.utils.AppUtil;
+import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.utils.loadimage.ImageLoadUtils;
 
 import org.acg12.R;
 import org.acg12.conf.Constant;

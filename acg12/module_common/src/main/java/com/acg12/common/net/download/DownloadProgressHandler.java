@@ -9,7 +9,7 @@ import com.acg12.common.conf.DLStatus;
 import com.acg12.common.dao.DaoBaseImpl;
 import com.acg12.common.entity.DownLoad;
 import com.acg12.common.listener.DownLoadCallback;
-import com.acg12.kk.utils.IOUtils;
+import com.acg12.lib.utils.IOUtils;
 
 import java.io.File;
 

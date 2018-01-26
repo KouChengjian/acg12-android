@@ -5,15 +5,15 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.acg12.common.dao.DaoBaseImpl;
-import com.acg12.common.entity.User;
-import com.acg12.common.net.UserHttpRequestImpl;
-import com.acg12.kk.listener.HttpRequestListener;
-import com.acg12.kk.utils.LogUtil;
-import com.acg12.kk.utils.ViewUtil;
+import com.acg12.lib.dao.DaoBaseImpl;
+import com.acg12.lib.entity.User;
+import com.acg12.lib.listener.HttpRequestListener;
+import com.acg12.lib.net.UserHttpRequestImpl;
+import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.utils.ViewUtil;
 
 import org.acg12.R;
-import com.acg12.common.ui.base.BaseActivity;
+import org.acg12.ui.base.BaseActivity;
 import org.acg12.ui.views.FeedbackView;
 import org.acg12.utlis.Network;
 

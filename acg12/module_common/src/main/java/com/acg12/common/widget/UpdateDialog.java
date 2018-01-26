@@ -21,8 +21,8 @@ import com.acg12.common.entity.Update;
 import com.acg12.common.listener.DownLoadCallback;
 import com.acg12.common.net.download.DownloadManger;
 import com.acg12.common.utils.DUtil;
-import com.acg12.kk.utils.AppUtil;
-import com.acg12.kk.utils.Toastor;
+import com.acg12.lib.utils.AppUtil;
+import com.acg12.lib.utils.Toastor;
 import com.facebook.stetho.common.LogUtil;
 
 import java.io.File;

@@ -6,9 +6,9 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/kk_common_action_bar" />
+    <include layout="@layout/common_action_bar" />
 
-    <com.acg12.kk.widget.DeletableEditText
+    <com.acg12.lib.widget.DeletableEditText
         android:id="@+id/et_input_pwd_old"
         android:layout_width="match_parent"
         android:layout_height="48dip"
@@ -27,7 +27,7 @@
         android:paddingRight="4dip"
         android:singleLine="true"/>
 
-    <com.acg12.kk.widget.DeletableEditText
+    <com.acg12.lib.widget.DeletableEditText
         android:id="@+id/et_input_pwd_new"
         android:layout_width="match_parent"
         android:layout_height="48dip"

@@ -15,12 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <com.acg12.kk.widget.ScaleImageView
+            <com.acg12.lib.widget.ScaleImageView
                 android:id="@+id/iv_album_pic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
-                android:src="@mipmap/kk_bg_loading_pic" />
+                android:src="@mipmap/bg_loading_pic" />
 
             <TextView
                 android:id="@+id/list_item_num"

@@ -5,7 +5,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/kk_common_action_bar" />
+    <include layout="@layout/common_action_bar" />
 
     <ImageView
         android:id="@+id/app_logo"

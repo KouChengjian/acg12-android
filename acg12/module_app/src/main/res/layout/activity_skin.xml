@@ -6,9 +6,9 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
-    <include layout="@layout/kk_common_action_bar" />
+    <include layout="@layout/common_action_bar" />
 
-    <com.acg12.kk.widget.CommonRecycleview
+    <com.acg12.lib.widget.CommonRecycleview
         android:id="@+id/common_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

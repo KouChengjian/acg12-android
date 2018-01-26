@@ -2,9 +2,9 @@ package com.acg12.common.net;
 
 import com.acg12.common.entity.User;
 import com.acg12.common.net.base.UserApiService;
-import com.acg12.kk.conf.BaseConstant;
-import com.acg12.kk.net.BaseRetrofitClient;
-import com.acg12.kk.net.factory.ApiConverterFactory;
+import com.acg12.lib.conf.BaseConstant;
+import com.acg12.lib.net.BaseRetrofitClient;
+import com.acg12.lib.net.factory.ApiConverterFactory;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.io.IOException;

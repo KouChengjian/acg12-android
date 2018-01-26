@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_action_bar" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/ic_logo"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+
+    <com.acg12.lib.widget.DeletableEditText
+        android:id="@+id/et_input_name"
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/selector_input_account"
+        android:drawableLeft="@mipmap/ic_login_account"
+        android:drawableRight="@mipmap/ic_login_delete"
+        android:textColor="@color/title"
+        android:textColorHint="@color/title1"
+        android:inputType="number"
+        android:textSize="16sp"
+        android:ems="10"
+        android:hint="请输入手机号码"
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip"
+        android:singleLine="true">
+
+        <requestFocus />
+    </com.acg12.lib.widget.DeletableEditText>
+
+    <com.acg12.lib.widget.DeletableEditText
+        android:id="@+id/et_input_password"
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:drawablePadding="10dp"
+        android:textColor="@color/title"
+        android:textColorHint="@color/title1"
+        android:inputType="textPassword"
+        android:textSize="16sp"
+        android:background="@drawable/selector_input_account"
+        android:drawableLeft="@mipmap/ic_login_password"
+        android:drawableRight="@mipmap/ic_login_delete"
+        android:ems="10"
+        android:hint="请输入密码"
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip"
+        android:singleLine="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="25dp">
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_rect_body1"
+            android:text="注册账号"
+            android:textColor="@color/theme_body"
+            android:textSize="16sp"
+            android:layout_marginRight="5dp"/>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_rect_body0"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

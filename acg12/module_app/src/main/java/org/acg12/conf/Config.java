@@ -3,13 +3,13 @@ package org.acg12.conf;
 
 import android.content.Context;
 
-import com.acg12.common.conf.BaseConfig;
+import com.acg12.lib.conf.BaseConfig;
 import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 
 /**
  * Created by DELL on 2016/11/25.
  */
-public class Config extends BaseConfig{
+public class Config extends BaseConfig {
 
     static ListVideoUtil listVideoUtil;
 

@@ -5,9 +5,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.acg12.kk.ui.base.KKBaseRecyclerView;
-import com.acg12.kk.utils.ViewUtil;
-import com.acg12.kk.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.ui.base.CommonRecyclerView;
+import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.utils.loadimage.ImageLoadUtils;
 
 import org.acg12.R;
 import org.acg12.entity.Search;
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Administrator on 2018/1/18.
  */
 
-public class SearchViewHolder extends KKBaseRecyclerView {
+public class SearchViewHolder extends CommonRecyclerView {
 
     ImageView iv_search_tag;
     TextView tv_search_tag;

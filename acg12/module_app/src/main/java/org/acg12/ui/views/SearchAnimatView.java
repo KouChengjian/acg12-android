@@ -3,10 +3,10 @@ package org.acg12.ui.views;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.FrameLayout;
 
-import com.acg12.kk.listener.ItemClickSupport;
-import com.acg12.kk.ui.ViewImpl;
-import com.acg12.kk.widget.CommonRecycleview;
-import com.acg12.kk.widget.IRecycleView;
+import com.acg12.lib.listener.ItemClickSupport;
+import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.widget.CommonRecycleview;
+import com.acg12.lib.widget.IRecycleView;
 import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 
 import org.acg12.R;

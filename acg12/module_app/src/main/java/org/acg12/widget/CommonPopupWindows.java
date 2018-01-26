@@ -23,8 +23,8 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.acg12.kk.utils.CacheUtils;
-import com.acg12.kk.utils.premission.ApplyPermission;
+import com.acg12.lib.utils.CacheUtils;
+import com.acg12.lib.utils.premission.ApplyPermission;
 
 import org.acg12.R;
 import org.acg12.conf.Constant;

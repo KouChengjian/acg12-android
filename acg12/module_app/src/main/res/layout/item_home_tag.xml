@@ -4,13 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <RelativeLayout
+        android:id="@+id/layout_tag"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@mipmap/bg_loading_pic"
-        android:scaleType="fitXY"
+        android:layout_height="200dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="10dp">
+        <ImageView
+            android:id="@+id/iv_tag_cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/bg_loading_pic"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/tv_tag_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="xxxx"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"/>
+    </RelativeLayout>
+
+
 
 </LinearLayout>

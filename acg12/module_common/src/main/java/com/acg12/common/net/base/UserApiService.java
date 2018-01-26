@@ -2,7 +2,7 @@ package com.acg12.common.net.base;
 
 import com.acg12.common.entity.User;
 import com.acg12.common.net.converter.UserConverter;
-import com.acg12.kk.net.factory.ApiConverter;
+import com.acg12.lib.net.factory.ApiConverter;
 
 import java.util.Map;
 

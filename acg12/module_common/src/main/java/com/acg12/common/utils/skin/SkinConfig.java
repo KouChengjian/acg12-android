@@ -2,7 +2,7 @@ package com.acg12.common.utils.skin;
 
 import android.content.Context;
 
-import com.acg12.kk.utils.PreferencesUtils;
+import com.acg12.lib.utils.PreferencesUtils;
 
 
 /**

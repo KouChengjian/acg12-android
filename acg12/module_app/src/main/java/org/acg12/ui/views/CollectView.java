@@ -1,6 +1,6 @@
 package org.acg12.ui.views;
 
-import com.acg12.kk.ui.ViewImpl;
+import com.acg12.lib.ui.ViewImpl;
 
 import org.acg12.R;
 

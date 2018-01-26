@@ -7,14 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.acg12.kk.utils.CacheUtils;
-import com.acg12.kk.utils.Toastor;
+import com.acg12.lib.entity.Skin;
+import com.acg12.lib.utils.CacheUtils;
+import com.acg12.lib.utils.Toastor;
+import com.acg12.lib.utils.skin.SkinManager;
+import com.acg12.lib.utils.skin.listener.ILoaderListener;
 
 import org.acg12.R;
-import com.acg12.common.entity.Skin;
-import com.acg12.common.utils.skin.listener.ILoaderListener;
 import org.acg12.ui.adapter.base.SkinLoaderViewHolder;
-import com.acg12.common.utils.skin.SkinManager;
 
 import java.io.File;
 import java.io.FileOutputStream;

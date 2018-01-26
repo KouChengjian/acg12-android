@@ -46,7 +46,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginBottom="25dp"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/kk_bg_loading_pic" />
+                            android:src="@mipmap/bg_loading_pic" />
 
                         <RelativeLayout
                             android:id="@+id/btn_home_search"
@@ -87,6 +87,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/btn_newest_news"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginRight="10dp"
@@ -98,6 +99,7 @@
                             android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/btn_newest_illustration"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"

@@ -24,7 +24,7 @@
             android:layout_gravity="center"
             android:padding="3dp"/>
 
-        <com.acg12.kk.widget.DeletableEditText
+        <com.acg12.lib.widget.DeletableEditText
             android:id="@+id/edt_search"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

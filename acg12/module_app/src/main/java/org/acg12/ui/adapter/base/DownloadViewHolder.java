@@ -5,13 +5,13 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.acg12.common.conf.DLStatus;
-import com.acg12.common.entity.DownLoad;
-import com.acg12.common.listener.DownLoadCallback;
-import com.acg12.common.net.download.DownloadManger;
-import com.acg12.kk.ui.base.KKBaseRecyclerView;
-import com.acg12.kk.utils.IOUtils;
-import com.acg12.kk.utils.LogUtil;
+import com.acg12.lib.conf.DLStatus;
+import com.acg12.lib.entity.DownLoad;
+import com.acg12.lib.net.download.DownLoadCallback;
+import com.acg12.lib.net.download.DownloadManger;
+import com.acg12.lib.ui.base.CommonRecyclerView;
+import com.acg12.lib.utils.IOUtils;
+import com.acg12.lib.utils.LogUtil;
 
 import org.acg12.R;
 
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/6/14.
  */
-public class DownloadViewHolder extends KKBaseRecyclerView {
+public class DownloadViewHolder extends CommonRecyclerView {
 
     private TextView name;
     private TextView download_size;

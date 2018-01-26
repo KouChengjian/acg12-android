@@ -7,10 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.FrameLayout;
 
-import com.acg12.kk.listener.ItemClickSupport;
-import com.acg12.kk.ui.ViewImpl;
-import com.acg12.kk.widget.CommonRecycleview;
-import com.acg12.kk.widget.IRecycleView;
+import com.acg12.lib.listener.ItemClickSupport;
+import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.widget.CommonRecycleview;
+import com.acg12.lib.widget.IRecycleView;
 import com.shuyu.gsyvideoplayer.utils.CommonUtil;
 import com.shuyu.gsyvideoplayer.utils.Debuger;
 import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;

@@ -9,18 +9,18 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.acg12.common.listener.DownLoadCallback;
-import com.acg12.common.net.download.DownloadManger;
-import com.acg12.common.utils.DUtil;
-import com.acg12.kk.listener.HttpRequestListener;
-import com.acg12.kk.utils.LogUtil;
-import com.acg12.kk.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.listener.HttpRequestListener;
+import com.acg12.lib.net.download.DUtil;
+import com.acg12.lib.net.download.DownLoadCallback;
+import com.acg12.lib.net.download.DownloadManger;
+import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.utils.loadimage.ImageLoadUtils;
 
 import org.acg12.R;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
 import org.acg12.net.HttpRequestImpl;
-import com.acg12.common.ui.base.BaseActivity;
+import org.acg12.ui.base.BaseActivity;
 import org.acg12.ui.views.PreviewAlbumView;
 
 import java.io.File;

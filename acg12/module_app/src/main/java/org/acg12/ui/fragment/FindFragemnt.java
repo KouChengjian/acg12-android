@@ -5,14 +5,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.acg12.common.ui.base.BaseFragment;
-import com.acg12.common.utils.skin.AttrFactory;
-import com.acg12.common.utils.skin.entity.DynamicAttr;
+import com.acg12.lib.utils.skin.AttrFactory;
+import com.acg12.lib.utils.skin.entity.DynamicAttr;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
 import org.acg12.ui.activity.DownloadActivity;
+import org.acg12.ui.base.BaseFragment;
 import org.acg12.ui.views.FindView;
 import org.acg12.widget.SearchPopWindow;
 

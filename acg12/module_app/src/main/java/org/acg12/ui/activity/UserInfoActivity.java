@@ -5,18 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.acg12.common.entity.User;
-import com.acg12.common.net.UserHttpRequestImpl;
-import com.acg12.kk.listener.HttpRequestListener;
-import com.acg12.kk.utils.LogUtil;
-import com.acg12.kk.utils.premission.ApplyPermission;
-import com.acg12.kk.utils.premission.FailPermission;
-import com.acg12.kk.utils.premission.SuccessPermission;
+import com.acg12.lib.entity.User;
+import com.acg12.lib.listener.HttpRequestListener;
+import com.acg12.lib.net.UserHttpRequestImpl;
+import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.utils.premission.ApplyPermission;
+import com.acg12.lib.utils.premission.FailPermission;
+import com.acg12.lib.utils.premission.SuccessPermission;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
-import com.acg12.common.ui.base.BaseActivity;
+import org.acg12.ui.base.BaseActivity;
 import org.acg12.ui.views.UserInfoView;
 import org.acg12.widget.CommonPopupWindows;
 import org.greenrobot.eventbus.Subscribe;

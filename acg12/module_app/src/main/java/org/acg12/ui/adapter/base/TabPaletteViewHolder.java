@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.acg12.kk.utils.ViewUtil;
-import com.acg12.kk.utils.loadimage.ImageLoadUtils;
-import com.acg12.kk.widget.ScaleImageView;
+import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.widget.ScaleImageView;
 
 import org.acg12.R;
 import org.acg12.entity.Palette;
@@ -53,16 +53,16 @@ public class TabPaletteViewHolder extends RecyclerView.ViewHolder {
             for (int i = 0; i < paletteList.size(); i++) {
                 if(i == 0){
                     ImageLoadUtils.glideLoading(context , paletteList.get(i).replace("_fw658" , "_fw236") , imageView);
-                    iv_palete_icon_1.setImageResource(R.mipmap.kk_bg_loading_pic);
-                    iv_palete_icon_2.setImageResource(R.mipmap.kk_bg_loading_pic);
-                    iv_palete_icon_3.setImageResource(R.mipmap.kk_bg_loading_pic);
+                    iv_palete_icon_1.setImageResource(R.mipmap.bg_loading_pic);
+                    iv_palete_icon_2.setImageResource(R.mipmap.bg_loading_pic);
+                    iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
                 } else if(i == 1){
                     ImageLoadUtils.glideLoading(context , paletteList.get(i).replace("_fw658" , "_fw236") , iv_palete_icon_1);
-                    iv_palete_icon_2.setImageResource(R.mipmap.kk_bg_loading_pic);
-                    iv_palete_icon_3.setImageResource(R.mipmap.kk_bg_loading_pic);
+                    iv_palete_icon_2.setImageResource(R.mipmap.bg_loading_pic);
+                    iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
                 } else if(i == 2){
                     ImageLoadUtils.glideLoading(context , paletteList.get(i).replace("_fw658" , "_fw236") , iv_palete_icon_2);
-                    iv_palete_icon_3.setImageResource(R.mipmap.kk_bg_loading_pic);
+                    iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
                 } else if(i == 3){
                     ImageLoadUtils.glideLoading(context , paletteList.get(i).replace("_fw658" , "_fw236") , iv_palete_icon_3);
                 }

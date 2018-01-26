@@ -1,8 +1,8 @@
 package org.acg12.net;
 
-import com.acg12.common.entity.User;
-import com.acg12.kk.net.BaseRetrofitClient;
-import com.acg12.kk.net.factory.ApiConverterFactory;
+import com.acg12.lib.entity.User;
+import com.acg12.lib.net.base.BaseRetrofitClient;
+import com.acg12.lib.net.factory.ApiConverterFactory;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import org.acg12.conf.Constant;
@@ -20,7 +20,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 /**
  * Created by DELL on 2016/11/29.
  */
-public class RetrofitClient  extends BaseRetrofitClient{
+public class RetrofitClient  extends BaseRetrofitClient {
 
 
     public static OkHttpClient initOkhttp(final User user) {

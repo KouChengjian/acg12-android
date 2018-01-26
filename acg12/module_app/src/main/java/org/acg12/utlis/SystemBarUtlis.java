@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-
+import com.acg12.lib.utils.skin.SkinManager;
 
 import org.acg12.R;
-
-import com.acg12.common.utils.skin.SkinManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

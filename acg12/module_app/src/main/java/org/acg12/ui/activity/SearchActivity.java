@@ -8,14 +8,14 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
-import com.acg12.common.ui.base.BaseActivity;
-import com.acg12.kk.listener.HttpRequestListener;
-import com.acg12.kk.listener.ParameCallBack;
-import com.acg12.kk.utils.LogUtil;
+import com.acg12.lib.listener.HttpRequestListener;
+import com.acg12.lib.listener.ParameCallBack;
+import com.acg12.lib.utils.LogUtil;
 
 import org.acg12.R;
 import org.acg12.entity.Search;
 import org.acg12.net.HttpRequestImpl;
+import org.acg12.ui.base.BaseActivity;
 import org.acg12.ui.views.SearchView;
 import org.acg12.utlis.cache.Cache;
 
@@ -26,7 +26,6 @@ import java.util.List;
 
 public class SearchActivity extends BaseActivity<SearchView> implements View.OnClickListener , ParameCallBack ,TextWatcher , TextView.OnEditorActionListener {
 
-//    private List<String> tagList = new ArrayList<>();
     private LinkedList<String> historyList = new LinkedList<>();
     private int histroyTotal = 8;
     private String searchKey = "";
@@ -68,6 +67,7 @@ public class SearchActivity extends BaseActivity<SearchView> implements View.OnC
             Bundle bundle = new Bundle();
             bundle.putString("title", mView.getSearch());
             startAnimActivity(SearchInfoActivity.class, bundle);
+            finish();
             return true;
         }
         return false;

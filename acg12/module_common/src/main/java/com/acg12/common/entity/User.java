@@ -2,9 +2,9 @@ package com.acg12.common.entity;
 
 import android.content.Context;
 
-import com.acg12.kk.conf.BaseConstant;
-import com.acg12.kk.utils.AppUtil;
-import com.acg12.kk.utils.MD5Util;
+import com.acg12.lib.conf.BaseConstant;
+import com.acg12.lib.utils.AppUtil;
+import com.acg12.lib.utils.MD5Util;
 import com.litesuits.orm.db.annotation.Table;
 
 

@@ -2,7 +2,7 @@ package org.acg12.utlis.cache;
 
 import android.content.Context;
 
-import com.acg12.kk.utils.ACache;
+import com.acg12.lib.utils.ACache;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

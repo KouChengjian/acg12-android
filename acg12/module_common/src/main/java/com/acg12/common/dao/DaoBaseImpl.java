@@ -5,7 +5,7 @@ import android.content.Context;
 import com.acg12.common.entity.DownLoad;
 import com.acg12.common.entity.Update;
 import com.acg12.common.entity.User;
-import com.acg12.kk.conf.BaseConstant;
+import com.acg12.lib.conf.BaseConstant;
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.DataBase;
 

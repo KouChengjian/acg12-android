@@ -10,10 +10,10 @@ import com.acg12.common.entity.User;
 import com.acg12.common.net.UserHttpRequestImpl;
 import com.acg12.common.ui.view.ResetPwdView;
 import com.acg12.common.utils.CountDownTimerUtils;
-import com.acg12.kk.listener.HttpRequestListener;
-import com.acg12.kk.ui.base.PresenterActivityImpl;
-import com.acg12.kk.utils.LogUtil;
-import com.acg12.kk.utils.ViewUtil;
+import com.acg12.lib.listener.HttpRequestListener;
+import com.acg12.lib.ui.base.PresenterActivityImpl;
+import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.utils.ViewUtil;
 
 
 public class ResetPwdActivity extends PresenterActivityImpl<ResetPwdView> implements View.OnClickListener{

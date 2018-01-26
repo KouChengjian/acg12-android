@@ -8,8 +8,8 @@ import com.acg12.common.dao.DaoBaseImpl;
 import com.acg12.common.entity.User;
 import com.acg12.common.utils.skin.entity.DynamicAttr;
 import com.acg12.common.utils.skin.listener.IDynamicNewView;
-import com.acg12.kk.ui.IView;
-import com.acg12.kk.ui.base.PresenterFragmentImpl;
+import com.acg12.lib.ui.IView;
+import com.acg12.lib.ui.base.PresenterFragmentImpl;
 
 import java.util.List;
 

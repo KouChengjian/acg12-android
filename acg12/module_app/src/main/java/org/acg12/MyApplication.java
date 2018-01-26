@@ -1,7 +1,15 @@
 package org.acg12;
 
-import com.acg12.common.BaseApplication;
-import com.acg12.common.utils.skin.SkinManager;
+
+import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+
+import com.acg12.lib.conf.BaseConstant;
+import com.acg12.lib.utils.Toastor;
+import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.utils.skin.SkinManager;
+import com.facebook.stetho.Stetho;
 
 import org.acg12.conf.Config;
 import org.acg12.net.HttpRequestImpl;
@@ -29,7 +37,7 @@ import org.acg12.utlis.cache.Cache;
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //       佛祖保佑           永无BUG         镇类之宝
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-public class MyApplication extends BaseApplication {
+public class MyApplication extends Application {
 	
 	private static MyApplication mApplication = null;
 
@@ -46,5 +54,23 @@ public class MyApplication extends BaseApplication {
 		SkinManager.getInstance().init(this);
 		SkinManager.getInstance().load();
 
+
+		new Toastor(this);
+		new ImageLoadUtils(this);
+		Stetho.initializeWithDefaults(this);
+//        if(BaseConstant.debug){
+//            ARouter.openLog();     // 打印日志
+//            ARouter.openDebug();
+//        }
+//        ARouter.init(this);
+		if(!BaseConstant.debug){
+//            Bugly.init(mContext, BaseConstant.KEY_WEIXIN_BUGLY, false);
+		}
+	}
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+		MultiDex.install(this);
 	}
 }

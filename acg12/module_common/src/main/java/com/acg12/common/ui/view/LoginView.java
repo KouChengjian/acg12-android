@@ -5,10 +5,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.acg12.common.R;
-import com.acg12.kk.ui.ViewImpl;
-import com.acg12.kk.ui.base.PresenterHelper;
-import com.acg12.kk.utils.ViewUtil;
-import com.acg12.kk.widget.DeletableEditText;
+import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.widget.DeletableEditText;
 
 /**
  * Created by Administrator on 2017/5/23.

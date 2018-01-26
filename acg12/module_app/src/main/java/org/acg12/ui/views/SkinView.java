@@ -2,12 +2,12 @@ package org.acg12.ui.views;
 
 import android.support.v7.widget.Toolbar;
 
-import com.acg12.kk.ui.ViewImpl;
-import com.acg12.kk.ui.base.PresenterHelper;
-import com.acg12.kk.widget.CommonRecycleview;
+import com.acg12.lib.entity.Skin;
+import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.widget.CommonRecycleview;
 
 import org.acg12.R;
-import com.acg12.common.entity.Skin;
 import org.acg12.ui.adapter.SkinLoaderAdapter;
 
 import butterknife.BindView;

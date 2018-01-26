@@ -2,8 +2,8 @@ package org.acg12.ui.views;
 
 import android.support.v7.widget.Toolbar;
 
-import com.acg12.kk.ui.ViewImpl;
-import com.acg12.kk.ui.base.PresenterHelper;
+import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.PresenterHelper;
 
 import org.acg12.R;
 
