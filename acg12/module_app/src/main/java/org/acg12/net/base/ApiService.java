@@ -14,6 +14,9 @@ public interface ApiService {
     @GET("res/index")
     Observable<ResponseBody> index();
 
+    @GET("res/news")
+    Observable<ResponseBody> newsList(@Query("page") String page);
+
     @GET("res/p/album")
     Observable<ResponseBody> albumList(@Query("action") String action , @Query("max") String pinId);
 
@@ -35,10 +38,10 @@ public interface ApiService {
     @GET("res/v/playurl")
     Observable<ResponseBody> playUrl(@Query("action") String action ,@Query("av") String av);
 
-    @GET("res/v/search/album")
+    @GET("res/search/album")
     Observable<ResponseBody> searchAlbum(@Query("key") String key , @Query("page") String page);
 
-    @GET("res/v/search/palette")
+    @GET("res/search/palette")
     Observable<ResponseBody> searchPalette(@Query("key") String key , @Query("page") String page);
 
     @GET("res/v/search/bangunmi")

@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity<MainView> implements NavigationVi
                 if (DaoBaseImpl.getInstance(mContext).getCurrentUser() == null) {
                     startAnimActivity(LoginActivity.class); //IndexActivity CollectActivity
                 } else {
-                    startAnimActivity(CollectActivity.class);
+                    startAnimActivity(SearchInfoActivity.class);
                 }
                 break;
             case R.id.nav_down:

@@ -9,13 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.CommonPagerAdapter;
 import com.acg12.lib.ui.base.PresenterHelper;
 
 import org.acg12.R;
-import org.acg12.ui.adapter.SearchPagerAdapter;
 import org.acg12.ui.fragment.SearchAlbumFragment;
 import org.acg12.ui.fragment.SearchAnimatFragment;
 import org.acg12.ui.fragment.SearchBangunFragment;
+import org.acg12.ui.fragment.SearchIntroFragment;
 import org.acg12.ui.fragment.SearchPaletteFragment;
 
 import butterknife.BindView;
@@ -32,10 +33,12 @@ public class SearchInfoView extends ViewImpl {
     @BindView(R.id.search_viewpager)
     protected ViewPager mViewpager;
     @BindView(R.id.collapsingToolbarLayout)
-    CollapsingToolbarLayout mCollapsingToolbarLayout;
+    protected CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     protected Fragment[] fragments;
-    SearchPagerAdapter searchPagerAdapter;
+    private String[] tabTitles;
+    CommonPagerAdapter commonPagerAdapter;
+    SearchIntroFragment searchIntroFragment;
     SearchAlbumFragment searchAlbumFragment;
     SearchPaletteFragment searchPaletteFragment;
     SearchBangunFragment searchBangunFragment;
@@ -51,10 +54,11 @@ public class SearchInfoView extends ViewImpl {
     public void created() {
         super.created();
         toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        toolbar.setTitle(getContext().getString(R.string.search));
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);//设置还没收缩时状态下字体颜色
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);//设置收缩后Toolbar上字体的颜色
         mCollapsingToolbarLayout.setTitleEnabled(false);
+
+        tabTitles = new String[]{"简介", "插画", "画册", "动画", "其他"};
     }
 
     @Override
@@ -66,19 +70,20 @@ public class SearchInfoView extends ViewImpl {
     public void bindData(String title) {
         toolbar.setTitle(title);
 
+        searchIntroFragment = SearchIntroFragment.newInstance(title);
         searchAlbumFragment = SearchAlbumFragment.newInstance(title);
         searchPaletteFragment = SearchPaletteFragment.newInstance(title);
         searchBangunFragment = SearchBangunFragment.newInstance(title);
         searchAnimatFragment = SearchAnimatFragment.newInstance(title);
-        fragments = new Fragment[]{searchAlbumFragment, searchPaletteFragment, searchBangunFragment, searchAnimatFragment};
+        fragments = new Fragment[]{searchIntroFragment ,searchAlbumFragment, searchPaletteFragment, searchBangunFragment, searchAnimatFragment};
 
-        searchPagerAdapter = new SearchPagerAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), fragments);
-        mViewpager.setAdapter(searchPagerAdapter);
+        commonPagerAdapter = new CommonPagerAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), fragments, tabTitles);
+        mViewpager.setAdapter(commonPagerAdapter);
         mViewpager.setOffscreenPageLimit(fragments.length);
         mTabLayout.setupWithViewPager(mViewpager);
     }
 
-    public TabLayout getTabLayout(){
+    public TabLayout getTabLayout() {
         return mTabLayout;
     }
 

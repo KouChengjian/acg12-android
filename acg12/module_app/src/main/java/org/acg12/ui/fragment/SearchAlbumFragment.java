@@ -79,7 +79,7 @@ public class SearchAlbumFragment extends BaseFragment<SearchAlbumView> implement
     }
 
     public void refresh(String key , int page){
-        HttpRequestImpl.getInstance().searchAlbum(currentUser(),key, page+"",new HttpRequestListener<List<Album>>() {
+        HttpRequestImpl.getInstance().searchAlbum(currentUser(), key, page+"",new HttpRequestListener<List<Album>>() {
             @Override
             public void onSuccess(List<Album> result) {
                 if (result.size() != 0 && result.get(result.size() - 1) != null) {

@@ -6,6 +6,7 @@ import com.acg12.lib.listener.HttpRequestListener;
 
 import org.acg12.entity.Album;
 import org.acg12.entity.Home;
+import org.acg12.entity.News;
 import org.acg12.entity.Palette;
 import org.acg12.entity.Search;
 import org.acg12.entity.Video;
@@ -17,6 +18,10 @@ import rx.Subscription;
 public interface HttpRequest {
 
     Subscription index(User user , HttpRequestListener<Home> httpRequestListener);
+
+
+    Subscription newsList(User user ,String page ,HttpRequestListener<List<News>> httpRequestListener);
+
 
     Subscription albumList(User user , String pinId , HttpRequestListener<List<Album>> httpRequestListener);
 

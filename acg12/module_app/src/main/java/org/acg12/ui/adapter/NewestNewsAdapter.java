@@ -35,6 +35,6 @@ public class NewestNewsAdapter extends CommonRecyclerAdapter {
 
     @Override
     public void bindView(RecyclerView.ViewHolder holder, int position) {
-
+        ((NewestNewsViewHolder)holder).bindData(mContext , getList() , position);
     }
 }

@@ -30,33 +30,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
-
-
-
-
-
-
-
-
-        <activity android:name=".ui.activity.NewestNewsActivity"
+        <activity
+            android:name=".ui.activity.NewestNewsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
-
-
-        <activity android:name=".ui.activity.NewestIllustrationActivity"
+        <activity
+            android:name=".ui.activity.NewestIllustrationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
-
-
-
-
-
-
-
-
         <activity
             android:name=".ui.activity.UserInfoActivity"
             android:screenOrientation="portrait"
@@ -122,12 +103,11 @@
         <activity
             android:name=".ui.activity.SearchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
-
-
-
-
-
+            android:theme="@style/Theme.MaterialSheetFab.NoActionBar" />
+        <activity
+            android:name=".ui.activity.WebviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout"></activity>
     </application>
 
 </manifest>

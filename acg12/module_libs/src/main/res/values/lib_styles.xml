@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="Theme.MaterialSheetFab.Base" parent="@style/Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="Theme.MaterialSheetFab.Base" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/theme_primary</item>
@@ -28,6 +28,11 @@
     </style>
 
     <!-- toolbar -->
+    <style name="Theme.ToolBar" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+    </style>
+
     <style name="Widget.MaterialSheetFab.ToolBar" parent="">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
@@ -46,7 +51,7 @@
     <!--end-->
 
 
-    !-- 对话框基类 -->
+   <!-- 对话框基类 -->
     <style name="BaseDialog" parent="@android:style/Theme.Dialog" />
 
     <style name="Theme.Light.FullScreenDialogAct" parent="@style/BaseDialog">
