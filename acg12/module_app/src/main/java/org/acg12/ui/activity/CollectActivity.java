@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.CollectView;
 
-public class CollectActivity extends BaseActivity<CollectView> implements View.OnClickListener {
+public class CollectActivity extends SkinBaseActivity<CollectView> implements View.OnClickListener {
 
     @Override
     public void created(Bundle savedInstance) {

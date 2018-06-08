@@ -15,7 +15,6 @@ import com.acg12.lib.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.net.UserHttpRequestImpl;
 import com.acg12.lib.net.download.DownloadManger;
-import com.acg12.lib.ui.activity.LoginActivity;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.skin.AttrFactory;
@@ -25,7 +24,7 @@ import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.MainView;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -33,7 +32,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity<MainView> implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class MainActivity extends SkinBaseActivity<MainView> implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     public static long firstTime;
 
@@ -41,7 +40,7 @@ public class MainActivity extends BaseActivity<MainView> implements NavigationVi
     public void create(Bundle savedInstance) {
         super.create(savedInstance);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
+//            setTranslucentStatus(true);
         }
     }
 

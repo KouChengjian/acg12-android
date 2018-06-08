@@ -15,7 +15,7 @@ import com.acg12.lib.utils.LogUtil;
 import org.acg12.R;
 import org.acg12.entity.Search;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.SearchView;
 import org.acg12.utlis.cache.Cache;
 
@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SearchActivity extends BaseActivity<SearchView> implements View.OnClickListener , ParameCallBack ,TextWatcher , TextView.OnEditorActionListener {
+public class SearchActivity extends SkinBaseActivity<SearchView> implements View.OnClickListener , ParameCallBack ,TextWatcher , TextView.OnEditorActionListener {
 
     private LinkedList<String> historyList = new LinkedList<>();
     private int histroyTotal = 8;

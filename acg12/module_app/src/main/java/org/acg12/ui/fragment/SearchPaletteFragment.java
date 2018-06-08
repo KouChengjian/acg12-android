@@ -16,7 +16,7 @@ import org.acg12.conf.Constant;
 import org.acg12.entity.Palette;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewPaletteActivity;
-import org.acg12.ui.base.BaseFragment;
+import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.SearchPaletteView;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchPaletteFragment extends BaseFragment<SearchPaletteView> implements IRecycleView.LoadingListener,
+public class SearchPaletteFragment extends SkinBaseFragment<SearchPaletteView> implements IRecycleView.LoadingListener,
         SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener {
 
     String title = "";

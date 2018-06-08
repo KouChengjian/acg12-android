@@ -14,12 +14,12 @@ import org.acg12.conf.Constant;
 import org.acg12.entity.Video;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PlayBungumiActivity;
-import org.acg12.ui.base.BaseFragment;
+import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.TabAnimatView;
 
 import java.util.List;
 
-public class TabAnimatFragment extends BaseFragment<TabAnimatView> implements IRecycleView.LoadingListener ,
+public class TabAnimatFragment extends SkinBaseFragment<TabAnimatView> implements IRecycleView.LoadingListener ,
         SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener {
 
     int type = 0;

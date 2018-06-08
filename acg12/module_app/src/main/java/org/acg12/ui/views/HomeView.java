@@ -14,10 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.acg12.lib.conf.CollapsingToolbarLayoutState;
-import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.utils.PixelUtil;
-import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.utils.glide.ImageLoadUtils;
 
 import org.acg12.R;
 import org.acg12.entity.Home;

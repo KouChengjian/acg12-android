@@ -31,6 +31,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="org.acg12.ui.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+        <activity
+            android:name="org.acg12.ui.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+        <activity
+            android:name="org.acg12.ui.activity.ResetPwdActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+        <activity
             android:name=".ui.activity.NewestNewsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />

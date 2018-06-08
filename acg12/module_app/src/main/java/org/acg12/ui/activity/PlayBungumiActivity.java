@@ -8,10 +8,10 @@ import com.acg12.lib.listener.HttpRequestListener;
 
 import org.acg12.entity.Video;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.PlayBungumiView;
 
-public class PlayBungumiActivity extends BaseActivity<PlayBungumiView> {
+public class PlayBungumiActivity extends SkinBaseActivity<PlayBungumiView> {
 
     private Video video;
 

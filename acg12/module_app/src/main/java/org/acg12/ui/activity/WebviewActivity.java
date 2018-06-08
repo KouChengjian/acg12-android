@@ -2,10 +2,10 @@ package org.acg12.ui.activity;
 
 import android.os.Bundle;
 
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.WebviewView;
 
-public class WebviewActivity extends BaseActivity<WebviewView> {
+public class WebviewActivity extends SkinBaseActivity<WebviewView> {
 
     private String url;
 

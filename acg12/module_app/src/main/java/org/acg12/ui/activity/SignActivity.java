@@ -12,11 +12,11 @@ import com.acg12.lib.utils.LogUtil;
 import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.SignView;
 import org.acg12.utlis.Network;
 
-public class SignActivity extends BaseActivity<SignView> implements View.OnClickListener {
+public class SignActivity extends SkinBaseActivity<SignView> implements View.OnClickListener {
 
     private User user;
 

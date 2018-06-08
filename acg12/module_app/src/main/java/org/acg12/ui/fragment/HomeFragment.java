@@ -20,10 +20,10 @@ import org.acg12.ui.activity.DownloadActivity;
 import org.acg12.ui.activity.NewestIllustrationActivity;
 import org.acg12.ui.activity.NewestNewsActivity;
 import org.acg12.ui.activity.SearchActivity;
-import org.acg12.ui.base.BaseFragment;
+import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.HomeView;
 
-public class HomeFragment extends BaseFragment<HomeView> implements Toolbar.OnMenuItemClickListener ,SwipeRefreshLayout.OnRefreshListener ,View.OnClickListener , AppBarLayout.OnOffsetChangedListener {
+public class HomeFragment extends SkinBaseFragment<HomeView> implements Toolbar.OnMenuItemClickListener ,SwipeRefreshLayout.OnRefreshListener ,View.OnClickListener , AppBarLayout.OnOffsetChangedListener {
 
     @Override
     public void created(Bundle savedInstance) {

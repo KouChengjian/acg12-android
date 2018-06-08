@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.acg12.lib.utils.ViewUtil;
-import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.utils.glide.ImageLoadUtils;
 
 import org.acg12.R;
 import org.acg12.entity.Video;

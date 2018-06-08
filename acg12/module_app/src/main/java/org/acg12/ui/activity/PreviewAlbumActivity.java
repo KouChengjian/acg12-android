@@ -14,19 +14,19 @@ import com.acg12.lib.net.download.DUtil;
 import com.acg12.lib.net.download.DownLoadCallback;
 import com.acg12.lib.net.download.DownloadManger;
 import com.acg12.lib.utils.LogUtil;
-import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.utils.glide.ImageLoadUtils;
 
 import org.acg12.R;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.PreviewAlbumView;
 
 import java.io.File;
 import java.util.List;
 
-public class PreviewAlbumActivity extends BaseActivity<PreviewAlbumView> implements View.OnClickListener , ViewPager.OnPageChangeListener , Toolbar.OnMenuItemClickListener {
+public class PreviewAlbumActivity extends SkinBaseActivity<PreviewAlbumView> implements View.OnClickListener , ViewPager.OnPageChangeListener , Toolbar.OnMenuItemClickListener {
 
     private int position;
     public static List<Album> mList = null;

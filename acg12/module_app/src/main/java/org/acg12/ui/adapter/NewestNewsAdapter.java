@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.acg12.lib.ui.base.CommonRecyclerAdapter;
+import com.acg12.lib.ui.adapter.CommonRecyclerAdapter;
 
 import org.acg12.R;
 import org.acg12.ui.adapter.base.NewestNewsViewHolder;

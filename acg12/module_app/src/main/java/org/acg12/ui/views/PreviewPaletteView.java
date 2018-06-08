@@ -5,7 +5,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 
 import com.acg12.lib.listener.ItemClickSupport;
-import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.widget.CommonRecycleview;
 import com.acg12.lib.widget.IRecycleView;

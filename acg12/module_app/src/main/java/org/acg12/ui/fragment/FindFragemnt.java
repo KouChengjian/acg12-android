@@ -12,7 +12,7 @@ import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
 import org.acg12.ui.activity.DownloadActivity;
-import org.acg12.ui.base.BaseFragment;
+import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.FindView;
 import org.acg12.widget.SearchPopWindow;
 
@@ -23,7 +23,7 @@ import java.util.List;
  * Created by Administrator on 2018/1/15.
  */
 
-public class FindFragemnt extends BaseFragment<FindView> implements Toolbar.OnMenuItemClickListener ,
+public class FindFragemnt extends SkinBaseFragment<FindView> implements Toolbar.OnMenuItemClickListener ,
         View.OnClickListener ,SearchPopWindow.OnPopupShowOrDismiss{
 
     @Override

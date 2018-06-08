@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.acg12.lib.utils.ViewUtil;
-import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.utils.glide.ImageLoadUtils;
 import com.acg12.lib.widget.ScaleImageView;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.animation.GlideAnimation;

@@ -13,10 +13,10 @@ import org.acg12.R;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Video;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.PreviewBangumiView;
 
-public class PreviewBangumiActivity extends BaseActivity<PreviewBangumiView> implements View.OnClickListener,
+public class PreviewBangumiActivity extends SkinBaseActivity<PreviewBangumiView> implements View.OnClickListener,
         ItemClickSupport.OnItemClickListener {
 
     private String bangumiId = "";

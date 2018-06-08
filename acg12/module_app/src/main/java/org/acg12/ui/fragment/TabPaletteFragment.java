@@ -15,12 +15,12 @@ import org.acg12.conf.Constant;
 import org.acg12.entity.Palette;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewPaletteActivity;
-import org.acg12.ui.base.BaseFragment;
+import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.TabPaletteView;
 
 import java.util.List;
 
-public class TabPaletteFragment extends BaseFragment<TabPaletteView> implements IRecycleView.LoadingListener ,
+public class TabPaletteFragment extends SkinBaseFragment<TabPaletteView> implements IRecycleView.LoadingListener ,
         SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener {
 
     boolean refresh = true;

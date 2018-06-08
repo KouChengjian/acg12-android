@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.acg12.lib.entity.DownLoad;
 import com.acg12.lib.listener.ItemClickSupport;
-import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.utils.PixelUtil;
 import com.acg12.lib.utils.ViewUtil;

@@ -16,14 +16,14 @@ import com.acg12.lib.utils.premission.SuccessPermission;
 import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.UserInfoView;
 import org.acg12.widget.CommonPopupWindows;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
-public class UserInfoActivity extends BaseActivity<UserInfoView> implements View.OnClickListener ,CommonPopupWindows.OnUpdateAvatar {
+public class UserInfoActivity extends SkinBaseActivity<UserInfoView> implements View.OnClickListener ,CommonPopupWindows.OnUpdateAvatar {
 
     User user;
     CommonPopupWindows commonPopupWindows;

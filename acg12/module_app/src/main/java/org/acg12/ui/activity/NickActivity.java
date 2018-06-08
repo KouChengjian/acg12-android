@@ -12,10 +12,10 @@ import com.acg12.lib.utils.LogUtil;
 import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.NickView;
 
-public class NickActivity extends BaseActivity<NickView> implements View.OnClickListener {
+public class NickActivity extends SkinBaseActivity<NickView> implements View.OnClickListener {
 
     private User user;
 

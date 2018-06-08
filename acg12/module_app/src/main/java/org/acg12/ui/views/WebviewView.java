@@ -6,7 +6,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
-import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
 
 import org.acg12.R;

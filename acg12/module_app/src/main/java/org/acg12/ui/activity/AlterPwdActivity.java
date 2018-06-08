@@ -13,10 +13,10 @@ import com.acg12.lib.utils.LogUtil;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.AlterPwdView;
 
-public class AlterPwdActivity extends BaseActivity<AlterPwdView> implements View.OnClickListener{
+public class AlterPwdActivity extends SkinBaseActivity<AlterPwdView> implements View.OnClickListener{
 
     @Override
     public void created(Bundle savedInstance) {

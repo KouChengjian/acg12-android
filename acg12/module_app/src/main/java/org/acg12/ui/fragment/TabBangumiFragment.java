@@ -15,12 +15,12 @@ import org.acg12.conf.Constant;
 import org.acg12.entity.Video;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewBangumiActivity;
-import org.acg12.ui.base.BaseFragment;
+import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.TabBangumiView;
 
 import java.util.List;
 
-public class TabBangumiFragment extends BaseFragment<TabBangumiView> implements IRecycleView.LoadingListener ,
+public class TabBangumiFragment extends SkinBaseFragment<TabBangumiView> implements IRecycleView.LoadingListener ,
         SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener {
 
     boolean refresh = true;

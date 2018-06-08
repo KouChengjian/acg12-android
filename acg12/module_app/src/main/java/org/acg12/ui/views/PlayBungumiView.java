@@ -3,7 +3,7 @@ package org.acg12.ui.views;
 import android.app.Activity;
 import android.view.View;
 
-import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.ViewImpl;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.listener.LockClickListener;
 

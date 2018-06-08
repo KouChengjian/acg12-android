@@ -13,11 +13,11 @@ import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.ViewUtil;
 
 import org.acg12.R;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.FeedbackView;
 import org.acg12.utlis.Network;
 
-public class FeedbackActivity extends BaseActivity<FeedbackView> implements View.OnClickListener {
+public class FeedbackActivity extends SkinBaseActivity<FeedbackView> implements View.OnClickListener {
 
     @Override
     public void created(Bundle savedInstance) {

@@ -10,19 +10,19 @@ import android.view.View;
 
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
-import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.utils.glide.ImageLoadUtils;
 import com.acg12.lib.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
 import org.acg12.entity.Palette;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.PreviewPaletteView;
 
 import java.util.List;
 
-public class PreviewPaletteActivity extends BaseActivity<PreviewPaletteView> implements IRecycleView.LoadingListener ,
+public class PreviewPaletteActivity extends SkinBaseActivity<PreviewPaletteView> implements IRecycleView.LoadingListener ,
         SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener ,View.OnClickListener{
 
     Palette palette;

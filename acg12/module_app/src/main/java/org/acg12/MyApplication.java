@@ -7,7 +7,7 @@ import android.support.multidex.MultiDex;
 
 import com.acg12.lib.conf.BaseConstant;
 import com.acg12.lib.utils.Toastor;
-import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.utils.glide.ImageLoadUtils;
 import com.acg12.lib.utils.skin.SkinManager;
 import com.facebook.stetho.Stetho;
 

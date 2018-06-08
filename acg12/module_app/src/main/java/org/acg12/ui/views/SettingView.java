@@ -6,11 +6,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.acg12.lib.dao.DaoBaseImpl;
-import com.acg12.lib.ui.ViewImpl;
+import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.ViewUtil;
-import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.utils.glide.ImageLoadUtils;
 
 import org.acg12.R;
 import org.acg12.conf.Constant;

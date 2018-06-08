@@ -5,10 +5,10 @@ import android.view.View;
 import android.view.WindowManager;
 
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.PreviewImageView;
 
-public class PreviewImageActivity extends BaseActivity<PreviewImageView> implements View.OnClickListener {
+public class PreviewImageActivity extends SkinBaseActivity<PreviewImageView> implements View.OnClickListener {
 
     private String url;
 

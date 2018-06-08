@@ -9,7 +9,7 @@ import com.acg12.lib.conf.DLStatus;
 import com.acg12.lib.entity.DownLoad;
 import com.acg12.lib.net.download.DownLoadCallback;
 import com.acg12.lib.net.download.DownloadManger;
-import com.acg12.lib.ui.base.CommonRecyclerView;
+import com.acg12.lib.ui.adapter.CommonRecyclerView;
 import com.acg12.lib.utils.IOUtils;
 import com.acg12.lib.utils.LogUtil;
 

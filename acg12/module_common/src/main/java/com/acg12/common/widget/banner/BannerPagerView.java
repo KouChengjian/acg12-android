@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import com.acg12.common.R;
 import com.acg12.common.entity.Banner;
 import com.acg12.common.listener.BannerClickListener;
-import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.utils.glide.ImageLoadUtils;
 
 import java.util.ArrayList;
 import java.util.List;

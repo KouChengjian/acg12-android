@@ -16,12 +16,12 @@ import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewAlbumActivity;
-import org.acg12.ui.base.BaseFragment;
+import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.TabAlbumView;
 
 import java.util.List;
 
-public class TabAlbumFragment extends BaseFragment<TabAlbumView> implements IRecycleView.LoadingListener ,
+public class TabAlbumFragment extends SkinBaseFragment<TabAlbumView> implements IRecycleView.LoadingListener ,
         SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener {
 
     boolean refresh = true;

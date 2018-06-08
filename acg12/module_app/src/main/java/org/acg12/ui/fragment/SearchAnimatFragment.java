@@ -16,7 +16,7 @@ import org.acg12.conf.Constant;
 import org.acg12.entity.Video;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PlayBungumiActivity;
-import org.acg12.ui.base.BaseFragment;
+import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.SearchAnimatView;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchAnimatFragment extends BaseFragment<SearchAnimatView> implements IRecycleView.LoadingListener ,
+public class SearchAnimatFragment extends SkinBaseFragment<SearchAnimatView> implements IRecycleView.LoadingListener ,
         SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener {
 
     String title = "";

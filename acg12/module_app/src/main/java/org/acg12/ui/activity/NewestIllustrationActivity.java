@@ -16,7 +16,7 @@ import com.acg12.lib.widget.IRecycleView;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.NewestIllustrationView;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * 每日插画
  */
-public class NewestIllustrationActivity extends BaseActivity<NewestIllustrationView> implements IRecycleView.LoadingListener ,
+public class NewestIllustrationActivity extends SkinBaseActivity<NewestIllustrationView> implements IRecycleView.LoadingListener ,
         SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener{
 
     private boolean refresh = true;

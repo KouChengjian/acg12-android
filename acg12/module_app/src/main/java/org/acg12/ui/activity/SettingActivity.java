@@ -13,18 +13,18 @@ import com.acg12.lib.net.UserHttpRequestImpl;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.ViewUtil;
-import com.acg12.lib.utils.loadimage.ImageLoadUtils;
+import com.acg12.lib.utils.glide.ImageLoadUtils;
 import com.acg12.lib.widget.UpdateDialog;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.SettingView;
 import org.acg12.widget.AlertDialogView;
 
 
-public class SettingActivity extends BaseActivity<SettingView> implements View.OnClickListener {
+public class SettingActivity extends SkinBaseActivity<SettingView> implements View.OnClickListener {
 
     @Override
     public void created(Bundle savedInstance) {

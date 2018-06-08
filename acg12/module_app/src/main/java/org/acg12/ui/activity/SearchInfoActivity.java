@@ -2,10 +2,10 @@ package org.acg12.ui.activity;
 
 import android.os.Bundle;
 
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.SearchInfoView;
 
-public class SearchInfoActivity extends BaseActivity<SearchInfoView> {
+public class SearchInfoActivity extends SkinBaseActivity<SearchInfoView> {
 
     @Override
     public void created(Bundle savedInstance) {

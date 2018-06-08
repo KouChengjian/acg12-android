@@ -11,13 +11,13 @@ import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.DownloadView;
 import org.acg12.widget.AlertDialogView;
 
 import java.util.List;
 
-public class DownloadActivity extends BaseActivity<DownloadView> implements View.OnClickListener ,ItemClickSupport.OnItemClickListener ,
+public class DownloadActivity extends SkinBaseActivity<DownloadView> implements View.OnClickListener ,ItemClickSupport.OnItemClickListener ,
         SwipeRefreshLayout.OnRefreshListener ,IRecycleView.LoadingListener ,ItemClickSupport.OnItemLongClickListener{
 
     boolean refresh = true;

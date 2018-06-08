@@ -17,12 +17,12 @@ import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
 import org.acg12.net.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewAlbumActivity;
-import org.acg12.ui.base.BaseFragment;
+import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.SearchAlbumView;
 
 import java.util.List;
 
-public class SearchAlbumFragment extends BaseFragment<SearchAlbumView> implements IRecycleView.LoadingListener ,
+public class SearchAlbumFragment extends SkinBaseFragment<SearchAlbumView> implements IRecycleView.LoadingListener ,
         SwipeRefreshLayout.OnRefreshListener ,ItemClickSupport.OnItemClickListener{
 
     String title = "";

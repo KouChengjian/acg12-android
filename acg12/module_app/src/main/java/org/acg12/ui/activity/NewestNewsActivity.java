@@ -14,12 +14,12 @@ import com.acg12.lib.widget.IRecycleView;
 import org.acg12.conf.Constant;
 import org.acg12.entity.News;
 import org.acg12.net.HttpRequestImpl;
-import org.acg12.ui.base.BaseActivity;
+import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.NewestNewsView;
 
 import java.util.List;
 
-public class NewestNewsActivity extends BaseActivity<NewestNewsView> implements IRecycleView.LoadingListener,
+public class NewestNewsActivity extends SkinBaseActivity<NewestNewsView> implements IRecycleView.LoadingListener,
         SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener {
 
     private boolean refresh = true;
