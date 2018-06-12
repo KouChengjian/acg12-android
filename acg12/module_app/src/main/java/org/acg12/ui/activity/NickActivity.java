@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.acg12.lib.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
-import com.acg12.lib.net.UserHttpRequestImpl;
+import org.acg12.net.impl.UserRequestImpl;
 import com.acg12.lib.utils.LogUtil;
 
 import org.acg12.R;
@@ -59,7 +59,7 @@ public class NickActivity extends SkinBaseActivity<NickView> implements View.OnC
         progress.show();
 
         user.setNick(nick);
-        UserHttpRequestImpl.getInstance(mContext).nick(user, new HttpRequestListener<User>() {
+        UserRequestImpl.getInstance(mContext).nick(user, new HttpRequestListener<User>() {
             @Override
             public void onSuccess(User result) {
                 ShowToastView("更新成功");

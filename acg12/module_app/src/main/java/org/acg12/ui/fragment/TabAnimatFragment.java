@@ -12,7 +12,7 @@ import com.acg12.lib.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.Video;
-import org.acg12.net.HttpRequestImpl;
+import org.acg12.net.impl.HomeRequestImpl;
 import org.acg12.ui.activity.PlayBungumiActivity;
 import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.TabAnimatView;
@@ -69,7 +69,7 @@ public class TabAnimatFragment extends SkinBaseFragment<TabAnimatView> implement
     }
 
     public void refresh(int page){
-        HttpRequestImpl.getInstance().videoList(currentUser(),page+"" , type, new HttpRequestListener<List<Video>>() {
+        HomeRequestImpl.getInstance().videoList(currentUser(),page+"" , type, new HttpRequestListener<List<Video>>() {
             @Override
             public void onSuccess(List<Video> result) {
                 if (result.size() != 0 && result.get(result.size() - 1) != null) {

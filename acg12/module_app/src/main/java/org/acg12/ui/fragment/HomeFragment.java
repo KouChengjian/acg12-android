@@ -15,7 +15,7 @@ import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Home;
-import org.acg12.net.HttpRequestImpl;
+import org.acg12.net.impl.HomeRequestImpl;
 import org.acg12.ui.activity.DownloadActivity;
 import org.acg12.ui.activity.NewestIllustrationActivity;
 import org.acg12.ui.activity.NewestNewsActivity;
@@ -84,7 +84,7 @@ public class HomeFragment extends SkinBaseFragment<HomeView> implements Toolbar.
     }
 
     public void refresh(){
-        HttpRequestImpl.getInstance().index(currentUser(), new HttpRequestListener<Home>() {
+        HomeRequestImpl.getInstance().index(currentUser(), new HttpRequestListener<Home>() {
             @Override
             public void onSuccess(Home result) {
                 mView.bindData(result);

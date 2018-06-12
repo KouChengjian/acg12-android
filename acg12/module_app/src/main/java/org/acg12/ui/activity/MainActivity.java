@@ -1,7 +1,6 @@
 package org.acg12.ui.activity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,7 +12,7 @@ import com.acg12.lib.dao.DaoBaseImpl;
 import com.acg12.lib.entity.Update;
 import com.acg12.lib.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
-import com.acg12.lib.net.UserHttpRequestImpl;
+import org.acg12.net.impl.UserRequestImpl;
 import com.acg12.lib.net.download.DownloadManger;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.LogUtil;
@@ -39,9 +38,7 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
     @Override
     public void create(Bundle savedInstance) {
         super.create(savedInstance);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            setTranslucentStatus(true);
-        }
+        setTranslucentStatus();
     }
 
     @Override
@@ -131,7 +128,7 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
     public void pudateUser() {
         User user = DaoBaseImpl.getInstance(mContext).getCurrentUser();
         if (user == null) return;
-        UserHttpRequestImpl.getInstance(mContext).userInfo(user, new HttpRequestListener<User>() {
+        UserRequestImpl.getInstance(mContext).userInfo(user, new HttpRequestListener<User>() {
             @Override
             public void onSuccess(User result) {
                 mView.paddingDate(result);
@@ -152,7 +149,7 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
     }
 
     private void updateApp() {
-        UserHttpRequestImpl.getInstance(mContext).updateApp(currentUser(), AppUtil.getPackageInfo(mContext).versionCode, new HttpRequestListener<Update>() {
+        UserRequestImpl.getInstance(mContext).updateApp(currentUser(), AppUtil.getPackageInfo(mContext).versionCode, new HttpRequestListener<Update>() {
             @Override
             public void onSuccess(Update result) {
                 showUpdateApp(result);

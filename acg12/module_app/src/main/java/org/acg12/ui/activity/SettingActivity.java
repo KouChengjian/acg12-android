@@ -9,7 +9,7 @@ import com.acg12.lib.dao.DaoBaseImpl;
 import com.acg12.lib.entity.Update;
 import com.acg12.lib.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
-import com.acg12.lib.net.UserHttpRequestImpl;
+import org.acg12.net.impl.UserRequestImpl;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.ViewUtil;
@@ -70,7 +70,7 @@ public class SettingActivity extends SkinBaseActivity<SettingView> implements Vi
         final ProgressDialog progress = ViewUtil.startLoading(mContext , "获取版本...");
 
         User user = DaoBaseImpl.getInstance(mContext).getCurrentUser();
-        UserHttpRequestImpl.getInstance(mContext).updateApp(user, AppUtil.getPackageInfo(mContext).versionCode, new HttpRequestListener<Update>() {
+        UserRequestImpl.getInstance(mContext).updateApp(user, AppUtil.getPackageInfo(mContext).versionCode, new HttpRequestListener<Update>() {
             @Override
             public void onSuccess(Update result) {
                 progress.dismiss();

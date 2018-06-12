@@ -102,7 +102,7 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == BaseConstant.TOOLBAR_ID) {
+        if (view.getId() == -1) {
             aminFinish();
         }
     }

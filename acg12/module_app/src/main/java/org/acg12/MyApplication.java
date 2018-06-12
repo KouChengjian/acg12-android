@@ -12,7 +12,7 @@ import com.acg12.lib.utils.skin.SkinManager;
 import com.facebook.stetho.Stetho;
 
 import org.acg12.conf.Config;
-import org.acg12.net.HttpRequestImpl;
+import org.acg12.net.impl.HomeRequestImpl;
 import org.acg12.utlis.cache.Cache;
 
 
@@ -50,7 +50,7 @@ public class MyApplication extends Application {
 		super.onCreate();
 		new Config(this);
 		new Cache(this);
-		new HttpRequestImpl(this);
+		new HomeRequestImpl(this);
 		SkinManager.getInstance().init(this);
 		SkinManager.getInstance().load();
 

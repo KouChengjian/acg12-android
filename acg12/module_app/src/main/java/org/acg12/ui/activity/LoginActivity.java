@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.acg12.lib.conf.BaseConfig;
 import com.acg12.lib.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
-import com.acg12.lib.net.UserHttpRequestImpl;
+import org.acg12.net.impl.UserRequestImpl;
 import com.acg12.lib.ui.activity.PresenterActivityImpl;
 
 import org.acg12.R;
@@ -69,7 +68,7 @@ public class LoginActivity extends PresenterActivityImpl<LoginView> implements V
         user.setUsername(name);
         user.setPassword(password);
 
-        UserHttpRequestImpl.getInstance(mContext).login(user, new HttpRequestListener<User>() {
+        UserRequestImpl.getInstance(mContext).login(user, new HttpRequestListener<User>() {
             @Override
             public void onSuccess(User result) {
                 progress.dismiss();

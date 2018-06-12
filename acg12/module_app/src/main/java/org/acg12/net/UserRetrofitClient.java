@@ -1,12 +1,12 @@
 package org.acg12.net;
 
+import com.acg12.lib.conf.BaseConstant;
 import com.acg12.lib.entity.User;
 import com.acg12.lib.net.base.BaseRetrofitClient;
 import com.acg12.lib.net.factory.ApiConverterFactory;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
-import org.acg12.conf.Constant;
-import org.acg12.net.api.HomeApi;
+import org.acg12.net.api.UserApi;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -18,18 +18,16 @@ import okhttp3.Response;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
- * Created by DELL on 2016/11/29.
+ * Created by Administrator on 2017/12/25.
  */
-public class RetrofitClient  extends BaseRetrofitClient {
-
+public class UserRetrofitClient extends BaseRetrofitClient {
 
     public static OkHttpClient initOkhttp(final User user) {
         return new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-
                 Request request = chain.request().newBuilder()
-                        .addHeader("uid" , user.getUid()+"")
+                        .addHeader("uid", user.getUid() + "")
                         .addHeader("p", user.getP())
                         .addHeader("s", user.getS())
                         .addHeader("n", user.getN())
@@ -43,25 +41,21 @@ public class RetrofitClient  extends BaseRetrofitClient {
             }
         })
                 .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)//设置读取超时时间
-                .writeTimeout(WRITE_TIMEOUT,TimeUnit.SECONDS)//设置写的超时时间
-                .connectTimeout(CONNECT_TIMEOUT,TimeUnit.SECONDS)//设置连接超时时间
+                .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)//设置写的超时时间
+                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)//设置连接超时时间
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
     }
 
-    public static HomeApi with(User user){
+    public static UserApi with(User user) {
         OkHttpClient okHttpClient = initOkhttp(user);
         retrofit2.Retrofit retrofit = new retrofit2.Retrofit.Builder()
                 .addConverterFactory(ApiConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)
-                .baseUrl(Constant.URL)
+                .baseUrl(BaseConstant.URL)
                 .build();
-        HomeApi netInterFace = retrofit.create(HomeApi.class);
+        UserApi netInterFace = retrofit.create(UserApi.class);
         return netInterFace;
     }
-
-//    public <T> T createApi(Class<T> tClass) {
-//        return mRetrofit.create(tClass);
-//    }
 }

@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:skin="http://schemas.android.com/android/skin"
-    android:id="@+id/toolbar"
-    style="@style/Widget.MaterialSheetFab.ToolBar"
-    android:background="@color/theme_primary"
-    app:layout_scrollFlags="scroll|enterAlways"
-    app:titleTextColor="@color/white"
-    skin:enable="true">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/title_right"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_gravity="right"
-        android:gravity="center"
-        android:paddingRight="20dp"
-        android:text=""
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="normal" />
+    <View
+        android:id="@+id/title_status"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/theme_primary" />
 
-</android.support.v7.widget.Toolbar>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.MaterialSheetFab.ToolBar"
+        android:background="@color/theme_primary"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:titleTextColor="@color/white"
+        skin:enable="true">
+
+        <TextView
+            android:id="@+id/title_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:paddingRight="20dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+    </android.support.v7.widget.Toolbar>
+</LinearLayout>
+
 
 
 

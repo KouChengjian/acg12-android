@@ -38,7 +38,7 @@ dependencies {
     compile httpDependencies.retrofit2_gson
     compile httpDependencies.retrofit2_scalars
     compile httpDependencies.retrofit2_rxjava
-    compile httpDependencies.rxjava
+//    compile httpDependencies.rxjava
     compile httpDependencies.rxandroid
     def kotlinDependencies = rootProject.ext.kotlinDependencies
     compile kotlinDependencies.kotlin

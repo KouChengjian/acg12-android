@@ -3,22 +3,33 @@ package org.acg12.conf;
 
 import android.content.Context;
 
-import com.acg12.lib.conf.BaseConfig;
 import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by DELL on 2016/11/25.
  */
-public class Config extends BaseConfig {
+public class Config  {
 
+    private Context mContext;
+    private static EventBus eventbusUser;
+    private static EventBus eventbusNavigation;
     static ListVideoUtil listVideoUtil;
 
-    static {
-    }
 
     public Config(Context mContext){
-        super(mContext);
+        this.mContext = mContext;
+        eventbusUser = EventBus.builder().build();
+        eventbusNavigation = EventBus.builder().build();
+    }
 
+    public static EventBus userEventBus() {
+        return eventbusUser;
+    }
+
+    public static EventBus navigationEventBus() {
+        return eventbusNavigation;
     }
 
     // init in activity

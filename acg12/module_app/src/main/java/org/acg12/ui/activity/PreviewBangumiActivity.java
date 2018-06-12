@@ -12,7 +12,7 @@ import com.acg12.lib.listener.ItemClickSupport;
 import org.acg12.R;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Video;
-import org.acg12.net.HttpRequestImpl;
+import org.acg12.net.impl.HomeRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.PreviewBangumiView;
 
@@ -60,7 +60,7 @@ public class PreviewBangumiActivity extends SkinBaseActivity<PreviewBangumiView>
     }
 
     public void refresh() {
-        HttpRequestImpl.getInstance().bangumiPreview(currentUser(), bangumiId, new HttpRequestListener<Video>() {
+        HomeRequestImpl.getInstance().bangumiPreview(currentUser(), bangumiId, new HttpRequestListener<Video>() {
             @Override
             public void onSuccess(Video result) {
                 mView.bindData(result);

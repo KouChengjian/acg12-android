@@ -19,7 +19,7 @@ import com.acg12.lib.utils.glide.ImageLoadUtils;
 import org.acg12.R;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
-import org.acg12.net.HttpRequestImpl;
+import org.acg12.net.impl.HomeRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.PreviewAlbumView;
 
@@ -89,7 +89,7 @@ public class PreviewAlbumActivity extends SkinBaseActivity<PreviewAlbumView> imp
     public void onPageScrollStateChanged(int state) {}
 
     public void refresh(String pinId){
-        HttpRequestImpl.getInstance().albumList(currentUser(),pinId, new HttpRequestListener<List<Album>>() {
+        HomeRequestImpl.getInstance().albumList(currentUser(),pinId, new HttpRequestListener<List<Album>>() {
             @Override
             public void onSuccess(List<Album> result) {
                 mList.addAll(result);

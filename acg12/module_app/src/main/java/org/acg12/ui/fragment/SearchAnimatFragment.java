@@ -14,7 +14,7 @@ import com.acg12.lib.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.Video;
-import org.acg12.net.HttpRequestImpl;
+import org.acg12.net.impl.HomeRequestImpl;
 import org.acg12.ui.activity.PlayBungumiActivity;
 import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.SearchAnimatView;
@@ -67,7 +67,7 @@ public class SearchAnimatFragment extends SkinBaseFragment<SearchAnimatView> imp
     }
 
     public void refresh(String key , int page){
-        HttpRequestImpl.getInstance().searchVideo(currentUser(),key , page+"" , new HttpRequestListener<List<Video>>() {
+        HomeRequestImpl.getInstance().searchVideo(currentUser(),key , page+"" , new HttpRequestListener<List<Video>>() {
             @Override
             public void onSuccess(List<Video> result) {
                 if (result.size() != 0 && result.get(result.size() - 1) != null) {

@@ -14,7 +14,7 @@ import com.acg12.lib.utils.LogUtil;
 
 import org.acg12.R;
 import org.acg12.entity.Search;
-import org.acg12.net.HttpRequestImpl;
+import org.acg12.net.impl.HomeRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.SearchView;
 import org.acg12.utlis.cache.Cache;
@@ -108,7 +108,7 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
 
     private void refresh(String key){
         mView.startLoading();
-        HttpRequestImpl.getInstance().searchKeyList(currentUser(), key, new HttpRequestListener<List<Search>>() {
+        HomeRequestImpl.getInstance().searchKeyList(currentUser(), key, new HttpRequestListener<List<Search>>() {
 
             @Override
             public void onSuccess(List<Search> result) {
