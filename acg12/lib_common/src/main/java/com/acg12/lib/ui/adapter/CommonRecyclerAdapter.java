@@ -19,7 +19,7 @@ public abstract class CommonRecyclerAdapter extends RecyclerView.Adapter {
         this(mContext, new ArrayList<Object>());
     }
 
-    public CommonRecyclerAdapter(Context mContext, List<Object> mList) {
+    public CommonRecyclerAdapter(Context mContext, List mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
@@ -28,15 +28,15 @@ public abstract class CommonRecyclerAdapter extends RecyclerView.Adapter {
         this.mList.add(object);
     }
 
-    public void addAll(List<Object> mList) {
+    public void addAll(List mList) {
         this.mList.addAll(mList);
     }
 
-    public void setList(List<Object> mList) {
+    public void setList(List mList) {
         this.mList = mList;
     }
 
-    public List<Object> getList() {
+    public List getList() {
         return mList;
     }
 

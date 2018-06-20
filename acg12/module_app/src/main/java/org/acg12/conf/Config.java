@@ -22,6 +22,8 @@ public class Config  {
         this.mContext = mContext;
         eventbusUser = EventBus.builder().build();
         eventbusNavigation = EventBus.builder().build();
+
+
     }
 
     public static EventBus userEventBus() {

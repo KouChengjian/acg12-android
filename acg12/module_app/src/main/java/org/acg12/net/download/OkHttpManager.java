@@ -1,4 +1,4 @@
-package com.acg12.lib.net.download;
+package org.acg12.net.download;
 
 import java.io.IOException;
 import java.io.InputStream;

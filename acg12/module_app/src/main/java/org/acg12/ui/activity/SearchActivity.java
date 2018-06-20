@@ -1,6 +1,7 @@
 package org.acg12.ui.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -9,12 +10,13 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import com.acg12.lib.listener.HttpRequestListener;
+import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.listener.ParameCallBack;
 import com.acg12.lib.utils.LogUtil;
 
 import org.acg12.R;
 import org.acg12.entity.Search;
-import org.acg12.net.impl.HomeRequestImpl;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.SearchView;
 import org.acg12.utlis.cache.Cache;
@@ -24,7 +26,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SearchActivity extends SkinBaseActivity<SearchView> implements View.OnClickListener , ParameCallBack ,TextWatcher , TextView.OnEditorActionListener {
+public class SearchActivity extends SkinBaseActivity<SearchView> implements View.OnClickListener , ParameCallBack ,TextWatcher , TextView.OnEditorActionListener
+,ItemClickSupport.OnItemClickListener{
 
     private LinkedList<String> historyList = new LinkedList<>();
     private int histroyTotal = 8;
@@ -46,6 +49,15 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
         if (view.getId() == R.id.tv_search_finish){
             aminFinish();
         }
+    }
+
+    @Override
+    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+        Search search = mView.getList().get(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("title", search.getTitle());
+        startAnimActivity(SearchInfoActivity.class, bundle);
+        finish();
     }
 
     @Override
@@ -108,7 +120,7 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
 
     private void refresh(String key){
         mView.startLoading();
-        HomeRequestImpl.getInstance().searchKeyList(currentUser(), key, new HttpRequestListener<List<Search>>() {
+        HttpRequestImpl.getInstance().searchKeyList(currentUser(), key, new HttpRequestListener<List<Search>>() {
 
             @Override
             public void onSuccess(List<Search> result) {
@@ -126,6 +138,7 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
             }
         });
     }
+
 
 
 }

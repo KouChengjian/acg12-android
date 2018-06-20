@@ -10,16 +10,16 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.acg12.lib.listener.HttpRequestListener;
-import com.acg12.lib.net.download.DUtil;
-import com.acg12.lib.net.download.DownLoadCallback;
-import com.acg12.lib.net.download.DownloadManger;
+import org.acg12.net.download.DUtil;
+import org.acg12.net.download.DownLoadCallback;
+import org.acg12.net.download.DownloadManger;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 
 import org.acg12.R;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
-import org.acg12.net.impl.HomeRequestImpl;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.PreviewAlbumView;
 
@@ -89,7 +89,7 @@ public class PreviewAlbumActivity extends SkinBaseActivity<PreviewAlbumView> imp
     public void onPageScrollStateChanged(int state) {}
 
     public void refresh(String pinId){
-        HomeRequestImpl.getInstance().albumList(currentUser(),pinId, new HttpRequestListener<List<Album>>() {
+        HttpRequestImpl.getInstance().albumList(currentUser(),pinId, new HttpRequestListener<List<Album>>() {
             @Override
             public void onSuccess(List<Album> result) {
                 mList.addAll(result);

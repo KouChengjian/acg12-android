@@ -1,10 +1,9 @@
-package com.acg12.lib.net.download;
+package org.acg12.net.download;
 
 import android.content.Context;
 
-import com.acg12.lib.conf.DLStatus;
-import com.acg12.lib.dao.DaoBaseImpl;
-import com.acg12.lib.entity.DownLoad;
+import org.acg12.dao.DaoBaseImpl;
+import org.acg12.entity.DownLoad;
 import com.acg12.lib.utils.LogUtil;
 
 import java.io.InputStream;

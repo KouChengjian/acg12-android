@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.acg12.lib.dao.DaoBaseImpl;
+import org.acg12.dao.DaoBaseImpl;
 import com.acg12.lib.entity.User;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;

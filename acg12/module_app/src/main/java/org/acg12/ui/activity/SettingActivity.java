@@ -5,16 +5,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
-import com.acg12.lib.dao.DaoBaseImpl;
-import com.acg12.lib.entity.Update;
+import org.acg12.dao.DaoBaseImpl;
+import org.acg12.entity.Update;
 import com.acg12.lib.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
-import org.acg12.net.impl.UserRequestImpl;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
-import com.acg12.lib.widget.UpdateDialog;
+
+import org.acg12.net.impl.HttpRequestImpl;
+import org.acg12.widget.UpdateDialog;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
@@ -70,7 +71,7 @@ public class SettingActivity extends SkinBaseActivity<SettingView> implements Vi
         final ProgressDialog progress = ViewUtil.startLoading(mContext , "获取版本...");
 
         User user = DaoBaseImpl.getInstance(mContext).getCurrentUser();
-        UserRequestImpl.getInstance(mContext).updateApp(user, AppUtil.getPackageInfo(mContext).versionCode, new HttpRequestListener<Update>() {
+        HttpRequestImpl.getInstance().updateApp(user, AppUtil.getPackageInfo(mContext).versionCode, new HttpRequestListener<Update>() {
             @Override
             public void onSuccess(Update result) {
                 progress.dismiss();

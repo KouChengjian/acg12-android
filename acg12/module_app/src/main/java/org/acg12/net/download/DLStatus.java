@@ -1,4 +1,4 @@
-package com.acg12.lib.conf;
+package org.acg12.net.download;
 
 /**
  * Created by Administrator on 2017/12/25.

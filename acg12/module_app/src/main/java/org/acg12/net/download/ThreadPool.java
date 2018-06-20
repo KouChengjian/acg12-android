@@ -1,4 +1,4 @@
-package com.acg12.lib.net.download;
+package org.acg12.net.download;
 
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadFactory;

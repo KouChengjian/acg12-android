@@ -7,10 +7,10 @@ import android.view.View;
 
 import com.acg12.lib.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
-import org.acg12.net.impl.UserRequestImpl;
 import com.acg12.lib.ui.activity.PresenterActivityImpl;
 
 import org.acg12.R;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.views.ResetPwdView;
 import com.acg12.lib.utils.CountDownTimerUtils;
 import com.acg12.lib.utils.LogUtil;
@@ -58,7 +58,7 @@ public class ResetPwdActivity extends PresenterActivityImpl<ResetPwdView> implem
         final CountDownTimerUtils timerUtils = new CountDownTimerUtils(mView.getBtnVerify(), 60000, 1000);;
         final ProgressDialog progress = ViewUtil.startLoading(mContext , "正在获取验证码...");
 
-        UserRequestImpl.getInstance(mContext).verify(user, new HttpRequestListener<User>() {
+        HttpRequestImpl.getInstance().verify(user, new HttpRequestListener<User>() {
             @Override
             public void onSuccess(User result) {
                 progress.dismiss();
@@ -105,7 +105,7 @@ public class ResetPwdActivity extends PresenterActivityImpl<ResetPwdView> implem
 
         final ProgressDialog progress = ViewUtil.startLoading(mContext , "正在重置密码中...");
 
-        UserRequestImpl.getInstance(mContext).register(user, new HttpRequestListener<User>() {
+        HttpRequestImpl.getInstance().register(user, new HttpRequestListener<User>() {
             @Override
             public void onSuccess(User result) {
                 progress.dismiss();

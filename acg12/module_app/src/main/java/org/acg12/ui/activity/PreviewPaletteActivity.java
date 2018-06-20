@@ -16,7 +16,7 @@ import com.acg12.lib.widget.IRecycleView;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
 import org.acg12.entity.Palette;
-import org.acg12.net.impl.HomeRequestImpl;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.PreviewPaletteView;
 
@@ -89,7 +89,7 @@ public class PreviewPaletteActivity extends SkinBaseActivity<PreviewPaletteView>
     }
 
     public void refresh(String boardId ,String pinId){
-        HomeRequestImpl.getInstance().palettePreview(currentUser(),boardId , pinId ,new HttpRequestListener<List<Album>>() {
+        HttpRequestImpl.getInstance().palettePreview(currentUser(),boardId , pinId ,new HttpRequestListener<List<Album>>() {
             @Override
             public void onSuccess(List<Album> result) {
                 if (result.size() != 0 && result.get(result.size() - 1) != null) {

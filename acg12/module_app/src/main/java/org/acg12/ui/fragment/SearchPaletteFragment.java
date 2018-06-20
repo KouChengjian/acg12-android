@@ -14,7 +14,7 @@ import com.acg12.lib.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.Palette;
-import org.acg12.net.impl.HomeRequestImpl;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewPaletteActivity;
 import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.SearchPaletteView;
@@ -66,7 +66,7 @@ public class SearchPaletteFragment extends SkinBaseFragment<SearchPaletteView> i
     }
 
     public void refresh(String key, int page) {
-        HomeRequestImpl.getInstance().searchPalette(currentUser(), key, page + "", new HttpRequestListener<List<Palette>>() {
+        HttpRequestImpl.getInstance().searchPalette(currentUser(), key, page + "", new HttpRequestListener<List<Palette>>() {
             @Override
             public void onSuccess(List<Palette> result) {
                 if (result.size() != 0 && result.get(result.size() - 1) != null) {

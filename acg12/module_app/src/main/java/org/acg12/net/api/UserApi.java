@@ -1,8 +1,9 @@
 package org.acg12.net.api;
 
 import com.acg12.lib.entity.User;
-import org.acg12.net.converter.UserConverter;
 import com.acg12.lib.net.factory.ApiConverter;
+
+import org.acg12.net.converter.UserConverter;
 
 import java.util.Map;
 
@@ -15,9 +16,6 @@ import retrofit2.http.POST;
 import retrofit2.http.PartMap;
 import rx.Observable;
 
-/**
- * Created by Administrator on 2017/12/25.
- */
 public interface UserApi {
 
     @FormUrlEncoded

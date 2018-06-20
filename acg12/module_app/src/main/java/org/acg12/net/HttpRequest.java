@@ -9,13 +9,45 @@ import org.acg12.entity.Home;
 import org.acg12.entity.News;
 import org.acg12.entity.Palette;
 import org.acg12.entity.Search;
+import org.acg12.entity.Update;
 import org.acg12.entity.Video;
 
 import java.util.List;
 
 import rx.Subscription;
 
-public interface HomeRequest {
+public interface HttpRequest {
+
+    Subscription login(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription register(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription verify(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription resetPwd(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription userInfo(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription avatar(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription sex(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription nick(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription sign(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription alterPwd(User user, HttpRequestListener<User> httpRequestListener);
+
+    Subscription feedback(User user, String msg, HttpRequestListener<User> httpRequestListener);
+
+    Subscription updateApp(User user, int versionCode, HttpRequestListener<Update> httpRequestListener);
+
+
+
+
+
+
+
 
     Subscription index(User user , HttpRequestListener<Home> httpRequestListener);
 

@@ -13,7 +13,7 @@ import com.acg12.lib.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.News;
-import org.acg12.net.impl.HomeRequestImpl;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.NewestNewsView;
 
@@ -64,7 +64,7 @@ public class NewestNewsActivity extends SkinBaseActivity<NewestNewsView> impleme
     }
 
     public void refresh() {
-        HomeRequestImpl.getInstance().newsList(currentUser(), page + "", new HttpRequestListener<List<News>>() {
+        HttpRequestImpl.getInstance().newsList(currentUser(), page + "", new HttpRequestListener<List<News>>() {
             @Override
             public void onSuccess(List<News> result) {
                 if (result.size() != 0 && result.get(result.size() - 1) != null) {

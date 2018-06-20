@@ -1,15 +1,15 @@
-package com.acg12.lib.net.download;
+package org.acg12.net.download;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.acg12.lib.conf.DLStatus;
-import com.acg12.lib.dao.DaoBaseImpl;
-import com.acg12.lib.entity.DownLoad;
-import com.acg12.lib.entity.Ranges;
+import org.acg12.entity.DownLoad;
+import org.acg12.entity.Ranges;
 import com.acg12.lib.utils.IOUtils;
+
+import org.acg12.dao.DaoBaseImpl;
 
 import java.io.BufferedReader;
 import java.io.File;

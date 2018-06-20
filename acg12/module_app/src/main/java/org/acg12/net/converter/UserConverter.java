@@ -1,10 +1,11 @@
 package org.acg12.net.converter;
 
 import com.acg12.lib.entity.User;
-import com.acg12.lib.net.UserRetrofitClient;
 import com.acg12.lib.net.factory.AbstractResponseConverter;
+import com.acg12.lib.utils.JsonParse;
 import com.google.gson.Gson;
 
+import org.acg12.net.RetrofitHttp;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -23,16 +24,16 @@ public class UserConverter extends AbstractResponseConverter<User> {
     @Override
     public User convert(ResponseBody value) throws IOException {
         User user = new User();
-        JSONObject data = UserRetrofitClient.parseJSONObject(value);
+        JSONObject data = RetrofitHttp.parseJSONObject(value);
         if (data != null) {
-            JSONObject json = UserRetrofitClient.getJSONObject(data, "user");
-            user.setUid(UserRetrofitClient.getInt(json, "id"));
-            user.setSex(UserRetrofitClient.getInt(json, "sex"));
-            user.setNick(UserRetrofitClient.getString(json, "nick"));
-            user.setAvatar(UserRetrofitClient.getString(json, "avatar"));
-            user.setSignature(UserRetrofitClient.getString(json, "sign"));
+            JSONObject json = JsonParse.getJSONObject(data, "user");
+            user.setUid(JsonParse.getInt(json, "id"));
+            user.setSex(JsonParse.getInt(json, "sex"));
+            user.setNick(JsonParse.getString(json, "nick"));
+            user.setAvatar(JsonParse.getString(json, "avatar"));
+            user.setSignature(JsonParse.getString(json, "sign"));
         } else {
-            UserRetrofitClient.failure();
+            RetrofitHttp.failure();
         }
         return user;
     }

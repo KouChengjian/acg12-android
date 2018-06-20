@@ -15,7 +15,7 @@ import com.acg12.lib.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
-import org.acg12.net.impl.HomeRequestImpl;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.NewestIllustrationView;
 
@@ -80,11 +80,11 @@ public class NewestIllustrationActivity extends SkinBaseActivity<NewestIllustrat
     }
 
     public void refresh(String pinId){
-        HomeRequestImpl.getInstance().albumList(currentUser(),pinId, new HttpRequestListener<List<Album>>() {
+        HttpRequestImpl.getInstance().albumList(currentUser(),pinId, new HttpRequestListener<List<Album>>() {
             @Override
             public void onSuccess(List<Album> result) {
                 if (result.size() != 0 && result.get(result.size() - 1) != null) {
-                    if (result.size() < Constant.LIMIT_PAGER) {
+                    if (result.size() < Constant.LIMIT_PAGER_20) {
                         mView.stopLoading();
                     }
                     mView.bindData(result , refresh);

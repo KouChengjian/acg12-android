@@ -1,24 +1,21 @@
 package org.acg12.net.api;
 
-
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
 
-/**
- * Created by DELL on 2016/11/29.
- */
 public interface HomeApi {
 
-    @GET("res/index")
+    @GET("api/home")
     Observable<ResponseBody> index();
+
+    @GET("api/home/albums")
+    Observable<ResponseBody> albumList(@Query("action") String action , @Query("max") String pinId);
 
     @GET("res/news")
     Observable<ResponseBody> newsList(@Query("page") String page);
 
-    @GET("res/p/album")
-    Observable<ResponseBody> albumList(@Query("action") String action , @Query("max") String pinId);
 
     @GET("res/p/boards")
     Observable<ResponseBody> paletteList(@Query("action") String action , @Query("max") String pinId);
@@ -38,11 +35,7 @@ public interface HomeApi {
     @GET("res/v/playurl")
     Observable<ResponseBody> playUrl(@Query("action") String action ,@Query("av") String av);
 
-    @GET("res/search/album")
-    Observable<ResponseBody> searchAlbum(@Query("key") String key , @Query("page") String page);
 
-    @GET("res/search/palette")
-    Observable<ResponseBody> searchPalette(@Query("key") String key , @Query("page") String page);
 
     @GET("res/v/search/bangunmi")
     Observable<ResponseBody> searchBangumi(@Query("key") String key , @Query("page") String page);
@@ -50,8 +43,7 @@ public interface HomeApi {
     @GET("res/v/search/video")
     Observable<ResponseBody> searchVideo(@Query("key") String key , @Query("page") String page);
 
-    @GET("res/search/key")
-    Observable<ResponseBody> searchKeyList(@Query("key") String key);
+
 
 
 //    @FormUrlEncoded
@@ -124,5 +116,4 @@ public interface HomeApi {
 //
 //    @GET("/UserInfo/{u}")
 //    Observable<ResponseBody> userinfo(@Path("u") String u);
-
 }

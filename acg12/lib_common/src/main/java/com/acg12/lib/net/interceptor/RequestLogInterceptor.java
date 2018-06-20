@@ -1,6 +1,8 @@
 package com.acg12.lib.net.interceptor;
 
 
+import com.acg12.lib.utils.LogUtil;
+
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
@@ -40,6 +42,8 @@ public class RequestLogInterceptor implements Interceptor {
 //            LogUtil.e("RequestLogInterceptor", requestMessage);
         }
 //        LogUtil.e("RequestLogInterceptor", request.method() + ' ' + request.url() + ' ' + responseBodyString);
+        LogUtil.e("请求信息 " + requestMessage);
+        LogUtil.e("响应信息 " + responseBodyString);
         return response.newBuilder().body(ResponseBody.create(responseBody.contentType(),
                 responseBodyString.getBytes())).build();
     }

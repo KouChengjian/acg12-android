@@ -1,4 +1,4 @@
-package com.acg12.lib.widget;
+package org.acg12.widget;
 
 
 import android.app.Notification;
@@ -15,14 +15,15 @@ import android.widget.Button;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
-import com.acg12.lib.R;
-import com.acg12.lib.dao.DaoBaseImpl;
-import com.acg12.lib.entity.Update;
-import com.acg12.lib.net.download.DUtil;
-import com.acg12.lib.net.download.DownLoadCallback;
-import com.acg12.lib.net.download.DownloadManger;
+import org.acg12.R;
+import org.acg12.dao.DaoBaseImpl;
+import org.acg12.entity.Update;
+import org.acg12.net.download.DUtil;
+import org.acg12.net.download.DownLoadCallback;
+import org.acg12.net.download.DownloadManger;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.Toastor;
+import com.acg12.lib.widget.BaseDialog;
 import com.facebook.stetho.common.LogUtil;
 
 import java.io.File;

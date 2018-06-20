@@ -5,10 +5,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.acg12.lib.conf.DLStatus;
-import com.acg12.lib.entity.DownLoad;
-import com.acg12.lib.net.download.DownLoadCallback;
-import com.acg12.lib.net.download.DownloadManger;
+import org.acg12.net.download.DLStatus;
+import org.acg12.entity.DownLoad;
+import org.acg12.net.download.DownLoadCallback;
+import org.acg12.net.download.DownloadManger;
 import com.acg12.lib.ui.adapter.CommonRecyclerView;
 import com.acg12.lib.utils.IOUtils;
 import com.acg12.lib.utils.LogUtil;

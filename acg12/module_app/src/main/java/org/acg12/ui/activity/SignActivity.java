@@ -6,12 +6,12 @@ import android.view.View;
 
 import com.acg12.lib.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
-import org.acg12.net.impl.UserRequestImpl;
 import com.acg12.lib.utils.LogUtil;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.SignView;
 import org.acg12.utlis.Network;
@@ -66,7 +66,7 @@ public class SignActivity extends SkinBaseActivity<SignView> implements View.OnC
         progress.show();
 
         user.setSignature(sign);
-        UserRequestImpl.getInstance(mContext).sign(user, new HttpRequestListener<User>() {
+        HttpRequestImpl.getInstance().sign(user, new HttpRequestListener<User>() {
             @Override
             public void onSuccess(User result) {
                 ShowToastView("更新成功");

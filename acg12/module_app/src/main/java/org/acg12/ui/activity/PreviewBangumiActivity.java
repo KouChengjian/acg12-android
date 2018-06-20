@@ -1,6 +1,5 @@
 package org.acg12.ui.activity;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,7 +11,7 @@ import com.acg12.lib.listener.ItemClickSupport;
 import org.acg12.R;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Video;
-import org.acg12.net.impl.HomeRequestImpl;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.PreviewBangumiView;
 
@@ -25,9 +24,7 @@ public class PreviewBangumiActivity extends SkinBaseActivity<PreviewBangumiView>
     @Override
     public void create(Bundle savedInstance) {
         super.create(savedInstance);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-        }
+        setTranslucentStatus();
     }
 
     @Override
@@ -60,7 +57,7 @@ public class PreviewBangumiActivity extends SkinBaseActivity<PreviewBangumiView>
     }
 
     public void refresh() {
-        HomeRequestImpl.getInstance().bangumiPreview(currentUser(), bangumiId, new HttpRequestListener<Video>() {
+        HttpRequestImpl.getInstance().bangumiPreview(currentUser(), bangumiId, new HttpRequestListener<Video>() {
             @Override
             public void onSuccess(Video result) {
                 mView.bindData(result);

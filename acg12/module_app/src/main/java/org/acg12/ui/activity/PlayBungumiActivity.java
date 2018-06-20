@@ -7,7 +7,7 @@ import android.view.WindowManager;
 import com.acg12.lib.listener.HttpRequestListener;
 
 import org.acg12.entity.Video;
-import org.acg12.net.impl.HomeRequestImpl;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.PlayBungumiView;
 
@@ -34,7 +34,7 @@ public class PlayBungumiActivity extends SkinBaseActivity<PlayBungumiView> {
     }
 
     public void getVideoUrlOrXml(String av) {
-        HomeRequestImpl.getInstance().playBangumi(currentUser(),av, new HttpRequestListener<Video>() {
+        HttpRequestImpl.getInstance().playBangumi(currentUser(),av, new HttpRequestListener<Video>() {
             @Override
             public void onSuccess(Video result) {
                 mView.setPlayer(result);

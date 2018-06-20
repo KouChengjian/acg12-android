@@ -1,6 +1,7 @@
 package com.acg12.lib.net.factory;
 
 
+import com.acg12.lib.BuildConfig;
 import com.acg12.lib.conf.BaseConstant;
 
 /**
@@ -8,7 +9,7 @@ import com.acg12.lib.conf.BaseConstant;
  */
 public class ApiErrorCode {
 
-    public static final int HTTP_RESPONSE_SUCCEED = 200;
+    public static final int HTTP_RESPONSE_SUCCEED = 20000;
     public static final int HTTP_RESPONSE_CONVERTER_DATA_NULL = 20100;
 
     // 异常捕获
@@ -16,7 +17,7 @@ public class ApiErrorCode {
     public static final int EXCEPTION_JSON = 1025;
 
     public static String getErrorCodeMsg(int code){
-        if(BaseConstant.debug){
+        if(BuildConfig.DEBUG){
             return debugMsg(code);
         }else{
             return userMsg(code);

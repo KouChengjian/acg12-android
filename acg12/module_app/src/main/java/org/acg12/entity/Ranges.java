@@ -1,4 +1,4 @@
-package com.acg12.lib.entity;
+package org.acg12.entity;
 
 /**
  * 记录断点信息

@@ -15,7 +15,7 @@ import com.acg12.lib.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
-import org.acg12.net.impl.HomeRequestImpl;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewAlbumActivity;
 import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.SearchAlbumView;
@@ -79,7 +79,7 @@ public class SearchAlbumFragment extends SkinBaseFragment<SearchAlbumView> imple
     }
 
     public void refresh(String key , int page){
-        HomeRequestImpl.getInstance().searchAlbum(currentUser(), key, page+"",new HttpRequestListener<List<Album>>() {
+        HttpRequestImpl.getInstance().searchAlbum(currentUser(), key, page+"",new HttpRequestListener<List<Album>>() {
             @Override
             public void onSuccess(List<Album> result) {
                 if (result.size() != 0 && result.get(result.size() - 1) != null) {

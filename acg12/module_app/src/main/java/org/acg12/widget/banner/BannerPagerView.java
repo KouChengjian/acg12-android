@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.acg12.lib.R;
+import org.acg12.R;
 import org.acg12.entity.Banner;
 import org.acg12.listener.BannerClickListener;
 import com.acg12.lib.utils.glide.ImageLoadUtils;

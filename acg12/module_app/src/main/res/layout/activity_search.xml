@@ -5,53 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/search_toolbar"
-        style="@style/Widget.MaterialSheetFab.ToolBar"
-        android:background="@color/theme_primary"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:titleTextColor="@color/white">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <com.acg12.lib.widget.DeletableEditText
-                android:id="@+id/edt_search"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bg_rect_search"
-                android:drawableLeft="@mipmap/ic_action_title_search"
-                android:drawablePadding="10dp"
-                android:drawableRight="@mipmap/ic_login_delete"
-                android:gravity="center|left"
-                android:hint="搜索感兴趣的内容..."
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/title"
-                android:textColorHint="@color/title1"
-                android:textSize="14sp"
-                android:imeOptions="actionSearch"
-                android:singleLine="true"/>
-
-            <TextView
-                android:id="@+id/tv_search_finish"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="取消"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-
-    </android.support.v7.widget.Toolbar>
+    <com.acg12.lib.widget.ToolBarView
+        android:id="@+id/toolBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:id="@+id/layout_search_tag"
@@ -80,6 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </LinearLayout>

@@ -1,6 +1,5 @@
 package org.acg12.ui.base;
 
-import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.acg12.lib.dao.DaoBaseImpl;
+import org.acg12.dao.DaoBaseImpl;
 import com.acg12.lib.entity.User;
 import com.acg12.lib.ui.base.IView;
 import com.acg12.lib.ui.activity.PresenterActivityImpl;

@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.acg12.lib.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
-import org.acg12.net.impl.UserRequestImpl;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.premission.ApplyPermission;
 import com.acg12.lib.utils.premission.FailPermission;
@@ -16,6 +15,7 @@ import com.acg12.lib.utils.premission.SuccessPermission;
 import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.UserInfoView;
 import org.acg12.widget.CommonPopupWindows;
@@ -151,7 +151,7 @@ public class UserInfoActivity extends SkinBaseActivity<UserInfoView> implements 
 
 
     public void updateSex(){
-        UserRequestImpl.getInstance(mContext).sex(user, new HttpRequestListener<User>() {
+        HttpRequestImpl.getInstance().sex(user, new HttpRequestListener<User>() {
             @Override
             public void onSuccess(User result) {
                 ShowToastView("更新成功");

@@ -10,13 +10,16 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.listener.ParameCallBack;
-import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.widget.CommonRecycleview;
 import com.acg12.lib.widget.DeletableEditText;
+import com.acg12.lib.widget.ToolBarView;
 
 import org.acg12.R;
+import org.acg12.entity.Search;
 import org.acg12.ui.adapter.SearchAdapter;
 import org.acg12.widget.FlowLayout;
 
@@ -31,15 +34,15 @@ import butterknife.BindView;
 
 public class SearchView extends ViewImpl {
 
-    @BindView(R.id.edt_search)
-    DeletableEditText edt_search;
-    @BindView(R.id.tv_search_finish)
-    TextView tv_search_finish;
-
+    @BindView(R.id.toolBarView)
+    ToolBarView mToolBarView;
     @BindView(R.id.layout_search_tag)
     protected LinearLayout layout_search_tag;
     @BindView(R.id.history_flowlayout)
     FlowLayout mHistoryFlowlayout;
+
+    DeletableEditText mSearchEditText;
+    TextView mSearchFinish;
 
     @BindView(R.id.common_recycleview)
     CommonRecycleview commonRecycleview;
@@ -56,6 +59,12 @@ public class SearchView extends ViewImpl {
     @Override
     public void created() {
         super.created();
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.include_action_search, null);
+        mSearchEditText = (DeletableEditText) view.findViewById(R.id.edt_search);
+        mSearchFinish = (TextView) view.findViewById(R.id.tv_search_finish);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        view.setLayoutParams(layoutParams);
+        mToolBarView.addTitleView(view);
         commonRecycleview.setLinearLayoutManager();
         commonRecycleview.setLoadingEnabled(false);
         commonRecycleview.setRefreshEnabled(false);
@@ -66,47 +75,52 @@ public class SearchView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter, tv_search_finish);
-        edt_search.addTextChangedListener((TextWatcher)mPresenter);
-        edt_search.setOnEditorActionListener((TextView.OnEditorActionListener)mPresenter);
+        PresenterHelper.click(mPresenter, mSearchFinish);
+        mSearchEditText.addTextChangedListener((TextWatcher)mPresenter);
+        mSearchEditText.setOnEditorActionListener((TextView.OnEditorActionListener)mPresenter);
+        commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
     }
 
-    public void startLoading(){
+    public void startLoading() {
         progress_loading.setVisibility(View.VISIBLE);
     }
 
-    public void stopLoading(){
+    public void stopLoading() {
         progress_loading.setVisibility(View.GONE);
     }
 
-    public void showSearchList(){
+    public void showSearchList() {
         layout_search_tag.setVisibility(View.GONE);
         commonRecycleview.setVisibility(View.VISIBLE);
         searchAdapter.getList().clear();
         searchAdapter.notifyDataSetChanged();
     }
 
-    public void hideSearchList(){
+    public void hideSearchList() {
         layout_search_tag.setVisibility(View.VISIBLE);
         commonRecycleview.setVisibility(View.GONE);
     }
 
     public String getSearch() {
-        return edt_search.getText().toString();
+        return mSearchEditText.getText().toString();
     }
 
-    public void bindData(List result , boolean refresh){
+    public void bindData(List result, boolean refresh) {
         if (refresh) {
             searchAdapter.setList(result);
             commonRecycleview.notifyChanged();
         } else {
             searchAdapter.addAll(result);
-            commonRecycleview.notifyChanged(searchAdapter.getList().size() - result.size() , searchAdapter.getList().size());
+            commonRecycleview.notifyChanged(searchAdapter.getList().size() - result.size(), searchAdapter.getList().size());
         }
     }
 
+    public List<Search> getList(){
+        return (List<Search>)searchAdapter.getList();
+    }
+
     public void bindHistorySearch(final List<String> historyList) {
-        if(historyList ==  null || historyList.size() == 0){
+        if (historyList == null || historyList.size() == 0) {
             layout_search_tag.setVisibility(View.GONE);
         } else {
             layout_search_tag.setVisibility(View.VISIBLE);
@@ -131,7 +145,7 @@ public class SearchView extends ViewImpl {
             tv_search_history.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    showTagDelDialog(historyList,str);
+                    showTagDelDialog(historyList, str);
                     return true;
                 }
             });
@@ -139,13 +153,15 @@ public class SearchView extends ViewImpl {
         }
     }
 
-    /** ------------------------------------内部函数---------------------------------------------*/
-    private void showTagDelDialog(final List<String> historyList , final String title) {
+    /**
+     * ------------------------------------内部函数---------------------------------------------
+     */
+    private void showTagDelDialog(final List<String> historyList, final String title) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setMessage("是否删除？")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        delTag(historyList , title);
+                        delTag(historyList, title);
                     }
                 })
                 .setNegativeButton("取消", null);
@@ -153,7 +169,7 @@ public class SearchView extends ViewImpl {
         alertDialog.show();
     }
 
-    private void delTag(List<String> historyList ,String title){
+    private void delTag(List<String> historyList, String title) {
         Iterator<String> stringIterator = historyList.iterator();
         while (stringIterator.hasNext()) {
             String str1 = stringIterator.next();

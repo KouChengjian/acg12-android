@@ -1,8 +1,8 @@
-package com.acg12.lib.dao;
+package org.acg12.dao;
 
 
-import com.acg12.lib.entity.DownLoad;
-import com.acg12.lib.entity.Update;
+import org.acg12.entity.DownLoad;
+import org.acg12.entity.Update;
 import com.acg12.lib.entity.User;
 
 import java.util.List;

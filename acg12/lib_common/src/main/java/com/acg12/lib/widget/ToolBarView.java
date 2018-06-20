@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.acg12.lib.R;
@@ -17,6 +18,7 @@ public class ToolBarView extends FrameLayout {
 
     private Context mContext;
     private Toolbar mToolbar;
+    private RelativeLayout mTitleContainer;
     private TextView mTitleRight;
     private View mTitleStatus;
 
@@ -35,10 +37,9 @@ public class ToolBarView extends FrameLayout {
     private void initViews() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.common_action_bar, this);
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        mTitleContainer = (RelativeLayout) view.findViewById(R.id.title_container);
         mTitleRight = (TextView) view.findViewById(R.id.title_right);
         mTitleStatus = view.findViewById(R.id.title_status);
-
-        mToolbar.setNavigationIcon(R.mipmap.ic_action_back);
     }
 
     private void initEvent() {
@@ -66,8 +67,21 @@ public class ToolBarView extends FrameLayout {
         return result;
     }
 
-
     public Toolbar getToolbar() {
         return mToolbar;
+    }
+
+    public void setNavigationIcon(){
+        setNavigationIcon(R.mipmap.ic_action_back);
+    }
+
+    public void setNavigationIcon(int rId){
+        mToolbar.setNavigationIcon(rId);
+    }
+
+
+    public void addTitleView(View view){
+        mTitleContainer.removeAllViews();
+        mTitleContainer.addView(view);
     }
 }

@@ -8,17 +8,19 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.acg12.lib.dao.DaoBaseImpl;
-import com.acg12.lib.entity.Update;
+import org.acg12.dao.DaoBaseImpl;
+import org.acg12.entity.Update;
 import com.acg12.lib.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
-import org.acg12.net.impl.UserRequestImpl;
-import com.acg12.lib.net.download.DownloadManger;
+
+import org.acg12.net.download.DownloadManger;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.skin.AttrFactory;
 import com.acg12.lib.utils.skin.entity.DynamicAttr;
-import com.acg12.lib.widget.UpdateDialog;
+
+import org.acg12.net.impl.HttpRequestImpl;
+import org.acg12.widget.UpdateDialog;
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 
 import org.acg12.R;
@@ -48,7 +50,7 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
         Config.navigationEventBus().register(this);
         Config.userEventBus().register(this);
 
-        List<DynamicAttr> mDynamicAttr = new ArrayList<DynamicAttr>();
+        List<DynamicAttr> mDynamicAttr = new ArrayList<>();
         mDynamicAttr.add(new DynamicAttr(AttrFactory.NAVIGATIONVIEW, R.color.theme_primary));
         dynamicAddView(mView.getNavigationView(), mDynamicAttr);
 
@@ -128,7 +130,7 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
     public void pudateUser() {
         User user = DaoBaseImpl.getInstance(mContext).getCurrentUser();
         if (user == null) return;
-        UserRequestImpl.getInstance(mContext).userInfo(user, new HttpRequestListener<User>() {
+        HttpRequestImpl.getInstance().userInfo(user, new HttpRequestListener<User>() {
             @Override
             public void onSuccess(User result) {
                 mView.paddingDate(result);
@@ -149,7 +151,7 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
     }
 
     private void updateApp() {
-        UserRequestImpl.getInstance(mContext).updateApp(currentUser(), AppUtil.getPackageInfo(mContext).versionCode, new HttpRequestListener<Update>() {
+        HttpRequestImpl.getInstance().updateApp(currentUser(), AppUtil.getPackageInfo(mContext).versionCode, new HttpRequestListener<Update>() {
             @Override
             public void onSuccess(Update result) {
                 showUpdateApp(result);

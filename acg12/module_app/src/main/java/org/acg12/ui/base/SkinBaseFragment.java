@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
-import com.acg12.lib.dao.DaoBaseImpl;
+import org.acg12.dao.DaoBaseImpl;
 import com.acg12.lib.entity.User;
 import com.acg12.lib.ui.base.IView;
 import com.acg12.lib.ui.fragment.PresenterFragmentImpl;

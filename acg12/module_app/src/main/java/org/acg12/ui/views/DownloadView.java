@@ -8,7 +8,7 @@ import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.acg12.lib.entity.DownLoad;
+import org.acg12.entity.DownLoad;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;

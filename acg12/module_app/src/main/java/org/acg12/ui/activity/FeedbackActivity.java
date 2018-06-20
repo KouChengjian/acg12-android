@@ -5,14 +5,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.acg12.lib.dao.DaoBaseImpl;
+import org.acg12.dao.DaoBaseImpl;
 import com.acg12.lib.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
-import org.acg12.net.impl.UserRequestImpl;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.ViewUtil;
 
 import org.acg12.R;
+import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.FeedbackView;
 import org.acg12.utlis.Network;
@@ -58,7 +58,7 @@ public class FeedbackActivity extends SkinBaseActivity<FeedbackView> implements 
         final ProgressDialog progress = ViewUtil.startLoading(mContext, "正在提交...");
         User user = DaoBaseImpl.getInstance(mContext).getCurrentUser();
 
-        UserRequestImpl.getInstance(mContext).feedback(user, feedback, new HttpRequestListener<User>() {
+        HttpRequestImpl.getInstance().feedback(user, feedback, new HttpRequestListener<User>() {
             @Override
             public void onSuccess(User result) {
                 progress.dismiss();
