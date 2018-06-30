@@ -1,4 +1,4 @@
-package com.acg12.lib.conf;
+package com.acg12.lib.constant;
 
 
 import com.acg12.lib.BuildConfig;

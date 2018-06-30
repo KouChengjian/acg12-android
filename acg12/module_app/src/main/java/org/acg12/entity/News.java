@@ -1,7 +1,5 @@
 package org.acg12.entity;
 
-import com.acg12.lib.entity.Param;
-
 /**
  * Created by Administrator on 2018/1/29.
  */

@@ -16,6 +16,11 @@ public interface HomeApi {
     @GET("res/news")
     Observable<ResponseBody> newsList(@Query("page") String page);
 
+    @GET("api/calendar")
+    Observable<ResponseBody> calendarList();
+
+    @GET("api/home/subject")
+    Observable<ResponseBody> subjectInfo(@Query("id") int id , @Query("type") int type ,@Query("key") String key);
 
     @GET("res/p/boards")
     Observable<ResponseBody> paletteList(@Query("action") String action , @Query("max") String pinId);

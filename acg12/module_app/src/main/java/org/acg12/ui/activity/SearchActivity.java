@@ -27,7 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SearchActivity extends SkinBaseActivity<SearchView> implements View.OnClickListener , ParameCallBack ,TextWatcher , TextView.OnEditorActionListener
-,ItemClickSupport.OnItemClickListener{
+    ,ItemClickSupport.OnItemClickListener{
 
     private LinkedList<String> historyList = new LinkedList<>();
     private int histroyTotal = 8;
@@ -55,6 +55,7 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
         Search search = mView.getList().get(position);
         Bundle bundle = new Bundle();
+        bundle.putInt("id", search.getSearchId());
         bundle.putString("title", search.getTitle());
         startAnimActivity(SearchInfoActivity.class, bundle);
         finish();
@@ -120,7 +121,7 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
 
     private void refresh(String key){
         mView.startLoading();
-        HttpRequestImpl.getInstance().searchKeyList(currentUser(), key, new HttpRequestListener<List<Search>>() {
+        HttpRequestImpl.getInstance().searchSubjectList(currentUser(), key, new HttpRequestListener<List<Search>>() {
 
             @Override
             public void onSuccess(List<Search> result) {

@@ -1,18 +1,15 @@
-package org.acg12.net;
+package com.acg12.lib.net;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.acg12.lib.conf.BaseConstant;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.net.factory.ApiConverterFactory;
 import com.acg12.lib.net.factory.ApiErrorCode;
 import com.acg12.lib.net.factory.ApiException;
 import com.acg12.lib.net.interceptor.RequestHeaderInterceptor;
 import com.acg12.lib.net.interceptor.RequestLogInterceptor;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 
-import org.acg12.conf.Constant;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -37,7 +34,7 @@ public class RetrofitHttp {
     private OkHttpClient mOkHttpClient;
     private retrofit2.Retrofit mRetrofit;
 
-    public RetrofitHttp(Context context) {
+    public RetrofitHttp(Context context , String url) {
         File httpCacheDirectory = new File(context.getApplicationContext().getCacheDir(), context
                 .getApplicationContext().getPackageName());
         int cacheSize = 10 * 1024 * 1024; // 10 MiB
@@ -53,7 +50,7 @@ public class RetrofitHttp {
                 .build();
         mRetrofit = new Retrofit.Builder()
                 .client(mOkHttpClient)
-                .baseUrl(Constant.URL)
+                .baseUrl(url)
                 .addConverterFactory(ApiConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
@@ -67,7 +64,7 @@ public class RetrofitHttp {
      * ----------------------静态函数调用--------------------------------
      */
     public static JSONObject parseJSONObject(ResponseBody response) {
-        JSONObject data = null;
+        JSONObject data;
         try {
             String result = response.string();
             JSONObject json = new JSONObject(result);
@@ -75,6 +72,44 @@ public class RetrofitHttp {
             String desc = json.getString("msg");
             if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
                 data = json.getJSONObject("data");
+            }else{
+                throw new ApiException(code , desc);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(ApiErrorCode.EXCEPTION_IO, e.getMessage());
+        }
+        return data;
+    }
+
+    public static JSONObject parseJSONObject2(ResponseBody response) {
+        JSONObject data;
+        try {
+            String result = response.string();
+            JSONObject json = new JSONObject(result);
+            int code = json.getInt("code");
+            String desc = json.getString("msg");
+            if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
+                data = new JSONObject(json.getString("data"));
+            }else{
+                throw new ApiException(code , desc);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(ApiErrorCode.EXCEPTION_IO, e.getMessage());
+        }
+        return data;
+    }
+
+    public static JSONArray parseJSONObject3(ResponseBody response) {
+        JSONArray data;
+        try {
+            String result = response.string();
+            JSONObject json = new JSONObject(result);
+            int code = json.getInt("code");
+            String desc = json.getString("msg");
+            if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
+                data = new JSONArray(json.getString("data"));
             }else{
                 throw new ApiException(code , desc);
             }

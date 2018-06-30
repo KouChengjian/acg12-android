@@ -10,7 +10,7 @@ import android.view.View;
 
 import org.acg12.dao.DaoBaseImpl;
 import org.acg12.entity.Update;
-import com.acg12.lib.entity.User;
+import org.acg12.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
 
 import org.acg12.net.download.DownloadManger;
@@ -87,6 +87,9 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
                 break;
             case R.id.nav_find:
                 mView.onTabSelect(1);
+                break;
+            case R.id.nav_calendar:
+                mView.onTabSelect(2);
                 break;
             case R.id.nav_star:
                 if (DaoBaseImpl.getInstance(mContext).getCurrentUser() == null) {

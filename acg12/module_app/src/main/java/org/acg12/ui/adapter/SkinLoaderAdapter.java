@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.acg12.lib.entity.Skin;
+import com.acg12.lib.utils.skin.entity.Skin;
 import com.acg12.lib.utils.CacheUtils;
 import com.acg12.lib.utils.Toastor;
 import com.acg12.lib.utils.skin.SkinManager;

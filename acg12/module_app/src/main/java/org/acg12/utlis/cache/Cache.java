@@ -18,10 +18,12 @@ public class Cache {
 
     private Context mContext;
     private static Cache instance;
+    private ACache mCache;
 
     public Cache(Context mContext) {
         this.mContext = mContext;
         instance = this;
+        mCache = ACache.get(mContext);
     }
 
     public static Cache getInstance() {
@@ -30,17 +32,17 @@ public class Cache {
 
     public void savaHistoryTags(List<String> list) {
         Gson gson = new Gson();
-        ACache mCache = ACache.get(mContext);
-        mCache.put("history_tags", gson.toJson(list, new TypeToken<List<String>>() {}.getType()));
+        mCache.put("history_tags", gson.toJson(list, new TypeToken<List<String>>() {
+        }.getType()));
     }
 
-    public List<String>  getHistoryTags() {
-        List<String>  searchList = new ArrayList<>();
+    public List<String> getHistoryTags() {
+        List<String> searchList = new ArrayList<>();
         Gson gson = new Gson();
-        ACache mCache = ACache.get(mContext);
         String banner = mCache.getAsString("history_tags");
         if (banner != null && !banner.isEmpty()) {
-            Type type = new TypeToken<List<String>>() {}.getType();
+            Type type = new TypeToken<List<String>>() {
+            }.getType();
             searchList.addAll((List<String>) gson.fromJson(banner, type));
         }
         return searchList;

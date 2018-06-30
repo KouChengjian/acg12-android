@@ -8,35 +8,24 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.acg12.lib.R;
-import com.acg12.lib.listener.IRecycleUpdataListener;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.utils.PixelUtil;
-import com.acg12.lib.utils.ViewUtil;
 
 /**
  * Created by Administrator on 2017/5/20.
  */
-public class CommonRecycleview extends FrameLayout implements View.OnClickListener {
+public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnReloadClick{
 
     private Context mContext;
     private IRecycleView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private ViewStub layoutLoadNull;
-    private ImageView loadNullImageview;
-    private TextView loadNullTextview;
-    private TextView loadNullUpdate;
-
+    private TipLayoutView mTipLayoutView;
     private RecyclerView.Adapter adapter;
     private IRecycleUpdataListener recycleUpdataListener;
     private boolean refreshHideHeader = true; // 刷新是否隐藏header
-    private int errPic = R.mipmap.bg_loading_null;
-    private String errMsg = "啥也没有了，去其它地方看看吧";
 
     public CommonRecycleview(Context context) {
         super(context);
@@ -59,8 +48,9 @@ public class CommonRecycleview extends FrameLayout implements View.OnClickListen
         View view = LayoutInflater.from(mContext).inflate(R.layout.common_loading_recyclerview, this);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.mSwipeRefreshLayout);
         mRecyclerView = (IRecycleView) view.findViewById(R.id.mRecyclerView);
-        layoutLoadNull = (ViewStub) view.findViewById(R.id.layout_load_null);
-
+        mTipLayoutView = (TipLayoutView) view.findViewById(R.id.tipLayoutView);
+        mTipLayoutView.setContainer(mSwipeRefreshLayout);
+        mTipLayoutView.setOnReloadClick(this);
 
         mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_body);
         mSwipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(mContext, 50), PixelUtil.dp2px(mContext, 24));
@@ -117,14 +107,6 @@ public class CommonRecycleview extends FrameLayout implements View.OnClickListen
         this.refreshHideHeader = refreshHideHeader;
     }
 
-    public void setErrMsg(String msg) {
-        this.errMsg = msg;
-    }
-
-    public void setErrPic(int errpic) {
-        this.errPic = errpic;
-    }
-
     public void setLoadingEnabled(boolean enabled) {
         mRecyclerView.setLoadingMoreEnabled(enabled);
     }
@@ -167,6 +149,7 @@ public class CommonRecycleview extends FrameLayout implements View.OnClickListen
         else
             mRecyclerView.loadMoreComplete();
         loadingNull();
+
     }
 
     public void notifyChanged() {
@@ -181,23 +164,10 @@ public class CommonRecycleview extends FrameLayout implements View.OnClickListen
 
     public void loadingNull() {
         if (adapter.getItemCount() != 0) {
-            if (loadNullImageview != null && loadNullTextview != null) {
-                ViewUtil.setText(loadNullTextview, "");
-                if (loadNullImageview.getVisibility() == View.VISIBLE) {
-                    loadNullImageview.setVisibility(View.GONE);
-                }
-            }
             if (mRecyclerView.getHeaderView() != null) {
                 mRecyclerView.getHeaderView().setVisibility(View.VISIBLE);
             }
         } else {
-            if (loadNullImageview == null && loadNullTextview == null) {
-                View view = layoutLoadNull.inflate();
-                loadNullImageview = (ImageView) view.findViewById(R.id.iv_load_null);
-                loadNullTextview = (TextView) view.findViewById(R.id.tv_load_null);
-                loadNullUpdate = (TextView) view.findViewById(R.id.tv_load_update);
-                loadNullUpdate.setOnClickListener(this);
-            }
             if (mRecyclerView.getHeaderView() != null) {
                 if (refreshHideHeader) {
                     mRecyclerView.getHeaderView().setVisibility(View.GONE);
@@ -205,20 +175,19 @@ public class CommonRecycleview extends FrameLayout implements View.OnClickListen
                     mRecyclerView.getHeaderView().setVisibility(View.VISIBLE);
                 }
             }
-            loadNullImageview.setImageResource(errPic);
-            ViewUtil.setText(loadNullTextview, errMsg);
-            if (loadNullImageview.getVisibility() == View.GONE) {
-                loadNullImageview.setVisibility(View.VISIBLE);
-            }
         }
+        mTipLayoutView.stopProgress(adapter.getItemCount());
     }
 
     @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.tv_load_update){
-            if(recycleUpdataListener != null){
-                recycleUpdataListener.onReload();
-            }
+    public void onReload() {
+        if(recycleUpdataListener != null){
+            recycleUpdataListener.onReload();
         }
+    }
+
+
+    public interface IRecycleUpdataListener {
+        void onReload();
     }
 }

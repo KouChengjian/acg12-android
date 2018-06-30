@@ -7,7 +7,7 @@ import android.view.View;
 
 import org.acg12.dao.DaoBaseImpl;
 import org.acg12.entity.Update;
-import com.acg12.lib.entity.User;
+import org.acg12.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.LogUtil;

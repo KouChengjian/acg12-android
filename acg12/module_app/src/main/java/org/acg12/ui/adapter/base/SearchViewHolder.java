@@ -22,11 +22,13 @@ public class SearchViewHolder extends CommonRecyclerView {
 
     ImageView iv_search_tag;
     TextView tv_search_tag;
+    TextView tv_search_type;
 
     public SearchViewHolder(View itemView) {
         super(itemView);
         iv_search_tag = (ImageView)itemView.findViewById(R.id.iv_search_tag);
         tv_search_tag = (TextView)itemView.findViewById(R.id.tv_search_tag);
+        tv_search_type = (TextView)itemView.findViewById(R.id.tv_search_type);
     }
 
     @Override
@@ -34,6 +36,6 @@ public class SearchViewHolder extends CommonRecyclerView {
         Search search = ((List<Search>)list).get(position);
         ImageLoadUtils.glideLoading(search.getSource() , iv_search_tag);
         ViewUtil.setText(tv_search_tag , search.getTitle());
-
+        ViewUtil.setText(tv_search_type , search.getType());
     }
 }

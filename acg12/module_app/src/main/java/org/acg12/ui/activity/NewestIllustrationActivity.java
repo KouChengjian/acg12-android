@@ -30,6 +30,12 @@ public class NewestIllustrationActivity extends SkinBaseActivity<NewestIllustrat
     private boolean refresh = true;
 
     @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
+    }
+
+    @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
         new Handler().postDelayed(new Runnable() {

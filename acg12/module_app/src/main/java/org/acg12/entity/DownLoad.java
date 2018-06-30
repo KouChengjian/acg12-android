@@ -1,7 +1,7 @@
 package org.acg12.entity;
 
 import org.acg12.net.download.DLStatus;
-import com.acg12.lib.entity.Param;
+
 import com.litesuits.orm.db.annotation.Table;
 
 /**

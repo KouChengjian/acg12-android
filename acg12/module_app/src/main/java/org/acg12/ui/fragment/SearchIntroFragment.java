@@ -4,6 +4,7 @@ package org.acg12.ui.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import org.acg12.entity.Subject;
 import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.SearchIntroView;
 
@@ -12,10 +13,13 @@ import org.acg12.ui.views.SearchIntroView;
  */
 public class SearchIntroFragment extends SkinBaseFragment<SearchIntroView> {
 
-    public static SearchIntroFragment newInstance(String title) {
+    private Subject subject;
+
+    public static SearchIntroFragment newInstance(String title ,Subject subject) {
         SearchIntroFragment fragment = new SearchIntroFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
+        args.putSerializable("subject" , subject);
         fragment.setArguments(args);
         return fragment;
     }
@@ -23,5 +27,8 @@ public class SearchIntroFragment extends SkinBaseFragment<SearchIntroView> {
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
+        subject = (Subject)getArguments().getSerializable("subject");
+        mView.bindData(subject);
     }
+
 }

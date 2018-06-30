@@ -27,9 +27,9 @@ import java.util.List;
 public class SearchPaletteFragment extends SkinBaseFragment<SearchPaletteView> implements IRecycleView.LoadingListener,
         SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener {
 
-    String title = "";
-    int page = 1;
-    boolean refresh = true;
+    private String title = "";
+    private int page = 1;
+    private boolean refresh = true;
 
     public static SearchPaletteFragment newInstance(String title) {
         SearchPaletteFragment fragment = new SearchPaletteFragment();
@@ -55,12 +55,14 @@ public class SearchPaletteFragment extends SkinBaseFragment<SearchPaletteView> i
 
     @Override
     public void onLoadMore() {
+        page++;
         refresh = false;
-        refresh(title, page++);
+        refresh(title, page);
     }
 
     @Override
     public void onRefresh() {
+        page = 1;
         refresh = true;
         refresh(title, page);
     }

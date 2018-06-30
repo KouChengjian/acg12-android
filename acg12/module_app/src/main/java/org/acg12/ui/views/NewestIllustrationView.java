@@ -9,6 +9,7 @@ import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.widget.CommonRecycleview;
 import com.acg12.lib.widget.IRecycleView;
+import com.acg12.lib.widget.ToolBarView;
 
 import org.acg12.R;
 import org.acg12.entity.Album;
@@ -21,11 +22,10 @@ import butterknife.BindView;
 /**
  * Created by Administrator on 2018/1/26.
  */
-
 public class NewestIllustrationView extends ViewImpl {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolBarView)
+    ToolBarView mToolBarView;
     @BindView(R.id.commonRecycleview)
     CommonRecycleview mCommonRecycleview;
     TabAlbumAdapter tabAlbumAdapter;
@@ -39,8 +39,7 @@ public class NewestIllustrationView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        toolbar.setTitle("精选插画");
+        mToolBarView.setNavigationOrBreak("每日精选");
 
         staggeredGridLayoutManager = mCommonRecycleview.setStaggeredGridLayoutManager();
         tabAlbumAdapter = new TabAlbumAdapter(getContext());
@@ -52,7 +51,7 @@ public class NewestIllustrationView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter , toolbar);
+        PresenterHelper.click(mPresenter , mToolBarView.getToolbar());
         mCommonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
         mCommonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
         mCommonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);

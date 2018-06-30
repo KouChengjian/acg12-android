@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.acg12.lib.conf.BaseConstant;
+import com.acg12.lib.constant.BaseConstant;
 import com.acg12.lib.utils.ActivityTack;
 import com.acg12.lib.utils.Toastor;
 import com.acg12.lib.utils.ViewServer;

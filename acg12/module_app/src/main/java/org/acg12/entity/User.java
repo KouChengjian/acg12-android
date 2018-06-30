@@ -1,8 +1,8 @@
-package com.acg12.lib.entity;
+package org.acg12.entity;
 
 import android.content.Context;
 
-import com.acg12.lib.conf.BaseConstant;
+import com.acg12.lib.constant.BaseConstant;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.MD5Util;
 import com.litesuits.orm.db.annotation.Table;

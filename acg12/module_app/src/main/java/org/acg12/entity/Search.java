@@ -1,7 +1,5 @@
 package org.acg12.entity;
 
-import com.acg12.lib.entity.Param;
-
 /**
  * Created by Administrator on 2018/1/18.
  */
@@ -11,6 +9,7 @@ public class Search extends Param {
     private int searchId;
     private String source;
     private String title;
+    private String type;
 
     public int getSearchId() {
         return searchId;
@@ -34,5 +33,13 @@ public class Search extends Param {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

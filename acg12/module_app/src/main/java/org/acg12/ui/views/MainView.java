@@ -13,13 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.acg12.dao.DaoBaseImpl;
-import com.acg12.lib.entity.User;
+import org.acg12.entity.User;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 
 import org.acg12.R;
+import org.acg12.ui.fragment.CalendarFragment;
 import org.acg12.ui.fragment.FindFragemnt;
 import org.acg12.ui.fragment.HomeFragment;
 
@@ -40,6 +41,7 @@ public class MainView extends ViewImpl {
     private Fragment[] fragments;
     private HomeFragment homeFragment;
     private FindFragemnt findFragemnt;
+    private CalendarFragment mCalendarFragment;
 
     private View headerView;
     private ImageView iv_nav_avatar;
@@ -65,10 +67,12 @@ public class MainView extends ViewImpl {
         mTabs = new MenuItem[menu.size()];
         mTabs[0] = menu.findItem(R.id.nav_home);
         mTabs[1] = menu.findItem(R.id.nav_find);
+        mTabs[2] = menu.findItem(R.id.nav_calendar);
 
         homeFragment = new HomeFragment();
         findFragemnt = new FindFragemnt();
-        fragments = new Fragment[]{homeFragment ,findFragemnt};
+        mCalendarFragment = new CalendarFragment();
+        fragments = new Fragment[]{homeFragment ,findFragemnt ,mCalendarFragment};
         ((AppCompatActivity) getContext()).getSupportFragmentManager().beginTransaction()
                 .add(R.id.main_fragment_container, fragments[0]).add(R.id.main_fragment_container, fragments[1]).show(fragments[0]).hide(fragments[1]).commit();
 

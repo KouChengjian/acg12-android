@@ -2,7 +2,7 @@ package org.acg12.ui.views;
 
 import android.support.v7.widget.Toolbar;
 
-import com.acg12.lib.entity.Skin;
+import com.acg12.lib.utils.skin.entity.Skin;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.widget.CommonRecycleview;

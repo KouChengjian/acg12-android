@@ -1,6 +1,5 @@
 package com.acg12.lib.utils;
 
-import com.acg12.lib.conf.BaseConstant;
 import com.acg12.lib.net.factory.ApiErrorCode;
 import com.acg12.lib.net.factory.ApiException;
 
@@ -91,11 +90,7 @@ public class JsonParse {
             JSONObject json = new JSONObject(response);
             return json;
         }catch (Exception e){
-            if(BaseConstant.debug){
-                throw new ApiException(ApiErrorCode.EXCEPTION_JSON , e.toString());
-            } else {
-                throw new ApiException(ApiErrorCode.EXCEPTION_JSON , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_JSON));
-            }
+            throw new ApiException(ApiErrorCode.EXCEPTION_JSON , e.toString());
         }
     }
 
@@ -104,11 +99,7 @@ public class JsonParse {
             JSONArray json = new JSONArray(response);
             return json;
         }catch (Exception e){
-            if(BaseConstant.debug){
-                throw new ApiException(ApiErrorCode.EXCEPTION_JSON , e.toString());
-            } else {
-                throw new ApiException(ApiErrorCode.EXCEPTION_JSON , ApiErrorCode.getErrorCodeMsg(ApiErrorCode.EXCEPTION_JSON));
-            }
+            throw new ApiException(ApiErrorCode.EXCEPTION_JSON , e.toString());
         }
     }
 }

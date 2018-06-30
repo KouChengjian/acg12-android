@@ -1,4 +1,4 @@
-package com.acg12.lib.entity;
+package com.acg12.lib.utils.skin.entity;
 
 /**
  * Created by DELL on 2016/12/29.

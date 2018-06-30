@@ -3,7 +3,7 @@ package com.acg12.lib.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.acg12.lib.conf.BaseConstant;
+import com.acg12.lib.constant.BaseConstant;
 
 
 /**

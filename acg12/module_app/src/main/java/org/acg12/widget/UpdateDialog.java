@@ -22,9 +22,9 @@ import org.acg12.net.download.DUtil;
 import org.acg12.net.download.DownLoadCallback;
 import org.acg12.net.download.DownloadManger;
 import com.acg12.lib.utils.AppUtil;
+import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.Toastor;
 import com.acg12.lib.widget.BaseDialog;
-import com.facebook.stetho.common.LogUtil;
 
 import java.io.File;
 

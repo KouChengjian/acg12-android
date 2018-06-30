@@ -10,6 +10,9 @@ public interface SearchApi {
     @GET("api/search/key")
     Observable<ResponseBody> searchKeyList(@Query("key") String key);
 
+    @GET("api/search/subject")
+    Observable<ResponseBody> searchSubjectList(@Query("key") String key);
+
     @GET("api/search/albums")
     Observable<ResponseBody> searchAlbum(@Query("key") String key , @Query("page") String page);
 

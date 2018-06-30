@@ -3,7 +3,7 @@ package org.acg12.dao;
 
 import org.acg12.entity.DownLoad;
 import org.acg12.entity.Update;
-import com.acg12.lib.entity.User;
+import org.acg12.entity.User;
 
 import java.util.List;
 

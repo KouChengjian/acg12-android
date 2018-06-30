@@ -1,4 +1,4 @@
-package com.acg12.lib.entity;
+package org.acg12.entity;
 
 import com.litesuits.orm.db.annotation.Column;
 import com.litesuits.orm.db.annotation.PrimaryKey;

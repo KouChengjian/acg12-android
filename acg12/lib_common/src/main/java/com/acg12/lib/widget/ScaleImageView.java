@@ -1,5 +1,6 @@
 package com.acg12.lib.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,7 +9,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.facebook.stetho.common.LogUtil;
+import com.acg12.lib.utils.LogUtil;
 
 
 /**
@@ -23,6 +24,7 @@ import com.facebook.stetho.common.LogUtil;
  * @author Maurycy Wojtowicz
  * 
  */
+@SuppressLint("AppCompatCustomView")
 public class ScaleImageView extends ImageView {
     private Bitmap currentBitmap;
     private ImageChangeListener imageChangeListener;

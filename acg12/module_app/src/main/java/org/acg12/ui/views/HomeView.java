@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.acg12.lib.conf.CollapsingToolbarLayoutState;
+import org.acg12.utlis.CollapsingToolbarLayoutState;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.utils.PixelUtil;
@@ -69,6 +69,7 @@ public class HomeView extends ViewImpl {
         super.created();
         toolbar.setNavigationIcon(R.mipmap.ic_action_home);
         toolbar.inflateMenu(R.menu.menu_main);
+//        collapsingToolbarLayout.setContentScrimColor(Color.parseColor("#ffffff"));
 
         searchMenu = toolbar.getMenu().findItem(R.id.menu_main_search);
         searchMenu.setVisible(false);

@@ -1,11 +1,11 @@
 package org.acg12.net.converter;
 
-import com.acg12.lib.entity.User;
+import org.acg12.entity.User;
 import com.acg12.lib.net.factory.AbstractResponseConverter;
 import com.acg12.lib.utils.JsonParse;
 import com.google.gson.Gson;
 
-import org.acg12.net.RetrofitHttp;
+import com.acg12.lib.net.RetrofitHttp;
 import org.json.JSONObject;
 
 import java.io.IOException;

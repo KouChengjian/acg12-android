@@ -79,6 +79,10 @@ public class ToolBarView extends FrameLayout {
         mToolbar.setNavigationIcon(rId);
     }
 
+    public void setNavigationOrBreak(String title){
+        mToolbar.setTitle(title);
+        setNavigationIcon();
+    }
 
     public void addTitleView(View view){
         mTitleContainer.removeAllViews();

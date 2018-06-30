@@ -1,7 +1,10 @@
 package org.acg12.net;
 
 
-import com.acg12.lib.entity.User;
+import org.acg12.entity.Calendar;
+import org.acg12.entity.Subject;
+import org.acg12.entity.User;
+
 import com.acg12.lib.listener.HttpRequestListener;
 
 import org.acg12.entity.Album;
@@ -14,6 +17,7 @@ import org.acg12.entity.Video;
 
 import java.util.List;
 
+import retrofit2.http.Query;
 import rx.Subscription;
 
 public interface HttpRequest {
@@ -42,42 +46,43 @@ public interface HttpRequest {
 
     Subscription updateApp(User user, int versionCode, HttpRequestListener<Update> httpRequestListener);
 
+    /**------------------------------------------------首页-----------------------------------------------------------*/
+    Subscription index(User user, HttpRequestListener<Home> httpRequestListener);
+
+    Subscription newsList(User user, String page, HttpRequestListener<List<News>> httpRequestListener);
+
+    Subscription calendarList(HttpRequestListener<List<Calendar>> httpRequestListener);
+
+    Subscription albumList(User user, String pinId, HttpRequestListener<List<Album>> httpRequestListener);
+
+    Subscription subjectInfo(int id, int type, String key, HttpRequestListener<Subject> httpRequestListener);
+
+    Subscription paletteList(User user, String pinId, HttpRequestListener<List<Palette>> httpRequestListener);
+
+    Subscription bangumiList(User user, String page, HttpRequestListener<List<Video>> httpRequestListener);
+
+    Subscription videoList(User user, String page, int type, HttpRequestListener<List<Video>> httpRequestListener);
+
+    Subscription palettePreview(User user, String boardId, String pinId, HttpRequestListener<List<Album>> httpRequestListener);
+
+    Subscription bangumiPreview(User user, String av, HttpRequestListener<Video> httpRequestListener);
+
+    Subscription playBangumi(User user, String av, HttpRequestListener<Video> httpRequestListener);
+
+    Subscription playVideo(User user, String av, HttpRequestListener<Video> httpRequestListener);
 
 
+    Subscription searchAlbum(User user, String key, String page, HttpRequestListener<List<Album>> httpRequestListener);
 
+    Subscription searchPalette(User user, String key, String page, HttpRequestListener<List<Palette>> httpRequestListener);
 
+    Subscription searchBangumi(User user, String key, String page, HttpRequestListener<List<Video>> httpRequestListener);
 
+    Subscription searchVideo(User user, String key, String page, HttpRequestListener<List<Video>> httpRequestListener);
 
+    Subscription searchKeyList(User user, String key, HttpRequestListener<List<Search>> httpRequestListener);
 
-    Subscription index(User user , HttpRequestListener<Home> httpRequestListener);
-
-    Subscription newsList(User user ,String page ,HttpRequestListener<List<News>> httpRequestListener);
-
-    Subscription albumList(User user , String pinId , HttpRequestListener<List<Album>> httpRequestListener);
-
-    Subscription paletteList(User user ,String pinId ,HttpRequestListener<List<Palette>> httpRequestListener);
-
-    Subscription bangumiList(User user ,String page ,HttpRequestListener<List<Video>> httpRequestListener);
-
-    Subscription videoList(User user ,String page , int type , HttpRequestListener<List<Video>> httpRequestListener);
-
-    Subscription palettePreview(User user ,String boardId ,String pinId ,HttpRequestListener<List<Album>> httpRequestListener);
-
-    Subscription bangumiPreview(User user ,String av ,HttpRequestListener<Video> httpRequestListener);
-
-    Subscription playBangumi(User user ,String av ,HttpRequestListener<Video> httpRequestListener);
-
-    Subscription playVideo(User user ,String av ,HttpRequestListener<Video> httpRequestListener);
-
-    Subscription searchAlbum(User user ,String key , String page,HttpRequestListener<List<Album>> httpRequestListener);
-
-    Subscription searchPalette(User user ,String key , String page,HttpRequestListener<List<Palette>> httpRequestListener);
-
-    Subscription searchBangumi(User user ,String key , String page ,HttpRequestListener<List<Video>> httpRequestListener);
-
-    Subscription searchVideo(User user ,String key , String page , HttpRequestListener<List<Video>> httpRequestListener);
-
-    Subscription searchKeyList(User user ,String key ,HttpRequestListener<List<Search>> httpRequestListener);
+    Subscription searchSubjectList(User user, String key, HttpRequestListener<List<Search>> httpRequestListener);
 
 //    void updateToken(User user, HttpRequestListener<User> httpRequestListener);
 //

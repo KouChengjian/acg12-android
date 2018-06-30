@@ -2,10 +2,19 @@ package org.acg12.net.impl;
 
 import android.content.Context;
 
-import com.acg12.lib.entity.User;
+import org.acg12.entity.Calendar;
+import org.acg12.entity.Subject;
+import org.acg12.entity.SubjectCrt;
+import org.acg12.entity.SubjectDetail;
+import org.acg12.entity.SubjectOffprint;
+import org.acg12.entity.SubjectSong;
+import org.acg12.entity.SubjectStaff;
+import org.acg12.entity.User;
+
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.JsonParse;
 
+import org.acg12.conf.Constant;
 import org.acg12.dao.DaoBaseImpl;
 import org.acg12.entity.Album;
 import org.acg12.entity.Home;
@@ -15,7 +24,9 @@ import org.acg12.entity.Search;
 import org.acg12.entity.Tags;
 import org.acg12.entity.Update;
 import org.acg12.entity.Video;
-import org.acg12.net.RetrofitHttp;
+
+import com.acg12.lib.net.RetrofitHttp;
+
 import org.acg12.net.api.HomeApi;
 import org.acg12.net.HttpRequest;
 import org.acg12.net.api.SearchApi;
@@ -54,7 +65,7 @@ public class HttpRequestImpl implements HttpRequest {
     public HttpRequestImpl(Context context) {
         instance = this;
         mContext = context;
-        mRetrofitHttp = new RetrofitHttp(mContext);
+        mRetrofitHttp = new RetrofitHttp(mContext, Constant.URL);
         mUserApi = mRetrofitHttp.createApi(UserApi.class);
         mSearchApi = mRetrofitHttp.createApi(SearchApi.class);
         mHomeApi = mRetrofitHttp.createApi(HomeApi.class);
@@ -77,7 +88,7 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription login(final User user, final HttpRequestListener<User> httpRequestListener) {
-        Subscription subscription = mUserApi.login(user.getUsername(),user.getPassword())
+        Subscription subscription = mUserApi.login(user.getUsername(), user.getPassword())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.io())
                 .doOnNext(new Action1<User>() {
@@ -102,15 +113,15 @@ public class HttpRequestImpl implements HttpRequest {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable , httpRequestListener);
+                        RetrofitHttp.failure(throwable, httpRequestListener);
                     }
                 });
         return subscription;
     }
 
     @Override
-    public Subscription register(final User user,final HttpRequestListener<User> httpRequestListener) {
-        Subscription subscription = mUserApi.register(user.getUsername() , user.getPassword() , user.getVerify())
+    public Subscription register(final User user, final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = mUserApi.register(user.getUsername(), user.getPassword(), user.getVerify())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.io())
                 .doOnNext(new Action1<User>() {
@@ -132,15 +143,15 @@ public class HttpRequestImpl implements HttpRequest {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable , httpRequestListener);
+                        RetrofitHttp.failure(throwable, httpRequestListener);
                     }
                 });
         return subscription;
     }
 
     @Override
-    public Subscription verify(final User user,final HttpRequestListener<User> httpRequestListener) {
-        Subscription subscription = mUserApi.verify(user.getUsername() , "1")
+    public Subscription verify(final User user, final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = mUserApi.verify(user.getUsername(), "1")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -154,15 +165,15 @@ public class HttpRequestImpl implements HttpRequest {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable , httpRequestListener);
+                        RetrofitHttp.failure(throwable, httpRequestListener);
                     }
                 });
         return subscription;
     }
 
     @Override
-    public Subscription resetPwd(final User user,final HttpRequestListener<User> httpRequestListener) {
-        Subscription subscription = mUserApi.restPwd(user.getUsername() , user.getPassword() , user.getVerify())
+    public Subscription resetPwd(final User user, final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = mUserApi.restPwd(user.getUsername(), user.getPassword(), user.getVerify())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -176,14 +187,14 @@ public class HttpRequestImpl implements HttpRequest {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable , httpRequestListener);
+                        RetrofitHttp.failure(throwable, httpRequestListener);
                     }
                 });
         return subscription;
     }
 
     @Override
-    public Subscription userInfo(final User user,final HttpRequestListener<User> httpRequestListener) {
+    public Subscription userInfo(final User user, final HttpRequestListener<User> httpRequestListener) {
         Subscription subscription = mUserApi.userInfo()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -192,43 +203,13 @@ public class HttpRequestImpl implements HttpRequest {
                     public void call(ResponseBody response) {
                         JSONObject data = RetrofitHttp.parseJSONObject(response);
                         if (data != null) {
-                            JSONObject json = JsonParse.getJSONObject(data , "user");
+                            JSONObject json = JsonParse.getJSONObject(data, "user");
                             user.setUid(JsonParse.getInt(json, "id"));
                             user.setSex(JsonParse.getInt(json, "sex"));
                             user.setNick(JsonParse.getString(json, "nick"));
                             user.setAvatar(JsonParse.getString(json, "avatar"));
                             user.setSignature(JsonParse.getString(json, "sign"));
                             user.updataSign();
-                            DaoBaseImpl.getInstance(mContext).saveUser(user);
-                            httpRequestListener.onSuccess(user);
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable , httpRequestListener);
-                    }
-                });
-        return subscription;
-    }
-
-    @Override
-    public Subscription avatar(final User user, final HttpRequestListener<User> httpRequestListener) {
-        File file = new File(user.getAvatar());
-        Map<String, RequestBody> map = new HashMap<String, RequestBody>();
-        map.put("alterType", RetrofitHttp.parseRequestBody("3"));
-        map.put("param1" + "\"; filename=\""+file.getName(), RetrofitHttp.parseImageRequestBody(file));
-        map.put("param2", RetrofitHttp.parseRequestBody(""));
-
-        Subscription subscription = mUserApi.uploadAvatar(map)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<ResponseBody>() {
-                    @Override
-                    public void call(ResponseBody response) {
-                        JSONObject data = RetrofitHttp.parseJSONObject(response);
-                        if (data != null) {
-                            user.setAvatar(JsonParse.getString(data,"avatar"));
                             DaoBaseImpl.getInstance(mContext).saveUser(user);
                             httpRequestListener.onSuccess(user);
                         }
@@ -243,8 +224,38 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
-    public Subscription sex(final User user,final HttpRequestListener<User> httpRequestListener) {
-        Subscription subscription = mUserApi.userAlter("4" , user.getSex()+"" , "")
+    public Subscription avatar(final User user, final HttpRequestListener<User> httpRequestListener) {
+        File file = new File(user.getAvatar());
+        Map<String, RequestBody> map = new HashMap<String, RequestBody>();
+        map.put("alterType", RetrofitHttp.parseRequestBody("3"));
+        map.put("param1" + "\"; filename=\"" + file.getName(), RetrofitHttp.parseImageRequestBody(file));
+        map.put("param2", RetrofitHttp.parseRequestBody(""));
+
+        Subscription subscription = mUserApi.uploadAvatar(map)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        if (data != null) {
+                            user.setAvatar(JsonParse.getString(data, "avatar"));
+                            DaoBaseImpl.getInstance(mContext).saveUser(user);
+                            httpRequestListener.onSuccess(user);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+        return subscription;
+    }
+
+    @Override
+    public Subscription sex(final User user, final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = mUserApi.userAlter("4", user.getSex() + "", "")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -259,15 +270,15 @@ public class HttpRequestImpl implements HttpRequest {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable , httpRequestListener);
+                        RetrofitHttp.failure(throwable, httpRequestListener);
                     }
                 });
         return subscription;
     }
 
     @Override
-    public Subscription nick(final User user,final HttpRequestListener<User> httpRequestListener) {
-        Subscription subscription = mUserApi.userAlter("1" , user.getNick() , "")
+    public Subscription nick(final User user, final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = mUserApi.userAlter("1", user.getNick(), "")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -282,15 +293,15 @@ public class HttpRequestImpl implements HttpRequest {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable , httpRequestListener);
+                        RetrofitHttp.failure(throwable, httpRequestListener);
                     }
                 });
         return subscription;
     }
 
     @Override
-    public Subscription sign(final User user,final HttpRequestListener<User> httpRequestListener) {
-        Subscription subscription = mUserApi.userAlter("2" , user.getSignature() , "")
+    public Subscription sign(final User user, final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = mUserApi.userAlter("2", user.getSignature(), "")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -305,15 +316,15 @@ public class HttpRequestImpl implements HttpRequest {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable , httpRequestListener);
+                        RetrofitHttp.failure(throwable, httpRequestListener);
                     }
                 });
         return subscription;
     }
 
     @Override
-    public Subscription alterPwd(final User user,final HttpRequestListener<User> httpRequestListener) {
-        Subscription subscription = mUserApi.userAlter("5" , user.getPassword() , user.getNewPassword())
+    public Subscription alterPwd(final User user, final HttpRequestListener<User> httpRequestListener) {
+        Subscription subscription = mUserApi.userAlter("5", user.getPassword(), user.getNewPassword())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -327,14 +338,14 @@ public class HttpRequestImpl implements HttpRequest {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable , httpRequestListener);
+                        RetrofitHttp.failure(throwable, httpRequestListener);
                     }
                 });
         return subscription;
     }
 
     @Override
-    public Subscription feedback(final User user, String msg,final HttpRequestListener<User> httpRequestListener) {
+    public Subscription feedback(final User user, String msg, final HttpRequestListener<User> httpRequestListener) {
         Subscription subscription = mUserApi.feedback(msg)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -349,7 +360,7 @@ public class HttpRequestImpl implements HttpRequest {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable , httpRequestListener);
+                        RetrofitHttp.failure(throwable, httpRequestListener);
                     }
                 });
         return subscription;
@@ -357,7 +368,7 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription updateApp(User user, final int versionCode, final HttpRequestListener<Update> httpRequestListener) {
-        Subscription subscription = mUserApi.updateApp(versionCode+"")
+        Subscription subscription = mUserApi.updateApp(versionCode + "")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -366,25 +377,25 @@ public class HttpRequestImpl implements HttpRequest {
                         JSONObject data = RetrofitHttp.parseJSONObject(response);
                         if (data != null) {
                             Update update = new Update();
-                            JSONObject json = JsonParse.getJSONObject(data , "update");
-                            update.setVersionName(JsonParse.getString(json , "versionName"));
-                            update.setVersionCode(JsonParse.getString(json , "versionCode"));
-                            update.setMessage(JsonParse.getString(json , "message"));
-                            int status = JsonParse.getInt(json , "status");
+                            JSONObject json = JsonParse.getJSONObject(data, "update");
+                            update.setVersionName(JsonParse.getString(json, "versionName"));
+                            update.setVersionCode(JsonParse.getString(json, "versionCode"));
+                            update.setMessage(JsonParse.getString(json, "message"));
+                            int status = JsonParse.getInt(json, "status");
 
                             Update up = DaoBaseImpl.getInstance(mContext).getCurrentUpdate();
-                            if(up != null){
-                                update.setId(up.getId() );
+                            if (up != null) {
+                                update.setId(up.getId());
                                 update.setIgnore(up.isIgnore());
                                 update.setOldVersionCode(up.getOldVersionCode());
                             }
 
-                            if(status == 2){ // 强制升级
+                            if (status == 2) { // 强制升级
                                 update.setDialogStatus(2);
                             } else {
-                                if(versionCode >= Integer.valueOf(update.getVersionCode()).intValue()){ // 是否为最新
+                                if (versionCode >= Integer.valueOf(update.getVersionCode()).intValue()) { // 是否为最新
                                     update.setDialogStatus(0);
-                                } else if(update.getVersionCode().equals(update.getOldVersionCode())){  // 是否为忽略版本
+                                } else if (update.getVersionCode().equals(update.getOldVersionCode())) {  // 是否为忽略版本
                                     update.setDialogStatus(3);
                                 } else {   // 正常更新
                                     update.setDialogStatus(1);
@@ -396,7 +407,7 @@ public class HttpRequestImpl implements HttpRequest {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable , httpRequestListener);
+                        RetrofitHttp.failure(throwable, httpRequestListener);
                     }
                 });
         return subscription;
@@ -472,6 +483,39 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
+    public Subscription calendarList(final HttpRequestListener<List<Calendar>> httpRequestListener) {
+        return mHomeApi.calendarList()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitHttp.parseJSONObject2(response);
+                        if (data != null) {
+                            List<Calendar> list = new ArrayList<>();
+                            for (int i = 0, num = data.length(); i < num; i++) {
+//                                JSONObject item = JsonParse.getJSONObject(jsonArray, i);
+//                                News news = new News();
+//                                news.setNewsId(JsonParse.getInt(item, "article_id"));
+//                                news.setCover(JsonParse.getString(item, "pic_url"));
+//                                news.setTitle(JsonParse.getString(item, "title"));
+//                                news.setIntro(JsonParse.getString(item, "intro"));
+//                                news.setLink(JsonParse.getString(item, "page_url"));
+//                                news.setCreateTime(JsonParse.getInt(item, "create_time"));
+//                                list.add(news);
+                            }
+                            httpRequestListener.onSuccess(list);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
     public Subscription albumList(User user, String pinId, final HttpRequestListener<List<Album>> httpRequestListener) {
         return mHomeApi.albumList("album", pinId)
                 .subscribeOn(Schedulers.newThread())
@@ -496,6 +540,98 @@ public class HttpRequestImpl implements HttpRequest {
                                 list.add(album);
                             }
                             httpRequestListener.onSuccess(list);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription subjectInfo(int id, int type, String key, final HttpRequestListener<Subject> httpRequestListener) {
+        return mHomeApi.subjectInfo(id, type, key)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        if (data != null) {
+                            Subject subject = new Subject();
+                            subject.setSubjectId(JsonParse.getInt(data, "subjectId"));
+                            subject.setsId(JsonParse.getInt(data, "sId"));
+                            subject.setType(JsonParse.getInt(data, "type"));
+                            subject.setTypeName(JsonParse.getString(data, "typeName"));
+                            subject.setName(JsonParse.getString(data, "name"));
+                            subject.setNameCn(JsonParse.getString(data, "nameCn"));
+                            subject.setSummary(JsonParse.getString(data, "summary"));
+                            subject.setImage(JsonParse.getString(data, "image"));
+                            subject.setEpsCount(JsonParse.getInt(data, "epsCount"));
+                            subject.setAirDate(JsonParse.getString(data, "airDate"));
+                            subject.setAirWeekday(JsonParse.getInt(data, "airWeekday"));
+                            subject.setEndDate(JsonParse.getString(data, "endDate"));
+                            subject.setAuthor(JsonParse.getString(data, "author"));
+
+                            List<SubjectDetail> subjectDetailList = new ArrayList<>();
+                            JSONArray subjectDetails = JsonParse.getJSONArray(data, "details");
+                            for (int i = 0; i < subjectDetails.length(); i++) {
+                                JSONObject item = JsonParse.getJSONObject(subjectDetails, i);
+                                SubjectDetail subjectDetail = new SubjectDetail();
+                                subjectDetail.setOtherTitle(JsonParse.getString(item, "otherTitle"));
+                                subjectDetail.setOtherValue(JsonParse.getString(item, "otherValue"));
+                                subjectDetailList.add(subjectDetail);
+                            }
+                            subject.setDetailList(subjectDetailList);
+
+                            List<SubjectStaff> subjectStaffList = new ArrayList<>();
+                            JSONArray subjectStaffs = JsonParse.getJSONArray(data, "staff");
+                            for (int i = 0; i < subjectStaffs.length(); i++) {
+                                JSONObject item = JsonParse.getJSONObject(subjectStaffs, i);
+                                SubjectStaff subjectStaff = new SubjectStaff();
+                                subjectStaff.setJob(JsonParse.getString(item, "job"));
+                                subjectStaff.setName(JsonParse.getString(item, "name"));
+                                subjectStaffList.add(subjectStaff);
+                            }
+                            subject.setStaffList(subjectStaffList);
+
+                            List<SubjectCrt> subjectCrtList = new ArrayList<>();
+                            JSONArray subjectCrts = JsonParse.getJSONArray(data, "crt");
+                            for (int i = 0; i < subjectCrts.length(); i++) {
+                                JSONObject item = JsonParse.getJSONObject(subjectCrts, i);
+                                SubjectCrt subjectCrt = new SubjectCrt();
+                                subjectCrt.setName(JsonParse.getString(item, "name"));
+                                subjectCrt.setNameCn(JsonParse.getString(item, "nameCn"));
+                                subjectCrt.setpName(JsonParse.getString(item, "pName"));
+                                subjectCrt.setpNameCn(JsonParse.getString(item, "pNameCn"));
+                                subjectCrtList.add(subjectCrt);
+                            }
+                            subject.setCrtList(subjectCrtList);
+
+                            List<SubjectSong> subjectSongList = new ArrayList<>();
+                            JSONArray subjectSongs = JsonParse.getJSONArray(data, "song");
+                            for (int i = 0; i < subjectSongs.length(); i++) {
+                                JSONObject item = JsonParse.getJSONObject(subjectSongs, i);
+                                SubjectSong subjectSong = new SubjectSong();
+                                subjectSong.setTitle(JsonParse.getString(item, "title"));
+                                subjectSongList.add(subjectSong);
+                            }
+                            subject.setSongList(subjectSongList);
+
+                            List<SubjectOffprint> subjectOffprintList = new ArrayList<>();
+                            JSONArray subjectOffprints = JsonParse.getJSONArray(data, "offprint");
+                            for (int i = 0; i < subjectOffprints.length(); i++) {
+                                JSONObject item = JsonParse.getJSONObject(subjectOffprints, i);
+                                SubjectOffprint subjectOffprint = new SubjectOffprint();
+                                subjectOffprint.setName(JsonParse.getString(item, "name"));
+                                subjectOffprint.setImage(JsonParse.getString(item, "image"));
+                                subjectOffprintList.add(subjectOffprint);
+                            }
+                            subject.setOffprintList(subjectOffprintList);
+
+                            httpRequestListener.onSuccess(subject);
                         }
                     }
                 }, new Action1<Throwable>() {
@@ -900,7 +1036,7 @@ public class HttpRequestImpl implements HttpRequest {
                     @Override
                     public void call(ResponseBody response) {
                         List<Search> list = new ArrayList<>();
-                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        JSONObject data = RetrofitHttp.parseJSONObject2(response);
                         if (data != null) {
                             JSONArray array = JsonParse.getJSONArray(data, "list");
                             for (int i = 0, num = array.length(); i < num; i++) {
@@ -909,6 +1045,39 @@ public class HttpRequestImpl implements HttpRequest {
                                 search.setSearchId(JsonParse.getInt(item, "pageid"));
                                 search.setTitle(JsonParse.getString(item, "title"));
                                 search.setSource(JsonParse.getString(item, "source"));
+
+                                list.add(search);
+                            }
+                            httpRequestListener.onSuccess(list);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription searchSubjectList(User user, String key, final HttpRequestListener<List<Search>> httpRequestListener) {
+        return mSearchApi.searchSubjectList(URLEncoderUtil.encode(key))
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        List<Search> list = new ArrayList<>();
+                        JSONObject data = RetrofitHttp.parseJSONObject2(response);
+                        if (data != null) {
+                            JSONArray array = JsonParse.getJSONArray(data, "list");
+                            for (int i = 0, num = array.length(); i < num; i++) {
+                                JSONObject item = JsonParse.getJSONObject(array, i);
+                                Search search = new Search();
+                                search.setSearchId(JsonParse.getInt(item, "id"));
+                                search.setTitle(JsonParse.getString(item, "name"));
+                                search.setSource(JsonParse.getString(item, "image"));
+                                search.setType(JsonParse.getString(item, "type"));
                                 list.add(search);
                             }
                             httpRequestListener.onSuccess(list);

@@ -1,6 +1,6 @@
 package org.acg12.net.api;
 
-import com.acg12.lib.entity.User;
+import org.acg12.entity.User;
 import com.acg12.lib.net.factory.ApiConverter;
 
 import org.acg12.net.converter.UserConverter;

@@ -5,11 +5,10 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-import com.acg12.lib.conf.BaseConstant;
+import com.acg12.lib.constant.BaseConstant;
 import com.acg12.lib.utils.Toastor;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 import com.acg12.lib.utils.skin.SkinManager;
-import com.facebook.stetho.Stetho;
 
 import org.acg12.conf.Config;
 import org.acg12.net.impl.HttpRequestImpl;
@@ -57,7 +56,6 @@ public class MyApplication extends Application {
 
 		new Toastor(this);
 		new ImageLoadUtils(this);
-		Stetho.initializeWithDefaults(this);
 //        if(BaseConstant.debug){
 //            ARouter.openLog();     // 打印日志
 //            ARouter.openDebug();

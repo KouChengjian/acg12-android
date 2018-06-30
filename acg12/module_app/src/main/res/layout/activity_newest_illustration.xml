@@ -4,7 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/common_action_bar" />
+    <!--<include layout="@layout/common_action_bar" />-->
+    <com.acg12.lib.widget.ToolBarView
+        android:id="@+id/toolBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.acg12.lib.widget.CommonRecycleview
         android:id="@+id/commonRecycleview"

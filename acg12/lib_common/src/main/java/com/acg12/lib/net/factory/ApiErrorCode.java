@@ -2,7 +2,6 @@ package com.acg12.lib.net.factory;
 
 
 import com.acg12.lib.BuildConfig;
-import com.acg12.lib.conf.BaseConstant;
 
 /**
  * Created by DELL on 2016/12/6.
