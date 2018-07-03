@@ -70,11 +70,11 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
     private void parseSkinAttr(Context context, AttributeSet attrs, View view) {
         List<SkinAttr> viewAttrs = new ArrayList<SkinAttr>();
 
-        LogUtil.e("attrs",attrs.getAttributeCount()+"");
+//        LogUtil.e("attrs",attrs.getAttributeCount()+"");
         for (int i = 0; i < attrs.getAttributeCount(); i++){
             String attrName = attrs.getAttributeName(i);
             String attrValue = attrs.getAttributeValue(i);
-            LogUtil.e("attrName",attrName+"==="+attrValue);
+//            LogUtil.e("attrName",attrName+"==="+attrValue);
             if(!AttrFactory.isSupportedAttr(attrName)){
                 continue;
             }
@@ -84,7 +84,7 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
                     int id = Integer.parseInt(attrValue.substring(1));
                     String entryName = context.getResources().getResourceEntryName(id);
                     String typeName = context.getResources().getResourceTypeName(id);
-                    LogUtil.e("ResourceEntry",id+"==="+entryName +"==="+typeName);
+//                    LogUtil.e("ResourceEntry",id+"==="+entryName +"==="+typeName);
                     SkinAttr mSkinAttr = AttrFactory.get(attrName, id, entryName, typeName);
                     if (mSkinAttr != null) {
                         viewAttrs.add(mSkinAttr);

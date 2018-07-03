@@ -67,6 +67,11 @@ public class ToolBarView extends FrameLayout {
         return result;
     }
 
+    public void setBackground(int color){
+        mToolbar.setBackgroundColor(color);
+        mTitleStatus.setBackgroundColor(color);
+    }
+
     public Toolbar getToolbar() {
         return mToolbar;
     }

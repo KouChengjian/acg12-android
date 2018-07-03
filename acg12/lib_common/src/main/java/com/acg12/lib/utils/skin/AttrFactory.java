@@ -6,6 +6,7 @@ import com.acg12.lib.utils.skin.attr.ListSelectorAttr;
 import com.acg12.lib.utils.skin.attr.NavigationViewAttr;
 import com.acg12.lib.utils.skin.attr.TabLayoutIndicatorAttr;
 import com.acg12.lib.utils.skin.attr.TextColorAttr;
+import com.acg12.lib.utils.skin.attr.ToolBarViewAttr;
 import com.acg12.lib.utils.skin.entity.SkinAttr;
 
 public class AttrFactory {
@@ -16,6 +17,7 @@ public class AttrFactory {
 	public static final String DIVIDER = "divider";
 	public static final String TABLAYOUT = "tabLayoutIndicator";
 	public static final String NAVIGATIONVIEW = "navigationView";
+	public static final String TOOLBARVIEW = "toolBarView";
 
 	public static SkinAttr get(String attrName, int attrValueRefId, String attrValueRefName, String typeName){
 
@@ -33,6 +35,8 @@ public class AttrFactory {
 			mSkinAttr = new TabLayoutIndicatorAttr();
 		} else if(NAVIGATIONVIEW.equals(attrName)){
 			mSkinAttr = new NavigationViewAttr();
+		} else if(TOOLBARVIEW.equals(attrName)){
+			mSkinAttr = new ToolBarViewAttr();
 		}
 		else{
 			return null;

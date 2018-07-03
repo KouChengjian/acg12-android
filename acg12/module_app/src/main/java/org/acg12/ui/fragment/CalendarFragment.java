@@ -7,8 +7,11 @@ import android.view.View;
 
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.utils.skin.AttrFactory;
+import com.acg12.lib.utils.skin.entity.DynamicAttr;
 import com.acg12.lib.widget.TipLayoutView;
 
+import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
 import org.acg12.entity.Calendar;
@@ -16,6 +19,7 @@ import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.CalendarView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,15 +27,13 @@ import java.util.List;
  */
 public class CalendarFragment extends SkinBaseFragment<CalendarView> implements View.OnClickListener ,TipLayoutView.OnReloadClick {
 
-
-    @Override
-    public void create(Bundle savedInstance) {
-        super.create(savedInstance);
-    }
-
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
+        List<DynamicAttr> mDynamicAttr = new ArrayList<>();
+        mDynamicAttr.add(new DynamicAttr(AttrFactory.TOOLBARVIEW, R.color.theme_primary));
+        dynamicAddView(mView.getToolBarView(), mDynamicAttr);
+
         requestData();
     }
 
