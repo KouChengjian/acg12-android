@@ -490,21 +490,36 @@ public class HttpRequestImpl implements HttpRequest {
                 .subscribe(new Action1<ResponseBody>() {
                     @Override
                     public void call(ResponseBody response) {
-                        JSONObject data = RetrofitHttp.parseJSONObject2(response);
+                        JSONArray data = RetrofitHttp.parseJSONObject3(response);
                         if (data != null) {
-                            List<Calendar> list = new ArrayList<>();
+                            List<Calendar> nameList = new ArrayList<>();
                             for (int i = 0, num = data.length(); i < num; i++) {
-//                                JSONObject item = JsonParse.getJSONObject(jsonArray, i);
-//                                News news = new News();
-//                                news.setNewsId(JsonParse.getInt(item, "article_id"));
-//                                news.setCover(JsonParse.getString(item, "pic_url"));
-//                                news.setTitle(JsonParse.getString(item, "title"));
-//                                news.setIntro(JsonParse.getString(item, "intro"));
-//                                news.setLink(JsonParse.getString(item, "page_url"));
-//                                news.setCreateTime(JsonParse.getInt(item, "create_time"));
-//                                list.add(news);
+                                JSONObject weekdayJson = JsonParse.getJSONObject(data, i);
+                                Calendar weekday = new Calendar();
+                                JSONObject wekJson = JsonParse.getJSONObject(weekdayJson , "weekday");
+                                weekday.setId(JsonParse.getInt(wekJson ,"id"));
+                                weekday.setCn(JsonParse.getString(wekJson ,"cn"));
+                                weekday.setEn(JsonParse.getString(wekJson ,"en"));
+                                weekday.setJa(JsonParse.getString(wekJson ,"ja"));
+                                List<Calendar> list = new ArrayList<>();
+                                weekday.setCalendarList(list);
+                                nameList.add(weekday);
+                                JSONArray items = JsonParse.getJSONArray(weekdayJson , "items");
+                                for (int j = 0 ,total = items.length(); j < total;j++){
+                                    JSONObject itemJson = JsonParse.getJSONObject(items, j);
+                                    Calendar calendar = new Calendar();
+                                    calendar.setsId(JsonParse.getInt(itemJson ,"id"));
+                                    calendar.setType(JsonParse.getInt(itemJson ,"type"));
+                                    calendar.setName(JsonParse.getString(itemJson ,"name"));
+                                    calendar.setName_cn(JsonParse.getString(itemJson ,"name_cn"));
+                                    calendar.setSummary(JsonParse.getString(itemJson ,"summary"));
+                                    calendar.setAir_date(JsonParse.getString(itemJson ,"air_date"));
+                                    calendar.setAir_weekday(JsonParse.getInt(itemJson ,"air_weekday"));
+                                    calendar.setImage(JsonParse.getString(itemJson ,"image"));
+                                    list.add(calendar);
+                                }
                             }
-                            httpRequestListener.onSuccess(list);
+                            httpRequestListener.onSuccess(nameList);
                         }
                     }
                 }, new Action1<Throwable>() {
