@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.acg12.lib.constant.BaseConstant;
+import com.acg12.lib.constant.ConstData;
 import com.acg12.lib.utils.Toastor;
 import com.acg12.lib.utils.ViewUtil;
 
@@ -37,7 +37,7 @@ public class BaseFragment extends Fragment {
 
     /*-------内部调用类---------*/
     protected void startAnimActivity(Class<?> cla) {
-        startAnimActivity(cla, null, BaseConstant.RESULT_ACTIVITY_REG_DEFAULT);
+        startAnimActivity(cla, null, ConstData.RESULT_ACTIVITY_REG_DEFAULT);
     }
 
     protected void startAnimActivity(Class<?> cla, int code) {
@@ -45,7 +45,7 @@ public class BaseFragment extends Fragment {
     }
 
     protected void startAnimActivity(Class<?> cls, Bundle bundle) {
-        startAnimActivity(cls, bundle, BaseConstant.RESULT_ACTIVITY_REG_DEFAULT);
+        startAnimActivity(cls, bundle, ConstData.RESULT_ACTIVITY_REG_DEFAULT);
     }
 
     protected void startAnimActivity(Class<?> cls, Bundle bundle, int code) {

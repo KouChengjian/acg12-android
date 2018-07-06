@@ -2,10 +2,12 @@ package org.acg12.entity;
 
 import android.content.Context;
 
-import com.acg12.lib.constant.BaseConstant;
+import com.acg12.lib.constant.ConstData;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.MD5Util;
 import com.litesuits.orm.db.annotation.Table;
+
+import org.acg12.conf.Constant;
 
 
 @Table("user")
@@ -45,11 +47,11 @@ public class User extends Param{;
 		v = "unknown";
 		a = new AppUtil().getPackageInfo(context).versionName;
 		t = String.valueOf(System.currentTimeMillis() / 1000).toString();
-		g = MD5Util.encryption(p + s + n + d + v + a + t + uid + BaseConstant.USER_KEY);
+		g = MD5Util.encryption(p + s + n + d + v + a + t + uid + Constant.USER_KEY);
 	}
 
 	public void updataSign(){
-        g = MD5Util.encryption(p + s + n + d + v + a + t + uid + BaseConstant.USER_KEY);
+        g = MD5Util.encryption(p + s + n + d + v + a + t + uid + Constant.USER_KEY);
     }
 
     public String getP() {

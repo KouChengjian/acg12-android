@@ -11,17 +11,19 @@ import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.SearchInfoView;
 
-public class SearchInfoActivity extends SkinBaseActivity<SearchInfoView> implements TipLayoutView.OnReloadClick{
+public class SearchInfoActivity extends SkinBaseActivity<SearchInfoView> implements TipLayoutView.OnReloadClick {
 
     private int id;
+    private int type;
     private String title;
 
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-         id = getIntent().getIntExtra("id",0);
-         title = getIntent().getExtras().getString("title");
-
+        id = getIntent().getIntExtra("id", 0);
+        type = getIntent().getIntExtra("type", 0);
+        title = getIntent().getExtras().getString("title");
+        mView.setTitle(title);
         requestData();
     }
 
@@ -35,20 +37,25 @@ public class SearchInfoActivity extends SkinBaseActivity<SearchInfoView> impleme
         requestData();
     }
 
-    private void requestData(){
-        mView.getTipLayoutView().startProgress();
-        HttpRequestImpl.getInstance().subjectInfo(490, 0, "", new HttpRequestListener<Subject>() {
+    private void requestData() {
+        mView.startProgress();
+        HttpRequestImpl.getInstance().subjectInfo(id, type, title, new HttpRequestListener<Subject>() {
             @Override
             public void onSuccess(Subject result) {
-                mView.bindData(id , title ,result);
-                mView.getTipLayoutView().stopProgress();
+                if (result.getName() == null || result.getName().isEmpty()) {
+                    mView.stopProgressOrError();
+                } else {
+                    mView.bindData(id, title, result);
+                    mView.stopProgress();
+                }
             }
 
             @Override
             public void onFailure(int errorcode, String msg) {
                 LogUtil.e(msg);
                 ShowToast(msg);
-                mView.getTipLayoutView().stopProgressOrEmpty();
+                mView.stopProgressOrError();
+
             }
         });
     }

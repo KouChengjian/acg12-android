@@ -2,10 +2,13 @@ package org.acg12.dao;
 
 import android.content.Context;
 
-import com.acg12.lib.constant.BaseConstant;
+import com.acg12.lib.constant.ConstData;
+
+import org.acg12.conf.Constant;
 import org.acg12.entity.DownLoad;
 import org.acg12.entity.Update;
 import org.acg12.entity.User;
+
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.DataBase;
 
@@ -23,7 +26,7 @@ public class DaoBaseImpl implements DaoBase {
 
 
     public DaoBaseImpl(Context mContext){
-        mDataBase = LiteOrm.newSingleInstance(mContext, BaseConstant.DB_NAME); // 初始化数据库
+        mDataBase = LiteOrm.newSingleInstance(mContext, Constant.DB_NAME); // 初始化数据库
         instance = this;
     }
 

@@ -5,14 +5,11 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-import com.acg12.lib.constant.BaseConstant;
-import com.acg12.lib.utils.Toastor;
-import com.acg12.lib.utils.glide.ImageLoadUtils;
 import com.acg12.lib.utils.skin.SkinManager;
 
 import org.acg12.conf.Config;
-import org.acg12.net.impl.HttpRequestImpl;
-import org.acg12.utlis.cache.Cache;
+import org.acg12.conf.Constant;
+import org.acg12.utlis.CrashHandler;
 
 
 //                          _oo0oo_
@@ -47,22 +44,13 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		new Config(this);
-		new Cache(this);
-		new HttpRequestImpl(this);
+		Config.init(this);
+		CrashHandler.init(this);
 		SkinManager.getInstance().init(this);
 		SkinManager.getInstance().load();
 
-
-		new Toastor(this);
-		new ImageLoadUtils(this);
-//        if(BaseConstant.debug){
-//            ARouter.openLog();     // 打印日志
-//            ARouter.openDebug();
-//        }
-//        ARouter.init(this);
-		if(!BaseConstant.debug){
-//            Bugly.init(mContext, BaseConstant.KEY_WEIXIN_BUGLY, false);
+		if(!Constant.debug){
+//            Bugly.init(mContext, ConstData.KEY_WEIXIN_BUGLY, false);
 		}
 	}
 

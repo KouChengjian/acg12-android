@@ -99,10 +99,6 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         }
     }
 
-    public void addFootView(View view) {
-        mRecyclerView.addFootView(view);
-    }
-
     public void setRefrreshHideHeader(boolean refreshHideHeader) {
         this.refreshHideHeader = refreshHideHeader;
     }
@@ -141,6 +137,10 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
 
     public void setOnItemLongClickListener(ItemClickSupport.OnItemLongClickListener mPresenter) {
         ItemClickSupport.addTo(mRecyclerView).setOnItemLongClickListener(mPresenter);
+    }
+
+    public void hideNullLayout(){
+        mTipLayoutView.hideNullLayout();
     }
 
     public void stopRefreshLoadMore(boolean refresh) {

@@ -2,8 +2,10 @@ package org.acg12.ui.views;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +23,7 @@ import com.acg12.lib.widget.ToolBarView;
 import org.acg12.R;
 import org.acg12.entity.Search;
 import org.acg12.ui.adapter.SearchAdapter;
+import org.acg12.utlis.SoftInputUtil;
 import org.acg12.widget.FlowLayout;
 
 import java.util.Iterator;
@@ -40,15 +43,13 @@ public class SearchView extends ViewImpl {
     protected LinearLayout layout_search_tag;
     @BindView(R.id.history_flowlayout)
     FlowLayout mHistoryFlowlayout;
-
-    DeletableEditText mSearchEditText;
-    TextView mSearchFinish;
-
     @BindView(R.id.common_recycleview)
     CommonRecycleview commonRecycleview;
     @BindView(R.id.progress_loading)
     ProgressBar progress_loading;
 
+    DeletableEditText mSearchEditText;
+    TextView mSearchFinish;
     SearchAdapter searchAdapter;
 
     @Override
@@ -79,6 +80,15 @@ public class SearchView extends ViewImpl {
         mSearchEditText.addTextChangedListener((TextWatcher)mPresenter);
         mSearchEditText.setOnEditorActionListener((TextView.OnEditorActionListener)mPresenter);
         commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
+        commonRecycleview.getIRecycleView().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_MOVE){
+                    SoftInputUtil.hideSoftInputView(getContext());
+                }
+                return false;
+            }
+        });
     }
 
     public void startLoading() {
@@ -137,9 +147,10 @@ public class SearchView extends ViewImpl {
             tv_search_history.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mPresenter != null) {
-                        ((ParameCallBack) mPresenter).onCall(str);
-                    }
+//                    if (mPresenter != null) {
+//                        ((ParameCallBack) mPresenter).onCall(str);
+//                    }
+                    mSearchEditText.setText(str);
                 }
             });
             tv_search_history.setOnLongClickListener(new View.OnLongClickListener() {

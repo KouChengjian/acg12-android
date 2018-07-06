@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.acg12.lib.constant.BaseConstant;
+import com.acg12.lib.constant.ConstData;
 import com.acg12.lib.utils.ActivityTack;
 import com.acg12.lib.utils.Toastor;
 import com.acg12.lib.utils.ViewServer;
@@ -38,7 +38,7 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
         mContext = this;
         mTag = this.getClass().getSimpleName();
         mActivityTack.addActivity(this);
-        if (BaseConstant.debug) {
+        if (ConstData.debug) {
             ViewServer.get(this).addWindow(this);
         }
 
@@ -54,7 +54,7 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        if (BaseConstant.debug) {
+        if (ConstData.debug) {
             ViewServer.get(this).setFocusedWindow(this);
         }
     }
@@ -68,7 +68,7 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         mActivityTack.removeActivity(this);
-        if (BaseConstant.debug) {
+        if (ConstData.debug) {
             ViewServer.get(this).removeWindow(this);
         }
     }
@@ -109,7 +109,7 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
 
     /*-------内部调用类---------*/
     protected void startAnimActivity(Class<?> cla) {
-        startAnimActivity(cla, null, BaseConstant.RESULT_ACTIVITY_REG_DEFAULT);
+        startAnimActivity(cla, null, ConstData.RESULT_ACTIVITY_REG_DEFAULT);
     }
 
     protected void startAnimActivity(Class<?> cla, int code) {
@@ -117,7 +117,7 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     protected void startAnimActivity(Class<?> cls, Bundle bundle) {
-        startAnimActivity(cls, bundle, BaseConstant.RESULT_ACTIVITY_REG_DEFAULT);
+        startAnimActivity(cls, bundle, ConstData.RESULT_ACTIVITY_REG_DEFAULT);
     }
 
     protected void startAnimActivity(Class<?> cls, Bundle bundle, int code) {
@@ -174,17 +174,6 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected void showSoftInputView() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-    }
 
-    protected void hideSoftInputView() {
-        InputMethodManager manager = ((InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE));
-        if (getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
-            if (getCurrentFocus() != null)
-                manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
 
 }

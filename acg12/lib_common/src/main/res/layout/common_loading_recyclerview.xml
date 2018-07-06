@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<include layout="@layout/common_loading_schedule"/>-->
     <com.acg12.lib.widget.TipLayoutView
         android:id="@+id/tipLayoutView"
         android:layout_width="match_parent"

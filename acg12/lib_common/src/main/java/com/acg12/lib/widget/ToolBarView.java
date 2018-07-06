@@ -50,12 +50,17 @@ public class ToolBarView extends FrameLayout {
         resetStatusHeight();
     }
 
-    private void resetStatusHeight() {
+    public void resetStatusHeight(int height){
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height);
+        mTitleStatus.setLayoutParams(params);
+    }
+
+    public int resetStatusHeight() {
         int height = getStatusBarHeight();
         if (height > 0) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height);
-            mTitleStatus.setLayoutParams(params);
+            resetStatusHeight(height);
         }
+        return height;
     }
 
     private int getStatusBarHeight() {

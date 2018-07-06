@@ -45,6 +45,18 @@ public class ActivityTack {
 	}
 
 	/**
+	 * 结束所有Activity
+	 */
+	public void finishAllActivity() {
+		for (Activity activity : activityList) {
+			if (activity != null) {
+				activity.finish();
+			}
+		}
+		activityList.clear();
+	}
+
+	/**
 	 * 根据class name获取activity
 	 * 
 	 * @param name

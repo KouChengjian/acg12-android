@@ -2,7 +2,7 @@ package org.acg12.ui.views;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
@@ -10,15 +10,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.adapter.CommonPagerAdapter;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.utils.PixelUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 import com.acg12.lib.widget.TipLayoutView;
+import com.acg12.lib.widget.ToolBarView;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -43,10 +48,18 @@ import butterknife.BindView;
  */
 public class SearchInfoView extends ViewImpl {
 
+    @BindView(R.id.toolBarView)
+    ToolBarView mToolBarView;
     @BindView(R.id.tipLayoutView)
     protected TipLayoutView mTipLayoutView;
     @BindView(R.id.coordinatorLayout)
     protected CoordinatorLayout mCoordinatorLayout;
+    @BindView(R.id.search_appbar)
+    protected AppBarLayout mAppBarLayout;
+    @BindView(R.id.collapsingToolbarLayout)
+    protected CollapsingToolbarLayout mCollapsingToolbarLayout;
+    @BindView(R.id.layout_search_header)
+    protected RelativeLayout mLayoutSearchHeader;
     @BindView(R.id.iv_header_bg)
     ImageView iv_header_bg;
     @BindView(R.id.iv_header_pic)
@@ -67,17 +80,16 @@ public class SearchInfoView extends ViewImpl {
     protected TabLayout mTabLayout;
     @BindView(R.id.search_viewpager)
     protected ViewPager mViewpager;
-    @BindView(R.id.collapsingToolbarLayout)
-    protected CollapsingToolbarLayout mCollapsingToolbarLayout;
 
-    protected Fragment[] fragments;
+
+    private Fragment[] fragments;
     private String[] tabTitles;
-    CommonPagerAdapter commonPagerAdapter;
-    SearchIntroFragment searchIntroFragment;
-    SearchAlbumFragment searchAlbumFragment;
-    SearchPaletteFragment searchPaletteFragment;
-    SearchBangunFragment searchBangunFragment;
-    SearchAnimatFragment searchAnimatFragment;
+    private CommonPagerAdapter commonPagerAdapter;
+    private SearchIntroFragment searchIntroFragment;
+    private SearchAlbumFragment searchAlbumFragment;
+    private SearchPaletteFragment searchPaletteFragment;
+    private SearchBangunFragment searchBangunFragment;
+    private SearchAnimatFragment searchAnimatFragment;
 
     Bitmap mBlurBitmap;
 
@@ -90,7 +102,6 @@ public class SearchInfoView extends ViewImpl {
     public void created() {
         super.created();
         toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        mTipLayoutView.setContainer(mCoordinatorLayout);
 
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);//设置还没收缩时状态下字体颜色
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);//设置收缩后Toolbar上字体的颜色
@@ -102,14 +113,18 @@ public class SearchInfoView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter, toolbar);
+        PresenterHelper.click(mPresenter, toolbar, mToolBarView.getToolbar());
         mTipLayoutView.setOnReloadClick((TipLayoutView.OnReloadClick) mPresenter);
+    }
+
+    public void setTitle(String title) {
+        mToolBarView.setNavigationOrBreak(title);
     }
 
     public void bindData(int id, String title, Subject subject) {
         toolbar.setTitle(subject.getName());
         tv_header_title.setText(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
-        tv_header_title_type.setText(String.format("（%s）",subject.getTypeStatus()));
+        tv_header_title_type.setText(String.format("（%s）", subject.getTypeStatus()));
         tv_header_play_eps.setText(subject.getTypeEps());
         tv_header_play_time.setText(subject.getTypeTime());
         tv_header_subtitle.setText((subject.getAuthor() == null || subject.getAuthor().isEmpty() || subject.getAuthor().equals("null")) ? "???" : subject.getAuthor());
@@ -124,10 +139,10 @@ public class SearchInfoView extends ViewImpl {
         });
 
         searchIntroFragment = SearchIntroFragment.newInstance(title, subject);
-        searchAlbumFragment = SearchAlbumFragment.newInstance(title);
-        searchPaletteFragment = SearchPaletteFragment.newInstance(title);
-        searchBangunFragment = SearchBangunFragment.newInstance(title);
-        searchAnimatFragment = SearchAnimatFragment.newInstance(title);
+        searchAlbumFragment = SearchAlbumFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
+        searchPaletteFragment = SearchPaletteFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
+        searchBangunFragment = SearchBangunFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
+        searchAnimatFragment = SearchAnimatFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
         fragments = new Fragment[]{searchIntroFragment, searchAlbumFragment, searchPaletteFragment, searchBangunFragment, searchAnimatFragment};
 
         commonPagerAdapter = new CommonPagerAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), fragments, tabTitles);
@@ -143,6 +158,48 @@ public class SearchInfoView extends ViewImpl {
     public TipLayoutView getTipLayoutView() {
         return mTipLayoutView;
     }
+
+    public void startProgress() {
+        mTipLayoutView.startProgress();
+        mToolBarView.setVisibility(View.VISIBLE);
+//        mLayoutSearchHeader.setVisibility(View.GONE);
+//        mTabLayout.setVisibility(View.GONE);
+        mAppBarLayout.setVisibility(View.GONE);
+        mViewpager.setVisibility(View.GONE);
+//        int height = mToolBarView.resetStatusHeight();
+//        ViewGroup.LayoutParams params = mCollapsingToolbarLayout.getLayoutParams();
+//        params.height = PixelUtil.dp2px(getContext(), 60);
+//        mCollapsingToolbarLayout.setLayoutParams(params);
+    }
+
+    public void stopProgress() {
+        mTipLayoutView.stopProgress();
+        mTipLayoutView.setVisibility(View.GONE);
+        mToolBarView.setVisibility(View.GONE);
+//        mLayoutSearchHeader.setVisibility(View.VISIBLE);
+//        mTabLayout.setVisibility(View.VISIBLE);
+        mAppBarLayout.setVisibility(View.VISIBLE);
+        mViewpager.setVisibility(View.VISIBLE);
+//        mToolBarView.resetStatusHeight(0);
+//        ViewGroup.LayoutParams params = mCollapsingToolbarLayout.getLayoutParams();
+//        params.height = PixelUtil.dp2px(getContext(), 250);
+//        mCollapsingToolbarLayout.setLayoutParams(params);
+    }
+
+    public void stopProgressOrError() {
+        mTipLayoutView.stopProgressOrError();
+        mToolBarView.setVisibility(View.VISIBLE);
+//        mLayoutSearchHeader.setVisibility(View.GONE);
+
+        mAppBarLayout.setVisibility(View.GONE);
+//        mTabLayout.setVisibility(View.GONE);
+        mViewpager.setVisibility(View.GONE);
+//        int height = mToolBarView.resetStatusHeight();
+//        ViewGroup.LayoutParams params = mCollapsingToolbarLayout.getLayoutParams();
+//        params.height = PixelUtil.dp2px(getContext(), 60);
+//        mCollapsingToolbarLayout.setLayoutParams(params);
+    }
+
 
     public void onDestroy() {
         if (mBlurBitmap != null) {

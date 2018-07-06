@@ -76,6 +76,12 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
         mProgressLoading.setVisibility(View.GONE);
     }
 
+    public void stopProgressOrError() {
+        showNullLayout();
+        hideContainer();
+        mProgressLoading.setVisibility(View.GONE);
+    }
+
     public void stopProgressOrNetError() {
         showNullLayout();
         hideContainer();
@@ -115,7 +121,7 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
         }
     }
 
-    private void hideNullLayout() {
+    public void hideNullLayout() {
         if (mLoadNullImageview != null && mLoadNullTextview != null) {
             mLoadNullTextview.setText("");
             if (mLoadNullImageview.getVisibility() == View.VISIBLE) {

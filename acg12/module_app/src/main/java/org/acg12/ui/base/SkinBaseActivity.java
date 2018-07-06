@@ -93,7 +93,7 @@ public class SkinBaseActivity<T extends IView> extends PresenterActivityImpl<T> 
      * --------------------skin 切换-------------------------
      */
     private boolean isResponseOnSkinChanging = true;
-git
+
     private SkinInflaterFactory mSkinInflaterFactory;
 
     public void initSkin() {

@@ -89,6 +89,7 @@ public class HttpRequestImpl implements HttpRequest {
     @Override
     public Subscription login(final User user, final HttpRequestListener<User> httpRequestListener) {
         Subscription subscription = mUserApi.login(user.getUsername(), user.getPassword())
+//                .compose(RxLifecycle.bindUntilEvent(lifecycle(), ActivityEvent.DESTROY))//onDestory方法中取消请求
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.io())
                 .doOnNext(new Action1<User>() {
@@ -900,7 +901,7 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription searchAlbum(User user, String key, String page, final HttpRequestListener<List<Album>> httpRequestListener) {
-        return mSearchApi.searchAlbum(URLEncoderUtil.encode(key), page)
+        return mSearchApi.searchAlbum(key, page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -935,7 +936,7 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription searchPalette(User user, String key, String page, final HttpRequestListener<List<Palette>> httpRequestListener) {
-        return mSearchApi.searchPalette(URLEncoderUtil.encode(key), page)
+        return mSearchApi.searchPalette(key, page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseBody>() {
@@ -1092,7 +1093,8 @@ public class HttpRequestImpl implements HttpRequest {
                                 search.setSearchId(JsonParse.getInt(item, "id"));
                                 search.setTitle(JsonParse.getString(item, "name"));
                                 search.setSource(JsonParse.getString(item, "image"));
-                                search.setType(JsonParse.getString(item, "type"));
+                                search.setType(JsonParse.getInt(item, "type"));
+                                search.setTypeName(JsonParse.getString(item, "typeName"));
                                 list.add(search);
                             }
                             httpRequestListener.onSuccess(list);

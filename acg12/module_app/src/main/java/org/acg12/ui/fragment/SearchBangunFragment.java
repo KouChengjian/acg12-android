@@ -81,7 +81,7 @@ public class SearchBangunFragment extends SkinBaseFragment<SearchBangunView> imp
             @Override
             public void onFailure(int errorcode, String msg) {
                 Log.e(mTag , msg);
-                ShowToastView(msg);
+//                ShowToastView(msg);
                 mView.stopRefreshLoadMore(refresh);
             }
         });

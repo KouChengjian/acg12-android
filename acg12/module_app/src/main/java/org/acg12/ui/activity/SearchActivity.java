@@ -56,6 +56,7 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
         Search search = mView.getList().get(position);
         Bundle bundle = new Bundle();
         bundle.putInt("id", search.getSearchId());
+        bundle.putInt("type", search.getType());
         bundle.putString("title", search.getTitle());
         startAnimActivity(SearchInfoActivity.class, bundle);
         finish();
@@ -63,12 +64,7 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
 
     @Override
     public void onCall(Object object) {
-        if (object instanceof String) {
-            Bundle bundle = new Bundle();
-            bundle.putString("title", (String) object);
-            startAnimActivity(SearchInfoActivity.class, bundle);
-            finish();
-        } else if(object instanceof List){
+        if(object instanceof List){
             historyList = new LinkedList<>((List<String>) object);
             Cache.getInstance().savaHistoryTags(new ArrayList<>(historyList));
         }
@@ -77,10 +73,8 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH){
-            Bundle bundle = new Bundle();
-            bundle.putString("title", mView.getSearch());
-            startAnimActivity(SearchInfoActivity.class, bundle);
-            finish();
+            searchKey = mView.getSearch();
+            refresh(searchKey);
             return true;
         }
         return false;
@@ -126,7 +120,6 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
             @Override
             public void onSuccess(List<Search> result) {
                 mView.bindData(result , true);
-
                 mView.stopLoading();
             }
 
@@ -134,12 +127,9 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
             public void onFailure(int errorcode, String msg) {
                 ShowToast(msg);
                 LogUtil.e(msg);
-
                 mView.stopLoading();
             }
         });
     }
-
-
 
 }

@@ -11,6 +11,8 @@ import android.view.View;
 
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
+import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.widget.CommonRecycleview;
 import com.acg12.lib.widget.IRecycleView;
 
 import org.acg12.conf.Constant;
@@ -23,7 +25,7 @@ import org.acg12.ui.views.SearchAlbumView;
 import java.util.List;
 
 public class SearchAlbumFragment extends SkinBaseFragment<SearchAlbumView> implements IRecycleView.LoadingListener,
-        SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener {
+        SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener ,CommonRecycleview.IRecycleUpdataListener{
 
     private String title = "";
     private int page = 1;
@@ -67,6 +69,12 @@ public class SearchAlbumFragment extends SkinBaseFragment<SearchAlbumView> imple
     }
 
     @Override
+    public void onReload() {
+        mView.resetLoading();
+        refresh(title, page);
+    }
+
+    @Override
     public void onLoadMore() {
         page++;
         refresh = false;
@@ -96,9 +104,10 @@ public class SearchAlbumFragment extends SkinBaseFragment<SearchAlbumView> imple
             @Override
             public void onFailure(int errorcode, String msg) {
                 Log.e(mTag, msg);
-                ShowToastView(msg);
+//                ShowToastView(msg);
                 mView.stopRefreshLoadMore(refresh);
             }
         });
     }
+
 }

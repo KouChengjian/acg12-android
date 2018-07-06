@@ -46,6 +46,7 @@ public class SearchAlbumView extends ViewImpl {
         commonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
         commonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
         commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
+        commonRecycleview.setRecycleUpdataListener((CommonRecycleview.IRecycleUpdataListener)mPresenter);
     }
 
     public void bindData(List<Album> result , boolean refresh){
@@ -68,6 +69,10 @@ public class SearchAlbumView extends ViewImpl {
 
     public Album getAlbum(int position) {
         return tabAlbumAdapter.getList().get(position);
+    }
+
+    public void resetLoading(){
+        commonRecycleview.hideNullLayout();
     }
 
     public void stopLoading(){
