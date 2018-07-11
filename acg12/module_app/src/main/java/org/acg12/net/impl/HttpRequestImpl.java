@@ -585,11 +585,19 @@ public class HttpRequestImpl implements HttpRequest {
                             subject.setNameCn(JsonParse.getString(data, "nameCn"));
                             subject.setSummary(JsonParse.getString(data, "summary"));
                             subject.setImage(JsonParse.getString(data, "image"));
+
                             subject.setEpsCount(JsonParse.getInt(data, "epsCount"));
                             subject.setAirDate(JsonParse.getString(data, "airDate"));
                             subject.setAirWeekday(JsonParse.getInt(data, "airWeekday"));
                             subject.setEndDate(JsonParse.getString(data, "endDate"));
                             subject.setAuthor(JsonParse.getString(data, "author"));
+
+                            subject.setHeight(JsonParse.getString(data, "height"));
+                            subject.setWeight(JsonParse.getString(data, "weight"));
+                            subject.setAlias(JsonParse.getString(data, "alias"));
+                            subject.setGender(JsonParse.getInt(data, "gender"));
+                            subject.setBirthday(JsonParse.getString(data, "birthday"));
+                            subject.setBloodtype(JsonParse.getInt(data, "bloodtype"));
 
                             List<SubjectDetail> subjectDetailList = new ArrayList<>();
                             JSONArray subjectDetails = JsonParse.getJSONArray(data, "details");

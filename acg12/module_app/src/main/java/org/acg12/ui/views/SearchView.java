@@ -151,6 +151,7 @@ public class SearchView extends ViewImpl {
 //                        ((ParameCallBack) mPresenter).onCall(str);
 //                    }
                     mSearchEditText.setText(str);
+                    mSearchEditText.setSelection(str.length());
                 }
             });
             tv_search_history.setOnLongClickListener(new View.OnLongClickListener() {

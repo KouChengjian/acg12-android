@@ -59,7 +59,7 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
         bundle.putInt("type", search.getType());
         bundle.putString("title", search.getTitle());
         startAnimActivity(SearchInfoActivity.class, bundle);
-        finish();
+//        finish();
     }
 
     @Override

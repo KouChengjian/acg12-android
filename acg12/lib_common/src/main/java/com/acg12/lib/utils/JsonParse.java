@@ -59,7 +59,7 @@ public class JsonParse {
             if(!json.isNull(key)){
                 return json.getJSONArray(key);
             }else
-                return null;
+                return new JSONArray();
         } catch (JSONException e) {
             e.printStackTrace();
         }

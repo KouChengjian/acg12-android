@@ -45,7 +45,7 @@ public class SearchInfoActivity extends SkinBaseActivity<SearchInfoView> impleme
                 if (result.getName() == null || result.getName().isEmpty()) {
                     mView.stopProgressOrError();
                 } else {
-                    mView.bindData(id, title, result);
+                    mView.bindData(id, type, title, result);
                     mView.stopProgress();
                 }
             }
@@ -55,7 +55,6 @@ public class SearchInfoActivity extends SkinBaseActivity<SearchInfoView> impleme
                 LogUtil.e(msg);
                 ShowToast(msg);
                 mView.stopProgressOrError();
-
             }
         });
     }
@@ -65,6 +64,4 @@ public class SearchInfoActivity extends SkinBaseActivity<SearchInfoView> impleme
         super.onDestroy();
         mView.onDestroy();
     }
-
-
 }

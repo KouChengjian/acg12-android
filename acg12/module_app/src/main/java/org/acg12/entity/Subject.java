@@ -18,11 +18,19 @@ public class Subject extends Param {
     private String nameCn; // 中文
     private String summary; // 概况
     private String image;
+    // subject
     private Integer epsCount; // 话数
     private String airDate;// 放送开始 2015-10-10
     private Integer airWeekday;// 放送星期 3
     private String endDate; // 播放结束
     private String author;
+    // crt
+    private String height;
+    private String weight;
+    private String alias;
+    private Integer gender;
+    private Integer bloodtype;
+    private String birthday;
 
     private List<SubjectDetail> detailList = new ArrayList<>();
     private List<SubjectStaff> staffList = new ArrayList<>();
@@ -132,6 +140,54 @@ public class Subject extends Param {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public Integer getBloodtype() {
+        return bloodtype;
+    }
+
+    public void setBloodtype(Integer bloodtype) {
+        this.bloodtype = bloodtype;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     @Override
@@ -258,5 +314,42 @@ public class Subject extends Param {
             tname = "播放时间 " + (airDate.equals("0000-00-00") ? "???":airDate);
         }
         return tname;
+    }
+
+    public String getTypeGender(){
+        String sex = "性别：";
+        if(gender == 1){
+            sex += "男";
+        } else if(gender == 2){
+            sex += "女";
+        } else{
+            sex += "???";
+        }
+        return sex;
+    }
+
+    public String getOther() {
+        String s1 = "";
+        if (getBirthday() != null && !getBirthday().isEmpty()) {
+            s1 += "生日 " + getBirthday();
+        } else {
+            s1 += "生日 ???";
+        }
+        if (getBloodtype() == 1) {
+            s1 += " / 血型 A";
+        } else if (getBloodtype() == 2) {
+            s1 += " / 血型 B";
+        } else if (getBloodtype() == 3) {
+            s1 += " / 血型 AB";
+        } else if (getBloodtype() == 4) {
+            s1 += " / 血型 O";
+        }
+        if (getHeight() != null && !getHeight().isEmpty()) {
+            s1 += " / 身高 " + getHeight();
+        }
+        if (getWeight() != null && !getWeight().isEmpty()) {
+            s1 += " / 体重 " + getWeight();
+        }
+        return s1;
     }
 }

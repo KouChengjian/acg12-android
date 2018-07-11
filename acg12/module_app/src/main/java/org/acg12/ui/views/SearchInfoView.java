@@ -11,24 +11,18 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.adapter.CommonPagerAdapter;
 import com.acg12.lib.ui.base.PresenterHelper;
-import com.acg12.lib.utils.LogUtil;
-import com.acg12.lib.utils.PixelUtil;
+import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 import com.acg12.lib.widget.TipLayoutView;
 import com.acg12.lib.widget.ToolBarView;
-import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.SizeReadyCallback;
-import com.bumptech.glide.request.target.Target;
 
 import org.acg12.R;
 import org.acg12.entity.Subject;
@@ -38,8 +32,6 @@ import org.acg12.ui.fragment.SearchBangunFragment;
 import org.acg12.ui.fragment.SearchIntroFragment;
 import org.acg12.ui.fragment.SearchPaletteFragment;
 import org.acg12.utlis.BitmapBlurUtil;
-
-import java.util.logging.Handler;
 
 import butterknife.BindView;
 
@@ -121,14 +113,13 @@ public class SearchInfoView extends ViewImpl {
         mToolBarView.setNavigationOrBreak(title);
     }
 
-    public void bindData(int id, String title, Subject subject) {
+    public void bindData(int id, int type, String title, Subject subject) {
         toolbar.setTitle(subject.getName());
         tv_header_title.setText(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
-        tv_header_title_type.setText(String.format("（%s）", subject.getTypeStatus()));
-        tv_header_play_eps.setText(subject.getTypeEps());
-        tv_header_play_time.setText(subject.getTypeTime());
-        tv_header_subtitle.setText((subject.getAuthor() == null || subject.getAuthor().isEmpty() || subject.getAuthor().equals("null")) ? "???" : subject.getAuthor());
         String url = subject.getImage();
+        if (!url.contains("http")){
+            url = "http:"+url;
+        }
         ImageLoadUtils.glideLoading(url, iv_header_pic);
         ImageLoadUtils.glideLoading(url, new SimpleTarget<Bitmap>() {
             @Override
@@ -137,6 +128,18 @@ public class SearchInfoView extends ViewImpl {
                 iv_header_bg.setImageBitmap(mBlurBitmap);
             }
         });
+
+        if(type == 0){
+            tv_header_title_type.setText(String.format("（%s）", subject.getTypeStatus()));
+            tv_header_play_eps.setText(subject.getTypeEps());
+            tv_header_play_time.setText(subject.getTypeTime());
+            tv_header_subtitle.setText((subject.getAuthor() == null || subject.getAuthor().isEmpty() || subject.getAuthor().equals("null")) ? "???" : subject.getAuthor());
+        } else {
+            tv_header_title_type.setText("");
+            tv_header_subtitle.setVisibility(View.GONE);
+            tv_header_play_eps.setText(subject.getAlias());
+            tv_header_play_time.setText(subject.getOther());
+        }
 
         searchIntroFragment = SearchIntroFragment.newInstance(title, subject);
         searchAlbumFragment = SearchAlbumFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
@@ -162,42 +165,23 @@ public class SearchInfoView extends ViewImpl {
     public void startProgress() {
         mTipLayoutView.startProgress();
         mToolBarView.setVisibility(View.VISIBLE);
-//        mLayoutSearchHeader.setVisibility(View.GONE);
-//        mTabLayout.setVisibility(View.GONE);
         mAppBarLayout.setVisibility(View.GONE);
         mViewpager.setVisibility(View.GONE);
-//        int height = mToolBarView.resetStatusHeight();
-//        ViewGroup.LayoutParams params = mCollapsingToolbarLayout.getLayoutParams();
-//        params.height = PixelUtil.dp2px(getContext(), 60);
-//        mCollapsingToolbarLayout.setLayoutParams(params);
     }
 
     public void stopProgress() {
         mTipLayoutView.stopProgress();
         mTipLayoutView.setVisibility(View.GONE);
         mToolBarView.setVisibility(View.GONE);
-//        mLayoutSearchHeader.setVisibility(View.VISIBLE);
-//        mTabLayout.setVisibility(View.VISIBLE);
         mAppBarLayout.setVisibility(View.VISIBLE);
         mViewpager.setVisibility(View.VISIBLE);
-//        mToolBarView.resetStatusHeight(0);
-//        ViewGroup.LayoutParams params = mCollapsingToolbarLayout.getLayoutParams();
-//        params.height = PixelUtil.dp2px(getContext(), 250);
-//        mCollapsingToolbarLayout.setLayoutParams(params);
     }
 
     public void stopProgressOrError() {
         mTipLayoutView.stopProgressOrError();
         mToolBarView.setVisibility(View.VISIBLE);
-//        mLayoutSearchHeader.setVisibility(View.GONE);
-
         mAppBarLayout.setVisibility(View.GONE);
-//        mTabLayout.setVisibility(View.GONE);
         mViewpager.setVisibility(View.GONE);
-//        int height = mToolBarView.resetStatusHeight();
-//        ViewGroup.LayoutParams params = mCollapsingToolbarLayout.getLayoutParams();
-//        params.height = PixelUtil.dp2px(getContext(), 60);
-//        mCollapsingToolbarLayout.setLayoutParams(params);
     }
 
 
