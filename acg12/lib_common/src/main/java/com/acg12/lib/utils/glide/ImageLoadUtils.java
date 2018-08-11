@@ -10,13 +10,18 @@ import android.widget.ImageView;
 
 import com.acg12.lib.R;
 import com.acg12.lib.utils.CacheUtils;
+import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.Headers;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by DELL on 2016/11/17.
@@ -45,11 +50,26 @@ public class ImageLoadUtils {
      */
 
     public static void glideLoading(String url, ImageView imageview) {
-        glideLoading(mContext, url, imageview);
+        glideLoading(new HashMap<String, String>(), url, imageview);
+    }
+
+    public static void glideLoading(HashMap<String, String> headers, String url, ImageView imageview) {
+        glideLoading(mContext, headers, url, imageview);
     }
 
     public static void glideLoading(Context mContext, String url, ImageView imageview) {
-        Glide.with(mContext).load(url)
+        glideLoading(mContext, new HashMap<String, String>(), url, imageview);
+    }
+
+    public static void glideLoading(Context mContext, final HashMap<String, String> header, String url, ImageView imageview) {
+        Headers headers = new Headers() {
+            @Override
+            public Map<String, String> getHeaders() {
+                return header;
+            }
+        };
+        GlideUrl gliderUrl = new GlideUrl(url, headers);
+        Glide.with(mContext).load(gliderUrl)
                 .placeholder(R.mipmap.bg_loading_pic)
                 .animate(R.anim.glide_loading_image_alpha_in)
                 .error(R.mipmap.bg_loading_pic)
@@ -72,7 +92,7 @@ public class ImageLoadUtils {
         glideLoading(mContext, url, target);
     }
 
-    public static void glideLoading(Context mContext , String url, Target target) {
+    public static void glideLoading(Context mContext, String url, Target target) {
         Glide.with(mContext).load(url).asBitmap()
                 .placeholder(R.mipmap.bg_loading_pic)
                 .animate(R.anim.glide_loading_image_alpha_in)

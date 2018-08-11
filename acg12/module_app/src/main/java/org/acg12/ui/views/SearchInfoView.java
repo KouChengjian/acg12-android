@@ -31,6 +31,7 @@ import org.acg12.ui.fragment.SearchAnimatFragment;
 import org.acg12.ui.fragment.SearchBangunFragment;
 import org.acg12.ui.fragment.SearchIntroFragment;
 import org.acg12.ui.fragment.SearchPaletteFragment;
+import org.acg12.ui.fragment.SearchVideoFragment;
 import org.acg12.utlis.BitmapBlurUtil;
 
 import butterknife.BindView;
@@ -80,7 +81,7 @@ public class SearchInfoView extends ViewImpl {
     private SearchIntroFragment searchIntroFragment;
     private SearchAlbumFragment searchAlbumFragment;
     private SearchPaletteFragment searchPaletteFragment;
-    private SearchBangunFragment searchBangunFragment;
+    private SearchVideoFragment searchVideoFragment;
     private SearchAnimatFragment searchAnimatFragment;
 
     Bitmap mBlurBitmap;
@@ -99,7 +100,7 @@ public class SearchInfoView extends ViewImpl {
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);//设置收缩后Toolbar上字体的颜色
         mCollapsingToolbarLayout.setTitleEnabled(false);
 
-        tabTitles = new String[]{"简介", "插画", "画册", "动画", "其他"};
+        tabTitles = new String[]{"简介", "插画", "画册", "动画", "漫画"};
     }
 
     @Override
@@ -131,9 +132,10 @@ public class SearchInfoView extends ViewImpl {
 
         if(type == 0){
             tv_header_title_type.setText(String.format("（%s）", subject.getTypeStatus()));
+            String author = (subject.getAuthor() == null || subject.getAuthor().isEmpty() || subject.getAuthor().equals("null")) ? "???" : subject.getAuthor();
+            tv_header_subtitle.setText("作者 "+ author);
             tv_header_play_eps.setText(subject.getTypeEps());
             tv_header_play_time.setText(subject.getTypeTime());
-            tv_header_subtitle.setText((subject.getAuthor() == null || subject.getAuthor().isEmpty() || subject.getAuthor().equals("null")) ? "???" : subject.getAuthor());
         } else {
             tv_header_title_type.setText("");
             tv_header_subtitle.setVisibility(View.GONE);
@@ -144,9 +146,9 @@ public class SearchInfoView extends ViewImpl {
         searchIntroFragment = SearchIntroFragment.newInstance(title, subject);
         searchAlbumFragment = SearchAlbumFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
         searchPaletteFragment = SearchPaletteFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
-        searchBangunFragment = SearchBangunFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
+        searchVideoFragment = SearchVideoFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
         searchAnimatFragment = SearchAnimatFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
-        fragments = new Fragment[]{searchIntroFragment, searchAlbumFragment, searchPaletteFragment, searchBangunFragment, searchAnimatFragment};
+        fragments = new Fragment[]{searchIntroFragment, searchAlbumFragment, searchPaletteFragment, searchVideoFragment, searchAnimatFragment};
 
         commonPagerAdapter = new CommonPagerAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), fragments, tabTitles);
         mViewpager.setAdapter(commonPagerAdapter);
@@ -163,14 +165,14 @@ public class SearchInfoView extends ViewImpl {
     }
 
     public void startProgress() {
-        mTipLayoutView.startProgress();
+        mTipLayoutView.showLoading();
         mToolBarView.setVisibility(View.VISIBLE);
         mAppBarLayout.setVisibility(View.GONE);
         mViewpager.setVisibility(View.GONE);
     }
 
     public void stopProgress() {
-        mTipLayoutView.stopProgress();
+        mTipLayoutView.showLoading();
         mTipLayoutView.setVisibility(View.GONE);
         mToolBarView.setVisibility(View.GONE);
         mAppBarLayout.setVisibility(View.VISIBLE);
@@ -178,7 +180,7 @@ public class SearchInfoView extends ViewImpl {
     }
 
     public void stopProgressOrError() {
-        mTipLayoutView.stopProgressOrError();
+        mTipLayoutView.showNetError();
         mToolBarView.setVisibility(View.VISIBLE);
         mAppBarLayout.setVisibility(View.GONE);
         mViewpager.setVisibility(View.GONE);

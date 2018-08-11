@@ -26,12 +26,11 @@ public class UserConverter extends AbstractResponseConverter<User> {
         User user = new User();
         JSONObject data = RetrofitHttp.parseJSONObject(value);
         if (data != null) {
-            JSONObject json = JsonParse.getJSONObject(data, "user");
-            user.setUid(JsonParse.getInt(json, "id"));
-            user.setSex(JsonParse.getInt(json, "sex"));
-            user.setNick(JsonParse.getString(json, "nick"));
-            user.setAvatar(JsonParse.getString(json, "avatar"));
-            user.setSignature(JsonParse.getString(json, "sign"));
+            user.setUid(JsonParse.getInt(data, "id"));
+            user.setSex(JsonParse.getInt(data, "sex"));
+            user.setNick(JsonParse.getString(data, "nick"));
+            user.setAvatar(JsonParse.getString(data, "avatar"));
+            user.setSignature(JsonParse.getString(data, "sign"));
         } else {
             RetrofitHttp.failure();
         }

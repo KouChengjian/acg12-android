@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/iv_album_pic"
                 android:layout_alignParentLeft="true"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center|right"
                 android:maxLines="1"
                 android:paddingLeft="4dp"

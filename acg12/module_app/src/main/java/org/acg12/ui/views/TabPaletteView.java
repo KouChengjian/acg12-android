@@ -4,8 +4,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.ui.base.ViewImpl;
-import com.acg12.lib.widget.CommonRecycleview;
-import com.acg12.lib.widget.IRecycleView;
+import com.acg12.lib.widget.recycle.CommonRecycleview;
+import com.acg12.lib.widget.recycle.IRecycleView;
 
 import org.acg12.R;
 import org.acg12.entity.Palette;

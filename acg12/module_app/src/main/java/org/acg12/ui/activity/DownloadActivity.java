@@ -8,7 +8,7 @@ import android.view.View;
 import org.acg12.dao.DaoBaseImpl;
 import org.acg12.entity.DownLoad;
 import com.acg12.lib.listener.ItemClickSupport;
-import com.acg12.lib.widget.IRecycleView;
+import com.acg12.lib.widget.recycle.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.ui.base.SkinBaseActivity;

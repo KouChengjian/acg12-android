@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.acg12.lib.ui.adapter.CommonRecyclerView;
+import com.acg12.lib.ui.adapter.CommonRecyclerViewHolder;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Administrator on 2018/1/18.
  */
 
-public class SearchViewHolder extends CommonRecyclerView {
+public class SearchViewHolder extends CommonRecyclerViewHolder {
 
     ImageView iv_search_tag;
     TextView tv_search_tag;

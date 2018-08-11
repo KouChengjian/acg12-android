@@ -1,4 +1,4 @@
-package com.acg12.lib.widget;
+package com.acg12.lib.widget.recycle;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;

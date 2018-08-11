@@ -111,12 +111,12 @@ public class CalendarView extends ViewImpl {
     }
 
     public void startProgress() {
-        mTipLayoutView.startProgress();
+        mTipLayoutView.showLoading();
     }
 
     public void stopProgress() {
         mCoordinatorLayout.setVisibility(View.VISIBLE);
-        mTipLayoutView.stopProgress();
+        mTipLayoutView.showContent();
         mTipLayoutView.setVisibility(View.GONE);
 //        mToolBarView.setVisibility(View.GONE);
         mTabLayout.setVisibility(View.VISIBLE);
@@ -124,6 +124,6 @@ public class CalendarView extends ViewImpl {
     }
 
     public void stopProgressOrNetError() {
-        mTipLayoutView.stopProgressOrNetError();
+        mTipLayoutView.showNetError();
     }
 }

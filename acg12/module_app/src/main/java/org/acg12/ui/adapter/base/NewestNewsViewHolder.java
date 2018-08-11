@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.acg12.lib.ui.adapter.CommonRecyclerView;
+import com.acg12.lib.ui.adapter.CommonRecyclerViewHolder;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
@@ -20,19 +20,20 @@ import org.acg12.entity.News;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by Administrator on 2018/1/26.
  */
 
-public class NewestNewsViewHolder extends CommonRecyclerView {
+public class NewestNewsViewHolder extends CommonRecyclerViewHolder {
 
     private RelativeLayout layout_header;
-    TextView tv_header_title;
-
+    private TextView tv_header_title;
     private ImageView iv_news_cover;
-    TextView tv_news_title;
+    private TextView tv_news_title;
+    private HashMap<String , String> headers = new HashMap<>();
 
     public NewestNewsViewHolder(View itemView) {
         super(itemView);
@@ -46,22 +47,9 @@ public class NewestNewsViewHolder extends CommonRecyclerView {
     public void bindData(Context mContext, List list, int position) {
         News news  = (News)list.get(position);
         LogUtil.e(news.getCover());
-//        ImageLoadUtils.glideLoading(news.getCover() , iv_news_cover);
         ViewUtil.setText(tv_news_title , news.getTitle());
-
-        ImageLoadUtils.glideLoading(mContext , news.getCover() , new SimpleTarget<Bitmap>(){
-            @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                LogUtil.e(resource.getHeight()+"=========");
-                iv_news_cover.setImageBitmap(resource);
-            }
-
-            @Override
-            public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                super.onLoadFailed(e, errorDrawable);
-                LogUtil.e(e.toString());
-            }
-        });
+        headers .put("Referer" , "http://images.dmzj.com/");
+        ImageLoadUtils.glideLoading(headers ,news.getCover() , iv_news_cover);
 
         if(position == 0){
             layout_header.setVisibility(View.VISIBLE);

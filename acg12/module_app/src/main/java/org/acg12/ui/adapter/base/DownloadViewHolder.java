@@ -9,7 +9,7 @@ import org.acg12.net.download.DLStatus;
 import org.acg12.entity.DownLoad;
 import org.acg12.net.download.DownLoadCallback;
 import org.acg12.net.download.DownloadManger;
-import com.acg12.lib.ui.adapter.CommonRecyclerView;
+import com.acg12.lib.ui.adapter.CommonRecyclerViewHolder;
 import com.acg12.lib.utils.IOUtils;
 import com.acg12.lib.utils.LogUtil;
 
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/6/14.
  */
-public class DownloadViewHolder extends CommonRecyclerView {
+public class DownloadViewHolder extends CommonRecyclerViewHolder {
 
     private TextView name;
     private TextView download_size;

@@ -11,9 +11,8 @@ import android.view.View;
 
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
-import com.acg12.lib.utils.LogUtil;
-import com.acg12.lib.widget.CommonRecycleview;
-import com.acg12.lib.widget.IRecycleView;
+import com.acg12.lib.widget.recycle.CommonRecycleview;
+import com.acg12.lib.widget.recycle.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.Album;
@@ -43,6 +42,10 @@ public class SearchAlbumFragment extends SkinBaseFragment<SearchAlbumView> imple
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
         title = getArguments().getString("title");
+        String[] s1 = title.split(" ");
+        if(s1.length > 1){
+            title = s1[0];
+        }
         refresh(title, page);
     }
 

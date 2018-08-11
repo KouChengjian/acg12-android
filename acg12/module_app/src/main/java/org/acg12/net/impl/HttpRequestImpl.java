@@ -457,12 +457,11 @@ public class HttpRequestImpl implements HttpRequest {
                 .subscribe(new Action1<ResponseBody>() {
                     @Override
                     public void call(ResponseBody response) {
-                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        JSONArray data = RetrofitHttp.parseJSONObject3(response);
                         if (data != null) {
                             List<News> list = new ArrayList<>();
-                            JSONArray jsonArray = JsonParse.getJSONArray(data, "list");
-                            for (int i = 0, num = jsonArray.length(); i < num; i++) {
-                                JSONObject item = JsonParse.getJSONObject(jsonArray, i);
+                            for (int i = 0, num = data.length(); i < num; i++) {
+                                JSONObject item = JsonParse.getJSONObject(data, i);
                                 News news = new News();
                                 news.setNewsId(JsonParse.getInt(item, "article_id"));
                                 news.setCover(JsonParse.getString(item, "pic_url"));

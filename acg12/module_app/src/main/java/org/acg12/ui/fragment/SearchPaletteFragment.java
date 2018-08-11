@@ -10,7 +10,8 @@ import android.view.View;
 
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
-import com.acg12.lib.widget.IRecycleView;
+import com.acg12.lib.widget.recycle.CommonRecycleview;
+import com.acg12.lib.widget.recycle.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.Palette;
@@ -25,7 +26,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class SearchPaletteFragment extends SkinBaseFragment<SearchPaletteView> implements IRecycleView.LoadingListener,
-        SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener {
+        SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener ,CommonRecycleview.IRecycleUpdataListener{
 
     private String title = "";
     private int page = 1;
@@ -51,6 +52,12 @@ public class SearchPaletteFragment extends SkinBaseFragment<SearchPaletteView> i
         Bundle bundle = new Bundle();
         bundle.putSerializable("palette", mView.getPalette(position));
         startAnimActivity(PreviewPaletteActivity.class, bundle);
+    }
+
+    @Override
+    public void onReload() {
+//        mView.resetLoading();
+        refresh(title, page);
     }
 
     @Override

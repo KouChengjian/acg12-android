@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
-import com.acg12.lib.widget.CommonRecycleview;
-import com.acg12.lib.widget.IRecycleView;
+import com.acg12.lib.widget.recycle.CommonRecycleview;
+import com.acg12.lib.widget.recycle.IRecycleView;
 
 import org.acg12.R;
 import org.acg12.ui.adapter.NewestNewsAdapter;
@@ -66,7 +66,11 @@ public class NewestNewsView extends ViewImpl {
         mCommonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
         mCommonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
         mCommonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
-//        mCommonRecycleview.getIRecycleView().addOnScrollListener(mRecycleViewHeaderUtil);
+        mCommonRecycleview.getIRecycleView().addOnScrollListener(mRecycleViewHeaderUtil);
+    }
+
+    public RelativeLayout getLayoutHeader() {
+        return layout_header;
     }
 
     public void bindData(List result , boolean refresh){

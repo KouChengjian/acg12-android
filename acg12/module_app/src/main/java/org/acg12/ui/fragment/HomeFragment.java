@@ -14,6 +14,7 @@ import com.acg12.lib.utils.LogUtil;
 import org.acg12.R;
 import org.acg12.conf.Config;
 import org.acg12.conf.Constant;
+import org.acg12.dao.DaoBaseImpl;
 import org.acg12.entity.Home;
 import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.activity.DownloadActivity;
@@ -28,6 +29,9 @@ public class HomeFragment extends SkinBaseFragment<HomeView> implements Toolbar.
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
+        Home home = DaoBaseImpl.getInstance(mContext).queryHome();
+        mView.bindData(home);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -87,6 +91,7 @@ public class HomeFragment extends SkinBaseFragment<HomeView> implements Toolbar.
         HttpRequestImpl.getInstance().index(currentUser(), new HttpRequestListener<Home>() {
             @Override
             public void onSuccess(Home result) {
+                DaoBaseImpl.getInstance(mContext).saveHome(result);
                 mView.bindData(result);
                 mView.stopRefreshing();
             }

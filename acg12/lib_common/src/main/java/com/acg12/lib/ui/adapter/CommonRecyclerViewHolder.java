@@ -7,12 +7,9 @@ import android.view.View;
 import java.util.List;
 
 /**
- * Created with Android Studio.
- * User: mayn
- * Date: 2018/7/6 11:29
- * Description:
+ * Created by Administrator on 2017/12/13.
  */
-public abstract  class CommonRecyclerViewHolder extends RecyclerView.ViewHolder {
+public abstract class CommonRecyclerViewHolder extends RecyclerView.ViewHolder {
 
     public CommonRecyclerViewHolder(View itemView) {
         super(itemView);
@@ -25,7 +22,5 @@ public abstract  class CommonRecyclerViewHolder extends RecyclerView.ViewHolder 
     protected void initEvent() {}
 
 
-    public void bindData(Context mContext, final List list, int position){
-
-    }
+    public abstract void bindData(Context mContext, final List list, int position) ;
 }

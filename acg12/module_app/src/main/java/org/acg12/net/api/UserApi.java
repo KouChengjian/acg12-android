@@ -19,7 +19,7 @@ import rx.Observable;
 public interface UserApi {
 
     @FormUrlEncoded
-    @POST("api/login")
+    @POST("api/user/login")
     @ApiConverter(converter = UserConverter.class)
     Observable<User> login(@Field("username") String username, @Field("password") String password);
 

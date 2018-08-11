@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,165 +18,158 @@ import java.util.List;
 
 public class TipLayoutView extends RelativeLayout implements View.OnClickListener {
 
-    private Context mContext;
-    private View mContainer;
-    private ProgressBar mProgressLoading;
-    private ViewStub mLayoutLoadNull;
-    private ImageView mLoadNullImageview;
-    private TextView mLoadNullTextview;
-    private TextView mLoadNullUpdate;
-
-    private int errPic = R.mipmap.bg_loading_null;
-    private String errMsg = "啥也没有了，去其它地方看看吧";
-
+    private ViewStub mLayoutNull, mLayoutError, mLayoutLoading;
+    private LinearLayout mLLTipviewNull, mLLTipviewError, mLLTipviewLoading;
+    private ImageView tv_tiplayout_pic;
+    private TextView tv_tiplayout_msg;
+    private BGButton mReloadButton;
     private OnReloadClick onReloadClick;
 
     public TipLayoutView(Context context) {
-        this(context, null);
+        super(context);
+        initView();
     }
 
     public TipLayoutView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
-        initViews();
+        initView();
     }
 
-    private void initViews() {
+    public TipLayoutView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView();
+    }
+
+    private void initView() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View view = inflater.inflate(R.layout.common_loading_schedule, null);
-        mLayoutLoadNull = (ViewStub) view.findViewById(R.id.layout_load_null);
-        mProgressLoading = (ProgressBar) view.findViewById(R.id.progress_loading);
-        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        view.setLayoutParams(params);
-        addView(view);
+        View view = inflater.inflate(R.layout.common_tiplayout_view, this);
+        view.setOnClickListener(null);
+        mLayoutNull = (ViewStub)findViewById(R.id.layout_null);
+        mLayoutError = (ViewStub)findViewById(R.id.layout_error);
+        mLayoutLoading = (ViewStub)findViewById(R.id.layout_loading);
+
+        showLoading();
     }
 
-    public void setContainer(View container) {
-        mContainer = container;
-    }
-
-    public void setOnReloadClick(OnReloadClick onReloadClick) {
-        this.onReloadClick = onReloadClick;
-    }
-
-    public void startProgress() {
-        hideNullLayout();
-        hideContainer();
-        mProgressLoading.setVisibility(View.VISIBLE);
-    }
-
-    public void stopProgress() {
-        hideNullLayout();
-        showContainer();
-        mProgressLoading.setVisibility(View.GONE);
-    }
-
-    public void stopProgressOrEmpty() {
-        showNullLayout();
-        hideContainer();
-        mProgressLoading.setVisibility(View.GONE);
-    }
-
-    public void stopProgressOrError() {
-        showNullLayout();
-        hideContainer();
-        mProgressLoading.setVisibility(View.GONE);
-    }
-
-    public void stopProgressOrNetError() {
-        showNullLayout();
-        hideContainer();
-        mProgressLoading.setVisibility(View.GONE);
-    }
-
-    public void stopProgress(List list) {
-        mProgressLoading.setVisibility(View.GONE);
-        if (list != null && list.size() > 0) {
-            hideNullLayout();
-            showContainer();
-        } else {
-            showNullLayout();
-            hideContainer();
+    /**
+     * 现实文本内容
+     */
+    public void showContent() {
+        if (this.getVisibility() == View.VISIBLE) {
+            this.setVisibility(GONE);
         }
     }
 
-    public void stopProgress(int list) {
-        mProgressLoading.setVisibility(View.GONE);
-        if (list > 0) {
-            hideNullLayout();
-            showContainer();
-        } else {
-            showNullLayout();
-            hideContainer();
+    /**
+     * 显示加载中布局
+     */
+    public void showLoading() {
+        resetStatus();
+        if (mLLTipviewLoading == null) {
+            View view = mLayoutLoading.inflate();
+            mLLTipviewLoading = (LinearLayout) view.findViewById(R.id.ll_tipview_loading);
+            mLLTipviewLoading.setBackgroundResource(R.color.white);
+        }
+        if (mLLTipviewLoading.getVisibility() == View.GONE) {
+            mLLTipviewLoading.setVisibility(View.VISIBLE);
         }
     }
 
-    public void stopProgress(Object object) {
-        mProgressLoading.setVisibility(View.GONE);
-        if (object != null) {
-            hideNullLayout();
-            showContainer();
-        } else {
-            showNullLayout();
-            hideContainer();
+    public void showRestLoading() {
+        resetStatus();
+        if (mLLTipviewLoading == null) {
+            View view = mLayoutLoading.inflate();
+            mLLTipviewLoading = (LinearLayout) view.findViewById(R.id.ll_tipview_loading);
+        }
+        mLLTipviewLoading.setBackgroundResource(R.color.transparent);
+        if (mLLTipviewLoading.getVisibility() == View.GONE) {
+            mLLTipviewLoading.setVisibility(View.VISIBLE);
         }
     }
 
-    public void hideNullLayout() {
-        if (mLoadNullImageview != null && mLoadNullTextview != null) {
-            mLoadNullTextview.setText("");
-            if (mLoadNullImageview.getVisibility() == View.VISIBLE) {
-                mLoadNullImageview.setVisibility(View.GONE);
-            }
-            if (mLoadNullUpdate.getVisibility() == View.VISIBLE) {
-                mLoadNullUpdate.setVisibility(View.GONE);
-            }
+    /**
+     * 显示没有网络
+     */
+    public void showNetError() {
+        resetStatus();
+        if (mLLTipviewError == null) {
+            View view = mLayoutError.inflate();
+            mLLTipviewError = (LinearLayout) view.findViewById(R.id.ll_tipview_error);
+            tv_tiplayout_pic = (ImageView) view.findViewById(R.id.tv_tiplayout_pic);
+            tv_tiplayout_msg = (TextView) view.findViewById(R.id.tv_tiplayout_msg);
+            mReloadButton = (BGButton) view.findViewById(R.id.bg_refush);
+            mReloadButton.setOnClickListener(this);
+        }
+        if (mLLTipviewError.getVisibility() == View.GONE) {
+            mLLTipviewError.setVisibility(View.VISIBLE);
         }
     }
 
-    private void showNullLayout() {
-        if (mLoadNullImageview == null && mLoadNullTextview == null) {
-            View view = mLayoutLoadNull.inflate();
-            mLoadNullImageview = (ImageView) view.findViewById(R.id.iv_load_null);
-            mLoadNullTextview = (TextView) view.findViewById(R.id.tv_load_null);
-            mLoadNullUpdate = (TextView) view.findViewById(R.id.tv_load_update);
-            mLoadNullUpdate.setOnClickListener(this);
-
+    /**
+     * 显示没有网络
+     */
+    public void showLoginError() {
+        resetStatus();
+        if (mLLTipviewError == null) {
+            View view = mLayoutError.inflate();
+            mLLTipviewError = (LinearLayout) view.findViewById(R.id.ll_tipview_error);
+            tv_tiplayout_pic = (ImageView) view.findViewById(R.id.tv_tiplayout_pic);
+            tv_tiplayout_msg = (TextView) view.findViewById(R.id.tv_tiplayout_msg);
+            mReloadButton = (BGButton) view.findViewById(R.id.bg_refush);
+            mReloadButton.setOnClickListener(this);
         }
-        if (mLoadNullUpdate.getVisibility() == View.GONE) {
-            mLoadNullUpdate.setVisibility(View.VISIBLE);
-        }
-        mLoadNullTextview.setText(errMsg);
-        if (mLoadNullImageview.getVisibility() == View.GONE) {
-            mLoadNullImageview.setVisibility(View.VISIBLE);
-        }
-        mLoadNullImageview.setImageResource(errPic);
-    }
-
-    private void hideContainer() {
-        if (mContainer != null) {
-            if (mContainer.getVisibility() == View.VISIBLE) {
-                mContainer.setVisibility(View.GONE);
-            }
+        tv_tiplayout_msg.setText("获取消息失败，点击重新获取");
+        mReloadButton.setText("重新获取");
+        if (mLLTipviewError.getVisibility() == View.GONE) {
+            mLLTipviewError.setVisibility(View.VISIBLE);
         }
     }
 
-    private void showContainer() {
-        if (mContainer != null) {
-            if (mContainer.getVisibility() == View.GONE) {
-                mContainer.setVisibility(View.VISIBLE);
-            }
+    /**
+     * 显示空数据
+     */
+    public void showEmpty() {
+        resetStatus();
+        if (mLLTipviewNull == null) {
+            View view = mLayoutNull.inflate();
+            mLLTipviewNull = (LinearLayout) view.findViewById(R.id.ll_tipview_null);
+        }
+        if (mLLTipviewNull.getVisibility() == View.GONE) {
+            mLLTipviewNull.setVisibility(View.VISIBLE);
         }
     }
 
+    /**
+     * 隐藏所有布局
+     */
+    public void resetStatus() {
+        this.setVisibility(VISIBLE);
+        if (mLLTipviewNull != null) {
+            mLLTipviewNull.setVisibility(View.GONE);
+        }
+        if (mLLTipviewError != null) {
+            mLLTipviewError.setVisibility(View.GONE);
+        }
+        if (mLLTipviewLoading != null) {
+            mLLTipviewLoading.setVisibility(View.GONE);
+        }
+    }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.tv_load_update) {
-            if (onReloadClick != null) {
+        if(v.getId() == R.id.bg_refush){
+            if(onReloadClick != null){
+                resetStatus();
                 onReloadClick.onReload();
             }
         }
+    }
+
+    /**
+     * 重新加载点击事件
+     */
+    public void setOnReloadClick(OnReloadClick onReloadClick) {
+        this.onReloadClick = onReloadClick;
     }
 
     public interface OnReloadClick {

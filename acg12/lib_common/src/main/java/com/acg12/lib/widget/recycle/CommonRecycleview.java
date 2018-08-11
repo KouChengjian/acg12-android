@@ -1,4 +1,4 @@
-package com.acg12.lib.widget;
+package com.acg12.lib.widget.recycle;
 
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,18 +13,20 @@ import android.widget.FrameLayout;
 import com.acg12.lib.R;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.utils.PixelUtil;
+import com.acg12.lib.widget.TipLayoutView;
+import com.acg12.lib.widget.recycle.IRecycleView;
 
 /**
  * Created by Administrator on 2017/5/20.
  */
-public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnReloadClick{
+public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnReloadClick {
 
     private Context mContext;
     private IRecycleView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private TipLayoutView mTipLayoutView;
-    private RecyclerView.Adapter adapter;
     private IRecycleUpdataListener recycleUpdataListener;
+    private RecyclerView.Adapter adapter;
     private boolean refreshHideHeader = true; // 刷新是否隐藏header
 
     public CommonRecycleview(Context context) {
@@ -49,7 +51,6 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.mSwipeRefreshLayout);
         mRecyclerView = (IRecycleView) view.findViewById(R.id.mRecyclerView);
         mTipLayoutView = (TipLayoutView) view.findViewById(R.id.tipLayoutView);
-        mTipLayoutView.setContainer(mSwipeRefreshLayout);
         mTipLayoutView.setOnReloadClick(this);
 
         mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_body);
@@ -68,11 +69,15 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         return layoutManager;
     }
 
-    public StaggeredGridLayoutManager setStaggeredGridLayoutManager() {
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+    public StaggeredGridLayoutManager setStaggeredGridLayoutManager(int sum) {
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(sum, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
         mRecyclerView.setLoadingMoreEnabled(true);
         return staggeredGridLayoutManager;
+    }
+
+    public StaggeredGridLayoutManager setStaggeredGridLayoutManager() {
+        return setStaggeredGridLayoutManager(2);
     }
 
     public void setPadding(int padding) {
@@ -99,6 +104,10 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         }
     }
 
+    public void addFootView(View view) {
+        mRecyclerView.addFootView(view);
+    }
+
     public void setRefrreshHideHeader(boolean refreshHideHeader) {
         this.refreshHideHeader = refreshHideHeader;
     }
@@ -113,6 +122,7 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
 
     public void startRefreshing() {
         mSwipeRefreshLayout.setRefreshing(true);
+        mTipLayoutView.resetStatus();
     }
 
     public void stopLoading() {
@@ -127,10 +137,6 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         mSwipeRefreshLayout.setOnRefreshListener(mPresenter);
     }
 
-    public void setRecycleUpdataListener(IRecycleUpdataListener recycleUpdataListener) {
-        this.recycleUpdataListener = recycleUpdataListener;
-    }
-
     public void setOnItemClickListener(ItemClickSupport.OnItemClickListener mPresenter) {
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(mPresenter);
     }
@@ -139,8 +145,8 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         ItemClickSupport.addTo(mRecyclerView).setOnItemLongClickListener(mPresenter);
     }
 
-    public void hideNullLayout(){
-        mTipLayoutView.hideNullLayout();
+    public void setRecycleUpdataListener(IRecycleUpdataListener recycleUpdataListener) {
+        this.recycleUpdataListener = recycleUpdataListener;
     }
 
     public void stopRefreshLoadMore(boolean refresh) {
@@ -149,7 +155,6 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         else
             mRecyclerView.loadMoreComplete();
         loadingNull();
-
     }
 
     public void notifyChanged() {
@@ -162,12 +167,13 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         loadingNull();
     }
 
+    public void showNetError() {
+        mTipLayoutView.showNetError();
+    }
+
     public void loadingNull() {
-        if (adapter.getItemCount() != 0) {
-            if (mRecyclerView.getHeaderView() != null) {
-                mRecyclerView.getHeaderView().setVisibility(View.VISIBLE);
-            }
-        } else {
+        if (adapter.getItemCount() == 0) {
+            mTipLayoutView.showEmpty();
             if (mRecyclerView.getHeaderView() != null) {
                 if (refreshHideHeader) {
                     mRecyclerView.getHeaderView().setVisibility(View.GONE);
@@ -175,17 +181,22 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
                     mRecyclerView.getHeaderView().setVisibility(View.VISIBLE);
                 }
             }
+
+        } else {
+            mTipLayoutView.showContent();
+            if (mRecyclerView.getHeaderView() != null) {
+                mRecyclerView.getHeaderView().setVisibility(View.VISIBLE);
+            }
         }
-        mTipLayoutView.stopProgress(adapter.getItemCount());
     }
 
     @Override
     public void onReload() {
-        if(recycleUpdataListener != null){
+        if (recycleUpdataListener != null) {
+            mTipLayoutView.showLoading();
             recycleUpdataListener.onReload();
         }
     }
-
 
     public interface IRecycleUpdataListener {
         void onReload();

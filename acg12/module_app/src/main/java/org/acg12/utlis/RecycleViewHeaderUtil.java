@@ -45,7 +45,6 @@ public class RecycleViewHeaderUtil extends RecyclerView.OnScrollListener {
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
         mSuspensionHeight = mSuspensionBar.getHeight();
-
     }
 
     @Override
@@ -56,8 +55,8 @@ public class RecycleViewHeaderUtil extends RecyclerView.OnScrollListener {
         if(list == null){
             return;
         }
-
         News curNews = (News)list.get(mCurrentPosition);
+
         int curTime = curNews.getCreateTime();
         News lastNews = (News)list.get(mCurrentPosition + 1);
         int lastTime = lastNews.getCreateTime();
@@ -65,20 +64,27 @@ public class RecycleViewHeaderUtil extends RecyclerView.OnScrollListener {
         String curDate = sdf.format(new Date(curTime* 1000l));
         String lastDate = sdf.format(new Date(lastTime* 1000l));
 
+        LogUtil.e(curDate);
+        LogUtil.e(lastDate);
         if(curDate.equals(lastDate)){
+            mSuspensionBar.setY(0);
             updateSuspensionBar();
             return;
         }
 
         View view = linearLayoutManager.findViewByPosition(mCurrentPosition + 1);
         if (view != null) {
+            LogUtil.e("view.getTop() = " + view.getTop());
+            LogUtil.e("mSuspensionHeight = " + mSuspensionHeight);
             if (view.getTop() <= mSuspensionHeight) {
                 mSuspensionBar.setY(-(mSuspensionHeight - view.getTop()));
             } else {
                 mSuspensionBar.setY(0);
             }
+            updateSuspensionBar();
         }
 
+        LogUtil.e("linearLayoutManager.findFirstVisibleItemPosition() = " + linearLayoutManager.findFirstVisibleItemPosition());
         if (mCurrentPosition != linearLayoutManager.findFirstVisibleItemPosition()) {
             mCurrentPosition = linearLayoutManager.findFirstVisibleItemPosition();
             mSuspensionBar.setY(0);

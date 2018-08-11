@@ -14,7 +14,7 @@ import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.utils.PixelUtil;
 import com.acg12.lib.utils.ViewUtil;
-import com.acg12.lib.widget.IRecycleView;
+import com.acg12.lib.widget.recycle.IRecycleView;
 
 import org.acg12.R;
 import org.acg12.ui.adapter.DownloadAdapter;

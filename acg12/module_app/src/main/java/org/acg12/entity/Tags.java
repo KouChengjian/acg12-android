@@ -4,7 +4,7 @@ package org.acg12.entity;
  * Created by Administrator on 2018/1/25.
  */
 
-public class Tags {
+public class Tags extends Param{
     private String title;
     private String cover;
 

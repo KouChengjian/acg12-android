@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.acg12.lib.ui.adapter.CommonRecyclerView;
+import com.acg12.lib.ui.adapter.CommonRecyclerViewHolder;
 import com.acg12.lib.utils.PixelUtil;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
@@ -21,7 +21,7 @@ import java.util.List;
  * Created by Administrator on 2018/1/16.
  */
 
-public class HomeTagViewHolder extends CommonRecyclerView {
+public class HomeTagViewHolder extends CommonRecyclerViewHolder {
 
     RelativeLayout layout_tag;
     ImageView iv_tag_cover;

@@ -5,6 +5,26 @@
         <attr name="border_inside_color" format="color" />
         <attr name="border_outside_color" format="color"></attr>
     </declare-styleable>
+    <declare-styleable name="BGButton">
+        <!--圆角-->
+        <attr name="topLeftRadius" format="dimension" />
+        <attr name="topRightRadius" format="dimension" />
+        <attr name="bottomLeftRadius" format="dimension" />
+        <attr name="bottomRightRadius" format="dimension" />
+        <attr name="radii" format="dimension" />
+        <!--正常填充色-->
+        <attr name="normalSolid" format="color" />
+        <!--按下填充色-->
+        <attr name="pressedSolid" format="color" />
+        <!--边框颜色，大小-->
+        <attr name="normalStrokeWidth" format="dimension" />
+        <attr name="normalStrokeColor" format="color" />
+        <attr name="pressedStrokeWidth" format="dimension" />
+        <attr name="pressedStrokeColor" format="color" />
+        <!--文字按下颜色-->
+        <attr name="pressedTextColor" format="color" />
+        <attr name="normalTextColor" format="color" />
+    </declare-styleable>
 
 
     <!--&lt;!&ndash; 图片显示时，淡入淡出动画的时间，单位为毫秒&ndash;&gt;-->

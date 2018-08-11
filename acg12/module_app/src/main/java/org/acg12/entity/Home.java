@@ -1,13 +1,15 @@
 package org.acg12.entity;
 
+import com.litesuits.orm.db.annotation.Table;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2018/1/25.
  */
-
-public class Home {
+@Table("manyou_home")
+public class Home extends Param{
 
     private String cover;
     private List<Tags> tagsList = new ArrayList<>();

@@ -9,7 +9,7 @@ import android.view.View;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.utils.LogUtil;
-import com.acg12.lib.widget.IRecycleView;
+import com.acg12.lib.widget.recycle.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.News;
@@ -68,6 +68,7 @@ public class NewestNewsActivity extends SkinBaseActivity<NewestNewsView> impleme
             @Override
             public void onSuccess(List<News> result) {
                 if (result.size() != 0 && result.get(result.size() - 1) != null) {
+                    mView.getLayoutHeader().setVisibility(View.VISIBLE);
                     if (result.size() < Constant.LIMIT_PAGER) {
                         mView.stopLoading();
                     }
@@ -78,6 +79,7 @@ public class NewestNewsActivity extends SkinBaseActivity<NewestNewsView> impleme
 
             @Override
             public void onFailure(int errorcode, String msg) {
+                mView.getLayoutHeader().setVisibility(View.GONE);
                 LogUtil.e(mTag, msg);
                 ShowToastView(msg);
                 mView.stopRefreshLoadMore(refresh);

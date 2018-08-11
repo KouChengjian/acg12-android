@@ -11,7 +11,7 @@ import android.view.View;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.utils.LogUtil;
-import com.acg12.lib.widget.IRecycleView;
+import com.acg12.lib.widget.recycle.IRecycleView;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.Album;

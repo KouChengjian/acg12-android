@@ -74,7 +74,7 @@ public class MainView extends ViewImpl {
         mCalendarFragment = new CalendarFragment();
         fragments = new Fragment[]{homeFragment ,findFragemnt ,mCalendarFragment};
         ((AppCompatActivity) getContext()).getSupportFragmentManager().beginTransaction()
-                .add(R.id.main_fragment_container, fragments[0]).add(R.id.main_fragment_container, fragments[1]).show(fragments[0]).hide(fragments[1]).commit();
+                .add(R.id.main_fragment_container, fragments[0]).show(fragments[0]).commit();
 
         paddingDate(DaoBaseImpl.getInstance(getContext()).getCurrentUser());
     }

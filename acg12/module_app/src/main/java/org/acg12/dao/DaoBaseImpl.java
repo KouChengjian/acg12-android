@@ -6,6 +6,7 @@ import com.acg12.lib.constant.ConstData;
 
 import org.acg12.conf.Constant;
 import org.acg12.entity.DownLoad;
+import org.acg12.entity.Home;
 import org.acg12.entity.Update;
 import org.acg12.entity.User;
 
@@ -46,7 +47,20 @@ public class DaoBaseImpl implements DaoBase {
     public User getCurrentUser() {
         ArrayList<User> query = mDataBase.query(User.class);
         if (query == null || query.isEmpty() || query.size() != 1) {
-            return null;
+            if (query != null && query.size() > 1) {
+                User curUser = null;
+                for (int i = 0, num = query.size(); i < num; i++) {
+                    User user = query.get(i);
+                    if (i != num - 1) {
+                        mDataBase.delete(user);
+                    } else {
+                        curUser = user;
+                    }
+                }
+                return curUser;
+            } else {
+                return null;
+            }
         } else {
             return query.get(0);
         }
@@ -112,6 +126,34 @@ public class DaoBaseImpl implements DaoBase {
     @Override
     public long delTabUpdate() {
         return mDataBase.deleteAll(Update.class);
+    }
+
+    @Override
+    public long saveHome(Home home) {
+        return mDataBase.save(home);
+    }
+
+    @Override
+    public Home queryHome() {
+        ArrayList<Home> query = mDataBase.query(Home.class);
+        if (query == null || query.isEmpty() || query.size() != 1) {
+            if (query != null && query.size() > 1) {
+                Home curUser = null;
+                for (int i = 0, num = query.size(); i < num; i++) {
+                    Home user = query.get(i);
+                    if (i != num - 1) {
+                        mDataBase.delete(user);
+                    } else {
+                        curUser = user;
+                    }
+                }
+                return curUser;
+            } else {
+                return null;
+            }
+        } else {
+            return query.get(0);
+        }
     }
 
 

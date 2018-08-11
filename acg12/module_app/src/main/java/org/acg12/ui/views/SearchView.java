@@ -2,7 +2,6 @@ package org.acg12.ui.views;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,7 +15,7 @@ import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.listener.ParameCallBack;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.ui.base.ViewImpl;
-import com.acg12.lib.widget.CommonRecycleview;
+import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.DeletableEditText;
 import com.acg12.lib.widget.ToolBarView;
 

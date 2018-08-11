@@ -2,6 +2,7 @@ package org.acg12.dao;
 
 
 import org.acg12.entity.DownLoad;
+import org.acg12.entity.Home;
 import org.acg12.entity.Update;
 import org.acg12.entity.User;
 
@@ -33,4 +34,8 @@ public interface DaoBase {
     Update getCurrentUpdate();
 
     long delTabUpdate();
+
+    long saveHome(Home user);
+
+    Home queryHome();
 }

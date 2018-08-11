@@ -5,21 +5,19 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import org.acg12.entity.User;
+import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.listener.HttpRequestListener;
-
-import org.acg12.conf.Config;
-
 import com.acg12.lib.ui.activity.PresenterActivityImpl;
 
 import org.acg12.R;
 import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.views.LoginView;
-import com.acg12.lib.utils.LogUtil;
-import com.acg12.lib.utils.ViewUtil;
+import org.acg12.entity.User;
+import org.acg12.conf.Config;
 
 
-public class LoginActivity extends PresenterActivityImpl<LoginView> implements View.OnClickListener{
+public class LoginActivity extends PresenterActivityImpl<LoginView> implements View.OnClickListener {
 
     @Override
     public void created(Bundle savedInstance) {
@@ -35,18 +33,16 @@ public class LoginActivity extends PresenterActivityImpl<LoginView> implements V
     public void onClick(View view) {
         super.onClick(view);
         int id = view.getId();
-        if(id == R.id.title_right){
+        if (id == R.id.title_right) {
             startAnimActivity(ResetPwdActivity.class);
-        } else if(id == R.id.btn_login){
+        } else if (id == R.id.btn_login) {
             login();
-        } else if(id == R.id.btn_register){
+        } else if (id == R.id.btn_register) {
             startAnimActivity(RegisterActivity.class);
         }
     }
 
-    public void login(){
-        if(!ViewUtil.isNetConnected(mContext)) return;
-
+    public void login() {
         String name = mView.getUsername();
         String password = mView.getPassword();
 
@@ -60,12 +56,12 @@ public class LoginActivity extends PresenterActivityImpl<LoginView> implements V
             return;
         }
 
-        if (password.length() < 6 ) {
+        if (password.length() < 6) {
             ShowToastView(R.string.toast_error_password);
             return;
         }
 
-        final ProgressDialog progress = ViewUtil.startLoading(mContext , getResources().getString(R.string.toast_login_loading));
+        final ProgressDialog progress = ViewUtil.startLoading(mContext, getResources().getString(R.string.toast_login_loading));
 
         final User user = new User(mContext);
         user.setUsername(name);

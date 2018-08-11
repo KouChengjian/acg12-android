@@ -13,7 +13,7 @@ public interface HomeApi {
     @GET("api/home/albums")
     Observable<ResponseBody> albumList(@Query("action") String action , @Query("max") String pinId);
 
-    @GET("res/home/news")
+    @GET("api/home/news")
     Observable<ResponseBody> newsList(@Query("page") String page);
 
     @GET("api/home/calendar")
