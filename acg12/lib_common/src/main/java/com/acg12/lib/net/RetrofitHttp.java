@@ -120,6 +120,10 @@ public class RetrofitHttp {
         return data;
     }
 
+    public static <T> void success(T object, final HttpRequestListener<T> httpRequestListener) {
+        httpRequestListener.onSuccess(object);
+    }
+
     public static void failure() {
         throw new ApiException(ApiErrorCode.HTTP_RESPONSE_CONVERTER_DATA_NULL, ApiErrorCode.getErrorCodeMsg(ApiErrorCode.HTTP_RESPONSE_CONVERTER_DATA_NULL));
     }
