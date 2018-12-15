@@ -106,7 +106,7 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
     }
 
     /**
-     * 显示没有网络
+     * 显示加载失败
      */
     public void showLoginError() {
         resetStatus();
@@ -120,6 +120,28 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
         }
         tv_tiplayout_msg.setText("获取消息失败，点击重新获取");
         mReloadButton.setText("重新获取");
+        if (mLLTipviewError.getVisibility() == View.GONE) {
+            mLLTipviewError.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 显示空数据且存在刷新按钮
+     */
+    public void showEmptyOrRefresh() {
+        resetStatus();
+        if (mLLTipviewError == null) {
+            View view = mLayoutError.inflate();
+            mLLTipviewError = (LinearLayout) view.findViewById(R.id.ll_tipview_error);
+            tv_tiplayout_pic = (ImageView) view.findViewById(R.id.tv_tiplayout_pic);
+            tv_tiplayout_msg = (TextView) view.findViewById(R.id.tv_tiplayout_msg);
+            mReloadButton = (BGButton) view.findViewById(R.id.bg_refush);
+            mReloadButton.setOnClickListener(this);
+        }
+        tv_tiplayout_pic.setImageResource(R.mipmap.bg_loading_null);
+        tv_tiplayout_msg.setText("");
+        tv_tiplayout_msg.setVisibility(View.GONE);
+        mReloadButton.setText("再次获取");
         if (mLLTipviewError.getVisibility() == View.GONE) {
             mLLTipviewError.setVisibility(View.VISIBLE);
         }
@@ -160,6 +182,7 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
         if(v.getId() == R.id.bg_refush){
             if(onReloadClick != null){
                 resetStatus();
+                showLoading();
                 onReloadClick.onReload();
             }
         }
