@@ -48,7 +48,5 @@ dependencies {
     def otherDependencies = rootProject.ext.otherDependencies
     compile otherDependencies.eventbus
     compile otherDependencies.butterKnife
-//    compile otherDependencies.stetho
-//    compile otherDependencies.stetho_okhttp
     compile otherDependencies.glide
 }

@@ -39,8 +39,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     debugCompile project(path: ':lib_videoplayer', configuration: "debug")
     releaseCompile project(path: ':lib_videoplayer', configuration: "release")
-    debugCompile project(path: ':lib_common', configuration: "debug")
-    releaseCompile project(path: ':lib_common', configuration: "release")
+    debugCompile project(path: ':library', configuration: "debug")
+    releaseCompile project(path: ':library', configuration: "release")
 
     def otherDependencies = rootProject.ext.otherDependencies
     annotationProcessor otherDependencies.butterKnife_apt

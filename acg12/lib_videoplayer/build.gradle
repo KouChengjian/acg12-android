@@ -23,8 +23,8 @@ android {
 }
 
 dependencies {
-    debugCompile project(path: ':lib_common', configuration: "debug")
-    releaseCompile project(path: ':lib_common', configuration: "release")
+    debugCompile project(path: ':library', configuration: "debug")
+    releaseCompile project(path: ':library', configuration: "release")
 
     compile 'com.github.ctiao:DanmakuFlameMaster:0.6.4'
     compile 'com.github.ctiao:ndkbitmap-armv7a:0.6.4'

@@ -1,1 +1,1 @@
-include ':lib_common', ':module_app', ':lib_videoplayer', ':module_skin'
+include ':library', ':module_app', ':lib_videoplayer', ':module_skin'

@@ -13,6 +13,7 @@ public class DragImageView extends ImageView {
     public DragImageView(Context context) {
         super(context);
     }
+
     public DragImageView (Context context, AttributeSet attrs) {
         super(context, attrs);
     }
