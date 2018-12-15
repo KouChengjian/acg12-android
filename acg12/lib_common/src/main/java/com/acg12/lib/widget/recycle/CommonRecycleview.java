@@ -28,6 +28,8 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
     private IRecycleUpdataListener recycleUpdataListener;
     private RecyclerView.Adapter adapter;
     private boolean refreshHideHeader = true; // 刷新是否隐藏header
+    private boolean hasShowRefreshBtn = false;
+    private boolean hasShowContent = false;
 
     public CommonRecycleview(Context context) {
         super(context);
@@ -50,7 +52,7 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         View view = LayoutInflater.from(mContext).inflate(R.layout.common_loading_recyclerview, this);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.mSwipeRefreshLayout);
         mRecyclerView = (IRecycleView) view.findViewById(R.id.mRecyclerView);
-        mTipLayoutView = (TipLayoutView) view.findViewById(R.id.tipLayoutView);
+        mTipLayoutView = (TipLayoutView) view.findViewById(R.id.tip_layoutView);
         mTipLayoutView.setOnReloadClick(this);
 
         mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_body);
@@ -112,6 +114,14 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         this.refreshHideHeader = refreshHideHeader;
     }
 
+    public void setHasShowRefreshBtn(boolean hasShowRefreshBtn) {
+        this.hasShowRefreshBtn = hasShowRefreshBtn;
+    }
+
+    public void setHasShowContent(boolean hasShowContent) {
+        this.hasShowContent = hasShowContent;
+    }
+
     public void setLoadingEnabled(boolean enabled) {
         mRecyclerView.setLoadingMoreEnabled(enabled);
     }
@@ -123,6 +133,11 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
     public void startRefreshing() {
         mSwipeRefreshLayout.setRefreshing(true);
         mTipLayoutView.resetStatus();
+    }
+
+    public void startLoading() {
+        mSwipeRefreshLayout.setRefreshing(false);
+        mTipLayoutView.showLoading();
     }
 
     public void stopLoading() {
@@ -145,6 +160,10 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         ItemClickSupport.addTo(mRecyclerView).setOnItemLongClickListener(mPresenter);
     }
 
+    public void addOnScrollListener(RecyclerView.OnScrollListener listener){
+        mRecyclerView.addOnScrollListener(listener);
+    }
+
     public void setRecycleUpdataListener(IRecycleUpdataListener recycleUpdataListener) {
         this.recycleUpdataListener = recycleUpdataListener;
     }
@@ -162,26 +181,39 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         loadingNull();
     }
 
+    public void notifyChanged(int position) {
+        adapter.notifyItemChanged(position);
+        loadingNull();
+    }
+
     public void notifyChanged(int positionStart, int itemCount) {
         adapter.notifyItemChanged(positionStart, itemCount);
         loadingNull();
     }
 
-    public void showNetError() {
+    public void showNetError(){
         mTipLayoutView.showNetError();
     }
 
     public void loadingNull() {
         if (adapter.getItemCount() == 0) {
-            mTipLayoutView.showEmpty();
-            if (mRecyclerView.getHeaderView() != null) {
-                if (refreshHideHeader) {
-                    mRecyclerView.getHeaderView().setVisibility(View.GONE);
+            if(hasShowRefreshBtn){
+                mTipLayoutView.showEmptyOrRefresh();
+            } else {
+                if(hasShowContent){ // 是否显示内容
+                    mTipLayoutView.showContent();
                 } else {
-                    mRecyclerView.getHeaderView().setVisibility(View.VISIBLE);
+                    mTipLayoutView.showEmpty();
+                    if (mRecyclerView.getHeaderView() != null) {
+                        if (refreshHideHeader) {
+                            mRecyclerView.getHeaderView().setVisibility(View.GONE);
+                        } else {
+                            mRecyclerView.getHeaderView().setVisibility(View.VISIBLE);
+                            mTipLayoutView.showContent();
+                        }
+                    }
                 }
             }
-
         } else {
             mTipLayoutView.showContent();
             if (mRecyclerView.getHeaderView() != null) {
@@ -194,11 +226,11 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
     public void onReload() {
         if (recycleUpdataListener != null) {
             mTipLayoutView.showLoading();
-            recycleUpdataListener.onReload();
+            recycleUpdataListener.onRecycleReload();
         }
     }
 
     public interface IRecycleUpdataListener {
-        void onReload();
+        void onRecycleReload();
     }
 }

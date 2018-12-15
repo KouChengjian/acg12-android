@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <com.acg12.lib.widget.TipLayoutView
-        android:id="@+id/tipLayoutView"
+        android:id="@+id/tip_layoutView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
