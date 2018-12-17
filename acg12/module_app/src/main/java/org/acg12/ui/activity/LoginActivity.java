@@ -11,6 +11,7 @@ import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.ui.activity.PresenterActivityImpl;
 
 import org.acg12.R;
+import org.acg12.conf.EventConfig;
 import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.views.LoginView;
 import org.acg12.entity.User;
@@ -71,7 +72,7 @@ public class LoginActivity extends PresenterActivityImpl<LoginView> implements V
             @Override
             public void onSuccess(User result) {
                 progress.dismiss();
-                Config.userEventBus().post(result);
+                EventConfig.get().getUserEvent().post(result);
                 finish();
             }
 

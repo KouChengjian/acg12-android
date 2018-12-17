@@ -22,7 +22,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import org.acg12.R;
-import org.acg12.conf.Constant;
+import org.acg12.constant.Constant;
 import org.acg12.entity.Album;
 import org.acg12.ui.activity.PreviewAlbumActivity;
 import org.acg12.ui.activity.PreviewImageActivity;

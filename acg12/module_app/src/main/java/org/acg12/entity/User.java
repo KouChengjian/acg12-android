@@ -2,12 +2,11 @@ package org.acg12.entity;
 
 import android.content.Context;
 
-import com.acg12.lib.constant.ConstData;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.MD5Util;
 import com.litesuits.orm.db.annotation.Table;
 
-import org.acg12.conf.Constant;
+import org.acg12.constant.Constant;
 
 
 @Table("user")

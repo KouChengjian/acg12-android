@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
+import org.acg12.conf.EventConfig;
 import org.acg12.dao.DaoBaseImpl;
 import org.acg12.entity.Update;
 import org.acg12.entity.User;
@@ -19,7 +20,7 @@ import org.acg12.widget.UpdateDialog;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
-import org.acg12.conf.Constant;
+import org.acg12.constant.Constant;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.SettingView;
 import org.acg12.widget.AlertDialogView;
@@ -111,7 +112,7 @@ public class SettingActivity extends SkinBaseActivity<SettingView> implements Vi
 
     public void logout(){
         DaoBaseImpl.getInstance(mContext).delTabUser();
-        Config.userEventBus().post(new User(mContext));
+        EventConfig.get().getUserEvent().post(new User(mContext));
         finish();
      }
 

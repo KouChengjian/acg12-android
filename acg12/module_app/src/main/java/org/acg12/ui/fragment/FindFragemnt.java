@@ -10,7 +10,8 @@ import com.acg12.lib.utils.skin.entity.DynamicAttr;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
-import org.acg12.conf.Constant;
+import org.acg12.conf.EventConfig;
+import org.acg12.constant.Constant;
 import org.acg12.ui.activity.DownloadActivity;
 import org.acg12.ui.base.SkinBaseFragment;
 import org.acg12.ui.views.FindView;
@@ -38,7 +39,7 @@ public class FindFragemnt extends SkinBaseFragment<FindView> implements Toolbar.
     public void onClick(View v) {
         int id = v.getId();
         if(id == Constant.TOOLBAR_ID){
-            Config.navigationEventBus().post(true);
+            EventConfig.get().getNavigationEvent().post(true);
         }
     }
 

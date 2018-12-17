@@ -14,7 +14,7 @@ import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
 
-import org.acg12.conf.Constant;
+import org.acg12.constant.Constant;
 import org.acg12.entity.Album;
 import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.activity.PreviewAlbumActivity;

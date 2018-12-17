@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
-import org.acg12.conf.Constant;
+import org.acg12.constant.Constant;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.PreviewImageView;
 

@@ -13,7 +13,8 @@ import com.acg12.lib.utils.LogUtil;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
-import org.acg12.conf.Constant;
+import org.acg12.conf.EventConfig;
+import org.acg12.constant.Constant;
 import org.acg12.dao.DaoBaseImpl;
 import org.acg12.entity.Home;
 import org.acg12.net.impl.HttpRequestImpl;
@@ -48,7 +49,7 @@ public class HomeFragment extends SkinBaseFragment<HomeView> implements Toolbar.
     @Override
     public void onClick(View v) {
         if(v.getId() == Constant.TOOLBAR_ID){
-            Config.navigationEventBus().post(true);
+            EventConfig.get().getNavigationEvent().post(true);
         } else if(v.getId() == R.id.btn_home_search){
             startAnimActivity(SearchActivity.class);
         } else if(v.getId() == R.id.btn_newest_news){

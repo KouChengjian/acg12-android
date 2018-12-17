@@ -8,7 +8,7 @@ import android.support.multidex.MultiDex;
 import com.acg12.lib.utils.skin.SkinManager;
 
 import org.acg12.conf.Config;
-import org.acg12.conf.Constant;
+import org.acg12.constant.Constant;
 import org.acg12.utlis.CrashHandler;
 
 

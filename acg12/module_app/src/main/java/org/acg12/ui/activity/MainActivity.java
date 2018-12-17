@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
+import org.acg12.conf.EventConfig;
 import org.acg12.dao.DaoBaseImpl;
 import org.acg12.entity.Update;
 import org.acg12.entity.User;
@@ -47,8 +48,8 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
 //        BaseConfig.initListVideoUtil(this);
-        Config.navigationEventBus().register(this);
-        Config.userEventBus().register(this);
+        EventConfig.get().getUserEvent().register(this);
+        EventConfig.get().getNavigationEvent().register(this);
 
         List<DynamicAttr> mDynamicAttr = new ArrayList<>();
         mDynamicAttr.add(new DynamicAttr(AttrFactory.NAVIGATIONVIEW, R.color.theme_primary));
@@ -193,8 +194,8 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
     protected void onDestroy() {
         DownloadManger.getInstance(mContext).destroy();
         super.onDestroy();
-        Config.navigationEventBus().unregister(this);
-        Config.userEventBus().unregister(this);
+        EventConfig.get().getUserEvent().unregister(this);
+        EventConfig.get().getNavigationEvent().unregister(this);
 //        BaseConfig.ListVideoUtilInstance().releaseVideoPlayer();
         GSYVideoPlayer.releaseAllVideos();
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import org.acg12.conf.EventConfig;
 import org.acg12.dao.DaoBaseImpl;
 import org.acg12.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
@@ -80,7 +81,7 @@ public class AlterPwdActivity extends SkinBaseActivity<AlterPwdView> implements 
             public void onSuccess(User result) {
                 progress.dismiss();
                 DaoBaseImpl.getInstance(mContext).delTabUser();
-                Config.userEventBus().post(new User(mContext));
+                EventConfig.get().getUserEvent().post(new User(mContext));
                 finish();
             }
 

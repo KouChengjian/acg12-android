@@ -1,4 +1,4 @@
-package org.acg12.conf;
+package org.acg12.constant;
 
 
 import com.acg12.lib.constant.ConstData;

@@ -14,7 +14,7 @@ import org.acg12.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.JsonParse;
 
-import org.acg12.conf.Constant;
+import org.acg12.constant.Constant;
 import org.acg12.dao.DaoBaseImpl;
 import org.acg12.entity.Album;
 import org.acg12.entity.Home;

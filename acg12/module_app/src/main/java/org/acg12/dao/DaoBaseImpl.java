@@ -2,9 +2,7 @@ package org.acg12.dao;
 
 import android.content.Context;
 
-import com.acg12.lib.constant.ConstData;
-
-import org.acg12.conf.Constant;
+import org.acg12.constant.Constant;
 import org.acg12.entity.DownLoad;
 import org.acg12.entity.Home;
 import org.acg12.entity.Update;

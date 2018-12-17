@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import org.acg12.conf.EventConfig;
 import org.acg12.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;
@@ -14,7 +15,7 @@ import com.acg12.lib.utils.premission.SuccessPermission;
 
 import org.acg12.R;
 import org.acg12.conf.Config;
-import org.acg12.conf.Constant;
+import org.acg12.constant.Constant;
 import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.UserInfoView;
@@ -31,7 +32,7 @@ public class UserInfoActivity extends SkinBaseActivity<UserInfoView> implements 
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        Config.userEventBus().register(this);
+        EventConfig.get().getUserEvent().register(this);
         user = (User) getIntent().getExtras().getSerializable("user");
         mView.paddingDate(user);
         commonPopupWindows = new CommonPopupWindows(this);
@@ -155,7 +156,7 @@ public class UserInfoActivity extends SkinBaseActivity<UserInfoView> implements 
             @Override
             public void onSuccess(User result) {
                 ShowToastView("更新成功");
-                Config.userEventBus().post(result);
+                EventConfig.get().getUserEvent().post(result);
 
             }
 
@@ -171,6 +172,6 @@ public class UserInfoActivity extends SkinBaseActivity<UserInfoView> implements 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Config.userEventBus().unregister(this);
+        EventConfig.get().getUserEvent().unregister(this);
     }
 }

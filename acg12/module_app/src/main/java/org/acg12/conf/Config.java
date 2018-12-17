@@ -17,8 +17,8 @@ import org.greenrobot.eventbus.EventBus;
 public class Config {
 
     private Context mContext;
-    private static EventBus eventbusUser;
-    private static EventBus eventbusNavigation;
+//    private static EventBus eventbusUser;
+//    private static EventBus eventbusNavigation;
     static ListVideoUtil listVideoUtil;
 
     public static void init(Context mContext) {
@@ -27,8 +27,8 @@ public class Config {
 
     public Config(Context mContext) {
         this.mContext = mContext;
-        eventbusUser = EventBus.builder().build();
-        eventbusNavigation = EventBus.builder().build();
+//        eventbusUser = EventBus.builder().build();
+//        eventbusNavigation = EventBus.builder().build();
 
         new Cache(mContext);
         new Toastor(mContext);
@@ -36,13 +36,13 @@ public class Config {
         new ImageLoadUtils(mContext);
     }
 
-    public static EventBus userEventBus() {
-        return eventbusUser;
-    }
+//    public static EventBus userEventBus() {
+//        return eventbusUser;
+//    }
 
-    public static EventBus navigationEventBus() {
-        return eventbusNavigation;
-    }
+//    public static EventBus navigationEventBus() {
+//        return eventbusNavigation;
+//    }
 
     // init in activity
     public static void initListVideoUtil(Context mContext) {

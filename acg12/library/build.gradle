@@ -5,15 +5,13 @@ android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
     buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
-    publishNonDefault true
+//    publishNonDefault true
 
     defaultConfig {
-        defaultConfig {
-            minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
-            targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
-            versionCode globalConfiguration.getAt("androidVersionLibCode")
-            versionName globalConfiguration.getAt("androidVersionLibName")
-        }
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+        versionCode globalConfiguration.getAt("androidVersionLibCode")
+        versionName globalConfiguration.getAt("androidVersionLibName")
     }
     buildTypes {
         release {
@@ -31,14 +29,13 @@ dependencies {
     compile androidDependencies.cardview_v7
     compile androidDependencies.appcompat_v7
     compile androidDependencies.recyclerView_v7
-    compile androidDependencies.multidex
+//    compile androidDependencies.multidex
     def httpDependencies = rootProject.ext.httpDependencies
     compile httpDependencies.okhttp3
     compile httpDependencies.retrofit2
     compile httpDependencies.retrofit2_gson
     compile httpDependencies.retrofit2_scalars
     compile httpDependencies.retrofit2_rxjava
-//    compile httpDependencies.rxjava
     compile httpDependencies.rxandroid
     def kotlinDependencies = rootProject.ext.kotlinDependencies
     compile kotlinDependencies.kotlin
