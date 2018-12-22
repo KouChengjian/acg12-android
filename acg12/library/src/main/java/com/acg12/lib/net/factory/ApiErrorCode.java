@@ -8,7 +8,7 @@ import com.acg12.lib.BuildConfig;
  */
 public class ApiErrorCode {
 
-    public static final int HTTP_RESPONSE_SUCCEED = 20000;
+    public static final int HTTP_RESPONSE_SUCCEED = 0;
     public static final int HTTP_RESPONSE_CONVERTER_DATA_NULL = 20100;
 
     // 异常捕获

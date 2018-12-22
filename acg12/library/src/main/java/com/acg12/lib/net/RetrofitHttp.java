@@ -82,6 +82,25 @@ public class RetrofitHttp {
         return data;
     }
 
+    public static JSONArray parseJSONArray(ResponseBody response) {
+        JSONArray data;
+        try {
+            String result = response.string();
+            JSONObject json = new JSONObject(result);
+            int code = json.getInt("code");
+            String desc = json.getString("msg");
+            if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
+                data = json.getJSONArray("data");
+            }else{
+                throw new ApiException(code , desc);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ApiException(ApiErrorCode.EXCEPTION_IO, e.getMessage());
+        }
+        return data;
+    }
+
     public static JSONObject parseJSONObject2(ResponseBody response) {
         JSONObject data;
         try {

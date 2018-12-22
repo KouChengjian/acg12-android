@@ -55,7 +55,7 @@ public class SearchPaletteFragment extends SkinBaseFragment<SearchPaletteView> i
     }
 
     @Override
-    public void onReload() {
+    public void onRecycleReload() {
 //        mView.resetLoading();
         refresh(title, page);
     }

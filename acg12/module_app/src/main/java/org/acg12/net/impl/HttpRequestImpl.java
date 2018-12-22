@@ -539,11 +539,10 @@ public class HttpRequestImpl implements HttpRequest {
                     @Override
                     public void call(ResponseBody response) {
                         List<Album> list = new ArrayList<>();
-                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        JSONArray data = RetrofitHttp.parseJSONArray(response);
                         if (data != null) {
-                            JSONArray array = JsonParse.getJSONArray(data, "list");
-                            for (int i = 0, num = array.length(); i < num; i++) {
-                                JSONObject item = JsonParse.getJSONObject(array, i);
+                            for (int i = 0, num = data.length(); i < num; i++) {
+                                JSONObject item = JsonParse.getJSONObject(data, i);
                                 Album album = new Album();
                                 album.setPinId(JsonParse.getString(item, "pinId"));
                                 album.setContent(JsonParse.getString(item, "content"));

@@ -13,7 +13,7 @@ public class Constant extends ConstData {
     public static final String USER_KEY = "F36238DEF57BEB2C9DA6E885492C1744";
     public static final int TOOLBAR_ID = -1;
     public static final String DB_NAME = "manyou.db";
-    public static final String URL = debug ? "http://192.168.8.168:8080/acg12/" : "http://139.196.46.40:8080/api-v2/" ;
+    public static final String URL = "http://192.168.8.130:8081/acg12/" ;
 
     // 申请权限
     public static  final int PERMISSION_CAMERE = 301;

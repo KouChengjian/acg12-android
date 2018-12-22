@@ -7,16 +7,16 @@ import rx.Observable;
 
 public interface HomeApi {
 
-    @GET("api/home")
+    @GET("api/app/common/home")
     Observable<ResponseBody> index();
 
-    @GET("api/home/albums")
+    @GET("api/app/common/albumList.json")
     Observable<ResponseBody> albumList(@Query("action") String action , @Query("max") String pinId);
 
-    @GET("api/home/news")
+    @GET("api/app/common/newList.json")
     Observable<ResponseBody> newsList(@Query("page") String page);
 
-    @GET("api/home/calendar")
+    @GET("api/app/common/calendarList.json")
     Observable<ResponseBody> calendarList();
 
     @GET("api/home/subject")

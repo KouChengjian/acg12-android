@@ -72,7 +72,7 @@ public class SearchAlbumFragment extends SkinBaseFragment<SearchAlbumView> imple
     }
 
     @Override
-    public void onReload() {
+    public void onRecycleReload() {
         mView.resetLoading();
         refresh(title, page);
     }

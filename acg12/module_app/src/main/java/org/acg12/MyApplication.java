@@ -3,7 +3,6 @@ package org.acg12;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDex;
 
 import com.acg12.lib.utils.skin.SkinManager;
 
@@ -45,7 +44,6 @@ public class MyApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		Config.init(this);
-		CrashHandler.init(this);
 		SkinManager.getInstance().init(this);
 		SkinManager.getInstance().load();
 
@@ -57,6 +55,6 @@ public class MyApplication extends Application {
 	@Override
 	protected void attachBaseContext(Context base) {
 		super.attachBaseContext(base);
-		MultiDex.install(this);
+//		MultiDex.install(this);
 	}
 }
