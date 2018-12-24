@@ -26,6 +26,14 @@
         <attr name="normalTextColor" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="IRecyclerView">
+        <attr name="refreshHeaderLayout" format="reference" />
+        <attr name="loadMoreFooterLayout" format="reference" />
+        <attr name="refreshEnabled" format="boolean" />
+        <attr name="loadMoreEnabled" format="boolean" />
+        <attr name="refreshFinalMoveOffset" format="dimension" />
+    </declare-styleable>
+
 
     <!--&lt;!&ndash; 图片显示时，淡入淡出动画的时间，单位为毫秒&ndash;&gt;-->
     <!--<attr name="fadeDuration" format="integer"/>-->
