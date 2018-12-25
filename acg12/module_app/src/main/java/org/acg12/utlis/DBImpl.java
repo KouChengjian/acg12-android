@@ -10,7 +10,7 @@ import com.litesuits.orm.db.assit.WhereBuilder;
 import com.litesuits.orm.db.model.ColumnsValue;
 import com.litesuits.orm.db.model.ConflictAlgorithm;
 
-import org.acg12.MyApplication;
+import org.acg12.app.MyApplication;
 import org.acg12.constant.Constant;
 
 import java.util.Collection;

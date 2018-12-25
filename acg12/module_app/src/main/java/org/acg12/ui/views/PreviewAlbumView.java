@@ -175,7 +175,7 @@ public class PreviewAlbumView extends ViewImpl {
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
                     bundle.putString("url", album.getImageUrl());
-                    ViewUtil.startAnimActivity(((Activity) getContext()), PreviewImageActivity.class, bundle, Constant.RESULT_ACTIVITY_REG_DEFAULT);
+                    ViewUtil.startAnimActivity(((Activity) getContext()), PreviewImageActivity.class, bundle,1000);
                 }
             });
         }

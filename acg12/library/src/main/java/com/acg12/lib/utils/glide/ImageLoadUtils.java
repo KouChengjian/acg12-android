@@ -28,37 +28,30 @@ import java.util.Map;
  */
 public class ImageLoadUtils {
 
-    private static Context mContext;
-
-    //Fresco
-//    private static final int MAX_HEAP_SIZE = (int) Runtime.getRuntime().maxMemory();
-//    public static final int MAX_DISK_CACHE_SIZE = 40 * ByteConstants.MB;
-//    public static final int MAX_MEMORY_CACHE_SIZE = MAX_HEAP_SIZE / 4;
-//    private static final String IMAGE_PIPELINE_CACHE_DIR = "imagepipeline_cache";
-//    private static ImagePipelineConfig sImagePipelineConfig;
-//    private static ImagePipelineConfig sOkHttpImagePipelineConfig;
-
-    public ImageLoadUtils(Context mContext) {
-        this.mContext = mContext;
-        // Fresco
-        //Fresco.initialize(mContext, getOkHttpImagePipelineConfig(mContext));
+    public static void init(Context mContext){
+//        new ImageLoadUtils(mContext);
     }
 
 
-    /**
-     * --------------------    Glide    ------------------------
-     */
-
-    public static void glideLoading(String url, ImageView imageview) {
-        glideLoading(new HashMap<String, String>(), url, imageview);
-    }
-
-    public static void glideLoading(HashMap<String, String> headers, String url, ImageView imageview) {
-        glideLoading(mContext, headers, url, imageview);
-    }
-
+    /** --------------------    Glide    ------------------------ */
     public static void glideLoading(Context mContext, String url, ImageView imageview) {
-        glideLoading(mContext, new HashMap<String, String>(), url, imageview);
+        if (mContext == null) return;
+        glideLoading(mContext, url, imageview, R.mipmap.bg_loading_pic, R.mipmap.bg_loading_pic);
+    }
+
+    public static void glideLoading(Context mContext, String url, ImageView imageview, int placeholderId) {
+        glideLoading(mContext, url, imageview, placeholderId, R.mipmap.bg_loading_pic);
+    }
+
+    public static void glideLoading(Context mContext, String url, ImageView imageview, int placeholderId, int errorId) {
+        if(mContext == null)
+            return;
+        Glide.with(mContext).load(getModel(url))
+                .placeholder(placeholderId)
+                .animate(R.anim.glide_loading_image_alpha_in)
+                .error(errorId)
+                .centerCrop()
+                .into(imageview);
     }
 
     public static void glideLoading(Context mContext, final HashMap<String, String> header, String url, ImageView imageview) {
@@ -76,20 +69,12 @@ public class ImageLoadUtils {
                 .into(imageview);
     }
 
-    public static void glideLoading(String url, GlideDrawableImageViewTarget glideDrawableImageViewTarget) {
-        glideLoading(mContext, url, glideDrawableImageViewTarget);
-    }
-
-    public static void glideLoading(Context mContext, String url, GlideDrawableImageViewTarget glideDrawableImageViewTarget) {
+    public static void glideLoading(Context mContext ,String url, GlideDrawableImageViewTarget glideDrawableImageViewTarget){
         Glide.with(mContext).load(url)
                 .placeholder(R.mipmap.bg_loading_pic)
                 .animate(R.anim.glide_loading_image_alpha_in)
                 .error(R.mipmap.bg_loading_pic)
                 .into(glideDrawableImageViewTarget);
-    }
-
-    public static void glideLoading(String url, Target target) {
-        glideLoading(mContext, url, target);
     }
 
     public static void glideLoading(Context mContext, String url, Target target) {
@@ -100,7 +85,7 @@ public class ImageLoadUtils {
                 .into(target);
     }
 
-    public static void glideCircleLoading(String url, ImageView imageview) {
+    public static void glideCircleLoading(Context mContext,String url, ImageView imageview){
         Glide.with(mContext).load(url)
                 .placeholder(R.mipmap.bg_avatar_default)
                 .animate(R.anim.glide_loading_image_alpha_in)
@@ -149,8 +134,8 @@ public class ImageLoadUtils {
     public static void clearImageAllCache(Context context) {
         clearImageDiskCache(context);
         clearImageMemoryCache(context);
-        String ImageExternalCatchDir = context.getExternalCacheDir() + ExternalCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR;
-        File storageDirectory = CacheUtils.getCacheDirectory(context, "/cache/image");
+        String ImageExternalCatchDir=context.getExternalCacheDir()+ ExternalCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR;
+        File storageDirectory = CacheUtils.getCacheDirectory(context , "/cache/image");
 //        deleteFolderFile(storageDirectory.getPath(), true);
     }
 
@@ -159,7 +144,7 @@ public class ImageLoadUtils {
      */
     public static String getCacheSize(Context context) {
         try {
-            File storageDirectory = CacheUtils.getCacheDirectory(context, "/cache/image");
+            File storageDirectory = CacheUtils.getCacheDirectory(context , "/cache/image");
             return getFormatSize(getFolderSize(storageDirectory));
         } catch (Exception e) {
             e.printStackTrace();
@@ -248,90 +233,6 @@ public class ImageLoadUtils {
     }
 
 
-//    /**
-//     * 使用Android自带的网络加载图片
-//     */
-//    private static ImagePipelineConfig getImagePipelineConfig(Context context) {
-//        if (sImagePipelineConfig == null) {
-//            ImagePipelineConfig.Builder configBuilder = ImagePipelineConfig.newBuilder(context);
-//            configBuilder.setProgressiveJpegConfig(mProgressiveJpegConfig);
-//            configBuilder.setBitmapsConfig(Bitmap.Config.ARGB_4444);
-//            configureCaches(configBuilder, context);
-//            configureLoggingListeners(configBuilder);
-//            configureOptions(configBuilder);
-//            sImagePipelineConfig = configBuilder.build();
-//        }
-//        return sImagePipelineConfig;
-//    }
-//
-//    /**
-//     * 使用OkHttp网络库加载图片
-//     */
-//    private static ImagePipelineConfig getOkHttpImagePipelineConfig(Context context) {
-//        if (sOkHttpImagePipelineConfig == null) {
-//            OkHttpClient okHttpClient = new OkHttpClient();
-//            ImagePipelineConfig.Builder configBuilder = OkHttpImagePipelineConfigFactory.newBuilder(context, okHttpClient);
-//            configureCaches(configBuilder, context);
-//            configureLoggingListeners(configBuilder);
-//            sOkHttpImagePipelineConfig = configBuilder.build();
-//        }
-//        return sOkHttpImagePipelineConfig;
-//    }
-//
-//    /**
-//     * 配置内存缓存和磁盘缓存
-//     */
-//    private static void configureCaches(ImagePipelineConfig.Builder configBuilder, Context context) {
-//        final MemoryCacheParams bitmapCacheParams = new MemoryCacheParams(
-//                MAX_MEMORY_CACHE_SIZE, // Max total size of elements in the cache
-//                Integer.MAX_VALUE,                     // Max entries in the cache
-//                MAX_MEMORY_CACHE_SIZE, // Max total size of elements in eviction queue
-//                Integer.MAX_VALUE,                     // Max length of eviction queue
-//                Integer.MAX_VALUE);                    // Max cache entry size
-//        configBuilder
-//                .setBitmapMemoryCacheParamsSupplier(
-//                        new Supplier<MemoryCacheParams>() {
-//                            public MemoryCacheParams get() {
-//                                return bitmapCacheParams;
-//                            }
-//                        })
-//                .setMainDiskCacheConfig(
-//                        DiskCacheConfig.newBuilder(context)
-//                                .setBaseDirectoryPath(context.getApplicationContext().getCacheDir())
-//                                .setBaseDirectoryName(IMAGE_PIPELINE_CACHE_DIR)
-//                                .setMaxCacheSize(MAX_DISK_CACHE_SIZE)
-//                                .build());
-//    }
-//
-//    private static void configureLoggingListeners(ImagePipelineConfig.Builder configBuilder) {
-//        Set<RequestListener> requestListeners = new HashSet<>();
-//        requestListeners.add(new RequestLoggingListener());
-//        configBuilder.setRequestListeners(requestListeners);
-//    }
-//
-//    private static void configureOptions(ImagePipelineConfig.Builder configBuilder) {
-//        configBuilder.setDownsampleEnabled(true);
-//    }
-//
-//    //渐进式图片
-//    private static ProgressiveJpegConfig mProgressiveJpegConfig = new ProgressiveJpegConfig() {
-//        @Override
-//        public int getNextScanNumberToDecode(int scanNumber) {
-//            return scanNumber + 2;
-//        }
-//
-//        public QualityInfo getQualityInfo(int scanNumber) {
-//            boolean isGoodEnough = (scanNumber >= 5);
-//            return ImmutableQualityInfo.of(scanNumber, isGoodEnough, false);
-//        }
-//    };
-//
-//    public static void frescoLoading(String url , SimpleDraweeView imageview){
-//        Uri uri = Uri.parse(url);
-//        imageview.setImageURI(uri);
-//    }
-
-
     public static void releaseImageViewResouce(ImageView imageView) {
         if (imageView == null) return;
         Drawable drawable = imageView.getDrawable();
@@ -356,4 +257,9 @@ public class ImageLoadUtils {
         return null;
     }
 
+    private static Object getModel(String url) {
+        if (url == null || url.isEmpty()) return url;
+        if (url.startsWith("/")) return url;
+        return new GlideUrlNoParams(url);
+    }
 }

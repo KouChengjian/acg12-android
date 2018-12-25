@@ -17,9 +17,11 @@ public interface SearchApi {
     @POST("api/app/search/subject.json")
     Observable<ResponseBody> searchSubjectList(@Field("key") String key);
 
-    @GET("api/app/search/albumList.json")
-    Observable<ResponseBody> searchAlbum(@Query("key") String key , @Query("page") String page);
+    @FormUrlEncoded
+    @POST("api/app/search/albumList.json")
+    Observable<ResponseBody> searchAlbum(@Field("key") String key , @Field("page") String page);
 
-    @GET("api/app/search/paletteList.json")
-    Observable<ResponseBody> searchPalette(@Query("key") String key , @Query("page") String page);
+    @FormUrlEncoded
+    @POST("api/app/search/paletteList.json")
+    Observable<ResponseBody> searchPalette(@Field("key") String key , @Field("page") String page);
 }

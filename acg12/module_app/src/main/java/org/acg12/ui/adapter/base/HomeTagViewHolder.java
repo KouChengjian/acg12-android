@@ -41,7 +41,7 @@ public class HomeTagViewHolder extends CommonRecyclerViewHolder {
         layoutParams.height = (PixelUtil.getScreenWidthPx(mContext) - (PixelUtil.dp2px(mContext , 20) * 3)) / 2 ;
         layout_tag.setLayoutParams(layoutParams);
 
-        ImageLoadUtils.glideLoading(tags.getCover() , iv_tag_cover);
+        ImageLoadUtils.glideLoading(mContext,tags.getCover() , iv_tag_cover);
         ViewUtil.setText(tv_tag_title , tags.getName());
     }
 }

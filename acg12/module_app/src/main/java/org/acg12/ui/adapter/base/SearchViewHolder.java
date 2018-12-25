@@ -34,7 +34,7 @@ public class SearchViewHolder extends CommonRecyclerViewHolder {
     @Override
     public void bindData(Context mContext, List list, int position) {
         Search search = ((List<Search>)list).get(position);
-        ImageLoadUtils.glideLoading(search.getSource() , iv_search_tag);
+        ImageLoadUtils.glideLoading(mContext ,search.getSource() , iv_search_tag);
         ViewUtil.setText(tv_search_tag , search.getTitle());
         ViewUtil.setText(tv_search_type , search.getTypeName());
     }

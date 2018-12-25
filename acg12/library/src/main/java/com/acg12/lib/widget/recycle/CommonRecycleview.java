@@ -63,6 +63,10 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         return mRecyclerView;
     }
 
+    public TipLayoutView getTipLayoutView() {
+        return mTipLayoutView;
+    }
+
     public LinearLayoutManager setLinearLayoutManager() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

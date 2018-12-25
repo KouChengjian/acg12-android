@@ -44,8 +44,6 @@ public class SearchView extends ViewImpl {
     FlowLayout mHistoryFlowlayout;
     @BindView(R.id.common_recycleview)
     CommonRecycleview commonRecycleview;
-    @BindView(R.id.progress_loading)
-    ProgressBar progress_loading;
 
     DeletableEditText mSearchEditText;
     TextView mSearchFinish;
@@ -91,11 +89,11 @@ public class SearchView extends ViewImpl {
     }
 
     public void startLoading() {
-        progress_loading.setVisibility(View.VISIBLE);
+        commonRecycleview.getTipLayoutView().showLoading();
     }
 
     public void stopLoading() {
-        progress_loading.setVisibility(View.GONE);
+        commonRecycleview.getTipLayoutView().showContent();
     }
 
     public void showSearchList() {

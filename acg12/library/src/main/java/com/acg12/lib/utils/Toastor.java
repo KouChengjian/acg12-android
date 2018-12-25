@@ -2,14 +2,7 @@ package com.acg12.lib.utils;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.acg12.lib.R;
 
 
 public class Toastor {
@@ -17,11 +10,18 @@ public class Toastor {
 	private static Toast mToast;
 	private static Context context ;
 
+	public static void init(Context context){
+	    new Toastor(context);
+    }
+
 	public Toastor(Context context) {
 		this.context = context.getApplicationContext();
 	}
 
 	public static void ShowToast(final String text) {
+	    if(context == null){
+	        return;
+        }
 		if (!TextUtils.isEmpty(text)) {
 			if (mToast == null) {
 				mToast = Toast.makeText(context, text, Toast.LENGTH_LONG);
@@ -33,6 +33,9 @@ public class Toastor {
 	}
 
 	public static void ShowToast(final int resId) {
+        if(context == null){
+            return;
+        }
 		if (mToast == null) {
 			mToast = Toast.makeText(context.getApplicationContext(), resId,
 					Toast.LENGTH_LONG);
@@ -43,6 +46,9 @@ public class Toastor {
 	}
 	
 	public Toast getSingletonToast(int resId) {
+        if(context == null){
+            return null;
+        }
         if (mToast == null) {
             mToast = Toast.makeText(context, resId, Toast.LENGTH_SHORT);
         }else{
@@ -52,6 +58,9 @@ public class Toastor {
     }
 
     public Toast getSingletonToast(String text) {
+        if(context == null){
+            return null;
+        }
         if (mToast == null) {
             mToast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         }else{
@@ -108,19 +117,19 @@ public class Toastor {
     }
 
     public static void ShowToastView(String s) {
-        View layoutView =  LayoutInflater.from(context).inflate(R.layout.common_toast, null);
-        //设置文本的参数 设置加载文本文件的参数，必须通过LayoutView获取。
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        //layoutView.setLayoutParams(params);
-        TextView textView = (TextView)layoutView.findViewById(R.id.toast_content);
-        textView.setText(s);
-
-        //创建toast对象，
-        Toast toast = new Toast(context);
-        //把要Toast的布局文件放到toast的对象中
-        toast.setView(layoutView);
-        toast.setDuration(toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+//        View layoutView =  LayoutInflater.from(context).inflate(R.layout.common_toast_layout, null);
+//        //设置文本的参数 设置加载文本文件的参数，必须通过LayoutView获取。
+//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//        //layoutView.setLayoutParams(params);
+//        TextView textView = (TextView)layoutView.findViewById(R.id.toast_content);
+//        textView.setText(s);
+//
+//        //创建toast对象，
+//        Toast toast = new Toast(context);
+//        //把要Toast的布局文件放到toast的对象中
+//        toast.setView(layoutView);
+//        toast.setDuration(toast.LENGTH_SHORT);
+//        toast.setGravity(Gravity.CENTER, 0, 0);
+//        toast.show();
     }
 }

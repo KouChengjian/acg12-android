@@ -1,31 +1,16 @@
-package org.acg12.utlis;
+package com.acg12.lib.utils;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.acg12.lib.utils.ActivityTack;
-import com.acg12.lib.utils.AppUtil;
-import com.acg12.lib.utils.CacheUtils;
-import com.acg12.lib.utils.Toastor;
-
-import org.acg12.MyApplication;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by Administrator on 2017/5/9.
  */
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
+    public static final String TAG = "CrashHandler";
     // 系统默认的UncaughtException处理类
     private Thread.UncaughtExceptionHandler mDefaultHandler;
     private Context mContext;
@@ -50,6 +35,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
+        Log.e("CrashHandler", "error", ex);
         showToast("很抱歉,程序出现异常,即将退出");
         try {
             thread.sleep(500);
@@ -71,4 +57,5 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             }
         }).start();
     }
+
 }

@@ -68,7 +68,7 @@ public class UserInfoView extends ViewImpl {
 
         String avatar = user.getAvatar();
         if(avatar != null){
-            ImageLoadUtils.glideCircleLoading(avatar , iv_user_avatar );
+            ImageLoadUtils.glideCircleLoading(getContext() ,avatar , iv_user_avatar );
             setSexSelector(user.getSex());
             ViewUtil.setText(tv_user_account , user.getUsername());
             ViewUtil.setText(tv_user_nick , user.getNick());

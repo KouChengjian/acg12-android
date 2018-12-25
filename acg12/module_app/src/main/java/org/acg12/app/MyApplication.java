@@ -1,14 +1,18 @@
-package org.acg12;
+package org.acg12.app;
 
 
 import android.app.Application;
 import android.content.Context;
 
+import com.acg12.lib.utils.CrashHandler;
+import com.acg12.lib.utils.PreferencesUtils;
+import com.acg12.lib.utils.Toastor;
 import com.acg12.lib.utils.skin.SkinManager;
 
 import org.acg12.conf.Config;
 import org.acg12.constant.Constant;
-import org.acg12.utlis.CrashHandler;
+import org.acg12.net.impl.HttpRequestImpl;
+import org.acg12.utlis.cache.Cache;
 
 
 //                          _oo0oo_
@@ -43,13 +47,17 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Config.init(this);
+		// 初始化
+		CrashHandler.init(this);
+		Cache.init(this);
+		PreferencesUtils.init(this); // xml存储
+		Toastor.init(this);
+//        HttpRequestImpl.init(mContext); // http请求
+		new HttpRequestImpl(this); // http请求
+		// 初始化皮肤
 		SkinManager.getInstance().init(this);
 		SkinManager.getInstance().load();
-
-		if(!Constant.debug){
-//            Bugly.init(mContext, ConstData.KEY_WEIXIN_BUGLY, false);
-		}
+		InitializeService.start(this);
 	}
 
 	@Override

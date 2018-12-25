@@ -49,7 +49,7 @@ public class PreviewPaletteActivity extends SkinBaseActivity<PreviewPaletteView>
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Activity.RESULT_OK){
-            if(requestCode == Constant.RESULT_ACTIVITY_REG_DEFAULT){
+            if(requestCode == 1000){
                 int position = data.getExtras().getInt("position");
                 List<Album> list = mView.getAlbumList();
                 list = PreviewAlbumActivity.mList;
@@ -73,7 +73,7 @@ public class PreviewPaletteActivity extends SkinBaseActivity<PreviewPaletteView>
         bundle.putInt("position", position);
         PreviewAlbumActivity.mList = mView.getAlbumList();
         intent.putExtras(bundle);
-        startActivityForResult(intent, Constant.RESULT_ACTIVITY_REG_DEFAULT);
+        startActivityForResult(intent, 1000);
     }
 
     @Override

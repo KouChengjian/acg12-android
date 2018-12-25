@@ -9,11 +9,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.acg12.lib.constant.ConstData;
+import com.acg12.lib.utils.AppStartUtil;
 import com.acg12.lib.utils.Toastor;
-import com.acg12.lib.utils.ViewUtil;
-
-import butterknife.ButterKnife;
 
 public class BaseFragment extends Fragment {
 
@@ -27,29 +24,24 @@ public class BaseFragment extends Fragment {
         mContext = getActivity();
     }
 
-    public void setContentView(View view) {
-        ButterKnife.bind(this, view);
-    }
-
     public View findViewById(int paramInt) {
         return getView().findViewById(paramInt);
     }
 
-    /*-------内部调用类---------*/
-    protected void startAnimActivity(Class<?> cla) {
-        startAnimActivity(cla, null, ConstData.RESULT_ACTIVITY_REG_DEFAULT);
+    protected void startAnimActivity(Class<?> cls) {
+        startAnimActivity(cls, null, 0);
     }
 
-    protected void startAnimActivity(Class<?> cla, int code) {
-        startAnimActivity(cla, null, code);
+    protected void startAnimActivity(Class<?> cls, int code) {
+        startAnimActivity(cls, null, code);
     }
 
     protected void startAnimActivity(Class<?> cls, Bundle bundle) {
-        startAnimActivity(cls, bundle, ConstData.RESULT_ACTIVITY_REG_DEFAULT);
+        startAnimActivity(cls, bundle, 0);
     }
 
     protected void startAnimActivity(Class<?> cls, Bundle bundle, int code) {
-        ViewUtil.startAnimActivity(this, cls, bundle, code);
+        AppStartUtil.startAnimActivity(this, cls, bundle, -1, code);
     }
 
     protected void ShowToast(final String text) {
@@ -92,7 +84,7 @@ public class BaseFragment extends Fragment {
         });
     }
 
-    public void showSoftInputView(){
+    public void showSoftInputView() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }

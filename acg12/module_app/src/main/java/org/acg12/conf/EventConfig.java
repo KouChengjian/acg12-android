@@ -14,10 +14,6 @@ public class EventConfig {
     private static EventBus eventbusUser;
     private static EventBus eventbusNavigation;
 
-    public static void init() {
-        new EventConfig();
-    }
-
     public EventConfig() {
         mEventBusConfig = this;
         eventbusUser = EventBus.builder().build();

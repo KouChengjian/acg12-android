@@ -121,8 +121,8 @@ public class SearchInfoView extends ViewImpl {
         if (!url.contains("http")){
             url = "http:"+url;
         }
-        ImageLoadUtils.glideLoading(url, iv_header_pic);
-        ImageLoadUtils.glideLoading(url, new SimpleTarget<Bitmap>() {
+        ImageLoadUtils.glideLoading(getContext() ,url, iv_header_pic);
+        ImageLoadUtils.glideLoading(getContext() ,url, new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 mBlurBitmap = BitmapBlurUtil.rsBlur(getContext(), resource, 24);

@@ -8,14 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 
-import com.acg12.lib.constant.ConstData;
 import com.acg12.lib.utils.ActivityTack;
+import com.acg12.lib.utils.AppStartUtil;
 import com.acg12.lib.utils.Toastor;
-import com.acg12.lib.utils.ViewServer;
-import com.acg12.lib.utils.ViewUtil;
 
 import butterknife.ButterKnife;
 
@@ -38,9 +34,6 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
         mContext = this;
         mTag = this.getClass().getSimpleName();
         mActivityTack.addActivity(this);
-        if (ConstData.debug) {
-            ViewServer.get(this).addWindow(this);
-        }
 
         TypedArray activityStyle = getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowAnimationStyle});
         int windowAnimationStyleResId = activityStyle.getResourceId(0, 0);
@@ -52,14 +45,6 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (ConstData.debug) {
-            ViewServer.get(this).setFocusedWindow(this);
-        }
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
     }
@@ -68,9 +53,6 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         mActivityTack.removeActivity(this);
-        if (ConstData.debug) {
-            ViewServer.get(this).removeWindow(this);
-        }
     }
 
     @Override
@@ -108,20 +90,21 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /*-------内部调用类---------*/
-    protected void startAnimActivity(Class<?> cla) {
-        startAnimActivity(cla, null, ConstData.RESULT_ACTIVITY_REG_DEFAULT);
+
+    protected void startAnimActivity(Class<?> cls) {
+        startAnimActivity(cls, null, 0);
     }
 
-    protected void startAnimActivity(Class<?> cla, int code) {
-        startAnimActivity(cla, null, code);
+    protected void startAnimActivity(Class<?> cls, int code) {
+        startAnimActivity(cls, null, code);
     }
 
     protected void startAnimActivity(Class<?> cls, Bundle bundle) {
-        startAnimActivity(cls, bundle, ConstData.RESULT_ACTIVITY_REG_DEFAULT);
+        startAnimActivity(cls, bundle, 0);
     }
 
     protected void startAnimActivity(Class<?> cls, Bundle bundle, int code) {
-        ViewUtil.startAnimActivity(this, cls, bundle, code);
+        AppStartUtil.startAnimActivity(this, cls, bundle, -1, code);
     }
 
     protected void ShowToast(final String text) {
@@ -173,7 +156,6 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
             mActivityTack.popActivity(activity);
         }
     }
-
 
 
 }

@@ -39,7 +39,7 @@ public class TabBangumiViewHolder extends RecyclerView.ViewHolder {
         icon.setImageHeight(350);
         String url = video.getPic();
         if(url != null && !url.isEmpty()){
-            ImageLoadUtils.glideLoading(url, new Target<Bitmap>(){
+            ImageLoadUtils.glideLoading(context,url, new Target<Bitmap>(){
                 @Override
                 public void onStart() {
 

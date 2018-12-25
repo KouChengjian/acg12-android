@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 import com.acg12.lib.widget.ScaleImageView;
@@ -53,7 +54,7 @@ public class TabAlbumViewHolder extends RecyclerView.ViewHolder {
             url = url.replace("_fw658" , "_fw236");
             imageView.setImageWidth(album.getResWidth());
             imageView.setImageHeight(album.getResHight());
-//            imageView.setImageResource(R.mipmap.kk_bg_loading_pic);
+//            LogUtil.e("url = " + url);
             ImageLoadUtils.glideLoading(mContext, url, imageView);
         }
 

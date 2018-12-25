@@ -20,6 +20,10 @@ public class Cache {
     private static Cache instance;
     private ACache mCache;
 
+    public static Cache init(Context mContext) {
+        return new Cache(mContext);
+    }
+
     public Cache(Context mContext) {
         this.mContext = mContext;
         instance = this;

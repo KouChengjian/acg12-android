@@ -28,10 +28,9 @@ public class Config {
 //        eventbusUser = EventBus.builder().build();
 //        eventbusNavigation = EventBus.builder().build();
 
-        new Cache(mContext);
+
         new Toastor(mContext);
         new HttpRequestImpl(mContext);
-        new ImageLoadUtils(mContext);
     }
 
     // init in activity

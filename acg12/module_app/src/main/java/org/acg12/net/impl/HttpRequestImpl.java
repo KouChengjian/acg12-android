@@ -424,7 +424,7 @@ public class HttpRequestImpl implements HttpRequest {
         return mHomeApi.newsList(page).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
             @Override
             public void call(ResponseBody response) {
-                JSONArray data = RetrofitHttp.parseJSONObject3(response);
+                JSONArray data = RetrofitHttp.parseJSONArrayString(response);
                 if (data != null) {
                     List<News> list = new ArrayList<>();
                     for (int i = 0, num = data.length(); i < num; i++) {
@@ -454,7 +454,7 @@ public class HttpRequestImpl implements HttpRequest {
         return mHomeApi.calendarList().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
             @Override
             public void call(ResponseBody response) {
-                JSONArray data = RetrofitHttp.parseJSONObject3(response);
+                JSONArray data = RetrofitHttp.parseJSONArrayString(response);
                 if (data != null) {
                     List<Calendar> nameList = new ArrayList<>();
                     for (int i = 0, num = data.length(); i < num; i++) {
@@ -738,11 +738,10 @@ public class HttpRequestImpl implements HttpRequest {
             @Override
             public void call(ResponseBody response) {
                 List<Album> list = new ArrayList<Album>();
-                JSONObject data = RetrofitHttp.parseJSONObject(response);
+                JSONArray data = RetrofitHttp.parseJSONArray(response);
                 if (data != null) {
-                    JSONArray array = JsonParse.getJSONArray(data, "album");
-                    for (int i = 0, num = array.length(); i < num; i++) {
-                        JSONObject item = JsonParse.getJSONObject(array, i);
+                    for (int i = 0, num = data.length(); i < num; i++) {
+                        JSONObject item = JsonParse.getJSONObject(data, i);
                         Album album = new Album();
                         album.setPinId(JsonParse.getString(item, "pinId"));
                         album.setContent(JsonParse.getString(item, "content"));
@@ -750,10 +749,7 @@ public class HttpRequestImpl implements HttpRequest {
                         album.setResHight(JsonParse.getInt(item, "resHight"));
                         album.setLove(JsonParse.getInt(item, "love"));
                         album.setFavorites(JsonParse.getInt(item, "favorites"));
-                        JSONArray urls = JsonParse.getJSONArray(item, "urlList");
-                        if (urls != null) {
-                            album.setImageUrl(JsonParse.getString(urls, 0));
-                        }
+                        album.setImageUrl(JsonParse.getString(item, "image"));
                         list.add(album);
                     }
                     httpRequestListener.onSuccess(list);
@@ -851,11 +847,10 @@ public class HttpRequestImpl implements HttpRequest {
             @Override
             public void call(ResponseBody response) {
                 List<Album> list = new ArrayList<Album>();
-                JSONObject data = RetrofitHttp.parseJSONObject(response);
+                JSONArray data = RetrofitHttp.parseJSONArrayString(response);
                 if (data != null) {
-                    JSONArray array = JsonParse.getJSONArray(data, "list");
-                    for (int i = 0, num = array.length(); i < num; i++) {
-                        JSONObject item = JsonParse.getJSONObject(array, i);
+                    for (int i = 0, num = data.length(); i < num; i++) {
+                        JSONObject item = JsonParse.getJSONObject(data, i);
                         Album album = new Album();
                         album.setPinId(JsonParse.getString(item, "pinId"));
                         album.setContent(JsonParse.getString(item, "content"));
@@ -883,11 +878,10 @@ public class HttpRequestImpl implements HttpRequest {
             @Override
             public void call(ResponseBody response) {
                 List<Palette> list = new ArrayList<Palette>();
-                JSONObject data = RetrofitHttp.parseJSONObject(response);
+                JSONArray data = RetrofitHttp.parseJSONArrayString(response);
                 if (data != null) {
-                    JSONArray array = JsonParse.getJSONArray(data, "list");
-                    for (int i = 0, num = array.length(); i < num; i++) {
-                        JSONObject item = JsonParse.getJSONObject(array, i);
+                    for (int i = 0, num = data.length(); i < num; i++) {
+                        JSONObject item = JsonParse.getJSONObject(data, i);
                         Palette palette = new Palette();
                         palette.setBoardId(JsonParse.getString(item, "boardId"));
                         palette.setName(JsonParse.getString(item, "name"));
@@ -983,7 +977,7 @@ public class HttpRequestImpl implements HttpRequest {
             @Override
             public void call(ResponseBody response) {
                 List<Search> list = new ArrayList<>();
-                JSONObject data = RetrofitHttp.parseJSONObject2(response);
+                JSONObject data = RetrofitHttp.parseJSONObjectString(response);
                 if (data != null) {
                     JSONArray array = JsonParse.getJSONArray(data, "list");
                     for (int i = 0, num = array.length(); i < num; i++) {
@@ -1017,7 +1011,7 @@ public class HttpRequestImpl implements HttpRequest {
             @Override
             public void call(ResponseBody response) {
                 List<Search> list = new ArrayList<>();
-                JSONObject data = RetrofitHttp.parseJSONObject2(response);
+                JSONObject data = RetrofitHttp.parseJSONObjectString(response);
                 if (data != null) {
                     JSONArray array = JsonParse.getJSONArray(data, "list");
                     for (int i = 0, num = array.length(); i < num; i++) {

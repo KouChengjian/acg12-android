@@ -81,7 +81,7 @@ public class SearchPopWindow extends PopupWindow implements View.OnClickListener
                 return;
             Bundle bundle = new Bundle();
             bundle.putString("title", str);
-            ViewUtil.startAnimActivity((Activity)mContext , SearchInfoActivity.class , bundle , Constant.RESULT_ACTIVITY_REG_DEFAULT);
+            ViewUtil.startAnimActivity((Activity)mContext , SearchInfoActivity.class , bundle , 1000);
             dismissPopupWindow();
         } else if(v.getId() == R.id.tv_search_finish){
             dismissPopupWindow();

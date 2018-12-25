@@ -95,7 +95,7 @@ public class MainView extends ViewImpl {
         } else {
             String avatar = user.getAvatar();
             if (avatar != null) {
-                ImageLoadUtils.glideCircleLoading(avatar, iv_nav_avatar);
+                ImageLoadUtils.glideCircleLoading(getContext() ,avatar, iv_nav_avatar);
                 iv_nav_sex.setVisibility(View.VISIBLE);
                 if (user.getSex() == 0) {
                     iv_nav_sex.setSelected(false);

@@ -101,7 +101,7 @@ public class RetrofitHttp {
         return data;
     }
 
-    public static JSONObject parseJSONObject2(ResponseBody response) {
+    public static JSONObject parseJSONObjectString(ResponseBody response) {
         JSONObject data;
         try {
             String result = response.string();
@@ -120,7 +120,7 @@ public class RetrofitHttp {
         return data;
     }
 
-    public static JSONArray parseJSONObject3(ResponseBody response) {
+    public static JSONArray parseJSONArrayString(ResponseBody response) {
         JSONArray data;
         try {
             String result = response.string();

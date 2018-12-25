@@ -31,7 +31,7 @@ public interface HomeApi {
     @GET("res/v")
     Observable<ResponseBody> videoList(@Query("action") String action , @Query("type") String type ,@Query("page") String page);
 
-    @GET("res/p/boards/album")
+    @GET("api/app/common/boardList/albums.json")
     Observable<ResponseBody> palettePreview(@Query("action") String action , @Query("max") String pinId ,@Query("boardId") String boardId);
 
     @GET("res/v/dangumi/info")
