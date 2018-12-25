@@ -101,7 +101,7 @@ public class HomeView extends ViewImpl {
         if (home == null) return;
         ImageLoadUtils.glideLoading(home.getCover(), iv_home_cover);
         homeTagAdapter.getList().clear();
-        addObjectList(home.getTagsList());
+        addObjectList(home.getTagList());
     }
 
     public void addObjectList(List list) {

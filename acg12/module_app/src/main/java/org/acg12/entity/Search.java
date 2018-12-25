@@ -9,7 +9,7 @@ public class Search extends Param {
     private int searchId;
     private String source;
     private String title;
-    private int type;
+    private int type; // 0:subject 1:crt 2:preson
     private String typeName;
 
     public int getSearchId() {

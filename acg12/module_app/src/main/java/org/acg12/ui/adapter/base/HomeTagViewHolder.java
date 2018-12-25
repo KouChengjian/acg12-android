@@ -42,6 +42,6 @@ public class HomeTagViewHolder extends CommonRecyclerViewHolder {
         layout_tag.setLayoutParams(layoutParams);
 
         ImageLoadUtils.glideLoading(tags.getCover() , iv_tag_cover);
-        ViewUtil.setText(tv_tag_title , tags.getTitle());
+        ViewUtil.setText(tv_tag_title , tags.getName());
     }
 }

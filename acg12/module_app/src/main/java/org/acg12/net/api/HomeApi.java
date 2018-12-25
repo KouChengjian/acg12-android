@@ -7,7 +7,7 @@ import rx.Observable;
 
 public interface HomeApi {
 
-    @GET("api/app/common/home")
+    @GET("api/app/common/index.json")
     Observable<ResponseBody> index();
 
     @GET("api/app/common/albumList.json")
@@ -19,7 +19,7 @@ public interface HomeApi {
     @GET("api/app/common/calendarList.json")
     Observable<ResponseBody> calendarList();
 
-    @GET("api/home/subject")
+    @GET("api/app/common/subject.json")
     Observable<ResponseBody> subjectInfo(@Query("id") int id , @Query("type") int type ,@Query("key") String key);
 
     @GET("res/p/boards")
@@ -39,8 +39,6 @@ public interface HomeApi {
 
     @GET("res/v/playurl")
     Observable<ResponseBody> playUrl(@Query("action") String action ,@Query("av") String av);
-
-
 
     @GET("res/v/search/bangunmi")
     Observable<ResponseBody> searchBangumi(@Query("key") String key , @Query("page") String page);

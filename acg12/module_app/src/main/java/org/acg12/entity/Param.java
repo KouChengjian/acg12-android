@@ -11,14 +11,14 @@ public class Param implements Serializable{
 
 	@PrimaryKey(AssignType.AUTO_INCREMENT)
     @Column("_id")
-	protected long id;
+	protected long _id;
 
-	public long getId() {
-		return id;
+	public long get_Id() {
+		return _id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void set_Id(long id) {
+		this._id = _id;
 	}
 
 }
