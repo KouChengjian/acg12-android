@@ -2,7 +2,7 @@ package org.acg12.net.download;
 
 import android.content.Context;
 
-import org.acg12.dao.DaoBaseImpl;
+import org.acg12.cache.DaoBaseImpl;
 import org.acg12.entity.DownLoad;
 import com.acg12.lib.utils.LogUtil;
 

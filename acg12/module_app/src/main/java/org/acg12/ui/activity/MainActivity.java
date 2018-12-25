@@ -8,8 +8,10 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
+import org.acg12.conf.AppConfig;
 import org.acg12.conf.EventConfig;
-import org.acg12.dao.DaoBaseImpl;
+import org.acg12.constant.Constant;
+import org.acg12.cache.DaoBaseImpl;
 import org.acg12.entity.Update;
 import org.acg12.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
@@ -25,16 +27,16 @@ import org.acg12.widget.UpdateDialog;
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 
 import org.acg12.R;
-import org.acg12.conf.Config;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.MainView;
+import org.acg12.widget.dialog.debug.DebugBaseServerDialog;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends SkinBaseActivity<MainView> implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class MainActivity extends SkinBaseActivity<MainView> implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener ,View.OnLongClickListener{
 
     public static long firstTime;
 
@@ -67,16 +69,6 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //LogUtil.e(requestCode+"===="+resultCode);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void toggleDrawer(Boolean toggle) {
-        mView.toggleDrawer();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void updateUser(User user) {
-        mView.paddingDate(user);
     }
 
     @Override
@@ -129,6 +121,28 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
                 startAnimActivity(UserInfoActivity.class, bundle);
             }
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (v.getId() == R.id.iv_nav_avatar){
+            if(Constant.debug){
+                new DebugBaseServerDialog(this).show();
+                String baseURLInfo = String.format("服务器地址:[%s] VodType:[%s]", AppConfig.SERVER.baseURL, AppConfig.SERVER.imAppid);
+                ShowToast("当前地址为" + baseURLInfo);
+            }
+        }
+        return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void toggleDrawer(Boolean toggle) {
+        mView.toggleDrawer();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateUser(User user) {
+        mView.paddingDate(user);
     }
 
     public void pudateUser() {
@@ -198,8 +212,5 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
         EventConfig.get().getNavigationEvent().unregister(this);
 //        BaseConfig.ListVideoUtilInstance().releaseVideoPlayer();
         GSYVideoPlayer.releaseAllVideos();
-
     }
-
-
 }

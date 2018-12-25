@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import org.acg12.dao.DaoBaseImpl;
+import org.acg12.cache.DaoBaseImpl;
 import org.acg12.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;

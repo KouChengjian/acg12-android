@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.view.View;
 
 import org.acg12.conf.EventConfig;
-import org.acg12.dao.DaoBaseImpl;
+import org.acg12.cache.DaoBaseImpl;
 import org.acg12.entity.Update;
 import org.acg12.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
@@ -19,7 +19,6 @@ import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.widget.UpdateDialog;
 
 import org.acg12.R;
-import org.acg12.conf.Config;
 import org.acg12.constant.Constant;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.SettingView;

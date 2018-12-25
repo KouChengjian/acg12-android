@@ -6,13 +6,12 @@ import android.text.TextUtils;
 import android.view.View;
 
 import org.acg12.conf.EventConfig;
-import org.acg12.dao.DaoBaseImpl;
+import org.acg12.cache.DaoBaseImpl;
 import org.acg12.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;
 
 import org.acg12.R;
-import org.acg12.conf.Config;
 import org.acg12.net.impl.HttpRequestImpl;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.AlterPwdView;

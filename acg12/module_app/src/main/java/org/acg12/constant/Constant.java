@@ -29,4 +29,6 @@ public class Constant   {
     public static final int USER_PERMISSION_LOCATION = 303;
     public static final int USER_PERMISSION_VOICE = 304;
     public static final int USER_PERMISSION_CALL_PHONE = 305;
+    // xml保存字段
+    public static final String XML_KEY_URL_POSITION = "xml_key_url_position";
 }

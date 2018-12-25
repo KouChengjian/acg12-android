@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.acg12.dao.DaoBaseImpl;
+import org.acg12.cache.DaoBaseImpl;
 import org.acg12.entity.User;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
@@ -83,6 +83,7 @@ public class MainView extends ViewImpl {
     public void bindEvent() {
         super.bindEvent();
         PresenterHelper.click(mPresenter, iv_nav_avatar, tv_nav_nick, tv_nav_signature);
+        PresenterHelper.longClick(mPresenter ,iv_nav_avatar);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) mPresenter);
     }
 

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import org.acg12.dao.DaoBaseImpl;
+import org.acg12.cache.DaoBaseImpl;
 import org.acg12.entity.User;
 import com.acg12.lib.ui.base.IView;
 import com.acg12.lib.ui.activity.PresenterActivityImpl;

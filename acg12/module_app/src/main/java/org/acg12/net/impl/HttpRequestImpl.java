@@ -6,8 +6,8 @@ import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.net.RetrofitHttp;
 import com.acg12.lib.utils.JsonParse;
 
-import org.acg12.constant.Constant;
-import org.acg12.dao.DaoBaseImpl;
+import org.acg12.conf.AppConfig;
+import org.acg12.cache.DaoBaseImpl;
 import org.acg12.entity.Album;
 import org.acg12.entity.Calendar;
 import org.acg12.entity.Home;
@@ -61,7 +61,7 @@ public class HttpRequestImpl implements HttpRequest {
     public HttpRequestImpl(Context context) {
         instance = this;
         mContext = context;
-        mRetrofitHttp = new RetrofitHttp(mContext, Constant.URL);
+        mRetrofitHttp = new RetrofitHttp(mContext, AppConfig.SERVER.baseURL);
         mUserApi = mRetrofitHttp.createApi(UserApi.class);
         mSearchApi = mRetrofitHttp.createApi(SearchApi.class);
         mHomeApi = mRetrofitHttp.createApi(HomeApi.class);
@@ -114,7 +114,6 @@ public class HttpRequestImpl implements HttpRequest {
     @Override
     public Subscription login(final User user, final HttpRequestListener<User> httpRequestListener) {
         Subscription subscription = mUserApi.login(user.getUsername(), user.getPassword())
-//                .compose(RxLifecycle.bindUntilEvent(lifecycle(), ActivityEvent.DESTROY))//onDestory方法中取消请求
                 .subscribeOn(Schedulers.newThread()).observeOn(Schedulers.io()).doOnNext(new Action1<User>() {
                     @Override
                     public void call(User u) {

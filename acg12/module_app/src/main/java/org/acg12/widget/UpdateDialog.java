@@ -16,7 +16,7 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import org.acg12.R;
-import org.acg12.dao.DaoBaseImpl;
+import org.acg12.cache.DaoBaseImpl;
 import org.acg12.entity.Update;
 import org.acg12.net.download.DUtil;
 import org.acg12.net.download.DownLoadCallback;

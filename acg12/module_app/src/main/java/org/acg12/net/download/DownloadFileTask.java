@@ -9,7 +9,7 @@ import org.acg12.entity.DownLoad;
 import org.acg12.entity.Ranges;
 import com.acg12.lib.utils.IOUtils;
 
-import org.acg12.dao.DaoBaseImpl;
+import org.acg12.cache.DaoBaseImpl;
 
 import java.io.BufferedReader;
 import java.io.File;
