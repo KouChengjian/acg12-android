@@ -1,10 +1,10 @@
-package org.acg12.ui.activity;
+package com.acg12.ui.activity;
 
 import android.os.Bundle;
 import android.view.View;
 
-import org.acg12.ui.base.SkinBaseActivity;
-import org.acg12.ui.view.AboutView;
+import com.acg12.ui.base.SkinBaseActivity;
+import com.acg12.ui.view.AboutView;
 
 /**
  * Created by Administrator on 2017/5/10.

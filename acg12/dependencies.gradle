@@ -13,7 +13,7 @@ ext {
     androidCompileSdkVersion = 25
     androidBuildToolsVersion = "25.0.2"
     supportLibraryVersion = '25.3.1'
-    androidApplicationId = "org.acg12"
+    androidApplicationId = "com.acg12"
     androidMinSdkVersion = 19
     androidTargetSdkVersion = 23
 

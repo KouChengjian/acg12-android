@@ -1,8 +1,8 @@
-package org.acg12.ui.view;
+package com.acg12.ui.view;
 
 import com.acg12.lib.ui.base.ViewImpl;
 
-import org.acg12.R;
+import com.acg12.R;
 
 /**
  * Created by Administrator on 2017/5/26.

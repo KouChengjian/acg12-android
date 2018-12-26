@@ -26,7 +26,7 @@
             android:textColor="@color/text_666666"
             android:textSize="14sp" />
 
-        <org.acg12.widget.FlowLayout
+        <com.acg12.widget.FlowLayout
             android:id="@+id/history_flowlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
