@@ -58,6 +58,10 @@ public class HttpRequestImpl implements HttpRequest {
     private SearchApi mSearchApi;
     private HomeApi mHomeApi;
 
+    public static HttpRequest init(Context context){
+        return new HttpRequestImpl(context);
+    }
+
     public HttpRequestImpl(Context context) {
         instance = this;
         mContext = context;

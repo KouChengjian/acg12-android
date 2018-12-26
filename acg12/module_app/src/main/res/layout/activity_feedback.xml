@@ -27,8 +27,8 @@
             android:shadowDx="0.0"
             android:shadowDy="1.0"
             android:shadowRadius="1.0"
-            android:textColor="@color/title"
-            android:textColorHint="@color/title1" />
+            android:textColor="@color/text_333333"
+            android:textColorHint="@color/text_666666" />
     </LinearLayout>
 
 

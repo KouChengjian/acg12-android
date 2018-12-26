@@ -1,4 +1,4 @@
-package org.acg12.widget;
+package org.acg12.widget.dialog;
 
 
 import android.app.Notification;

@@ -23,7 +23,7 @@ import com.acg12.lib.utils.skin.AttrFactory;
 import com.acg12.lib.utils.skin.entity.DynamicAttr;
 
 import org.acg12.net.impl.HttpRequestImpl;
-import org.acg12.widget.UpdateDialog;
+import org.acg12.widget.dialog.UpdateDialog;
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 
 import org.acg12.R;

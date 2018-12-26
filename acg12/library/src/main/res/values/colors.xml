@@ -9,9 +9,9 @@
 
     <!-- 布局使用颜色 -->
     <color name="line">#f2f2f2</color>
-    <color name="title">#333333</color>
-    <color name="title1">#666666</color>
-    <color name="title2">#999999</color>
+    <color name="text_333333">#333333</color>
+    <color name="text_666666">#666666</color>
+    <color name="text_999999">#999999</color>
 
     <color name="transparent">#00000000</color>
     <color name="white">#ffffff</color>

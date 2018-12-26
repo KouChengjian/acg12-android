@@ -18,7 +18,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="作品信息"
-                android:textColor="@color/title"
+                android:textColor="@color/text_333333"
                 android:textSize="20sp" />
 
             <TextView
@@ -28,7 +28,7 @@
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="10dp"
                 android:text="xxxxxx"
-                android:textColor="@color/title2"
+                android:textColor="@color/text_999999"
                 android:textSize="16sp" />
 
             <TextView
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="简介"
-                android:textColor="@color/title"
+                android:textColor="@color/text_333333"
                 android:textSize="20sp" />
 
             <TextView
@@ -46,7 +46,7 @@
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="10dp"
                 android:text="xxxxx"
-                android:textColor="@color/title2"
+                android:textColor="@color/text_999999"
                 android:textSize="16sp" />
 
             <TextView
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="角色资料"
-                android:textColor="@color/title"
+                android:textColor="@color/text_333333"
                 android:textSize="20sp" />
 
             <TextView
@@ -64,7 +64,7 @@
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="10dp"
                 android:text="xxxxx"
-                android:textColor="@color/title2"
+                android:textColor="@color/text_999999"
                 android:textSize="16sp" />
 
             <TextView
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="参与人员"
-                android:textColor="@color/title"
+                android:textColor="@color/text_333333"
                 android:textSize="20sp" />
 
             <TextView
@@ -82,7 +82,7 @@
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="10dp"
                 android:text="xxxxx"
-                android:textColor="@color/title2"
+                android:textColor="@color/text_999999"
                 android:textSize="16sp" />
 
             <TextView
@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="曲目"
-                android:textColor="@color/title"
+                android:textColor="@color/text_333333"
                 android:textSize="20sp" />
 
             <TextView
@@ -100,7 +100,7 @@
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="10dp"
                 android:text="xxxxx"
-                android:textColor="@color/title2"
+                android:textColor="@color/text_999999"
                 android:textSize="16sp" />
 
             <TextView
@@ -108,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="单行本"
-                android:textColor="@color/title"
+                android:textColor="@color/text_333333"
                 android:textSize="20sp" />
 
             <TextView
@@ -118,7 +118,7 @@
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="10dp"
                 android:text="xxxxx"
-                android:textColor="@color/title2"
+                android:textColor="@color/text_999999"
                 android:textSize="16sp" />
         </LinearLayout>
 

@@ -1,7 +1,7 @@
 package org.acg12.constant;
 
 
-import com.acg12.lib.BuildConfig;
+import org.acg12.BuildConfig;
 
 /**
  * 2016-07-26 10:23

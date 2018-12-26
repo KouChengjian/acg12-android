@@ -16,13 +16,13 @@ import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 
 import org.acg12.net.impl.HttpRequestImpl;
-import org.acg12.widget.UpdateDialog;
+import org.acg12.widget.dialog.UpdateDialog;
 
 import org.acg12.R;
 import org.acg12.constant.Constant;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.SettingView;
-import org.acg12.widget.AlertDialogView;
+import org.acg12.widget.dialog.AlertDialogView;
 
 
 public class SettingActivity extends SkinBaseActivity<SettingView> implements View.OnClickListener {

@@ -21,7 +21,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="空空如也，暂无数据"
-        android:textColor="@color/title2"
+        android:textColor="@color/text_999999"
         android:textSize="16dp" />
 
 </LinearLayout>

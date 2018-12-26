@@ -14,7 +14,7 @@
             style="@style/Widget.MaterialSheetFab.ToolBar"
             android:background="@color/theme_primary"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:titleTextColor="@color/title">
+            app:titleTextColor="@color/text_333333">
 
             <TextView
                 android:id="@+id/common_title"
@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:textColor="@color/title"
+                android:textColor="@color/text_333333"
                 android:textSize="20sp"
                 android:textStyle="normal" />
         </android.support.v7.widget.Toolbar>
@@ -40,7 +40,7 @@
             app:tabIndicatorColor="@color/theme_body"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/theme_body"
-            app:tabTextColor="@color/title1" />
+            app:tabTextColor="@color/text_666666" />
 
     </android.support.design.widget.AppBarLayout>
 

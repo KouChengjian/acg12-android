@@ -23,7 +23,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:text="加载失败，请检查网络状态"
-        android:textColor="@color/title1"
+        android:textColor="@color/text_666666"
         android:textSize="16sp" />
 
 
@@ -35,12 +35,12 @@
         android:text="刷新"
         android:textSize="16sp"
         app:normalSolid="@color/white"
-        app:normalStrokeColor="@color/title2"
+        app:normalStrokeColor="@color/text_999999"
         app:normalStrokeWidth="1dp"
-        app:normalTextColor="@color/title2"
-        app:pressedStrokeColor="@color/title2"
+        app:normalTextColor="@color/text_999999"
+        app:pressedStrokeColor="@color/text_999999"
         app:pressedStrokeWidth="1dp"
-        app:pressedTextColor="@color/title2"
+        app:pressedTextColor="@color/text_999999"
         app:radii="20dp" />
 
 </LinearLayout>

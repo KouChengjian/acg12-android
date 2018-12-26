@@ -9,6 +9,7 @@ import com.acg12.lib.utils.PreferencesUtils;
 import com.acg12.lib.utils.Toastor;
 import com.acg12.lib.utils.skin.SkinManager;
 
+import org.acg12.conf.AppConfig;
 import org.acg12.conf.Config;
 import org.acg12.constant.Constant;
 import org.acg12.net.impl.HttpRequestImpl;
@@ -48,12 +49,12 @@ public class MyApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		// 初始化
-		CrashHandler.init(this);
 		Cache.init(this);
-		PreferencesUtils.init(this); // xml存储
 		Toastor.init(this);
-//        HttpRequestImpl.init(mContext); // http请求
-		new HttpRequestImpl(this); // http请求
+		AppConfig.init(this);
+		CrashHandler.init(this);
+		PreferencesUtils.init(this); // xml存储
+        HttpRequestImpl.init(this); // http请求
 		// 初始化皮肤
 		SkinManager.getInstance().init(this);
 		SkinManager.getInstance().load();

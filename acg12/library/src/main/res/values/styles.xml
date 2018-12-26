@@ -50,6 +50,15 @@
 
     <!--end-->
 
+    <style name="Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowSoftInputMode">stateHidden|adjustResize</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
    <!-- 对话框基类 -->
     <style name="BaseDialog" parent="@android:style/Theme.Dialog" />

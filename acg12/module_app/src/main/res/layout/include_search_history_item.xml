@@ -14,7 +14,7 @@
         android:paddingRight="15dp"
         android:paddingTop="5dp"
         android:text="Helloworld"
-        android:textColor="@color/title1"
+        android:textColor="@color/text_666666"
         android:textSize="12sp" />
 
     <ImageView

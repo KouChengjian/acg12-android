@@ -13,7 +13,7 @@ import com.acg12.lib.widget.recycle.IRecycleView;
 import org.acg12.constant.Constant;
 import org.acg12.ui.base.SkinBaseActivity;
 import org.acg12.ui.views.DownloadView;
-import org.acg12.widget.AlertDialogView;
+import org.acg12.widget.dialog.AlertDialogView;
 
 import java.util.List;
 

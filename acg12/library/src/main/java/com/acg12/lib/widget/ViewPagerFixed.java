@@ -1,4 +1,4 @@
-package org.acg12.widget;
+package com.acg12.lib.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
