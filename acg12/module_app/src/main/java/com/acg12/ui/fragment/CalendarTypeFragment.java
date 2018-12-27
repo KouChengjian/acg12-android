@@ -66,4 +66,9 @@ public class CalendarTypeFragment extends PresenterFragmentImpl<CalendarTypeView
         mView.bindData(mCalendar.getCalendarList(), true);
         mView.stopRefreshLoadMore(true);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

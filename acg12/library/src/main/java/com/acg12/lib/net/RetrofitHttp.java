@@ -68,7 +68,7 @@ public class RetrofitHttp {
         try {
             String result = response.string();
             JSONObject json = new JSONObject(result);
-            int code = json.getInt("code");
+            int code = Integer.valueOf(json.getString("code")).intValue();
             String desc = json.getString("msg");
             if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
                 data = json.getJSONObject("data");
@@ -87,7 +87,7 @@ public class RetrofitHttp {
         try {
             String result = response.string();
             JSONObject json = new JSONObject(result);
-            int code = json.getInt("code");
+            int code = Integer.valueOf(json.getString("code")).intValue();
             String desc = json.getString("msg");
             if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
                 data = json.getJSONArray("data");
@@ -106,7 +106,7 @@ public class RetrofitHttp {
         try {
             String result = response.string();
             JSONObject json = new JSONObject(result);
-            int code = json.getInt("code");
+            int code = Integer.valueOf(json.getString("code")).intValue();
             String desc = json.getString("msg");
             if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
                 data = new JSONObject(json.getString("data"));
@@ -125,7 +125,7 @@ public class RetrofitHttp {
         try {
             String result = response.string();
             JSONObject json = new JSONObject(result);
-            int code = json.getInt("code");
+            int code = Integer.valueOf(json.getString("code")).intValue();
             String desc = json.getString("msg");
             if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
                 data = new JSONArray(json.getString("data"));
