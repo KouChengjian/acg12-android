@@ -8,7 +8,7 @@
 
     <include layout="@layout/common_action_bar"/>
 
-    <org.acg12.widget.ViewPagerFixed
+    <com.acg12.lib.widget.ViewPagerFixed
         android:id="@+id/preAlbum_viewpage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

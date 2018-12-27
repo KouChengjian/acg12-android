@@ -4,7 +4,7 @@ android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
     buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
-    publishNonDefault true
+//    publishNonDefault true
 
     defaultConfig {
         defaultConfig {
@@ -23,8 +23,9 @@ android {
 }
 
 dependencies {
-    debugCompile project(path: ':lib_common', configuration: "debug")
-    releaseCompile project(path: ':lib_common', configuration: "release")
+//    debugCompile project(path: ':library', configuration: "debug")
+//    releaseCompile project(path: ':library', configuration: "release")
+    compile project(':library')
 
     compile 'com.github.ctiao:DanmakuFlameMaster:0.6.4'
     compile 'com.github.ctiao:ndkbitmap-armv7a:0.6.4'
@@ -35,6 +36,6 @@ dependencies {
     compile 'com.danikula:videocache:2.6.4'
 }
 
-repositories {
-    mavenCentral()
-}
+//repositories {
+//    mavenCentral()
+//}

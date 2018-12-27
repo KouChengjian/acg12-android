@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.acg12.lib.widget.CommonRecycleview
+        <com.acg12.lib.widget.recycle.CommonRecycleview
             android:id="@+id/commonRecycleview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -29,7 +29,7 @@
                 android:gravity="center|left"
                 android:paddingLeft="20dp"
                 android:text="xxxx"
-                android:textColor="@color/title1"
+                android:textColor="@color/text_666666"
                 android:textSize="16sp" />
         </RelativeLayout>
     </FrameLayout>

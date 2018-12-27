@@ -120,7 +120,7 @@
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:text="画板"
-            android:textColor="@color/title2"
+            android:textColor="@color/text_999999"
             android:textSize="12sp" />
     </LinearLayout>
 

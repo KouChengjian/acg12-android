@@ -1,4 +1,4 @@
-package org.acg12.ui.activity;
+package com.acg12.ui.activity;
 
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import org.acg12.R;
+import com.acg12.R;
 
 public class IndexActivity extends AppCompatActivity {
     @Override

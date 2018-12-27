@@ -1,13 +1,127 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="org.acg12.ui.fragment.SearchIntroFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+
+            <TextView
+                android:id="@+id/tv_subject_info_other_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="作品信息"
+                android:textColor="@color/text_333333"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_subject_info_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="10dp"
+                android:text="xxxxxx"
+                android:textColor="@color/text_999999"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_subject_info_into_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="简介"
+                android:textColor="@color/text_333333"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_subject_info_into"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="10dp"
+                android:text="xxxxx"
+                android:textColor="@color/text_999999"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_subject_info_crt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="角色资料"
+                android:textColor="@color/text_333333"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_subject_info_crt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="10dp"
+                android:text="xxxxx"
+                android:textColor="@color/text_999999"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_subject_info_staff_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="参与人员"
+                android:textColor="@color/text_333333"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_subject_info_staff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="10dp"
+                android:text="xxxxx"
+                android:textColor="@color/text_999999"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_subject_info_song_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="曲目"
+                android:textColor="@color/text_333333"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_subject_info_song"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="10dp"
+                android:text="xxxxx"
+                android:textColor="@color/text_999999"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_subject_info_offprint_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="单行本"
+                android:textColor="@color/text_333333"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_subject_info_offprint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="10dp"
+                android:text="xxxxx"
+                android:textColor="@color/text_999999"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>

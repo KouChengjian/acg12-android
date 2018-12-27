@@ -1,4 +1,4 @@
-package org.acg12;
+package com.acg12;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

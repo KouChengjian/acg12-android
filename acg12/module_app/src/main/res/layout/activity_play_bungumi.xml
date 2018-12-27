@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <org.acg12.widget.DanmakuVideoPlayer
+    <com.acg12.widget.DanmakuVideoPlayer
         android:id="@+id/danmaku_player"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

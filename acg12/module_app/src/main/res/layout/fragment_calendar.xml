@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.acg12.lib.widget.ToolBarView
+            android:id="@+id/toolBarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <!--app:layout_scrollFlags="scroll|enterAlways"-->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:visibility="gone"
+            app:tabIndicatorColor="@color/theme_body"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/theme_body"
+            app:tabTextColor="@color/text_666666" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:visibility="gone" />
+
+    <com.acg12.lib.widget.TipLayoutView
+        android:id="@+id/tipLayoutView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</android.support.design.widget.CoordinatorLayout>

@@ -4,7 +4,7 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <com.acg12.lib.widget.CommonRecycleview
+    <com.acg12.lib.widget.recycle.CommonRecycleview
         android:id="@+id/common_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

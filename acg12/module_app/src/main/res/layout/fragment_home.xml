@@ -63,7 +63,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="20dp"
                                 android:text="搜索你喜欢的..."
-                                android:textColor="@color/title2"
+                                android:textColor="@color/text_999999"
                                 android:textSize="20sp" />
 
                             <ImageView

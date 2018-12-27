@@ -59,7 +59,7 @@
                         android:drawableLeft="@mipmap/ic_collection"
                         android:gravity="center"
                         android:text="1"
-                        android:textColor="@color/title2"
+                        android:textColor="@color/text_999999"
                         android:textSize="14sp" />
                 </RelativeLayout>
 
@@ -78,7 +78,7 @@
                         android:gravity="center"
                         android:text="1"
                         android:drawablePadding="5dp"
-                        android:textColor="@color/title2"
+                        android:textColor="@color/text_999999"
                         android:textSize="14sp" />
                 </RelativeLayout>
 

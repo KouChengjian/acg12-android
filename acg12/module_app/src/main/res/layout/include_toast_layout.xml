@@ -29,7 +29,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="内容测试"
-            android:textColor="@color/title"
+            android:textColor="@color/text_333333"
             android:textSize="15sp" />
     </LinearLayout>
 

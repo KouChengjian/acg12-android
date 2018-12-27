@@ -68,7 +68,7 @@
                         android:layout_weight="1"
                         android:gravity="center|left"
                         android:paddingBottom="5dp"
-                        android:textColor="@color/title"
+                        android:textColor="@color/text_333333"
                         android:textSize="16sp" />
 
                     <ImageView
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:paddingBottom="5dp"
-                    android:textColor="@color/title1"
+                    android:textColor="@color/text_666666"
                     android:textSize="14sp" />
 
                 <TextView
@@ -119,7 +119,7 @@
                     android:gravity="center|left"
                     android:paddingBottom="5dp"
                     android:text="选集"
-                    android:textColor="@color/title"
+                    android:textColor="@color/text_333333"
                     android:textSize="16sp" />
 
                 <android.support.v7.widget.RecyclerView
@@ -137,7 +137,7 @@
                     android:layout_height="50dp"
                     android:gravity="center"
                     android:text="暂时没有数据哦 o(︶︿︶)o "
-                    android:textColor="@color/title1"
+                    android:textColor="@color/text_666666"
                     android:textSize="16sp"
                     android:visibility="gone" />
 
@@ -162,7 +162,7 @@
                     android:gravity="center|left"
                     android:paddingBottom="5dp"
                     android:text="相关视频"
-                    android:textColor="@color/title"
+                    android:textColor="@color/text_333333"
                     android:textSize="16sp" />
 
                 <android.support.v7.widget.RecyclerView
