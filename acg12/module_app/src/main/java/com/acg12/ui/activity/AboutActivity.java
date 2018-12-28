@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.acg12.ui.base.SkinBaseActivity;
-import com.acg12.ui.view.AboutView;
+import com.acg12.ui.views.AboutView;
 
 /**
  * Created by Administrator on 2017/5/10.

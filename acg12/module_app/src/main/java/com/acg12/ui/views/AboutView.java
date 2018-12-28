@@ -1,4 +1,4 @@
-package com.acg12.ui.view;
+package com.acg12.ui.views;
 
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;

@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -27,7 +28,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 public class RetrofitHttp {
 
-    private final int CONNECT_TIMEOUT = 10;
+    private final int CONNECT_TIMEOUT = 20;
     private final int READ_TIMEOUT = 10;
     private final int WRITE_TIMEOUT = 10;
 
@@ -151,9 +152,11 @@ public class RetrofitHttp {
         if (e instanceof ApiException) {
             failure(((ApiException) e).getMsg(), httpRequestListener);
         } else if (e instanceof HttpException) {
-            failure(e.getMessage(), httpRequestListener);
+            failure("网络超时", httpRequestListener);
         } else if (e instanceof ConnectException) {
-            failure(e.getMessage(), httpRequestListener);
+            failure("网络超时", httpRequestListener);
+        } else if (e instanceof SocketTimeoutException) {
+            failure("网络超时", httpRequestListener);
         } else {
             failure(e.toString(), httpRequestListener);
         }
