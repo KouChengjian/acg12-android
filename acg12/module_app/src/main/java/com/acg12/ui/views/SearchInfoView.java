@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.acg12.R;
 import com.acg12.entity.Subject;
 import com.acg12.lib.ui.adapter.CommonPagerAdapter;
 import com.acg12.lib.ui.base.PresenterHelper;
@@ -24,21 +25,13 @@ import com.acg12.lib.widget.TipLayoutView;
 import com.acg12.lib.widget.ToolBarView;
 import com.acg12.ui.fragment.SearchAlbumFragment;
 import com.acg12.ui.fragment.SearchAnimatFragment;
-import com.acg12.ui.fragment.SearchIntroFragment;
-import com.acg12.ui.fragment.SearchPaletteFragment;
-import com.acg12.ui.fragment.SearchVideoFragment;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-
-import com.acg12.R;
-import com.acg12.entity.Subject;
-import com.acg12.ui.fragment.SearchAlbumFragment;
-import com.acg12.ui.fragment.SearchAnimatFragment;
-import com.acg12.ui.fragment.SearchBangunFragment;
+import com.acg12.ui.fragment.SearchCaricatureFragment;
 import com.acg12.ui.fragment.SearchIntroFragment;
 import com.acg12.ui.fragment.SearchPaletteFragment;
 import com.acg12.ui.fragment.SearchVideoFragment;
 import com.acg12.utlis.BitmapBlurUtil;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import butterknife.BindView;
 
@@ -80,17 +73,17 @@ public class SearchInfoView extends ViewImpl {
     @BindView(R.id.search_viewpager)
     protected ViewPager mViewpager;
 
-
     private Fragment[] fragments;
     private String[] tabTitles;
     private CommonPagerAdapter commonPagerAdapter;
     private SearchIntroFragment searchIntroFragment;
     private SearchAlbumFragment searchAlbumFragment;
     private SearchPaletteFragment searchPaletteFragment;
+    private SearchCaricatureFragment searchCaricatureFragment;
     private SearchVideoFragment searchVideoFragment;
     private SearchAnimatFragment searchAnimatFragment;
 
-    Bitmap mBlurBitmap;
+    private Bitmap mBlurBitmap;
 
     @Override
     public int getLayoutId() {
@@ -106,7 +99,7 @@ public class SearchInfoView extends ViewImpl {
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);//设置收缩后Toolbar上字体的颜色
         mCollapsingToolbarLayout.setTitleEnabled(false);
 
-        tabTitles = new String[]{"简介", "插画", "画册", "动画", "漫画"};
+        tabTitles = new String[]{"简介", "插画", "画册", "漫画", "动画"};
     }
 
     @Override
@@ -124,11 +117,11 @@ public class SearchInfoView extends ViewImpl {
         toolbar.setTitle(subject.getName());
         tv_header_title.setText(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
         String url = subject.getImage();
-        if (!url.contains("http")){
-            url = "http:"+url;
+        if (!url.contains("http")) {
+            url = "http:" + url;
         }
-        ImageLoadUtils.glideLoading(getContext() ,url, iv_header_pic);
-        ImageLoadUtils.glideLoading(getContext() ,url, new SimpleTarget<Bitmap>() {
+        ImageLoadUtils.glideLoading(getContext(), url, iv_header_pic);
+        ImageLoadUtils.glideLoading(getContext(), url, new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 mBlurBitmap = BitmapBlurUtil.rsBlur(getContext(), resource, 24);
@@ -136,10 +129,10 @@ public class SearchInfoView extends ViewImpl {
             }
         });
 
-        if(type == 0){
+        if (type == 0) {
             tv_header_title_type.setText(String.format("（%s）", subject.getTypeStatus()));
             String author = (subject.getAuthor() == null || subject.getAuthor().isEmpty() || subject.getAuthor().equals("null")) ? "???" : subject.getAuthor();
-            tv_header_subtitle.setText("作者 "+ author);
+            tv_header_subtitle.setText("作者 " + author);
             tv_header_play_eps.setText(subject.getTypeEps());
             tv_header_play_time.setText(subject.getTypeTime());
         } else {
@@ -148,13 +141,22 @@ public class SearchInfoView extends ViewImpl {
             tv_header_play_eps.setText(subject.getAlias());
             tv_header_play_time.setText(subject.getOther());
         }
+        String name = subject.getNameCn();
+        if (name == null || name.isEmpty()) {
+            name = subject.getName();
+        }
+        String[] str = name.split(" ");
+        if (str.length > 2) {
+            name = str[0];
+        }
+
 
         searchIntroFragment = SearchIntroFragment.newInstance(title, subject);
-        searchAlbumFragment = SearchAlbumFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
-        searchPaletteFragment = SearchPaletteFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
-        searchVideoFragment = SearchVideoFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
-        searchAnimatFragment = SearchAnimatFragment.newInstance(subject.getNameCn().isEmpty() ? subject.getName() : subject.getNameCn());
-        fragments = new Fragment[]{searchIntroFragment, searchAlbumFragment, searchPaletteFragment, searchVideoFragment, searchAnimatFragment};
+        searchAlbumFragment = SearchAlbumFragment.newInstance(name);
+        searchPaletteFragment = SearchPaletteFragment.newInstance(name);
+        searchCaricatureFragment = SearchCaricatureFragment.newInstance(name);
+        searchVideoFragment = SearchVideoFragment.newInstance(name);
+        fragments = new Fragment[]{searchIntroFragment, searchAlbumFragment, searchPaletteFragment, searchCaricatureFragment, searchVideoFragment};
 
         commonPagerAdapter = new CommonPagerAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), fragments, tabTitles);
         mViewpager.setAdapter(commonPagerAdapter);

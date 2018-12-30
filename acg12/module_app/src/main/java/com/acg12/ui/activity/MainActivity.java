@@ -15,7 +15,6 @@ import com.acg12.cache.DaoBaseImpl;
 import com.acg12.entity.Update;
 import com.acg12.entity.User;
 
-import com.acg12.cache.DaoBaseImpl;
 import com.acg12.lib.listener.HttpRequestListener;
 
 import com.acg12.net.download.DownloadManger;
@@ -59,7 +58,7 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
         mDynamicAttr.add(new DynamicAttr(AttrFactory.NAVIGATIONVIEW, R.color.theme_primary));
         dynamicAddView(mView.getNavigationView(), mDynamicAttr);
 
-        pudateUser();
+        updateUser();
         updateApp();
     }
 
@@ -147,7 +146,7 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
         mView.paddingDate(user);
     }
 
-    public void pudateUser() {
+    public void updateUser() {
         User user = DaoBaseImpl.getInstance(mContext).getCurrentUser();
         if (user == null) return;
         HttpRequestImpl.getInstance().userInfo(user, new HttpRequestListener<User>() {
