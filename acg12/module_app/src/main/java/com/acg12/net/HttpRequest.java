@@ -2,6 +2,7 @@ package com.acg12.net;
 
 
 import com.acg12.entity.Calendar;
+import com.acg12.entity.CaricatureEntity;
 import com.acg12.entity.Subject;
 import com.acg12.entity.User;
 
@@ -81,7 +82,6 @@ public interface HttpRequest {
 
     Subscription playVideo(User user, String av, HttpRequestListener<Video> httpRequestListener);
 
-
     Subscription searchAlbum(User user, String key, String page, HttpRequestListener<List<Album>> httpRequestListener);
 
     Subscription searchPalette(User user, String key, String page, HttpRequestListener<List<Palette>> httpRequestListener);
@@ -94,15 +94,5 @@ public interface HttpRequest {
 
     Subscription searchSubjectList(User user, String key, HttpRequestListener<List<Search>> httpRequestListener);
 
-//    void updateToken(User user, HttpRequestListener<User> httpRequestListener);
-//
-//    Subscription login(User user, HttpRequestListener<User> httpRequestListener);
-//
-//    void register(User user, HttpRequestListener<User> httpRequestListener);
-//
-//    void verify(User user, HttpRequestListener<User> httpRequestListener);
-//
-//    void resetPwd(User user, HttpRequestListener<User> httpRequestListener);
-//
-//    void userinfo(User user, HttpRequestListener<User> httpRequestListener);
+    Subscription searchCaricatureList(String key, String page, HttpRequestListener<List<CaricatureEntity>> httpRequestListener);
 }

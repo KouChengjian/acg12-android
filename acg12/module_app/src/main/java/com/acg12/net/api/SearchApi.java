@@ -24,4 +24,8 @@ public interface SearchApi {
     @FormUrlEncoded
     @POST("api/app/search/paletteList.json")
     Observable<ResponseBody> searchPalette(@Field("key") String key , @Field("page") String page);
+
+    @FormUrlEncoded
+    @POST("api/app/search/caricatureList.json")
+    Observable<ResponseBody> searchCaricatureList(@Field("key") String key , @Field("page") String page);
 }

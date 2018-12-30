@@ -2,6 +2,8 @@ package com.acg12.lib.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -10,22 +12,32 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/12/11.
  */
-public abstract class CommonRecyclerAdapter extends RecyclerView.Adapter {
+public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     protected Context mContext;
-    protected List<Object> mList;
+    protected List<T> mList;
+    protected LayoutInflater mLayoutInflater;
 
     public CommonRecyclerAdapter(Context mContext) {
-        this(mContext, new ArrayList<Object>());
+        this(mContext, new ArrayList<T>());
     }
 
     public CommonRecyclerAdapter(Context mContext, List mList) {
         this.mContext = mContext;
         this.mList = mList;
+        mLayoutInflater = LayoutInflater.from(mContext);
     }
 
-    public void add(Object object) {
+    public void add(T object) {
         this.mList.add(object);
+    }
+
+    public void del(T object) {
+        this.mList.remove(object);
+    }
+
+    public void del(int index) {
+        this.mList.remove(index);
     }
 
     public void addAll(List mList) {
@@ -36,8 +48,12 @@ public abstract class CommonRecyclerAdapter extends RecyclerView.Adapter {
         this.mList = mList;
     }
 
-    public List getList() {
+    public List<T> getList() {
         return mList;
+    }
+
+    public View getItemView(int rid, ViewGroup parent) {
+        return mLayoutInflater.inflate(rid, parent, false);
     }
 
     @Override
