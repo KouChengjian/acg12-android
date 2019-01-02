@@ -7,9 +7,9 @@
         android:allowBackup="true"
         android:supportsRtl="true">
 
-        <meta-data
-            android:name="com.acg12.lib.utils.glide.GlideCache"
-            android:value="GlideModule" />
+        <!--<meta-data-->
+            <!--android:name="com.acg12.lib.utils.glide.GlideCache"-->
+            <!--android:value="GlideModule" />-->
 
     </application>
 

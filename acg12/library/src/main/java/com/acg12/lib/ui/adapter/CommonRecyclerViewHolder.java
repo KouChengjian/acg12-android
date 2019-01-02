@@ -13,26 +13,22 @@ import java.util.List;
  */
 public abstract class CommonRecyclerViewHolder extends RecyclerView.ViewHolder {
 
-    protected LayoutInflater mLayoutInflater;
-
     public CommonRecyclerViewHolder(View itemView) {
         super(itemView);
         initViews(itemView);
         initEvent();
     }
 
-    protected void initViews(View itemView) {}
+    protected void initViews(View itemView) {
+    }
 
-    protected void initEvent() {}
+    protected void initEvent() {
+    }
 
-//    public CommonRecyclerViewHolder(Context context, int rId, ViewGroup parent) {
-//        mLayoutInflater = LayoutInflater.from(context);
-//        this(getItemView(rId, parent));
-//    }
-//
-//    public View getItemView(int rid, ViewGroup parent) {
-//        return mLayoutInflater.inflate(rid, parent, false);
-//    }
+    public View getItemView(Context context, int rid, ViewGroup parent) {
+        LayoutInflater mLayoutInflater = LayoutInflater.from(context);
+        return mLayoutInflater.inflate(rid, parent, false);
+    }
 
     public void bindData(Context mContext, final List list, int position) {
     }

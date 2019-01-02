@@ -10,13 +10,16 @@ import android.widget.ImageView;
 
 import com.acg12.lib.R;
 import com.acg12.lib.utils.CacheUtils;
-import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.Headers;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -28,12 +31,15 @@ import java.util.Map;
  */
 public class ImageLoadUtils {
 
-    public static void init(Context mContext){
-//        new ImageLoadUtils(mContext);
+    private static RequestOptions mRequestOptions = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.bg_loading_pic).error(R.mipmap.bg_loading_pic);
+
+    private static RequestBuilder<Drawable> loadWithContext(Context mContext, String url) {
+        return Glide.with(mContext).load(getModel(url));
     }
 
-
-    /** --------------------    Glide    ------------------------ */
+    /**
+     * --------------------    Glide    ------------------------
+     */
     public static void glideLoading(Context mContext, String url, ImageView imageview) {
         if (mContext == null) return;
         glideLoading(mContext, url, imageview, R.mipmap.bg_loading_pic, R.mipmap.bg_loading_pic);
@@ -44,13 +50,11 @@ public class ImageLoadUtils {
     }
 
     public static void glideLoading(Context mContext, String url, ImageView imageview, int placeholderId, int errorId) {
-        if(mContext == null)
-            return;
-        Glide.with(mContext).load(getModel(url))
-                .placeholder(placeholderId)
-                .animate(R.anim.glide_loading_image_alpha_in)
-                .error(errorId)
-                .centerCrop()
+        if (mContext == null) return;
+        loadWithContext(mContext, url)
+                .apply(mRequestOptions)
+//                .animate(R.anim.glide_loading_image_alpha_in)
+//                .centerCrop()
                 .into(imageview);
     }
 
@@ -62,36 +66,34 @@ public class ImageLoadUtils {
             }
         };
         GlideUrl gliderUrl = new GlideUrl(url, headers);
-        Glide.with(mContext).load(gliderUrl)
-                .placeholder(R.mipmap.bg_loading_pic)
-                .animate(R.anim.glide_loading_image_alpha_in)
-                .error(R.mipmap.bg_loading_pic)
-                .into(imageview);
+        Glide.with(mContext).load(gliderUrl).apply(mRequestOptions).into(imageview);
     }
 
-    public static void glideLoading(Context mContext ,String url, GlideDrawableImageViewTarget glideDrawableImageViewTarget){
-        Glide.with(mContext).load(url)
-                .placeholder(R.mipmap.bg_loading_pic)
-                .animate(R.anim.glide_loading_image_alpha_in)
-                .error(R.mipmap.bg_loading_pic)
-                .into(glideDrawableImageViewTarget);
+    public static void glideLoading(Context mContext, String url, DrawableImageViewTarget drawableImageViewTarget) {
+        loadWithContext(mContext, url).apply(mRequestOptions).into(drawableImageViewTarget);
     }
 
-    public static void glideLoading(Context mContext, String url, Target target) {
-        Glide.with(mContext).load(url).asBitmap()
-                .placeholder(R.mipmap.bg_loading_pic)
-                .animate(R.anim.glide_loading_image_alpha_in)
-                .error(R.mipmap.bg_loading_pic)
+    public static void glideLoading(Context mContext, String url, SimpleTarget target) {
+        RequestOptions requestOptions = mRequestOptions
+                .clone()
+                .format(DecodeFormat.PREFER_ARGB_8888);
+        loadWithContext(mContext, url)
+                .apply(requestOptions)
                 .into(target);
     }
 
-    public static void glideCircleLoading(Context mContext,String url, ImageView imageview){
-        Glide.with(mContext).load(url)
-                .placeholder(R.mipmap.bg_avatar_default)
-                .animate(R.anim.glide_loading_image_alpha_in)
-                .error(R.mipmap.bg_avatar_default)
-                .transform(new GlideCircleTransform(mContext))
-                .into(imageview);
+    public static void glideCircleLoading(Context mContext, String url, ImageView imageview) {
+        RequestOptions requestOptions;
+//        if (placeholder != R.mipmap.bg_loading_pic || errorResId != R.drawable.bg_default_image) {
+//            requestOptions = new RequestOptions()
+//                    .placeholder(R.mipmap.bg_loading_pic)
+//                    .error(R.mipmap.bg_loading_pic);
+//        } else {
+//            requestOptions = mRequestOptions.clone();
+//        }
+        requestOptions = new RequestOptions().placeholder(R.mipmap.bg_loading_pic).error(R.mipmap.bg_loading_pic);
+        requestOptions.transform(new GlideCircleTransform());
+        loadWithContext(mContext , url).apply(mRequestOptions).into(imageview);
     }
 
     /**
@@ -134,8 +136,8 @@ public class ImageLoadUtils {
     public static void clearImageAllCache(Context context) {
         clearImageDiskCache(context);
         clearImageMemoryCache(context);
-        String ImageExternalCatchDir=context.getExternalCacheDir()+ ExternalCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR;
-        File storageDirectory = CacheUtils.getCacheDirectory(context , "/cache/image");
+        String ImageExternalCatchDir = context.getExternalCacheDir() + ExternalCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR;
+        File storageDirectory = CacheUtils.getCacheDirectory(context, "/cache/image");
 //        deleteFolderFile(storageDirectory.getPath(), true);
     }
 
@@ -144,7 +146,7 @@ public class ImageLoadUtils {
      */
     public static String getCacheSize(Context context) {
         try {
-            File storageDirectory = CacheUtils.getCacheDirectory(context , "/cache/image");
+            File storageDirectory = CacheUtils.getCacheDirectory(context, "/cache/image");
             return getFormatSize(getFolderSize(storageDirectory));
         } catch (Exception e) {
             e.printStackTrace();

@@ -46,4 +46,5 @@ dependencies {
     compile otherDependencies.eventbus
     compile otherDependencies.butterKnife
     compile otherDependencies.glide
+//    compile otherDependencies.glide_compiler
 }
