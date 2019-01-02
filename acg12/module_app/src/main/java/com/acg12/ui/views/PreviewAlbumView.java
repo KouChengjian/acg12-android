@@ -3,6 +3,7 @@ package com.acg12.ui.views;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
@@ -13,24 +14,18 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.acg12.entity.Album;
-import com.acg12.lib.ui.base.ViewImpl;
-import com.acg12.lib.ui.base.PresenterHelper;
-import com.acg12.lib.utils.ViewUtil;
-import com.acg12.lib.utils.glide.ImageLoadUtils;
-import com.acg12.ui.activity.PreviewAlbumActivity;
-import com.acg12.ui.activity.PreviewImageActivity;
-import com.acg12.widget.MyImageView;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-
 import com.acg12.R;
 import com.acg12.entity.Album;
+import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.ui.base.ViewImpl;
+import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.utils.glide.ImageLoadUtils;
+import com.acg12.lib.widget.ViewPagerFixed;
 import com.acg12.ui.activity.PreviewAlbumActivity;
 import com.acg12.ui.activity.PreviewImageActivity;
 import com.acg12.widget.MyImageView;
-import com.acg12.lib.widget.ViewPagerFixed;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,21 +148,23 @@ public class PreviewAlbumView extends ViewImpl {
         public void loaderImage(final Album album, final ProgressBar spinner, final ImageView dragPhotoView) {
             spinner.setVisibility(View.GONE);
             dragPhotoView.setVisibility(View.VISIBLE);
-            ImageLoadUtils.glideLoading(getContext(), album.getImageUrl(), new GlideDrawableImageViewTarget(dragPhotoView) {
+            ImageLoadUtils.glideLoading(getContext(), album.getImageUrl(), new DrawableImageViewTarget(dragPhotoView) {
 
                 @Override
-                public void onLoadStarted(Drawable placeholder) {
+                public void onLoadCleared(@Nullable Drawable placeholder) {
+                    super.onLoadCleared(placeholder);
                     spinner.setVisibility(View.VISIBLE);
                 }
 
                 @Override
-                public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                    super.onLoadFailed(errorDrawable);
                     spinner.setVisibility(View.GONE);
                 }
 
                 @Override
-                public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                    super.onResourceReady(resource, glideAnimation);
+                public void onResourceReady(Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                    super.onResourceReady(resource, transition);
                     spinner.setVisibility(View.GONE);
                     dragPhotoView.setVisibility(View.VISIBLE);
                 }
@@ -178,7 +175,7 @@ public class PreviewAlbumView extends ViewImpl {
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
                     bundle.putString("url", album.getImageUrl());
-                    ViewUtil.startAnimActivity(((Activity) getContext()), PreviewImageActivity.class, bundle,1000);
+                    ViewUtil.startAnimActivity(((Activity) getContext()), PreviewImageActivity.class, bundle, 1000);
                 }
             });
         }

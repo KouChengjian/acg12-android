@@ -30,8 +30,8 @@ import com.acg12.ui.fragment.SearchIntroFragment;
 import com.acg12.ui.fragment.SearchPaletteFragment;
 import com.acg12.ui.fragment.SearchVideoFragment;
 import com.acg12.utlis.BitmapBlurUtil;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import butterknife.BindView;
 
@@ -123,7 +123,7 @@ public class SearchInfoView extends ViewImpl {
         ImageLoadUtils.glideLoading(getContext(), url, iv_header_pic);
         ImageLoadUtils.glideLoading(getContext(), url, new SimpleTarget<Bitmap>() {
             @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
                 mBlurBitmap = BitmapBlurUtil.rsBlur(getContext(), resource, 24);
                 iv_header_bg.setImageBitmap(mBlurBitmap);
             }

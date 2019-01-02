@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.acg12.widget.caricature.TouchRecyclerView
+        android:id="@+id/touchRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <com.acg12.lib.widget.ToolBarView
+        android:id="@+id/toolBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_curr_pager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:alpha="0.5"
+        android:background="@color/text_333333"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <include layout="@layout/include_caricature_preview_bottom_menu"/>
+
+    <include layout="@layout/include_caricature_preview_left_menu"/>
+</FrameLayout>

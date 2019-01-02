@@ -12,6 +12,12 @@ android {
         targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
         versionCode globalConfiguration.getAt("androidVersionCode")
         versionName globalConfiguration.getAt("androidVersionName")
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
 
     buildTypes {
@@ -34,5 +40,5 @@ dependencies {
 
     def otherDependencies = rootProject.ext.otherDependencies
     annotationProcessor otherDependencies.butterKnife_apt
-
+    annotationProcessor otherDependencies.glide_compiler
 }

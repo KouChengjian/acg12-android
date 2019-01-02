@@ -1,25 +1,15 @@
 package com.acg12.ui.adapter.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.acg12.R;
+import com.acg12.entity.Calendar;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 import com.acg12.lib.widget.ScaleImageView;
-import com.bumptech.glide.request.Request;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.SizeReadyCallback;
-import com.bumptech.glide.request.target.Target;
-
-import com.acg12.R;
-import com.acg12.entity.Calendar;
-import com.acg12.entity.Video;
 
 /**
  * Created with Android Studio.
@@ -40,13 +30,13 @@ public class CalendarTypeViewHolder extends RecyclerView.ViewHolder {
         num = (TextView) itemView.findViewById(R.id.list_item_num);
     }
 
-    public void bindData(Context context , Calendar calendar) {
+    public void bindData(Context context, Calendar calendar) {
         icon.setImageWidth(250);
         icon.setImageHeight(350);
-        ViewUtil.setText(msg , calendar.getName());
-        ViewUtil.setText(num , calendar.getAir_date());
+        ViewUtil.setText(msg, calendar.getName());
+        ViewUtil.setText(num, calendar.getAir_date());
         String url = calendar.getImage();
-        ImageLoadUtils.glideLoading(context ,url, icon);
+        ImageLoadUtils.glideLoading(context, url, icon);
 //        if(url != null && !url.isEmpty()){
 //            ImageLoadUtils.glideLoading(context ,url, new SimpleTarget<Bitmap>(){
 //                @Override

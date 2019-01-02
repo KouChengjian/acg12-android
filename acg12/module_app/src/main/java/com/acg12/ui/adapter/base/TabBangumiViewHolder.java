@@ -11,12 +11,13 @@ import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 import com.acg12.lib.widget.ScaleImageView;
 import com.bumptech.glide.request.Request;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 
 import com.acg12.R;
 import com.acg12.entity.Video;
+import com.bumptech.glide.request.transition.Transition;
 
 /**
  * Created by DELL on 2016/12/24.
@@ -39,60 +40,15 @@ public class TabBangumiViewHolder extends RecyclerView.ViewHolder {
         icon.setImageHeight(350);
         String url = video.getPic();
         if(url != null && !url.isEmpty()){
-            ImageLoadUtils.glideLoading(context,url, new Target<Bitmap>(){
+            ImageLoadUtils.glideLoading(context,url, new SimpleTarget<Bitmap>(){
                 @Override
-                public void onStart() {
-
-                }
-
-                @Override
-                public void onStop() {
-
-                }
-
-                @Override
-                public void onDestroy() {
-
-                }
-
-                @Override
-                public void onLoadStarted(Drawable placeholder) {
-
-                }
-
-                @Override
-                public void onLoadFailed(Exception e, Drawable errorDrawable) {
-
-                }
-
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
                     if(resource.getHeight()> 350){
                         icon.setImageHeight(350);
                     }else{
                         icon.setImageHeight(resource.getHeight());
                     }
                     icon.setImageBitmap(resource);
-                }
-
-                @Override
-                public void onLoadCleared(Drawable placeholder) {
-
-                }
-
-                @Override
-                public void getSize(SizeReadyCallback cb) {
-
-                }
-
-                @Override
-                public void setRequest(Request request) {
-
-                }
-
-                @Override
-                public Request getRequest() {
-                    return null;
                 }
             });
         }

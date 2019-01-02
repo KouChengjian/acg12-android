@@ -5,8 +5,8 @@
     <style name="Animations" />
 
     <style name="Animations.GrowFromBottom">
-        <item name="@android:windowEnterAnimation">@anim/popup_grow_from_bottom</item>
-        <item name="@android:windowExitAnimation">@anim/popup_shrink_from_top</item>
+        <item name="android:windowEnterAnimation">@anim/popup_grow_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/popup_shrink_from_top</item>
     </style>
 
     <!-- search pop -->
@@ -26,4 +26,8 @@
         <item name="spb_interpolator">spb_interpolator_linear</item>
         <item name="spb_colors">@array/gplus_colors</item>
     </style>
+
+    <style name="Theme.MaterialSheetFab.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MaterialSheetFab.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
