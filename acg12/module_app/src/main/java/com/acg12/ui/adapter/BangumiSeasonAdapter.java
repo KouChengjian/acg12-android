@@ -7,11 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.acg12.entity.Video;
-import com.acg12.ui.adapter.base.BangumiSeasonViewHolder;
+import com.acg12.ui.adapter.view.BangumiSeasonViewHolder;
 
 import com.acg12.R;
-import com.acg12.entity.Video;
-import com.acg12.ui.adapter.base.BangumiSeasonViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

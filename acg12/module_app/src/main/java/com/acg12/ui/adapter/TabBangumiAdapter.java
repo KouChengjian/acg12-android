@@ -7,11 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.acg12.entity.Video;
-import com.acg12.ui.adapter.base.TabBangumiViewHolder;
+import com.acg12.ui.adapter.view.TabBangumiViewHolder;
 
 import com.acg12.R;
-import com.acg12.entity.Video;
-import com.acg12.ui.adapter.base.TabBangumiViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

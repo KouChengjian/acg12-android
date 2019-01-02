@@ -7,10 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.acg12.lib.ui.adapter.CommonRecyclerAdapter;
-import com.acg12.ui.adapter.base.NewestNewsViewHolder;
+import com.acg12.ui.adapter.view.NewestNewsViewHolder;
 
 import com.acg12.R;
-import com.acg12.ui.adapter.base.NewestNewsViewHolder;
 
 import java.util.List;
 

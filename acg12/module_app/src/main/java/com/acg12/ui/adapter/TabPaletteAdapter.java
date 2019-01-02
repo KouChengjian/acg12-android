@@ -6,11 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.acg12.ui.adapter.base.TabPaletteViewHolder;
+import com.acg12.ui.adapter.view.TabPaletteViewHolder;
 
 import com.acg12.R;
 import com.acg12.entity.Palette;
-import com.acg12.ui.adapter.base.TabPaletteViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

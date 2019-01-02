@@ -1,4 +1,4 @@
-package com.acg12.ui.adapter.base;
+package com.acg12.ui.adapter.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

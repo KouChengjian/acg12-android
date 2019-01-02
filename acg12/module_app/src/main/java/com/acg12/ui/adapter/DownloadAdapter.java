@@ -6,12 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.acg12.ui.adapter.base.DownloadViewHolder;
+import com.acg12.ui.adapter.view.DownloadViewHolder;
 
 import com.acg12.entity.DownLoad;
 
 import com.acg12.R;
-import com.acg12.ui.adapter.base.DownloadViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

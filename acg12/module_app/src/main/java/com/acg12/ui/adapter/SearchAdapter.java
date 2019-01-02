@@ -7,10 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.acg12.lib.ui.adapter.CommonRecyclerAdapter;
-import com.acg12.ui.adapter.base.SearchViewHolder;
+import com.acg12.ui.adapter.view.SearchViewHolder;
 
 import com.acg12.R;
-import com.acg12.ui.adapter.base.SearchViewHolder;
 
 import java.util.List;
 

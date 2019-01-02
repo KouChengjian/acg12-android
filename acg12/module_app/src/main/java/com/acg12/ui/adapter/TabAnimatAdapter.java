@@ -6,12 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.acg12.ui.adapter.base.TabAnimatViewHolder;
+import com.acg12.ui.adapter.view.TabAnimatViewHolder;
 import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 
 import com.acg12.R;
 import com.acg12.entity.Video;
-import com.acg12.ui.adapter.base.TabAnimatViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
