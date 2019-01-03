@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.acg12.R;
 import com.acg12.entity.CaricatureChaptersEntity;
 import com.acg12.lib.ui.adapter.CommonRecyclerViewHolder;
+import com.acg12.lib.utils.LogUtil;
+import com.acg12.ui.adapter.CaricatureChapterAdapter;
 
 import java.util.List;
 
@@ -20,17 +22,38 @@ import java.util.List;
 public class CaricatureChapterViewHolder extends CommonRecyclerViewHolder {
 
     TextView tv_name;
+    private CaricatureChapterAdapter.OnCaricatureChapterListener onCaricatureChapterListener;
 
     public CaricatureChapterViewHolder(View itemView) {
         super(itemView);
         tv_name = itemView.findViewById(R.id.tv_name);
     }
 
-    @Override
-    public void bindData(Context mContext, List list, int position) {
+    public void setOnCaricatureChapterListener(CaricatureChapterAdapter.OnCaricatureChapterListener onCaricatureChapterListener) {
+        this.onCaricatureChapterListener = onCaricatureChapterListener;
+    }
+
+    public void bindData(Context mContext, List list, final int position, int index, int lastPosition) {
         super.bindData(mContext, list, position);
-        CaricatureChaptersEntity chaptersEntity = (CaricatureChaptersEntity) list.get(position);
+        final CaricatureChaptersEntity chaptersEntity = (CaricatureChaptersEntity) list.get(position);
         tv_name.setText(chaptersEntity.getTitle());
+        if (index == chaptersEntity.getIndex()) {
+            lastPosition = position;
+            tv_name.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background));
+        } else if (lastPosition != -1 && lastPosition == position) {
+            tv_name.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background));
+        } else {
+            tv_name.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+        }
+
+        tv_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onCaricatureChapterListener != null){
+                    onCaricatureChapterListener.onClickChapter(chaptersEntity ,position);
+                }
+            }
+        });
     }
 
     /**

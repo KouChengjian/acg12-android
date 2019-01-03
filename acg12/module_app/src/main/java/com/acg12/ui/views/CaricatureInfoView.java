@@ -4,7 +4,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -18,6 +17,7 @@ import com.acg12.entity.CaricatureChaptersPageEntity;
 import com.acg12.entity.CaricatureEntity;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.ui.base.ViewImpl;
+import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.PreferencesUtils;
 import com.acg12.lib.utils.ScreenUtils;
 import com.acg12.lib.utils.ViewUtil;
@@ -124,22 +124,27 @@ public class CaricatureInfoView extends ViewImpl {
                 if (newState == SCROLL_STATE_IDLE) {
                     //更新当前对象在更新信息
                     updateCurrIndex(updateCurrObject(recyclerView));
+                    if (isVisBottom(touchRecyclerView)) {
+                        LogUtil.e("=====================");
+                    }
                 }
             }
         });
     }
 
-
     public void bindCaricatureData(CaricatureEntity caricatureEntity) {
         toolBarView.setNavigationOrBreak(caricatureEntity.getTitle());
         mCaricatureChapterAdapter = new CaricatureChapterAdapter(getContext());
+//        mCaricatureChapterAdapter.setIndex();
         mCaricatureChapterAdapter.setList(caricatureEntity.getChaptersList());
+        mCaricatureChapterAdapter.setOnCaricatureChapterListener((CaricatureChapterAdapter.OnCaricatureChapterListener) mPresenter);
         rvLeftList.setLayoutManager(new LinearLayoutManager(getContext()));
         rvLeftList.setAdapter(mCaricatureChapterAdapter);
     }
 
-    public void bindChaptersData(CaricatureChaptersEntity chaptersEntity, boolean refresh) {
-        mCaricatureChaptersEntity= chaptersEntity;
+    public void bindChaptersData(CaricatureChaptersEntity chaptersEntity, int index,boolean refresh) {
+        mCaricatureChaptersEntity = chaptersEntity;
+        mCaricatureChapterAdapter.updatePosition(index);
         List<CaricatureChaptersPageEntity> pages = chaptersEntity.getPags();
         mCaricatureInfoAdapter.setComicPreView(chaptersEntity);
         if (refresh) {
@@ -151,9 +156,7 @@ public class CaricatureInfoView extends ViewImpl {
             updateCurrIndex(0);
         } else {
             mCaricatureInfoAdapter.addAll(pages);
-            mCaricatureInfoAdapter.notifyItemRangeChanged(mCaricatureInfoAdapter.getList().size() - pages.size() , mCaricatureInfoAdapter.getList().size());
-
-            mCaricatureChapterAdapter.updatePosition(nextPosition, index);
+            mCaricatureInfoAdapter.notifyItemRangeChanged(mCaricatureInfoAdapter.getList().size() - pages.size(), mCaricatureInfoAdapter.getList().size());
         }
         updateCurrObject(touchRecyclerView);
     }
@@ -163,6 +166,10 @@ public class CaricatureInfoView extends ViewImpl {
             if (mBottomLinearLayout.getTranslationY() == 0) switchLeftMenu();
             else switchBAndTMenu();
         }
+    }
+
+    public void resetTouchRecyclerView() {
+        touchRecyclerView.scrollToPosition(0);
     }
 
     /**
@@ -193,7 +200,7 @@ public class CaricatureInfoView extends ViewImpl {
      *
      * @return 是否
      */
-    private boolean returnAllStatus() {
+    public boolean returnAllStatus() {
         boolean isReturn = false;
         if (mLeftLinearLayout.getTranslationX() == 0 && mLeftLinearLayout.getVisibility() == View.VISIBLE) {
             ViewCompat.animate(mLeftLinearLayout).translationX(-mLeftLinearLayout.getWidth()).setDuration(300);
@@ -268,9 +275,25 @@ public class CaricatureInfoView extends ViewImpl {
         CaricatureChaptersPageEntity item = mCaricatureInfoAdapter.getObject(firstVisibleItemPosition);
         if (item != null) {
             CaricatureChaptersEntity comicPreViewByIndex = mCaricatureInfoAdapter.getComicPreViewByIndex(item.getIndex());
-            if (comicPreViewByIndex != null)
-                mCaricatureChaptersEntity = comicPreViewByIndex;
+            if (comicPreViewByIndex != null) mCaricatureChaptersEntity = comicPreViewByIndex;
         }
         return firstVisibleItemPosition;
+    }
+
+    public static boolean isVisBottom(RecyclerView recyclerView) {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        //屏幕中最后一个可见子项的position
+        int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+        //当前屏幕所看到的子项个数
+        int visibleItemCount = layoutManager.getChildCount();
+        //当前RecyclerView的所有子项个数
+        int totalItemCount = layoutManager.getItemCount();
+        //RecyclerView的滑动状态
+        int state = recyclerView.getScrollState();
+        if (visibleItemCount > 0 && lastVisibleItemPosition == totalItemCount - 1 && state == recyclerView.SCROLL_STATE_IDLE) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

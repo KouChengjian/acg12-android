@@ -11,11 +11,12 @@ import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.ScreenUtils;
 import com.acg12.net.impl.HttpRequestImpl;
+import com.acg12.ui.adapter.CaricatureChapterAdapter;
 import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.CaricatureInfoView;
 import com.acg12.widget.caricature.TouchRecyclerView;
 
-public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView> implements TouchRecyclerView.ITouchCallBack {
+public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView> implements TouchRecyclerView.ITouchCallBack, CaricatureChapterAdapter.OnCaricatureChapterListener {
 
     private int id;
     private int type;
@@ -43,6 +44,13 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
     @Override
     public void click() {
         mView.clickResetMenu();
+    }
+
+    @Override
+    public void onClickChapter(CaricatureChaptersEntity chaptersEntity, int position) {
+        mView.returnAllStatus();
+        mView.resetTouchRecyclerView();
+        requestChapters(id, chaptersEntity.getIndex(), type);
     }
 
     @Override
@@ -75,11 +83,11 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
         });
     }
 
-    private void requestChapters(int id, int index, int type) {
+    private void requestChapters(int id, final int index, int type) {
         HttpRequestImpl.getInstance().caricatureChaptersPage(id, index, type, new HttpRequestListener<CaricatureChaptersEntity>() {
             @Override
             public void onSuccess(CaricatureChaptersEntity result) {
-                mView.bindChaptersData(result , true);
+                mView.bindChaptersData(result, index, true);
             }
 
             @Override
@@ -91,9 +99,12 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
     }
 
     @Override
+    public void onBackPressed() {
+        if (!mView.returnAllStatus()) super.onBackPressed();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
     }
-
-
 }

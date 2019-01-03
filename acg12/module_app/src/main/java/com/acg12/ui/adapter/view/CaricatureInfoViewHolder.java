@@ -65,7 +65,12 @@ public class CaricatureInfoViewHolder extends CommonRecyclerViewHolder {
         super.bindData(mContext, list, position);
         CaricatureChaptersPageEntity chaptersPage = (CaricatureChaptersPageEntity) list.get(position);
         if (chaptersPage.getIndex() == -1) chaptersPage.setIndex(chaptersEntity.getIndex());
-        GlideRequest<Bitmap> transition = GlideApp.with(mContext).asBitmap().override(tagWidth, tagHeight).load(chaptersPage.getUrl()).placeholder(new ColorDrawable(Color.BLACK)).diskCacheStrategy(DiskCacheStrategy.ALL);
+        GlideRequest<Bitmap> transition = GlideApp.with(mContext)
+                .asBitmap()
+                .override(tagWidth, tagHeight)
+                .load(chaptersPage.getUrl())
+                .placeholder(new ColorDrawable(Color.BLACK))
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
         if (module == 0) {
             RequestListener<Bitmap> requestListener = new RequestListener<Bitmap>() {
                 @Override

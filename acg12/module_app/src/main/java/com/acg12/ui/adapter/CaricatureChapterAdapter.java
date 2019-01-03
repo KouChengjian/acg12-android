@@ -18,6 +18,8 @@ import com.acg12.ui.adapter.view.CaricatureChapterViewHolder;
 public class CaricatureChapterAdapter extends CommonRecyclerAdapter<CaricatureChaptersEntity> {
 
     private int index;
+    private int lastPosition = -1;
+    private OnCaricatureChapterListener onCaricatureChapterListener;
 
     public CaricatureChapterAdapter(Context mContext) {
         super(mContext);
@@ -27,6 +29,14 @@ public class CaricatureChapterAdapter extends CommonRecyclerAdapter<CaricatureCh
         this.index = index;
     }
 
+    public int getLastPosition() {
+        return lastPosition;
+    }
+
+    public void setOnCaricatureChapterListener(OnCaricatureChapterListener onCaricatureChapterListener) {
+        this.onCaricatureChapterListener = onCaricatureChapterListener;
+    }
+
     @Override
     public RecyclerView.ViewHolder createView(ViewGroup parent, int viewType) {
         return new CaricatureChapterViewHolder(getItemView(R.layout.item_caricature_chapter, parent));
@@ -34,16 +44,21 @@ public class CaricatureChapterAdapter extends CommonRecyclerAdapter<CaricatureCh
 
     @Override
     public void bindView(RecyclerView.ViewHolder holder, int position) {
-        ((CaricatureChapterViewHolder) holder).bindData(mContext, getList(), position);
+        ((CaricatureChapterViewHolder) holder).setOnCaricatureChapterListener(onCaricatureChapterListener);
+        ((CaricatureChapterViewHolder) holder).bindData(mContext, getList(), position, index, lastPosition);
     }
 
     /**
      * 更新单选
      *
-     * @param currPosition 当前位置
      * @param index        位置索引
      */
-    public void updatePosition(int currPosition, int index) {
+    public void updatePosition(int index) {
+        this.index = index;
+        notifyDataSetChanged();
     }
 
+    public interface OnCaricatureChapterListener {
+        void onClickChapter(CaricatureChaptersEntity chaptersEntity, int position);
+    }
 }
