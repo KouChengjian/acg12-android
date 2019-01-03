@@ -8,14 +8,13 @@ import android.view.View;
 
 import com.acg12.constant.Constant;
 import com.acg12.entity.CaricatureEntity;
-import com.acg12.entity.Palette;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.ui.fragment.PresenterFragmentImpl;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.net.impl.HttpRequestImpl;
-import com.acg12.ui.activity.PreviewPaletteActivity;
+import com.acg12.ui.activity.CaricatureInfoActivity;
 import com.acg12.ui.views.SearchCaricatureView;
 
 import java.util.List;
@@ -26,8 +25,7 @@ import java.util.List;
  * Date: 2018/12/28 10:49
  * Description:
  */
-public class SearchCaricatureFragment extends PresenterFragmentImpl<SearchCaricatureView> implements IRecycleView.LoadingListener,
-        SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener ,CommonRecycleview.IRecycleUpdataListener{
+public class SearchCaricatureFragment extends PresenterFragmentImpl<SearchCaricatureView> implements IRecycleView.LoadingListener, SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener {
 
     private String title = "";
     private int page = 1;
@@ -50,9 +48,11 @@ public class SearchCaricatureFragment extends PresenterFragmentImpl<SearchCarica
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("palette", mView.getPalette(position));
-//        startAnimActivity(PreviewPaletteActivity.class, bundle);
+        CaricatureEntity caricatureEntity = mView.getObject(position);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", caricatureEntity.getComicId());
+        bundle.putInt("type", caricatureEntity.getType());
+        startAnimActivity(CaricatureInfoActivity.class, bundle);
     }
 
     @Override

@@ -40,5 +40,4 @@ dependencies {
 
     def otherDependencies = rootProject.ext.otherDependencies
     annotationProcessor otherDependencies.butterKnife_apt
-    annotationProcessor otherDependencies.glide_compiler
 }

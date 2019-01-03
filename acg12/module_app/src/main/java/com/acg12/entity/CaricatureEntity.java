@@ -1,5 +1,8 @@
 package com.acg12.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with Android Studio.
  * User: mayn
@@ -12,6 +15,8 @@ public class CaricatureEntity {
     private int type; // 1:酷克
     private String cover;
     private String title;
+    private List<CaricatureChaptersEntity> chaptersList = new ArrayList<>();
+
 
     public int getComicId() {
         return comicId;
@@ -43,5 +48,13 @@ public class CaricatureEntity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<CaricatureChaptersEntity> getChaptersList() {
+        return chaptersList;
+    }
+
+    public void setChaptersList(List<CaricatureChaptersEntity> chaptersList) {
+        this.chaptersList = chaptersList;
     }
 }

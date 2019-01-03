@@ -46,8 +46,9 @@ dependencies {
     compile otherDependencies.eventbus
     compile otherDependencies.butterKnife
     compile otherDependencies.glide
-    implementation(otherDependencies.glide_recyclerview) {
+    compile(otherDependencies.glide_recyclerview) {
         // Excludes the support library because it's already included by Glide.
         transitive = false
     }
+    annotationProcessor otherDependencies.glide_compiler
 }

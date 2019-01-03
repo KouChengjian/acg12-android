@@ -6,6 +6,8 @@ import com.acg12.cache.DaoBaseImpl;
 import com.acg12.conf.AppConfig;
 import com.acg12.entity.Album;
 import com.acg12.entity.Calendar;
+import com.acg12.entity.CaricatureChaptersEntity;
+import com.acg12.entity.CaricatureChaptersPageEntity;
 import com.acg12.entity.CaricatureEntity;
 import com.acg12.entity.Home;
 import com.acg12.entity.News;
@@ -28,6 +30,7 @@ import com.acg12.net.api.HomeApi;
 import com.acg12.net.api.SearchApi;
 import com.acg12.net.api.UserApi;
 import com.acg12.utlis.URLEncoderUtil;
+import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -842,6 +845,60 @@ public class HttpRequestImpl implements HttpRequest {
     @Override
     public Subscription playVideo(User user, String av, HttpRequestListener<Video> httpRequestListener) {
         return null;
+    }
+
+    @Override
+    public Subscription caricatureChapters(final int id, final int type, final HttpRequestListener<CaricatureEntity> httpRequestListener) {
+        return isUpdataToken().flatMap(new Func1<User, Observable<ResponseBody>>() {
+            @Override
+            public Observable<ResponseBody> call(User responseBody) {
+                return mHomeApi.caricatureChapters(id, type);
+            }
+        }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
+            @Override
+            public void call(ResponseBody response) {
+                JSONObject data = RetrofitHttp.parseJSONObjectString(response);
+                if (data != null) {
+                    CaricatureEntity caricatureEntity = JsonParse.fromJson(data.toString(), CaricatureEntity.class);
+                    JSONArray jsonArray = JsonParse.getJSONArray(data, "chaptersList");
+                    List<CaricatureChaptersEntity> chaptersList = JsonParse.fromListJson(jsonArray.toString(), CaricatureChaptersEntity.class);
+                    caricatureEntity.setChaptersList(chaptersList);
+                    RetrofitHttp.success(caricatureEntity, httpRequestListener);
+                }
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                RetrofitHttp.failure(throwable, httpRequestListener);
+            }
+        });
+    }
+
+    @Override
+    public Subscription caricatureChaptersPage(final int id, final int index, final int type,final HttpRequestListener<CaricatureChaptersEntity> httpRequestListener) {
+        return isUpdataToken().flatMap(new Func1<User, Observable<ResponseBody>>() {
+            @Override
+            public Observable<ResponseBody> call(User responseBody) {
+                return mHomeApi.caricatureChaptersPage(id, index ,type);
+            }
+        }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
+            @Override
+            public void call(ResponseBody response) {
+                JSONObject data = RetrofitHttp.parseJSONObjectString(response);
+                if (data != null) {
+                    CaricatureChaptersEntity caricatureEntity = JsonParse.fromJson(data.toString(), CaricatureChaptersEntity.class);
+                    JSONArray jsonArray = JsonParse.getJSONArray(data, "pags");
+                    List<CaricatureChaptersPageEntity> chaptersList = JsonParse.fromListJson(jsonArray.toString(), CaricatureChaptersPageEntity.class);
+                    caricatureEntity.setPags(chaptersList);
+                    RetrofitHttp.success(caricatureEntity, httpRequestListener);
+                }
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                RetrofitHttp.failure(throwable, httpRequestListener);
+            }
+        });
     }
 
     @Override

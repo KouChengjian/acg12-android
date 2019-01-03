@@ -11,6 +11,7 @@ import android.view.View;
 import com.acg12.cache.DaoBaseImpl;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;
+import com.acg12.ui.activity.CaricatureInfoActivity;
 import com.acg12.ui.activity.DownloadActivity;
 import com.acg12.ui.activity.NewestIllustrationActivity;
 import com.acg12.ui.activity.NewestNewsActivity;
@@ -59,7 +60,11 @@ public class HomeFragment extends SkinBaseFragment<HomeView> implements Toolbar.
         } else if(v.getId() == R.id.btn_newest_news){
             startAnimActivity(NewestNewsActivity.class);
         } else if(v.getId() == R.id.btn_newest_illustration){
-            startAnimActivity(NewestIllustrationActivity.class);
+//            startAnimActivity(NewestIllustrationActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", 18657);
+            bundle.putInt("type", 0);
+            startAnimActivity(CaricatureInfoActivity.class, bundle);
         }
     }
 

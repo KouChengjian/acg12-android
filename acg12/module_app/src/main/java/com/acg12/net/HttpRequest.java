@@ -1,13 +1,10 @@
 package com.acg12.net;
 
 
-import com.acg12.entity.Calendar;
-import com.acg12.entity.CaricatureEntity;
-import com.acg12.entity.Subject;
-import com.acg12.entity.User;
-
 import com.acg12.entity.Album;
 import com.acg12.entity.Calendar;
+import com.acg12.entity.CaricatureChaptersEntity;
+import com.acg12.entity.CaricatureEntity;
 import com.acg12.entity.Home;
 import com.acg12.entity.News;
 import com.acg12.entity.Palette;
@@ -18,17 +15,8 @@ import com.acg12.entity.User;
 import com.acg12.entity.Video;
 import com.acg12.lib.listener.HttpRequestListener;
 
-import com.acg12.entity.Album;
-import com.acg12.entity.Home;
-import com.acg12.entity.News;
-import com.acg12.entity.Palette;
-import com.acg12.entity.Search;
-import com.acg12.entity.Update;
-import com.acg12.entity.Video;
-
 import java.util.List;
 
-import retrofit2.http.Query;
 import rx.Subscription;
 
 public interface HttpRequest {
@@ -57,7 +45,9 @@ public interface HttpRequest {
 
     Subscription updateApp(User user, int versionCode, HttpRequestListener<Update> httpRequestListener);
 
-    /**------------------------------------------------首页-----------------------------------------------------------*/
+    /**
+     * ------------------------------------------------首页-----------------------------------------------------------
+     */
     Subscription index(User user, HttpRequestListener<Home> httpRequestListener);
 
     Subscription newsList(User user, String page, HttpRequestListener<List<News>> httpRequestListener);
@@ -82,6 +72,13 @@ public interface HttpRequest {
 
     Subscription playVideo(User user, String av, HttpRequestListener<Video> httpRequestListener);
 
+    Subscription caricatureChapters(int id, int type, HttpRequestListener<CaricatureEntity> httpRequestListener);
+
+    Subscription caricatureChaptersPage(int id, int index, int type, HttpRequestListener<CaricatureChaptersEntity> httpRequestListener);
+
+    /**
+     * ------------------------------------------------搜索-----------------------------------------------------------
+     */
     Subscription searchAlbum(User user, String key, String page, HttpRequestListener<List<Album>> httpRequestListener);
 
     Subscription searchPalette(User user, String key, String page, HttpRequestListener<List<Palette>> httpRequestListener);

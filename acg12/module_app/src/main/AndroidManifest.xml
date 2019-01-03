@@ -125,8 +125,8 @@
 
         <activity
             android:name=".ui.activity.CaricatureInfoActivity"
-            android:label="@string/title_activity_caricature_info"
-            android:theme="@style/Theme.MaterialSheetFab"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" ></activity>
     </application>
 
 </manifest>

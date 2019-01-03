@@ -52,6 +52,10 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter {
         return mList;
     }
 
+    public T getObject(int position){
+        return getList().get(position);
+    }
+
     public View getItemView(int rid, ViewGroup parent) {
         return mLayoutInflater.inflate(rid, parent, false);
     }
