@@ -191,7 +191,8 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
     }
 
     public void notifyChanged(int positionStart, int itemCount) {
-        adapter.notifyItemChanged(positionStart, itemCount);
+        adapter.notifyItemRangeChanged(positionStart, itemCount);
+//        adapter.notifyDataSetChanged();
         loadingNull();
     }
 

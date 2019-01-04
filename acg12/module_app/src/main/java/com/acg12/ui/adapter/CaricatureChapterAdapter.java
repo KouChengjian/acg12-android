@@ -18,7 +18,6 @@ import com.acg12.ui.adapter.view.CaricatureChapterViewHolder;
 public class CaricatureChapterAdapter extends CommonRecyclerAdapter<CaricatureChaptersEntity> {
 
     private int index;
-    private int lastPosition = -1;
     private OnCaricatureChapterListener onCaricatureChapterListener;
 
     public CaricatureChapterAdapter(Context mContext) {
@@ -30,7 +29,13 @@ public class CaricatureChapterAdapter extends CommonRecyclerAdapter<CaricatureCh
     }
 
     public int getLastPosition() {
-        return lastPosition;
+        for (int i = 0 ,total = getList().size(); i < total ; i++ ){
+            CaricatureChaptersEntity item = getList().get(i);
+            if(item.getIndex() == index){
+                return i;
+            }
+        }
+        return 0;
     }
 
     public void setOnCaricatureChapterListener(OnCaricatureChapterListener onCaricatureChapterListener) {
@@ -45,7 +50,7 @@ public class CaricatureChapterAdapter extends CommonRecyclerAdapter<CaricatureCh
     @Override
     public void bindView(RecyclerView.ViewHolder holder, int position) {
         ((CaricatureChapterViewHolder) holder).setOnCaricatureChapterListener(onCaricatureChapterListener);
-        ((CaricatureChapterViewHolder) holder).bindData(mContext, getList(), position, index, lastPosition);
+        ((CaricatureChapterViewHolder) holder).bindData(mContext, getList(), position, index);
     }
 
     /**

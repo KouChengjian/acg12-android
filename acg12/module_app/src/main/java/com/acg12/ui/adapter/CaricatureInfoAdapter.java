@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-import com.acg12.R;
 import com.acg12.constant.Constant;
 import com.acg12.entity.CaricatureChaptersEntity;
 import com.acg12.entity.CaricatureChaptersPageEntity;
@@ -38,16 +37,11 @@ public class CaricatureInfoAdapter extends CommonRecyclerAdapter<CaricatureChapt
 
     private int layoutRes;
     private int screenWidth;
-    //预览模式
-    private int module;
-    //加载图片的宽度
-    private int tagWidth;
-    //加载图片的高度
-    private int tagHeight;
-    //记录每一个集数的对象
-    private final SparseArray<CaricatureChaptersEntity> mComicPreViewSparseArray = new SparseArray<>();
-    //预加载的ViewPreLoad
-    private ViewPreloadSizeProvider<CaricatureChaptersPageEntity> preloadSizeProvider;
+    private int module;//预览模式
+    private int tagWidth;//加载图片的宽度
+    private int tagHeight;//加载图片的高度
+    private final SparseArray<CaricatureChaptersEntity> mComicPreViewSparseArray = new SparseArray<>(); //记录每一个集数的对象
+    private ViewPreloadSizeProvider<CaricatureChaptersPageEntity> preloadSizeProvider; //预加载的ViewPreLoad
     private CaricatureChaptersEntity chaptersEntity;
 
     public CaricatureInfoAdapter(Context mContext, int layoutRes, ViewPreloadSizeProvider preloadSizeProvider) {
@@ -74,7 +68,7 @@ public class CaricatureInfoAdapter extends CommonRecyclerAdapter<CaricatureChapt
 
     @Override
     public RecyclerView.ViewHolder createView(ViewGroup parent, int viewType) {
-        return new CaricatureInfoViewHolder(getItemView(R.layout.item_caricature_vertical, parent));
+        return new CaricatureInfoViewHolder(getItemView(layoutRes, parent));
     }
 
     @Override
@@ -88,8 +82,7 @@ public class CaricatureInfoAdapter extends CommonRecyclerAdapter<CaricatureChapt
     @Override
     public List<CaricatureChaptersPageEntity> getPreloadItems(int position) {
         try {
-            if (ListUtils.isEmpty(getList()))
-                return Collections.emptyList();
+            if (ListUtils.isEmpty(getList())) return Collections.emptyList();
             return getList().subList(position, position + 1);
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,11 +93,6 @@ public class CaricatureInfoAdapter extends CommonRecyclerAdapter<CaricatureChapt
     @Nullable
     @Override
     public RequestBuilder<?> getPreloadRequestBuilder(@NonNull CaricatureChaptersPageEntity item) {
-        return  GlideApp.with(mContext)
-                .asBitmap()
-                .load(item.getUrl())
-                .override(tagWidth, tagHeight)
-                .placeholder(new ColorDrawable(Color.BLACK))
-                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        return GlideApp.with(mContext).asBitmap().load(item.getUrl()).override(tagWidth, tagHeight).placeholder(new ColorDrawable(Color.BLACK)).diskCacheStrategy(DiskCacheStrategy.ALL);
     }
 }

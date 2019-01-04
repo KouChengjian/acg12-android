@@ -15,12 +15,13 @@ import com.acg12.ui.adapter.CaricatureChapterAdapter;
 import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.CaricatureInfoView;
 import com.acg12.widget.caricature.TouchRecyclerView;
+import com.acg12.widget.dialog.ModuleDialog;
 
 public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView> implements TouchRecyclerView.ITouchCallBack, CaricatureChapterAdapter.OnCaricatureChapterListener {
 
     private int id;
     private int type;
-
+    private int index;
 
     @Override
     public void create(Bundle savedInstance) {
@@ -50,7 +51,7 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
     public void onClickChapter(CaricatureChaptersEntity chaptersEntity, int position) {
         mView.returnAllStatus();
         mView.resetTouchRecyclerView();
-        requestChapters(id, chaptersEntity.getIndex(), type);
+        requestChapters(id, chaptersEntity.getIndex(), type, true);
     }
 
     @Override
@@ -63,7 +64,7 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
         } else if (view.getId() == R.id.tv_bottom_switch_screen) {
             ScreenUtils.switchScreen(this);
         } else if (view.getId() == R.id.tv_bottom_switch_module) {
-//            mView.openModuleDialog();
+            openModuleDialog();
         }
     }
 
@@ -72,7 +73,7 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
             @Override
             public void onSuccess(CaricatureEntity result) {
                 mView.bindCaricatureData(result);
-                requestChapters(id, 1, type);
+                requestChapters(id, 1, type, true);
             }
 
             @Override
@@ -83,11 +84,12 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
         });
     }
 
-    private void requestChapters(int id, final int index, int type) {
+    private void requestChapters(int id, final int index, int type, final boolean refresh) {
+        this.index = index;
         HttpRequestImpl.getInstance().caricatureChaptersPage(id, index, type, new HttpRequestListener<CaricatureChaptersEntity>() {
             @Override
             public void onSuccess(CaricatureChaptersEntity result) {
-                mView.bindChaptersData(result, index, true);
+                mView.bindChaptersData(result, index, refresh);
             }
 
             @Override
@@ -96,6 +98,25 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
                 LogUtil.e(msg);
             }
         });
+    }
+
+    private void openModuleDialog() {
+        mView.switchBAndTMenu();
+        ModuleDialog moduleDialog = new ModuleDialog(this);
+        moduleDialog.show();
+        moduleDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //initModule(SPUtils.getInstance(Parameter.SP_CONFIG).getInt(Parameter.SP_PREVIEW_MODE, 0));
+                mView.initPreLoaderAdapter();
+                requestChapters(id, index, type, true);
+            }
+        });
+    }
+
+
+    public void onLoadMoreRequested(int index) {
+        requestChapters(id, index, type, false);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.acg12.ui.views;
 
+import android.os.Handler;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -20,8 +21,10 @@ import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.PreferencesUtils;
 import com.acg12.lib.utils.ScreenUtils;
+import com.acg12.lib.utils.Toastor;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.widget.ToolBarView;
+import com.acg12.ui.activity.CaricatureInfoActivity;
 import com.acg12.ui.adapter.CaricatureChapterAdapter;
 import com.acg12.ui.adapter.CaricatureInfoAdapter;
 import com.acg12.widget.caricature.TouchRecyclerView;
@@ -71,11 +74,6 @@ public class CaricatureInfoView extends ViewImpl {
     @BindView(R.id.rv_left_list)
     RecyclerView rvLeftList;
 
-    //当前集数标识
-    private int index;
-    //下一话的位置
-    private int nextPosition;
-    private CaricatureEntity mCaricatureEntity;
     private CaricatureChaptersEntity mCaricatureChaptersEntity;
     private PagerSnapHelper mPagerSnapHelper; // RecyclerView帮助类。主要是变成Viewpager的模式需要
     private CaricatureInfoAdapter mCaricatureInfoAdapter;
@@ -94,6 +92,63 @@ public class CaricatureInfoView extends ViewImpl {
         toolBarView.setTranslationY(-ViewUtil.getViewMeasuredHeight(toolBarView));
         mLeftLinearLayout.setTranslationX(-ScreenUtils.getScreenWidth(getContext()));
 
+        initPreLoaderAdapter();
+    }
+
+    @Override
+    public void bindEvent() {
+        super.bindEvent();
+        PresenterHelper.click(mPresenter, toolBarView, tvBottomMenu, tvBottomBrightness, tvBottomSwitchScreen, tvBottomSwitchModule);
+        touchRecyclerView.setITouchCallBack((TouchRecyclerView.ITouchCallBack) mPresenter);
+        touchRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                //当屏幕停止滚动，
+                if (newState == SCROLL_STATE_IDLE) {
+                    //更新当前对象在更新信息
+                    updateCurrIndex(updateCurrObject(recyclerView));
+                    if (isVisBottom(touchRecyclerView)) {
+                        int lastPosition = mCaricatureChapterAdapter.getLastPosition();
+                        int nextPosition = lastPosition + 1;
+                        List<CaricatureChaptersEntity> data = mCaricatureChapterAdapter.getList();
+                        if ((nextPosition == data.size())) {
+                            Toastor.ShowToast("后面已经没有内容了");
+                            return;
+                        }
+                        CaricatureChaptersEntity chaptersEntity = mCaricatureChapterAdapter.getObject(nextPosition);
+                        ((CaricatureInfoActivity)getContext()).onLoadMoreRequested(chaptersEntity.getIndex());
+                    }
+                }
+            }
+        });
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int progress = seekBar.getProgress() <= 0 ? 0 : seekBar.getProgress() - 1;
+                CaricatureChaptersPageEntity pagesBean = mCaricatureChaptersEntity.getPags().get(progress);
+                if (pagesBean != null) {
+                    int i = mCaricatureInfoAdapter.getList().indexOf(pagesBean);
+                    if (i != -1) {
+                        touchRecyclerView.scrollToPosition(i);
+                        //先更新当前图片所在的对象
+                        updateCurrIndex(updateCurrObject(i));
+                    }
+                }
+            }
+        });
+    }
+
+    public void initPreLoaderAdapter() {
         final int module = PreferencesUtils.getInt(getContext(), Constant.XML_KEY_CARICATURE_MODE, 0);
         int layoutRes = module == 0 ? R.layout.item_caricature_vertical : R.layout.item_caricature_land;
         resetModule(module);
@@ -112,26 +167,6 @@ public class CaricatureInfoView extends ViewImpl {
         touchRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
     }
 
-    @Override
-    public void bindEvent() {
-        super.bindEvent();
-        PresenterHelper.click(mPresenter, toolBarView, tvBottomMenu, tvBottomBrightness, tvBottomSwitchScreen, tvBottomSwitchModule);
-        touchRecyclerView.setITouchCallBack((TouchRecyclerView.ITouchCallBack) mPresenter);
-        touchRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                //当屏幕停止滚动，
-                if (newState == SCROLL_STATE_IDLE) {
-                    //更新当前对象在更新信息
-                    updateCurrIndex(updateCurrObject(recyclerView));
-                    if (isVisBottom(touchRecyclerView)) {
-                        LogUtil.e("=====================");
-                    }
-                }
-            }
-        });
-    }
-
     public void bindCaricatureData(CaricatureEntity caricatureEntity) {
         toolBarView.setNavigationOrBreak(caricatureEntity.getTitle());
         mCaricatureChapterAdapter = new CaricatureChapterAdapter(getContext());
@@ -142,7 +177,7 @@ public class CaricatureInfoView extends ViewImpl {
         rvLeftList.setAdapter(mCaricatureChapterAdapter);
     }
 
-    public void bindChaptersData(CaricatureChaptersEntity chaptersEntity, int index,boolean refresh) {
+    public void bindChaptersData(CaricatureChaptersEntity chaptersEntity, int index, boolean refresh) {
         mCaricatureChaptersEntity = chaptersEntity;
         mCaricatureChapterAdapter.updatePosition(index);
         List<CaricatureChaptersPageEntity> pages = chaptersEntity.getPags();
@@ -156,9 +191,17 @@ public class CaricatureInfoView extends ViewImpl {
             updateCurrIndex(0);
         } else {
             mCaricatureInfoAdapter.addAll(pages);
-            mCaricatureInfoAdapter.notifyItemRangeChanged(mCaricatureInfoAdapter.getList().size() - pages.size(), mCaricatureInfoAdapter.getList().size());
+            mCaricatureInfoAdapter.notifyDataSetChanged();
+//            mCaricatureInfoAdapter.notifyItemChanged(mCaricatureInfoAdapter.getList().size() - pages.size(), mCaricatureInfoAdapter.getList().size());
+//            mCaricatureInfoAdapter.notifyItemChanged(mCaricatureInfoAdapter.getList().size());
         }
-        updateCurrObject(touchRecyclerView);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updateCurrObject(touchRecyclerView);
+            }
+        } , 1 * 1000);
     }
 
     public void clickResetMenu() {
@@ -235,7 +278,7 @@ public class CaricatureInfoView extends ViewImpl {
     /**
      * 顶部和底部菜单切换
      */
-    private void switchBAndTMenu() {
+    public void switchBAndTMenu() {
         if (mBottomLinearLayout.getTranslationY() != 0) {
             ViewCompat.animate(mBottomLinearLayout).translationY(0).setDuration(300);
             ViewCompat.animate(toolBarView).translationY(0).setDuration(300);
@@ -278,6 +321,21 @@ public class CaricatureInfoView extends ViewImpl {
             if (comicPreViewByIndex != null) mCaricatureChaptersEntity = comicPreViewByIndex;
         }
         return firstVisibleItemPosition;
+    }
+
+    /**
+     * 更新当前图片所在的对象
+     *
+     * @return 当前位置
+     */
+    public int updateCurrObject(int position) {
+        CaricatureChaptersPageEntity item = mCaricatureInfoAdapter.getObject(position);
+        if (item != null) {
+            CaricatureChaptersEntity comicPreViewByIndex = mCaricatureInfoAdapter.getComicPreViewByIndex(item.getIndex());
+            if (comicPreViewByIndex != null)
+                mCaricatureChaptersEntity = comicPreViewByIndex;
+        }
+        return position;
     }
 
     public static boolean isVisBottom(RecyclerView recyclerView) {

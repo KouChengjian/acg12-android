@@ -33,14 +33,11 @@ public class CaricatureChapterViewHolder extends CommonRecyclerViewHolder {
         this.onCaricatureChapterListener = onCaricatureChapterListener;
     }
 
-    public void bindData(Context mContext, List list, final int position, int index, int lastPosition) {
+    public void bindData(Context mContext, List list, final int position, int index) {
         super.bindData(mContext, list, position);
         final CaricatureChaptersEntity chaptersEntity = (CaricatureChaptersEntity) list.get(position);
         tv_name.setText(chaptersEntity.getTitle());
         if (index == chaptersEntity.getIndex()) {
-            lastPosition = position;
-            tv_name.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background));
-        } else if (lastPosition != -1 && lastPosition == position) {
             tv_name.setBackgroundColor(ContextCompat.getColor(mContext, R.color.background));
         } else {
             tv_name.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white));

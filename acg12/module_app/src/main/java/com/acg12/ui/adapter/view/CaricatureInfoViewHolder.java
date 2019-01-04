@@ -32,16 +32,9 @@ import java.util.List;
  */
 public class CaricatureInfoViewHolder extends CommonRecyclerViewHolder {
 
-//    public CaricatureInfoViewHolder(Context context, ViewGroup viewGroup) {
-//        this(getItemView(context, R.layout.item_caricature_vertical, viewGroup));
-//        this(LayoutInflater.from(context).inflate(R.layout.item_caricature_vertical, viewGroup, false));
-//    }
-
     private ImageView imageView;
 
-    //加载图片的宽度
     private int tagWidth;
-    //加载图片的高度
     private int tagHeight;
     private int screenWidth;
     private ViewPreloadSizeProvider<CaricatureChaptersPageEntity> preloadSizeProvider;
