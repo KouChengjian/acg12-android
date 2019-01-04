@@ -1,5 +1,20 @@
 apply plugin: 'com.android.application'
 
+
+//读取签名配置文件
+def getSigningProperties() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    if (properties != null && properties.containsKey('storePassword') && properties.containsKey('keyPassword')) {
+        android.signingConfigs.release.storePassword = properties['storePassword']
+        android.signingConfigs.release.keyPassword = properties['keyPassword']
+    }
+}
+
+def getTime() {
+    return new Date().format("yyyy-MMdd-HHmm", TimeZone.getDefault())
+}
+
 android {
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -20,16 +35,58 @@ android {
         }
     }
 
-    buildTypes {
-//        debug {
-//            matchingFallbacks = ['debug']
-//        }
-
+    signingConfigs {
         release {
+            keyAlias '漫友'
+            storeFile file('../signing/acg12.release')
+            keyPassword
+            storePassword
+        }
+    }
+
+    getSigningProperties()
+
+    buildTypes {
+
+        debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources false
+            signingConfig signingConfigs.release
         }
 
+        release {
+            //压缩对齐，提高运行时的效率，也可以使用zipAlignEnabled true
+            zipAlignEnabled true
+            //不可调试
+            debuggable true
+            //是否混淆
+            minifyEnabled true
+            //是否移除无用资源
+            zipAlignEnabled true
+            //图片、布局变成最小，没有删除它们。
+            //需要动态加载资源时，需要在不要使用该优化，
+            // 否则可能会出现运行时报错或者显示效果不正确的问题
+            //tools:keep="@layout/test_layout"
+            shrinkResources true
+            //指定签名文件为release签名，注意非debug，如果不指定签名，则打出来的包不会签名
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.name.equals('release')) {
+                outputFileName = "漫友-v${variant.versionName}-${getTime()}.apk"
+            } else {
+                outputFileName = "漫友-v${variant.versionName}-beta.apk"
+            }
+        }
     }
 }
 
