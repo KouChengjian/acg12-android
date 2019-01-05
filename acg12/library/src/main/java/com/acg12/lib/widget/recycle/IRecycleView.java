@@ -144,10 +144,10 @@ public class IRecycleView extends RecyclerView {
                 //View footView = mFootViews;
                 isLoadingData = true;
                 mFootViews.setVisibility(View.VISIBLE);
-                Log.e("onLoadMore","onLoadMore");
+//                Log.e("onLoadMore","onLoadMore");
                 mLoadingListener.onLoadMore();
             }else {
-                Log.e("onLoadMore","false");
+//                Log.e("onLoadMore","false");
             }
         }
     }

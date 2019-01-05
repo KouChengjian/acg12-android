@@ -77,8 +77,11 @@ public class ImageLoadUtils {
         RequestOptions requestOptions = mRequestOptions
                 .clone()
                 .format(DecodeFormat.PREFER_ARGB_8888);
-        loadWithContext(mContext, url)
+        GlideApp.with(mContext)
+                .asBitmap()
+                .load(url)
                 .apply(requestOptions)
+//                .transition(withCrossFade())
                 .into(target);
     }
 
@@ -93,7 +96,7 @@ public class ImageLoadUtils {
 //        }
         requestOptions = new RequestOptions().placeholder(R.mipmap.bg_loading_pic).error(R.mipmap.bg_loading_pic);
         requestOptions.transform(new GlideCircleTransform());
-        loadWithContext(mContext , url).apply(mRequestOptions).into(imageview);
+        loadWithContext(mContext, url).apply(mRequestOptions).into(imageview);
     }
 
     /**

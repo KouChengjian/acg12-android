@@ -18,11 +18,11 @@ import com.acg12.entity.CaricatureChaptersPageEntity;
 import com.acg12.entity.CaricatureEntity;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.ui.base.ViewImpl;
-import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.PreferencesUtils;
 import com.acg12.lib.utils.ScreenUtils;
 import com.acg12.lib.utils.Toastor;
 import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.widget.TipLayoutView;
 import com.acg12.lib.widget.ToolBarView;
 import com.acg12.ui.activity.CaricatureInfoActivity;
 import com.acg12.ui.adapter.CaricatureChapterAdapter;
@@ -73,6 +73,8 @@ public class CaricatureInfoView extends ViewImpl {
     TextView tvLeftTitle;
     @BindView(R.id.rv_left_list)
     RecyclerView rvLeftList;
+    @BindView(R.id.tipLayoutView)
+    TipLayoutView mTipLayoutView;
 
     private CaricatureChaptersEntity mCaricatureChaptersEntity;
     private PagerSnapHelper mPagerSnapHelper; // RecyclerView帮助类。主要是变成Viewpager的模式需要
@@ -99,10 +101,15 @@ public class CaricatureInfoView extends ViewImpl {
     public void bindEvent() {
         super.bindEvent();
         PresenterHelper.click(mPresenter, toolBarView, tvBottomMenu, tvBottomBrightness, tvBottomSwitchScreen, tvBottomSwitchModule);
+        mTipLayoutView.setOnReloadClick((TipLayoutView.OnReloadClick) mPresenter);
         touchRecyclerView.setITouchCallBack((TouchRecyclerView.ITouchCallBack) mPresenter);
         touchRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                List<CaricatureChaptersEntity> data = mCaricatureChapterAdapter.getList();
+                if (data.size() == 0) {
+                    return;
+                }
                 //当屏幕停止滚动，
                 if (newState == SCROLL_STATE_IDLE) {
                     //更新当前对象在更新信息
@@ -110,13 +117,13 @@ public class CaricatureInfoView extends ViewImpl {
                     if (isVisBottom(touchRecyclerView)) {
                         int lastPosition = mCaricatureChapterAdapter.getLastPosition();
                         int nextPosition = lastPosition + 1;
-                        List<CaricatureChaptersEntity> data = mCaricatureChapterAdapter.getList();
+
                         if ((nextPosition == data.size())) {
                             Toastor.ShowToast("后面已经没有内容了");
                             return;
                         }
                         CaricatureChaptersEntity chaptersEntity = mCaricatureChapterAdapter.getObject(nextPosition);
-                        ((CaricatureInfoActivity)getContext()).onLoadMoreRequested(chaptersEntity.getIndex());
+                        ((CaricatureInfoActivity) getContext()).onLoadMoreRequested(chaptersEntity.getIndex());
                     }
                 }
             }
@@ -148,6 +155,10 @@ public class CaricatureInfoView extends ViewImpl {
         });
     }
 
+    public TipLayoutView getTipLayoutView() {
+        return mTipLayoutView;
+    }
+
     public void initPreLoaderAdapter() {
         final int module = PreferencesUtils.getInt(getContext(), Constant.XML_KEY_CARICATURE_MODE, 0);
         int layoutRes = module == 0 ? R.layout.item_caricature_vertical : R.layout.item_caricature_land;
@@ -175,6 +186,11 @@ public class CaricatureInfoView extends ViewImpl {
         mCaricatureChapterAdapter.setOnCaricatureChapterListener((CaricatureChapterAdapter.OnCaricatureChapterListener) mPresenter);
         rvLeftList.setLayoutManager(new LinearLayoutManager(getContext()));
         rvLeftList.setAdapter(mCaricatureChapterAdapter);
+        if (caricatureEntity.getChaptersList().size() == 0) {
+            mTipLayoutView.showEmptyOrRefresh();
+        } else {
+            mTipLayoutView.showContent();
+        }
     }
 
     public void bindChaptersData(CaricatureChaptersEntity chaptersEntity, int index, boolean refresh) {
@@ -201,7 +217,7 @@ public class CaricatureInfoView extends ViewImpl {
             public void run() {
                 updateCurrObject(touchRecyclerView);
             }
-        } , 1 * 1000);
+        }, 1 * 1000);
     }
 
     public void clickResetMenu() {

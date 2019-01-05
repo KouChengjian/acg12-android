@@ -17,6 +17,7 @@ public class CollectActivity extends SkinBaseActivity<CollectView> implements Vi
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         int id = v.getId();
         if(id == Constant.TOOLBAR_ID){
             aminFinish();

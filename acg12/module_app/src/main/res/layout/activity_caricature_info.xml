@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
     <com.acg12.lib.widget.ToolBarView
         android:id="@+id/toolBarView"
         android:layout_width="match_parent"
@@ -29,7 +28,13 @@
         android:textSize="12sp"
         android:textStyle="bold" />
 
-    <include layout="@layout/include_caricature_preview_bottom_menu"/>
+    <include layout="@layout/include_caricature_preview_bottom_menu" />
 
-    <include layout="@layout/include_caricature_preview_left_menu"/>
+    <include layout="@layout/include_caricature_preview_left_menu" />
+
+    <com.acg12.lib.widget.TipLayoutView
+        android:id="@+id/tipLayoutView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp" />
 </FrameLayout>

@@ -10,6 +10,7 @@ import com.acg12.entity.CaricatureEntity;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.ScreenUtils;
+import com.acg12.lib.widget.TipLayoutView;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.ui.adapter.CaricatureChapterAdapter;
 import com.acg12.ui.base.SkinBaseActivity;
@@ -17,7 +18,7 @@ import com.acg12.ui.views.CaricatureInfoView;
 import com.acg12.widget.caricature.TouchRecyclerView;
 import com.acg12.widget.dialog.ModuleDialog;
 
-public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView> implements TouchRecyclerView.ITouchCallBack, CaricatureChapterAdapter.OnCaricatureChapterListener {
+public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView> implements TipLayoutView.OnReloadClick ,TouchRecyclerView.ITouchCallBack, CaricatureChapterAdapter.OnCaricatureChapterListener {
 
     private int id;
     private int type;
@@ -45,6 +46,11 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
     @Override
     public void click() {
         mView.clickResetMenu();
+    }
+
+    @Override
+    public void onReload() {
+        requestChapters();
     }
 
     @Override
@@ -128,4 +134,6 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
 }

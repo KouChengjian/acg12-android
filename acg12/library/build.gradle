@@ -37,11 +37,6 @@ dependencies {
     compile httpDependencies.retrofit2_scalars
     compile httpDependencies.retrofit2_rxjava
     compile httpDependencies.rxandroid
-//    def kotlinDependencies = rootProject.ext.kotlinDependencies
-//    compile kotlinDependencies.kotlin
-//    def toolDependencies = rootProject.ext.toolDependencies
-//    compile toolDependencies.bugly
-//    compile toolDependencies.arouter
     def otherDependencies = rootProject.ext.otherDependencies
     compile otherDependencies.eventbus
     compile otherDependencies.butterKnife
