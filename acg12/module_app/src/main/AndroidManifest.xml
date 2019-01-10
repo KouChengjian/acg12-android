@@ -88,7 +88,7 @@
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.CollectActivity"
-            android:theme="@style/Theme.MaterialSheetFab.NoActionBar" />
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.SearchInfoActivity"
             android:theme="@style/Theme.MaterialSheetFab.NoActionBar" />

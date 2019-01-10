@@ -65,7 +65,7 @@ public class CollectView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter, mToolBarView.getToolbar());
+//        PresenterHelper.click(mPresenter, mToolBarView.getToolbar());
     }
 
 }

@@ -7,7 +7,13 @@ import com.acg12.constant.Constant;
 import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.CollectView;
 
-public class CollectActivity extends SkinBaseActivity<CollectView> implements View.OnClickListener {
+public class CollectActivity extends SkinBaseActivity<CollectView> {
+
+    @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
+    }
 
     @Override
     public void created(Bundle savedInstance) {
@@ -15,12 +21,4 @@ public class CollectActivity extends SkinBaseActivity<CollectView> implements Vi
 //        Config.initListVideoUtil(mContext);
     }
 
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        int id = v.getId();
-        if(id == Constant.TOOLBAR_ID){
-            aminFinish();
-        }
-    }
 }

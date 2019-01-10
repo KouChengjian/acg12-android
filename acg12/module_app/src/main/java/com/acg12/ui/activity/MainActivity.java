@@ -89,7 +89,7 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
                 if (DaoBaseImpl.getInstance(mContext).getCurrentUser() == null) {
                     startAnimActivity(LoginActivity.class); //IndexActivity CollectActivity
                 } else {
-                    startAnimActivity(SearchInfoActivity.class);
+                    startAnimActivity(CollectActivity.class);
                 }
                 break;
             case R.id.nav_down:

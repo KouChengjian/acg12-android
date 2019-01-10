@@ -30,7 +30,6 @@ import com.acg12.net.api.HomeApi;
 import com.acg12.net.api.SearchApi;
 import com.acg12.net.api.UserApi;
 import com.acg12.utlis.URLEncoderUtil;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -121,30 +120,33 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription login(final User user, final HttpRequestListener<User> httpRequestListener) {
-        Subscription subscription = mUserApi.login(user.getUsername(), user.getPassword()).subscribeOn(Schedulers.newThread()).observeOn(Schedulers.io()).doOnNext(new Action1<User>() {
-            @Override
-            public void call(User u) {
-                user.setUid(u.getUid());
-                user.setNick(u.getNick());
-                user.setSex(u.getSex());
-                user.setAvatar(u.getAvatar());
-                user.setSignature(u.getSignature());
-                user.updataSign();
-                DaoBaseImpl.getInstance(mContext).delTabUser();
-                DaoBaseImpl.getInstance(mContext).saveUser(user);
-            }
-        }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<User>() {
-            @Override
-            public void call(User u) {
-                httpRequestListener.onSuccess(user);
-            }
-        }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                RetrofitHttp.failure(throwable, httpRequestListener);
-            }
-        });
-        return subscription;
+        return mUserApi
+                .login(user.getUsername(), user.getPassword())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(Schedulers.io())
+                .doOnNext(new Action1<User>() {
+                    @Override
+                    public void call(User u) {
+                        user.setUid(u.getUid());
+                        user.setNick(u.getNick());
+                        user.setSex(u.getSex());
+                        user.setAvatar(u.getAvatar());
+                        user.setSignature(u.getSignature());
+                        user.updataSign();
+                        DaoBaseImpl.getInstance(mContext).delTabUser();
+                        DaoBaseImpl.getInstance(mContext).saveUser(user);
+                    }
+                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<User>() {
+                    @Override
+                    public void call(User u) {
+                        httpRequestListener.onSuccess(user);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
     }
 
     @Override
@@ -875,11 +877,11 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
-    public Subscription caricatureChaptersPage(final int id, final int index, final int type,final HttpRequestListener<CaricatureChaptersEntity> httpRequestListener) {
+    public Subscription caricatureChaptersPage(final int id, final int index, final int type, final HttpRequestListener<CaricatureChaptersEntity> httpRequestListener) {
         return isUpdataToken().flatMap(new Func1<User, Observable<ResponseBody>>() {
             @Override
             public Observable<ResponseBody> call(User responseBody) {
-                return mHomeApi.caricatureChaptersPage(id, index ,type);
+                return mHomeApi.caricatureChaptersPage(id, index, type);
             }
         }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
             @Override
