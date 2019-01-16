@@ -58,11 +58,11 @@ public class HomeFragment extends SkinBaseFragment<HomeView> implements Toolbar.
         } else if(v.getId() == R.id.btn_home_search){
             startAnimActivity(SearchActivity.class);
         } else if(v.getId() == R.id.btn_newest_news){
-//            startAnimActivity(NewestNewsActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putInt("id", 18657);
-            bundle.putInt("type", 0);
-            startAnimActivity(CaricatureInfoActivity.class, bundle);
+            startAnimActivity(NewestNewsActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putInt("id", 18657);
+//            bundle.putInt("type", 0);
+//            startAnimActivity(CaricatureInfoActivity.class, bundle);
         } else if(v.getId() == R.id.btn_newest_illustration){
             startAnimActivity(NewestIllustrationActivity.class);
         }

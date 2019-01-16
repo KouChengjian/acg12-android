@@ -3,7 +3,6 @@ package com.acg12.entity;
 import java.util.ArrayList;
 
 public class Palette extends Param {
-	
 
 	private String boardId = ""; // 花瓣网画板id
 	private String name; // 画板名

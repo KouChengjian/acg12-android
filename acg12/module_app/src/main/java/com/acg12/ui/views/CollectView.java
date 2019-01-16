@@ -48,6 +48,7 @@ public class CollectView extends ViewImpl {
     @Override
     public void created() {
         super.created();
+        mToolBarView.setNavigationOrBreak("我的收藏");
         mCollectAlbumFragment = CollectAlbumFragment.newInstance();
         mCollectPaletteFragment = CollectPaletteFragment.newInstance();
         mCollectCaricatureFragment = CollectCaricatureFragment.newInstance();
@@ -65,7 +66,7 @@ public class CollectView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-//        PresenterHelper.click(mPresenter, mToolBarView.getToolbar());
+        PresenterHelper.click(mPresenter, mToolBarView.getToolbar());
     }
 
 }
