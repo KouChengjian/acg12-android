@@ -231,8 +231,6 @@ public class ViewUtil {
 
 
 
-
-
 	/**
 	 * 获取控件的高度
 	 */

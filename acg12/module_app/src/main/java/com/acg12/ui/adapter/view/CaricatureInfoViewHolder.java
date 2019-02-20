@@ -18,11 +18,15 @@ import com.acg12.lib.utils.glide.GlideRequest;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.Headers;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.util.ViewPreloadSizeProvider;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with Android Studio.
@@ -58,10 +62,20 @@ public class CaricatureInfoViewHolder extends CommonRecyclerViewHolder {
         super.bindData(mContext, list, position);
         CaricatureChaptersPageEntity chaptersPage = (CaricatureChaptersPageEntity) list.get(position);
         if (chaptersPage.getIndex() == -1) chaptersPage.setIndex(chaptersEntity.getIndex());
+
+        final HashMap<String, String> header = new HashMap<>();
+        header.put("Referer", "http://images.dmzj.com/");
+        Headers headers = new Headers() {
+            @Override
+            public Map<String, String> getHeaders() {
+                return header;
+            }
+        };
+        GlideUrl gliderUrl = new GlideUrl(chaptersPage.getUrl(), headers);
         GlideRequest<Bitmap> transition = GlideApp.with(mContext)
                 .asBitmap()
                 .override(tagWidth, tagHeight)
-                .load(chaptersPage.getUrl())
+                .load(gliderUrl)
                 .placeholder(new ColorDrawable(Color.BLACK))
                 .diskCacheStrategy(DiskCacheStrategy.ALL);
         if (module == 0) {

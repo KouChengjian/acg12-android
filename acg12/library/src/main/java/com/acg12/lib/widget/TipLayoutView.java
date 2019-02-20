@@ -4,17 +4,13 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.acg12.lib.R;
-
-import java.util.List;
 
 public class TipLayoutView extends RelativeLayout implements View.OnClickListener {
 
@@ -44,9 +40,9 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.common_tiplayout_view, this);
         view.setOnClickListener(null);
-        mLayoutNull = (ViewStub)findViewById(R.id.layout_null);
-        mLayoutError = (ViewStub)findViewById(R.id.layout_error);
-        mLayoutLoading = (ViewStub)findViewById(R.id.layout_loading);
+        mLayoutNull = (ViewStub) findViewById(R.id.layout_null);
+        mLayoutError = (ViewStub) findViewById(R.id.layout_error);
+        mLayoutLoading = (ViewStub) findViewById(R.id.layout_loading);
 
         showLoading();
     }
@@ -132,15 +128,13 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
         resetStatus();
         if (mLLTipviewError == null) {
             View view = mLayoutError.inflate();
-            mLLTipviewError = (LinearLayout) view.findViewById(R.id.ll_tipview_error);
-            tv_tiplayout_pic = (ImageView) view.findViewById(R.id.tv_tiplayout_pic);
-            tv_tiplayout_msg = (TextView) view.findViewById(R.id.tv_tiplayout_msg);
-            mReloadButton = (BGButton) view.findViewById(R.id.bg_refush);
+            mLLTipviewError = view.findViewById(R.id.ll_tipview_error);
+            tv_tiplayout_pic = view.findViewById(R.id.tv_tiplayout_pic);
+            tv_tiplayout_msg = view.findViewById(R.id.tv_tiplayout_msg);
+            mReloadButton = view.findViewById(R.id.bg_refush);
             mReloadButton.setOnClickListener(this);
         }
         tv_tiplayout_pic.setImageResource(R.mipmap.bg_loading_null);
-        tv_tiplayout_msg.setText("");
-        tv_tiplayout_msg.setVisibility(View.GONE);
         mReloadButton.setText("再次获取");
         if (mLLTipviewError.getVisibility() == View.GONE) {
             mLLTipviewError.setVisibility(View.VISIBLE);
@@ -179,8 +173,8 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.bg_refush){
-            if(onReloadClick != null){
+        if (v.getId() == R.id.bg_refush) {
+            if (onReloadClick != null) {
                 resetStatus();
                 showLoading();
                 onReloadClick.onReload();

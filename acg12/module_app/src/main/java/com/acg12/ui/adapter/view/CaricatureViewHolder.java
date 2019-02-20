@@ -12,8 +12,6 @@ import com.acg12.lib.widget.ScaleImageView;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 /**
  * Created with Android Studio.
  * User: mayn
@@ -28,16 +26,16 @@ public class CaricatureViewHolder extends CommonRecyclerViewHolder {
 
     public CaricatureViewHolder(View itemView) {
         super(itemView);
-        ivCaricatureCover = (ScaleImageView) itemView.findViewById(R.id.iv_caricature_cover);
-        tvCaricatureNum = (TextView)itemView.findViewById(R.id.tv_caricature_num);
-        tvCaricatureTitle = (TextView)itemView.findViewById(R.id.tv_caricature_title);
+        ivCaricatureCover = itemView.findViewById(R.id.iv_caricature_cover);
+        tvCaricatureNum = itemView.findViewById(R.id.tv_caricature_num);
+        tvCaricatureTitle = itemView.findViewById(R.id.tv_caricature_title);
     }
 
     public void bindData(Context mContext, List list, int position) {
-        CaricatureEntity caricatureEntity = (CaricatureEntity)list.get(position);
+        CaricatureEntity caricatureEntity = (CaricatureEntity) list.get(position);
         ivCaricatureCover.setImageWidth(250);
         ivCaricatureCover.setImageHeight(350);
-        ImageLoadUtils.glideLoading(mContext , caricatureEntity.getCover() , ivCaricatureCover);
+        ImageLoadUtils.glideLoading(mContext, "http://images.dmzj.com/", caricatureEntity.getCover(), ivCaricatureCover);
         tvCaricatureTitle.setText(caricatureEntity.getTitle());
     }
 }

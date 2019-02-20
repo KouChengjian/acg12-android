@@ -58,6 +58,18 @@ public class ImageLoadUtils {
                 .into(imageview);
     }
 
+    /**
+     * @param mContext
+     * @param header    http://images.dmzj.com/
+     * @param url
+     * @param imageview
+     */
+    public static void glideLoading(Context mContext, String header, String url, ImageView imageview) {
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Referer", header);
+        glideLoading(mContext, headers, url, imageview);
+    }
+
     public static void glideLoading(Context mContext, final HashMap<String, String> header, String url, ImageView imageview) {
         Headers headers = new Headers() {
             @Override

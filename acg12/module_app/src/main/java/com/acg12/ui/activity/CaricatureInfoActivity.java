@@ -23,6 +23,7 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
     private int id;
     private int type;
     private int index;
+    private String title;
 
     @Override
     public void create(Bundle savedInstance) {
@@ -30,11 +31,13 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
         setTranslucentStatus();
         id = getIntent().getIntExtra("id", 0);
         type = getIntent().getIntExtra("type", -1);
+        title = getIntent().getStringExtra("title");
     }
 
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
+        mView.setTitle(title);
         requestChapters();
     }
 
@@ -84,6 +87,7 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
 
             @Override
             public void onFailure(int errorcode, String msg) {
+                mView.getTipLayoutView().showEmptyOrRefresh();
                 ShowToast(msg);
                 LogUtil.e(msg);
             }

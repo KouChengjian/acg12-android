@@ -26,16 +26,20 @@ public class SearchViewHolder extends CommonRecyclerViewHolder {
 
     public SearchViewHolder(View itemView) {
         super(itemView);
-        iv_search_tag = (ImageView)itemView.findViewById(R.id.iv_search_tag);
-        tv_search_tag = (TextView)itemView.findViewById(R.id.tv_search_tag);
-        tv_search_type = (TextView)itemView.findViewById(R.id.tv_search_type);
+        iv_search_tag = itemView.findViewById(R.id.iv_search_tag);
+        tv_search_tag = itemView.findViewById(R.id.tv_search_tag);
+        tv_search_type = itemView.findViewById(R.id.tv_search_type);
     }
 
     @Override
     public void bindData(Context mContext, List list, int position) {
         Search search = ((List<Search>)list).get(position);
         ImageLoadUtils.glideLoading(mContext ,search.getSource() , iv_search_tag);
-        ViewUtil.setText(tv_search_tag , search.getTitle());
+        if(search.getNameCn() != null &&!search.getNameCn().isEmpty()){
+            ViewUtil.setText(tv_search_tag , search.getNameCn());
+        } else {
+            ViewUtil.setText(tv_search_tag , search.getTitle());
+        }
         ViewUtil.setText(tv_search_type , search.getTypeName());
     }
 }

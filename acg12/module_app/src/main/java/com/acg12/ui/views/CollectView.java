@@ -31,7 +31,7 @@ public class CollectView extends ViewImpl {
     @BindView(R.id.viewpager)
     ViewPager mViewpager;
 
-    private String[] titles = new String[]{"门诊经营", "医疗技法", "特色病种", "特色验方"};
+    private String[] titles = new String[]{"插画", "画册", "漫画", "番剧", "动画"};
     private Fragment[] fragments;
     private CommonPagerAdapter mCommonPagerAdapter;
     private CollectAlbumFragment mCollectAlbumFragment;

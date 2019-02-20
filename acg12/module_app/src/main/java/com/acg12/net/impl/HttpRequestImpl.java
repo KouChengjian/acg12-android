@@ -1064,37 +1064,42 @@ public class HttpRequestImpl implements HttpRequest {
 
     @Override
     public Subscription searchSubjectList(User user, final String key, final HttpRequestListener<List<Search>> httpRequestListener) {
-        return isUpdataToken().flatMap(new Func1<User, Observable<ResponseBody>>() {
-            @Override
-            public Observable<ResponseBody> call(User responseBody) {
-                return mSearchApi.searchSubjectList(key);
-            }
-        }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
-            @Override
-            public void call(ResponseBody response) {
-                List<Search> list = new ArrayList<>();
-                JSONObject data = RetrofitHttp.parseJSONObjectString(response);
-                if (data != null) {
-                    JSONArray array = JsonParse.getJSONArray(data, "list");
-                    for (int i = 0, num = array.length(); i < num; i++) {
-                        JSONObject item = JsonParse.getJSONObject(array, i);
-                        Search search = new Search();
-                        search.setSearchId(JsonParse.getInt(item, "id"));
-                        search.setTitle(JsonParse.getString(item, "name"));
-                        search.setSource(JsonParse.getString(item, "image"));
-                        search.setType(JsonParse.getInt(item, "type"));
-                        search.setTypeName(JsonParse.getString(item, "typeName"));
-                        list.add(search);
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mSearchApi.searchSubjectList(key);
                     }
-                    RetrofitHttp.success(list, httpRequestListener);
-                }
-            }
-        }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                RetrofitHttp.failure(throwable, httpRequestListener);
-            }
-        });
+                })
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        List<Search> list = new ArrayList<>();
+                        JSONObject data = RetrofitHttp.parseJSONObjectString(response);
+                        if (data != null) {
+                            JSONArray array = JsonParse.getJSONArray(data, "list");
+                            for (int i = 0, num = array.length(); i < num; i++) {
+                                JSONObject item = JsonParse.getJSONObject(array, i);
+                                Search search = new Search();
+                                search.setSearchId(JsonParse.getInt(item, "id"));
+                                search.setTitle(JsonParse.getString(item, "name"));
+                                search.setNameCn(JsonParse.getString(item, "name_cn"));
+                                search.setSource(JsonParse.getString(item, "image"));
+                                search.setType(JsonParse.getInt(item, "type"));
+                                search.setTypeName(JsonParse.getString(item, "typeName"));
+                                list.add(search);
+                            }
+                            RetrofitHttp.success(list, httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
     }
 
     @Override

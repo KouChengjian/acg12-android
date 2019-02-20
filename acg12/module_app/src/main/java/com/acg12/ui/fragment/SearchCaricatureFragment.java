@@ -52,6 +52,7 @@ public class SearchCaricatureFragment extends PresenterFragmentImpl<SearchCarica
         Bundle bundle = new Bundle();
         bundle.putInt("id", caricatureEntity.getComicId());
         bundle.putInt("type", caricatureEntity.getType());
+        bundle.putString("title", caricatureEntity.getTitle());
         startAnimActivity(CaricatureInfoActivity.class, bundle);
     }
 

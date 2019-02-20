@@ -9,6 +9,7 @@ public class Search extends Param {
     private int searchId;
     private String source;
     private String title;
+    private String nameCn;
     private int type; // 0:subject 1:crt 2:preson
     private String typeName;
 
@@ -50,5 +51,13 @@ public class Search extends Param {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public String getNameCn() {
+        return nameCn;
+    }
+
+    public void setNameCn(String nameCn) {
+        this.nameCn = nameCn;
     }
 }

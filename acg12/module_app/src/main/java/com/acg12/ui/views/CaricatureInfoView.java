@@ -91,7 +91,6 @@ public class CaricatureInfoView extends ViewImpl {
     public void created() {
         super.created();
         mBottomLinearLayout.setTranslationY(ViewUtil.getViewMeasuredHeight(mBottomLinearLayout));
-        toolBarView.setTranslationY(-ViewUtil.getViewMeasuredHeight(toolBarView));
         mLeftLinearLayout.setTranslationX(-ScreenUtils.getScreenWidth(getContext()));
 
         initPreLoaderAdapter();
@@ -100,7 +99,7 @@ public class CaricatureInfoView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter, toolBarView, tvBottomMenu, tvBottomBrightness, tvBottomSwitchScreen, tvBottomSwitchModule);
+        PresenterHelper.click(mPresenter, toolBarView.getToolbar(), tvBottomMenu, tvBottomBrightness, tvBottomSwitchScreen, tvBottomSwitchModule);
         mTipLayoutView.setOnReloadClick((TipLayoutView.OnReloadClick) mPresenter);
         touchRecyclerView.setITouchCallBack((TouchRecyclerView.ITouchCallBack) mPresenter);
         touchRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -159,6 +158,10 @@ public class CaricatureInfoView extends ViewImpl {
         return mTipLayoutView;
     }
 
+    public void setTitle(String title){
+        toolBarView.setNavigationOrBreak(title);
+    }
+
     public void initPreLoaderAdapter() {
         final int module = PreferencesUtils.getInt(getContext(), Constant.XML_KEY_CARICATURE_MODE, 0);
         int layoutRes = module == 0 ? R.layout.item_caricature_vertical : R.layout.item_caricature_land;
@@ -179,7 +182,9 @@ public class CaricatureInfoView extends ViewImpl {
     }
 
     public void bindCaricatureData(CaricatureEntity caricatureEntity) {
-        toolBarView.setNavigationOrBreak(caricatureEntity.getTitle());
+        setTitle(caricatureEntity.getTitle());
+        toolBarView.setTranslationY(-ViewUtil.getViewMeasuredHeight(toolBarView));
+
         mCaricatureChapterAdapter = new CaricatureChapterAdapter(getContext());
 //        mCaricatureChapterAdapter.setIndex();
         mCaricatureChapterAdapter.setList(caricatureEntity.getChaptersList());
