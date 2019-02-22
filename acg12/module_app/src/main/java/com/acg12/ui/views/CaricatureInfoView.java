@@ -12,7 +12,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.acg12.R;
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 import com.acg12.entity.CaricatureChaptersEntity;
 import com.acg12.entity.CaricatureChaptersPageEntity;
 import com.acg12.entity.CaricatureEntity;

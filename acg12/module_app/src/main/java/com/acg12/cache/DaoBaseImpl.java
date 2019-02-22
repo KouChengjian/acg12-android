@@ -2,7 +2,7 @@ package com.acg12.cache;
 
 import android.content.Context;
 
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 import com.acg12.entity.DownLoad;
 import com.acg12.entity.Home;
 import com.acg12.entity.Update;

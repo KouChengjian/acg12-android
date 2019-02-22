@@ -10,7 +10,6 @@ import com.acg12.cache.DaoBaseImpl;
 import com.acg12.entity.Update;
 import com.acg12.entity.User;
 
-import com.acg12.cache.DaoBaseImpl;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.LogUtil;
@@ -18,11 +17,10 @@ import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 
 import com.acg12.net.impl.HttpRequestImpl;
-import com.acg12.ui.activity.AboutActivity;
 import com.acg12.widget.dialog.UpdateDialog;
 
 import com.acg12.R;
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.SettingView;
 import com.acg12.widget.dialog.AlertDialogView;

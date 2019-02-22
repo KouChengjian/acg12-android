@@ -1,6 +1,7 @@
 package com.acg12.lib.ui.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import com.acg12.lib.utils.ActivityTack;
 import com.acg12.lib.utils.AppStartUtil;
 import com.acg12.lib.utils.Toastor;
+import com.acg12.lib.utils.ViewUtil;
 
 import butterknife.ButterKnife;
 
@@ -23,6 +25,7 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
 
     protected Context mContext;
     protected String mTag;
+    protected ProgressDialog mProgressDialog;
     protected ActivityTack mActivityTack = ActivityTack.getInstanse();
     protected int activityCloseEnterAnimation;
     protected int activityCloseExitAnimation;
@@ -157,5 +160,19 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void startLoading(String msg) {
+        if (mProgressDialog == null) {
+            mProgressDialog = ViewUtil.startLoading(mContext, msg);
+        } else {
+            mProgressDialog.setMessage(msg);
+            mProgressDialog.show();
+        }
+    }
+
+    public void stopLoading() {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
+    }
 
 }

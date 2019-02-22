@@ -1,5 +1,8 @@
 package com.acg12.lib.net.interceptor;
 
+import com.acg12.lib.constant.Constant;
+import com.acg12.lib.utils.PreferencesUtils;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import okhttp3.HttpUrl;
@@ -17,19 +20,11 @@ public class RequestHeaderInterceptor implements Interceptor {
         Request request = chain.request();
         HttpUrl originalHttpUrl = request.url();
         HttpUrl.Builder htbuilder = originalHttpUrl.newBuilder();
-        //下面是固定的请求参数
-//        if (Http.type == 2) {
-//            htbuilder.addQueryParameter("uid", Http.uid);
-//            htbuilder.addQueryParameter("time", Http.time);
-//            htbuilder.addQueryParameter("key", Http.key);
-//        }
-
         HttpUrl url = htbuilder.build();
         Request.Builder builder = request.newBuilder().url(url);
-        //以下是固定的请求头参数
-//        builder.addHeader("type", Http.type);
-        //记录请求头信息
+        String session = PreferencesUtils.getString(Constant.SESSION);
         StringBuffer headStr = new StringBuffer();
+        builder.addHeader("sessionId", session);
 //        if (Hawk.contains(HawkContants.SESSION)) {
 //            String sessionId = Hawk.get(HawkContants.SESSION);
 //            builder.addHeader("sessionId", sessionId);

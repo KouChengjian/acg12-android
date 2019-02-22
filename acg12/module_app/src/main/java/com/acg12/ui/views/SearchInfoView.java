@@ -21,6 +21,7 @@ import com.acg12.lib.ui.adapter.CommonPagerAdapter;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
+import com.acg12.lib.widget.BGButton;
 import com.acg12.lib.widget.TipLayoutView;
 import com.acg12.lib.widget.ToolBarView;
 import com.acg12.ui.fragment.SearchAlbumFragment;
@@ -66,6 +67,8 @@ public class SearchInfoView extends ViewImpl {
     TextView tv_header_play_eps;
     @BindView(R.id.tv_header_play_time)
     TextView tv_header_play_time;
+    @BindView(R.id.btn_colloct)
+    BGButton btn_colloct;
     @BindView(R.id.search_toolbar)
     protected Toolbar toolbar;
     @BindView(R.id.search_tabLayout)
@@ -99,13 +102,13 @@ public class SearchInfoView extends ViewImpl {
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);//设置收缩后Toolbar上字体的颜色
         mCollapsingToolbarLayout.setTitleEnabled(false);
 
-        tabTitles = new String[]{"简介", "插画", "画册", "漫画", "动画"};
+        tabTitles = new String[]{"简介", "插画", "画册", "漫画"}; // , "动画"
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter, toolbar, mToolBarView.getToolbar());
+        PresenterHelper.click(mPresenter, toolbar, mToolBarView.getToolbar(), btn_colloct);
         mTipLayoutView.setOnReloadClick((TipLayoutView.OnReloadClick) mPresenter);
     }
 
@@ -149,7 +152,13 @@ public class SearchInfoView extends ViewImpl {
         if (str.length > 2) {
             name = str[0];
         }
-
+        if (subject.getIsCollect() == 1) {
+            btn_colloct.setText("已收藏");
+            btn_colloct.setNormalSolid(getContext().getResources().getColor(R.color.background));
+        } else {
+            btn_colloct.setText("收藏");
+            btn_colloct.setNormalSolid(getContext().getResources().getColor(R.color.theme_body));
+        }
 
         searchIntroFragment = SearchIntroFragment.newInstance(title, subject);
         searchAlbumFragment = SearchAlbumFragment.newInstance(name);

@@ -9,9 +9,8 @@ import com.acg12.lib.utils.skin.AttrFactory;
 import com.acg12.lib.utils.skin.entity.DynamicAttr;
 
 import com.acg12.R;
-import com.acg12.conf.Config;
 import com.acg12.conf.EventConfig;
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 import com.acg12.ui.activity.DownloadActivity;
 import com.acg12.ui.base.SkinBaseFragment;
 import com.acg12.ui.views.FindView;

@@ -1,7 +1,10 @@
 package com.acg12.net.api;
 
+import java.util.Map;
+
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -57,6 +60,17 @@ public interface HomeApi {
     @POST("api/app/caricature/chapters/list.json")
     Observable<ResponseBody> caricatureChaptersPage(@Field("id") int id, @Field("index") int index, @Field("type") int type);
 
+    @FormUrlEncoded
+    @POST("api/app/collect/album/list.json")
+    Observable<ResponseBody> collectAlbumList(@Field("id") int id, @Field("type") int type);
+
+    @FormUrlEncoded
+    @POST("api/app/collect/album/add.json")
+    Observable<ResponseBody> collectAlbumAdd(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("api/app/collect/album/del.json")
+    Observable<ResponseBody> collectAlbumDel(@Field("id") int id, @Field("type") int type);
 
 //    @FormUrlEncoded
 //    @ApiConverter(converter = LoginConverter.class)

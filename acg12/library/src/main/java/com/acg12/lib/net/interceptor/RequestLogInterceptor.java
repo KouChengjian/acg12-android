@@ -28,20 +28,14 @@ public class RequestLogInterceptor implements Interceptor {
         RequestBody requestBody = request.body();
         ResponseBody responseBody = response.body();
         String responseBodyString = responseBody.string();
-        String requestMessage;
-        requestMessage = request.method() + ' ' + request.url();
+        String requestMessage = request.method() + ' ' + request.url();
 
         if (requestBody != null) {
             Buffer buffer = new Buffer();
             requestBody.writeTo(buffer);
-            requestMessage += "?\n" + buffer.readString(UTF8);
+            requestMessage += "?sessionId=" + request.header("sessionId") + "  " + buffer.readString(UTF8);
+
         }
-        try {
-//            LogUtil.e("RequestLogInterceptor", URLDecoder.decode(requestMessage, "utf-8"));
-        } catch (Exception e) {
-//            LogUtil.e("RequestLogInterceptor", requestMessage);
-        }
-//        LogUtil.e("RequestLogInterceptor", request.method() + ' ' + request.url() + ' ' + responseBodyString);
         LogUtil.e("请求信息 " + requestMessage);
         LogUtil.e("响应信息 " + responseBodyString);
         return response.newBuilder().body(ResponseBody.create(responseBody.contentType(),

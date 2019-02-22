@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.RadioButton;
 
 import com.acg12.R;
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 import com.acg12.lib.utils.PreferencesUtils;
 
 

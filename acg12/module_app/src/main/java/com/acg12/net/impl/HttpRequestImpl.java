@@ -132,6 +132,7 @@ public class HttpRequestImpl implements HttpRequest {
                         user.setSex(u.getSex());
                         user.setAvatar(u.getAvatar());
                         user.setSignature(u.getSignature());
+                        user.setSessionId(u.getSessionId());
                         user.updataSign();
                         DaoBaseImpl.getInstance(mContext).delTabUser();
                         DaoBaseImpl.getInstance(mContext).saveUser(user);
@@ -901,6 +902,40 @@ public class HttpRequestImpl implements HttpRequest {
                 RetrofitHttp.failure(throwable, httpRequestListener);
             }
         });
+    }
+
+    @Override
+    public Subscription collectAlbumList(int pageNumber, int pageSize, HttpRequestListener<List<Album>> httpRequestListener) {
+        return null;
+    }
+
+    @Override
+    public Subscription collectAlbumAdd(final Map<String, Object> params, final HttpRequestListener<String> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectAlbumAdd(params);
+                    }
+                }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        if (data != null) {
+                            RetrofitHttp.success("", httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription collectAlbumDel(int id, HttpRequestListener<String> httpRequestListener) {
+        return null;
     }
 
     @Override

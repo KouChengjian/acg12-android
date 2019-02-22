@@ -50,9 +50,9 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
 
     public void init() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.common_loading_recyclerview, this);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.mSwipeRefreshLayout);
-        mRecyclerView = (IRecycleView) view.findViewById(R.id.mRecyclerView);
-        mTipLayoutView = (TipLayoutView) view.findViewById(R.id.tip_layoutView);
+        mSwipeRefreshLayout =  view.findViewById(R.id.mSwipeRefreshLayout);
+        mRecyclerView =  view.findViewById(R.id.mRecyclerView);
+        mTipLayoutView =  view.findViewById(R.id.tip_layoutView);
         mTipLayoutView.setOnReloadClick(this);
 
         mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_body);

@@ -4,7 +4,9 @@ package com.acg12.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.acg12.BuildConfig;
 import com.acg12.conf.AppConfig;
+import com.acg12.lib.app.BaseApp;
 import com.acg12.lib.utils.CrashHandler;
 import com.acg12.lib.utils.PreferencesUtils;
 import com.acg12.lib.utils.Toastor;
@@ -12,11 +14,7 @@ import com.acg12.lib.utils.skin.SkinManager;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.utlis.cache.Cache;
 
-import com.acg12.conf.AppConfig;
-import com.acg12.conf.Config;
-import com.acg12.constant.Constant;
-import com.acg12.net.impl.HttpRequestImpl;
-import com.acg12.utlis.cache.Cache;
+import com.acg12.lib.constant.Constant;
 
 
 //                          _oo0oo_
@@ -51,6 +49,8 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		BaseApp.Ext.init(this);
+		BaseApp.Ext.setDebug(BuildConfig.DEBUG);
 		// 初始化
 		Cache.init(this);
 		Toastor.init(this);
@@ -61,7 +61,6 @@ public class MyApplication extends Application {
 		// 初始化皮肤
 		SkinManager.getInstance().init(this);
 		SkinManager.getInstance().load();
-		InitializeService.start(this);
 	}
 
 	@Override

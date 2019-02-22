@@ -47,7 +47,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
-            android:name=".ui.activity.NewestIllustrationActivity"
+            android:name=".ui.activity.NewestAlbumActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity

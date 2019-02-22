@@ -15,6 +15,7 @@ public class Album extends Param {
 	private Integer resWidth;  // 资源宽度
 	private Integer resHight;  // 资源高度
 	private String imageUrl;
+	private int isCollect; // 是否收藏
 
 	public String getContent() {
 		return content;
@@ -89,4 +90,11 @@ public class Album extends Param {
 	}
 
 
+	public int getIsCollect() {
+		return isCollect;
+	}
+
+	public void setIsCollect(int isCollect) {
+		this.isCollect = isCollect;
+	}
 }

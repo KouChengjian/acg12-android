@@ -5,17 +5,16 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.acg12.lib.utils.LogUtil;
-import com.acg12.lib.utils.ViewUtil;
+import com.acg12.R;
+import com.acg12.conf.AccountManager;
+import com.acg12.conf.EventConfig;
+import com.acg12.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.ui.activity.PresenterActivityImpl;
-
-import com.acg12.R;
-import com.acg12.conf.EventConfig;
+import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.utils.ViewUtil;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.ui.views.LoginView;
-import com.acg12.entity.User;
-import com.acg12.conf.Config;
 
 
 public class LoginActivity extends PresenterActivityImpl<LoginView> implements View.OnClickListener {
@@ -72,6 +71,8 @@ public class LoginActivity extends PresenterActivityImpl<LoginView> implements V
             @Override
             public void onSuccess(User result) {
                 progress.dismiss();
+                AccountManager.getInstance().setUserName(result.getUsername());
+                AccountManager.getInstance().setSession(result.getSessionId());
                 EventConfig.get().getUserEvent().post(result);
                 finish();
             }

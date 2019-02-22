@@ -1,7 +1,9 @@
 package com.acg12.ui.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
+import com.acg12.R;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.widget.TipLayoutView;
@@ -35,6 +37,14 @@ public class SearchInfoActivity extends SkinBaseActivity<SearchInfoView> impleme
     @Override
     public void onReload() {
         requestData();
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        if(view.getId() == R.id.btn_colloct){
+
+        }
     }
 
     private void requestData() {

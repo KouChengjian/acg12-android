@@ -18,6 +18,7 @@ public class Subject extends Param {
     private String nameCn; // 中文
     private String summary; // 概况
     private String image;
+    private int isCollect;
     // subject
     private Integer epsCount; // 话数
     private String airDate;// 放送开始 2015-10-10
@@ -351,5 +352,13 @@ public class Subject extends Param {
             s1 += " / 体重 " + getWeight();
         }
         return s1;
+    }
+
+    public int getIsCollect() {
+        return isCollect;
+    }
+
+    public void setIsCollect(int isCollect) {
+        this.isCollect = isCollect;
     }
 }

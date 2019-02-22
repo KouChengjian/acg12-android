@@ -33,6 +33,7 @@ public class UserConverter extends AbstractResponseConverter<User> {
             user.setNick(JsonParse.getString(data, "nick"));
             user.setAvatar(JsonParse.getString(data, "avatar"));
             user.setSignature(JsonParse.getString(data, "sign"));
+            user.setSessionId(JsonParse.getString(data, "sessionId"));
         } else {
             RetrofitHttp.failure();
         }

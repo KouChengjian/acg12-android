@@ -12,9 +12,8 @@ import com.acg12.lib.utils.skin.entity.DynamicAttr;
 import com.acg12.lib.widget.TipLayoutView;
 
 import com.acg12.R;
-import com.acg12.conf.Config;
 import com.acg12.conf.EventConfig;
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 import com.acg12.entity.Calendar;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.ui.base.SkinBaseFragment;

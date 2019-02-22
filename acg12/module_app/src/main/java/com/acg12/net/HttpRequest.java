@@ -16,6 +16,7 @@ import com.acg12.entity.Video;
 import com.acg12.lib.listener.HttpRequestListener;
 
 import java.util.List;
+import java.util.Map;
 
 import rx.Subscription;
 
@@ -75,6 +76,12 @@ public interface HttpRequest {
     Subscription caricatureChapters(int id, int type, HttpRequestListener<CaricatureEntity> httpRequestListener);
 
     Subscription caricatureChaptersPage(int id, int index, int type, HttpRequestListener<CaricatureChaptersEntity> httpRequestListener);
+
+    Subscription collectAlbumList(int pageNumber, int pageSize, HttpRequestListener<List<Album>> httpRequestListener);
+
+    Subscription collectAlbumAdd(Map<String, Object> params, HttpRequestListener<String> httpRequestListener);
+
+    Subscription collectAlbumDel(int id, HttpRequestListener<String> httpRequestListener);
 
     /**
      * ------------------------------------------------搜索-----------------------------------------------------------

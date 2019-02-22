@@ -16,8 +16,7 @@ import com.acg12.lib.widget.DeletableEditText;
 import com.acg12.ui.activity.SearchInfoActivity;
 
 import com.acg12.R;
-import com.acg12.constant.Constant;
-import com.acg12.ui.activity.SearchInfoActivity;
+import com.acg12.lib.constant.Constant;
 
 /**
  * Created by DELL on 2017/1/6.

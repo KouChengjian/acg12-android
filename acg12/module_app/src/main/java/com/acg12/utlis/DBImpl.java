@@ -11,7 +11,7 @@ import com.litesuits.orm.db.model.ColumnsValue;
 import com.litesuits.orm.db.model.ConflictAlgorithm;
 
 import com.acg12.app.MyApplication;
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 
 import java.util.Collection;
 import java.util.List;

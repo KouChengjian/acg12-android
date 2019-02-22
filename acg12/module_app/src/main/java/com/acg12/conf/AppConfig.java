@@ -2,9 +2,10 @@ package com.acg12.conf;
 
 import android.content.Context;
 
+import com.acg12.lib.app.BaseApp;
 import com.acg12.lib.utils.PreferencesUtils;
 
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 import com.acg12.widget.dialog.debug.ServerUrl;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class AppConfig {
     }
 
     public AppConfig(Context context) {
-        if (Constant.debug) {
+        if (BaseApp.isDebug()) {
             int postion = getServerUrl(context);
             SERVER = DefaultServerUrlList.get(postion);
         } else {

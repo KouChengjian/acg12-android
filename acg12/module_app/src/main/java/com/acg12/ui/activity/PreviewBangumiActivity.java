@@ -9,7 +9,7 @@ import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
 
 import com.acg12.R;
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 import com.acg12.entity.Video;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.ui.base.SkinBaseActivity;

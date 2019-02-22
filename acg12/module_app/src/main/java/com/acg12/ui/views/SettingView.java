@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.acg12.cache.DaoBaseImpl;
 
-import com.acg12.cache.DaoBaseImpl;
+import com.acg12.lib.app.BaseApp;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.utils.AppUtil;
@@ -15,7 +15,7 @@ import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 
 import com.acg12.R;
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 
 import butterknife.BindView;
 
@@ -60,7 +60,7 @@ public class SettingView extends ViewImpl {
         }
 
         String online = "";
-        if(Constant.debug){
+        if(BaseApp.isDebug()){
             online = "内测：";
         }
         ViewUtil.setText(tv_setting_update, online + new AppUtil().getPackageInfo(getContext()).versionName);

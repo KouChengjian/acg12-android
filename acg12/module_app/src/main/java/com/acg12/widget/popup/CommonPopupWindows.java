@@ -27,7 +27,7 @@ import com.acg12.lib.utils.CacheUtils;
 import com.acg12.lib.utils.premission.ApplyPermission;
 
 import com.acg12.R;
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -8,11 +8,10 @@ import android.view.View;
 import com.acg12.cache.DaoBaseImpl;
 import com.acg12.entity.DownLoad;
 
-import com.acg12.cache.DaoBaseImpl;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.widget.recycle.IRecycleView;
 
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.DownloadView;
 import com.acg12.widget.dialog.AlertDialogView;

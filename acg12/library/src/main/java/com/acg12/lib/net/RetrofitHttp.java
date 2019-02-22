@@ -35,7 +35,7 @@ public class RetrofitHttp {
     private OkHttpClient mOkHttpClient;
     private retrofit2.Retrofit mRetrofit;
 
-    public RetrofitHttp(Context context , String url) {
+    public RetrofitHttp(Context context, String url) {
         File httpCacheDirectory = new File(context.getApplicationContext().getCacheDir(), context
                 .getApplicationContext().getPackageName());
         int cacheSize = 10 * 1024 * 1024; // 10 MiB
@@ -72,13 +72,20 @@ public class RetrofitHttp {
             int code = Integer.valueOf(json.getString("code")).intValue();
             String desc = json.getString("msg");
             if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
-                data = json.getJSONObject("data");
-            }else{
-                throw new ApiException(code , desc);
+                if (json.isNull("data")) {
+                    data = new JSONObject();
+                } else {
+                    data = json.getJSONObject("data");
+                }
+            } else {
+                throw new ApiException(code, desc);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new ApiException(ApiErrorCode.EXCEPTION_IO, e.getMessage());
+            if (e instanceof ApiException) {
+                throw new ApiException(((ApiException) e).getErrorCode(), ((ApiException) e).getMsg());
+            } else {
+                throw new ApiException(ApiErrorCode.EXCEPTION_IO, e.getMessage());
+            }
         }
         return data;
     }
@@ -91,13 +98,20 @@ public class RetrofitHttp {
             int code = Integer.valueOf(json.getString("code")).intValue();
             String desc = json.getString("msg");
             if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
-                data = json.getJSONArray("data");
-            }else{
-                throw new ApiException(code , desc);
+                if (json.isNull("data")) {
+                    data = new JSONArray();
+                } else {
+                    data = json.getJSONArray("data");
+                }
+            } else {
+                throw new ApiException(code, desc);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new ApiException(ApiErrorCode.EXCEPTION_IO, e.getMessage());
+            if (e instanceof ApiException) {
+                throw new ApiException(((ApiException) e).getErrorCode(), ((ApiException) e).getMsg());
+            } else {
+                throw new ApiException(ApiErrorCode.EXCEPTION_IO, e.getMessage());
+            }
         }
         return data;
     }
@@ -110,13 +124,20 @@ public class RetrofitHttp {
             int code = Integer.valueOf(json.getString("code")).intValue();
             String desc = json.getString("msg");
             if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
-                data = new JSONObject(json.getString("data"));
-            }else{
-                throw new ApiException(code , desc);
+                if (json.isNull("data")) {
+                    data = new JSONObject();
+                } else {
+                    data = json.getJSONObject("data");
+                }
+            } else {
+                throw new ApiException(code, desc);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new ApiException(ApiErrorCode.EXCEPTION_IO, e.getMessage());
+            if (e instanceof ApiException) {
+                throw new ApiException(((ApiException) e).getErrorCode(), ((ApiException) e).getMsg());
+            } else {
+                throw new ApiException(ApiErrorCode.EXCEPTION_IO, e.getMessage());
+            }
         }
         return data;
     }
@@ -129,13 +150,20 @@ public class RetrofitHttp {
             int code = Integer.valueOf(json.getString("code")).intValue();
             String desc = json.getString("msg");
             if (code == ApiErrorCode.HTTP_RESPONSE_SUCCEED) {
-                data = new JSONArray(json.getString("data"));
-            }else{
-                throw new ApiException(code , desc);
+                if (json.isNull("data")) {
+                    data = new JSONArray();
+                } else {
+                    data = json.getJSONArray("data");
+                }
+            } else {
+                throw new ApiException(code, desc);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new ApiException(ApiErrorCode.EXCEPTION_IO, e.getMessage());
+            if (e instanceof ApiException) {
+                throw new ApiException(((ApiException) e).getErrorCode(), ((ApiException) e).getMsg());
+            } else {
+                throw new ApiException(ApiErrorCode.EXCEPTION_IO, e.getMessage());
+            }
         }
         return data;
     }
@@ -150,21 +178,21 @@ public class RetrofitHttp {
 
     public static void failure(final Throwable e, final HttpRequestListener httpRequestListener) {
         if (e instanceof ApiException) {
-            failure(((ApiException) e).getMsg(), httpRequestListener);
+            failure(((ApiException) e).getErrorCode(), ((ApiException) e).getMsg(), httpRequestListener);
         } else if (e instanceof HttpException) {
-            failure("网络超时", httpRequestListener);
+            failure(-1, "网络超时", httpRequestListener);
         } else if (e instanceof ConnectException) {
-            failure("网络超时", httpRequestListener);
+            failure(-1, "网络超时", httpRequestListener);
         } else if (e instanceof SocketTimeoutException) {
-            failure("网络超时", httpRequestListener);
+            failure(-1, "网络超时", httpRequestListener);
         } else {
-            failure(e.toString(), httpRequestListener);
+            failure(-1, e.toString(), httpRequestListener);
         }
     }
 
-    public static void failure(final String e, final HttpRequestListener httpRequestListener) {
+    public static void failure(int code, final String e, final HttpRequestListener httpRequestListener) {
         if (httpRequestListener != null) {
-            httpRequestListener.onFailure(0, e);
+            httpRequestListener.onFailure(code, e);
         } else {
             failure();
         }

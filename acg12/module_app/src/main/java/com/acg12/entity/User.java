@@ -6,7 +6,7 @@ import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.MD5Util;
 import com.litesuits.orm.db.annotation.Table;
 
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 
 
 @Table("user")
@@ -28,7 +28,8 @@ public class User extends Param{;
     private String verify;
 
     private int uid = 0;
-	private String username;
+    private String username;
+	private String sessionId;
 	private String password;
 	private String avatar;
 	private String signature; // 签名
@@ -196,5 +197,13 @@ public class User extends Param{;
 
     public void setVerify(String verify) {
         this.verify = verify;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

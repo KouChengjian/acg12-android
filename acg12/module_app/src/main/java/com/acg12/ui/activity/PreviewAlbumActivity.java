@@ -17,7 +17,7 @@ import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 
 import com.acg12.R;
-import com.acg12.constant.Constant;
+import com.acg12.lib.constant.Constant;
 import com.acg12.entity.Album;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.ui.base.SkinBaseActivity;

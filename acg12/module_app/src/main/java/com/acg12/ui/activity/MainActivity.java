@@ -10,7 +10,8 @@ import android.view.View;
 
 import com.acg12.conf.AppConfig;
 import com.acg12.conf.EventConfig;
-import com.acg12.constant.Constant;
+import com.acg12.lib.app.BaseApp;
+import com.acg12.lib.constant.Constant;
 import com.acg12.cache.DaoBaseImpl;
 import com.acg12.entity.Update;
 import com.acg12.entity.User;
@@ -127,7 +128,7 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
     @Override
     public boolean onLongClick(View v) {
         if (v.getId() == R.id.iv_nav_avatar){
-            if(Constant.debug){
+            if(BaseApp.isDebug()){
                 new DebugBaseServerDialog(this).show();
                 String baseURLInfo = String.format("服务器地址:[%s] VodType:[%s]", AppConfig.SERVER.baseURL, AppConfig.SERVER.imAppid);
                 ShowToast("当前地址为" + baseURLInfo);
