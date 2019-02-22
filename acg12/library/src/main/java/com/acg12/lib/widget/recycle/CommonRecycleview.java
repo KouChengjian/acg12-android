@@ -27,9 +27,11 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
     private TipLayoutView mTipLayoutView;
     private IRecycleUpdataListener recycleUpdataListener;
     private RecyclerView.Adapter adapter;
-    private boolean refreshHideHeader = true; // 刷新是否隐藏header
-    private boolean hasShowRefreshBtn = false;
-    private boolean hasShowContent = false;
+
+    private LayoutStatus mLayoutStatus = LayoutStatus.LAYOUT_STATUS_EMPTY;          // 默认的布局状态
+    private int customImage = R.mipmap.bg_loading_null;
+    private String customMessage = "亲，出现异常咯";
+    private String customBtn = "刷新看看";
 
     public CommonRecycleview(Context context) {
         super(context);
@@ -110,20 +112,8 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         }
     }
 
-    public void addFootView(View view) {
-        mRecyclerView.addFootView(view);
-    }
-
-    public void setRefrreshHideHeader(boolean refreshHideHeader) {
-        this.refreshHideHeader = refreshHideHeader;
-    }
-
-    public void setHasShowRefreshBtn(boolean hasShowRefreshBtn) {
-        this.hasShowRefreshBtn = hasShowRefreshBtn;
-    }
-
-    public void setHasShowContent(boolean hasShowContent) {
-        this.hasShowContent = hasShowContent;
+    public void setDefaultLayoutStatus(LayoutStatus layoutStatus) {
+        mLayoutStatus = layoutStatus;
     }
 
     public void setLoadingEnabled(boolean enabled) {
@@ -173,57 +163,63 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
     }
 
     public void stopRefreshLoadMore(boolean refresh) {
-        if (refresh)
+        if (refresh) {
+//            mRecyclerView.resetLayoutFooter();
             mSwipeRefreshLayout.setRefreshing(false);
-        else
+        } else {
             mRecyclerView.loadMoreComplete();
-        loadingNull();
+        }
+        resetLoadingView(mLayoutStatus);
+    }
+
+    public void recycleException() {
+        if (adapter.getItemCount() != 0) {
+            return;
+        }
+        mSwipeRefreshLayout.setRefreshing(false);
+        mRecyclerView.loadMoreComplete();
+        mTipLayoutView.showNetError();
     }
 
     public void notifyChanged() {
         adapter.notifyDataSetChanged();
-        loadingNull();
+        resetLoadingView(mLayoutStatus);
     }
 
     public void notifyChanged(int position) {
         adapter.notifyItemChanged(position);
-        loadingNull();
+        resetLoadingView(mLayoutStatus);
     }
 
     public void notifyChanged(int positionStart, int itemCount) {
-        adapter.notifyItemRangeChanged(positionStart, itemCount);
-//        adapter.notifyDataSetChanged();
-        loadingNull();
+        adapter.notifyItemChanged(positionStart, itemCount);
+        resetLoadingView(mLayoutStatus);
     }
 
-    public void showNetError(){
-        mTipLayoutView.showNetError();
-    }
-
-    public void loadingNull() {
-        if (adapter.getItemCount() == 0) {
-            if(hasShowRefreshBtn){
-                mTipLayoutView.showEmptyOrRefresh();
-            } else {
-                if(hasShowContent){ // 是否显示内容
-                    mTipLayoutView.showContent();
-                } else {
-                    mTipLayoutView.showEmpty();
-                    if (mRecyclerView.getHeaderView() != null) {
-                        if (refreshHideHeader) {
-                            mRecyclerView.getHeaderView().setVisibility(View.GONE);
-                        } else {
-                            mRecyclerView.getHeaderView().setVisibility(View.VISIBLE);
-                            mTipLayoutView.showContent();
-                        }
-                    }
-                }
-            }
-        } else {
+    public void resetLoadingView(LayoutStatus layoutStatus) {
+        if (adapter.getItemCount() != 0) {
             mTipLayoutView.showContent();
             if (mRecyclerView.getHeaderView() != null) {
                 mRecyclerView.getHeaderView().setVisibility(View.VISIBLE);
             }
+            return;
+        }
+        if (LayoutStatus.LAYOUT_STATUS_CONTENT == layoutStatus) {
+            mTipLayoutView.showContent();
+        } else if (LayoutStatus.LAYOUT_STATUS_CONTENT_HEADER_SHOW == layoutStatus) {
+            mTipLayoutView.showContent();
+            mRecyclerView.getHeaderView().setVisibility(View.VISIBLE);
+        } else if (LayoutStatus.LAYOUT_STATUS_CONTENT_HEADER_HIDE == layoutStatus) {
+            mTipLayoutView.showContent();
+            mRecyclerView.getHeaderView().setVisibility(View.GONE);
+        } else if (LayoutStatus.LAYOUT_STATUS_EMPTY == layoutStatus) {
+            mTipLayoutView.showEmpty();
+        } else if (LayoutStatus.LAYOUT_STATUS_EMPTY_REFRESH == layoutStatus) {
+            mTipLayoutView.showEmptyOrRefresh();
+        } else if (LayoutStatus.LAYOUT_STATUS_NET_ERROR == layoutStatus) {
+            mTipLayoutView.showNetError();
+        } else if (LayoutStatus.LAYOUT_STATUS_CUSTOM == layoutStatus) {
+            mTipLayoutView.showCustomError(customImage, customMessage, customBtn);
         }
     }
 
