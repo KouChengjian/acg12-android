@@ -1,6 +1,7 @@
 package com.acg12.lib.ui.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,11 +12,13 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.acg12.lib.utils.AppStartUtil;
 import com.acg12.lib.utils.Toastor;
+import com.acg12.lib.utils.ViewUtil;
 
 public class BaseFragment extends Fragment {
 
     protected Context mContext;
     protected String mTag;
+    protected ProgressDialog mProgressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,6 +97,21 @@ public class BaseFragment extends Fragment {
         if (getActivity().getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
             if (getActivity().getCurrentFocus() != null)
                 manager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    public void startLoading(String msg) {
+        if (mProgressDialog == null) {
+            mProgressDialog = ViewUtil.startLoading(mContext, msg);
+        } else {
+            mProgressDialog.setMessage(msg);
+            mProgressDialog.show();
+        }
+    }
+
+    public void stopLoading() {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
         }
     }
 }
