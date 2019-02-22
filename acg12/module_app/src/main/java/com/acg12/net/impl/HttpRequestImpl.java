@@ -905,8 +905,31 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
-    public Subscription collectAlbumList(int pageNumber, int pageSize, HttpRequestListener<List<Album>> httpRequestListener) {
-        return null;
+    public Subscription collectAlbumList(final int pageNumber, final int pageSize, final HttpRequestListener<List<Album>> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectAlbumList(pageNumber, pageSize);
+                    }
+                })
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONArray data = RetrofitHttp.parseJSONArray(response);
+                        if (data != null) {
+                            List<Album> albums = JsonParse.fromListJson(data.toString(), Album.class);
+                            RetrofitHttp.success(albums, httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
     }
 
     @Override
