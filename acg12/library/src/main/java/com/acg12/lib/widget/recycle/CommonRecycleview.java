@@ -135,7 +135,7 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
     }
 
     public void stopLoading() {
-        mRecyclerView.noMoreLoading();
+        mRecyclerView.stopMoreLoading();
     }
 
     public void setLoadingListener(IRecycleView.LoadingListener mPresenter) {
