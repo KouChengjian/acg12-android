@@ -81,7 +81,7 @@ public interface HttpRequest {
 
     Subscription collectAlbumAdd(Map<String, Object> params, HttpRequestListener<String> httpRequestListener);
 
-    Subscription collectAlbumDel(int id, HttpRequestListener<String> httpRequestListener);
+    Subscription collectAlbumDel(String pinId, HttpRequestListener<String> httpRequestListener);
 
     /**
      * ------------------------------------------------搜索-----------------------------------------------------------

@@ -6,12 +6,10 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import com.acg12.R;
 import com.acg12.entity.Album;
 import com.acg12.lib.listener.ItemClickSupport;
-import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.ui.adapter.CollectAlbumAdapter;
-import com.acg12.ui.adapter.NewestAlbumAdapter;
 
 import java.util.List;
 
@@ -83,6 +81,10 @@ public class CollectAlbumView extends ViewImpl {
 
     public void stopRefreshLoadMore(boolean refresh) {
         mCommonRecycleview.stopRefreshLoadMore(refresh);
+    }
+
+    public void recycleException() {
+        mCommonRecycleview.recycleException();
     }
 
     public void updataObject(int position, int isCollect) {

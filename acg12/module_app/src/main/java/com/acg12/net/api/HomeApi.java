@@ -62,7 +62,7 @@ public interface HomeApi {
 
     @FormUrlEncoded
     @POST("api/app/collect/album/list.json")
-    Observable<ResponseBody> collectAlbumList(@Field("id") int id, @Field("type") int type);
+    Observable<ResponseBody> collectAlbumList(@Field("pageNumber") int pageNumber, @Field("pageSize") int pageSize);
 
     @FormUrlEncoded
     @POST("api/app/collect/album/add.json")
@@ -70,7 +70,7 @@ public interface HomeApi {
 
     @FormUrlEncoded
     @POST("api/app/collect/album/del.json")
-    Observable<ResponseBody> collectAlbumDel(@Field("id") int id, @Field("type") int type);
+    Observable<ResponseBody> collectAlbumDel(@Field("pinId") String pinId);
 
 //    @FormUrlEncoded
 //    @ApiConverter(converter = LoginConverter.class)

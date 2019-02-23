@@ -957,8 +957,27 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
-    public Subscription collectAlbumDel(int id, HttpRequestListener<String> httpRequestListener) {
-        return null;
+    public Subscription collectAlbumDel(final String pinId,final HttpRequestListener<String> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectAlbumDel(pinId);
+                    }
+                }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        if (data != null) {
+                            RetrofitHttp.success("", httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
     }
 
     @Override

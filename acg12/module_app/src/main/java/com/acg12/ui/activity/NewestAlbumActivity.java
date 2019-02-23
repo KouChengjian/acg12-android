@@ -133,14 +133,13 @@ public class NewestAlbumActivity extends SkinBaseActivity<NewestAlbumView> imple
             @Override
             public void onSuccess(String result) {
                 stopLoading();
-                ShowToastView("收藏成功");
                 mView.updataObject(position, 1);
             }
 
             @Override
             public void onFailure(int errorcode, String msg) {
                 stopLoading();
-                ShowToastView(msg);
+                ShowToast(msg);
                 LogUtil.e(msg);
                 if(errorcode == 5010001){
                     mView.updataObject(position, 1);
@@ -150,10 +149,8 @@ public class NewestAlbumActivity extends SkinBaseActivity<NewestAlbumView> imple
     }
 
     public void delCollectAlbum(final int position, Album albun) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("pinId", albun.getPinId());
         startLoading("取消收藏中...");
-        HttpRequestImpl.getInstance().collectAlbumAdd(params, new HttpRequestListener<String>() {
+        HttpRequestImpl.getInstance().collectAlbumDel(albun.getPinId(), new HttpRequestListener<String>() {
             @Override
             public void onSuccess(String result) {
                 stopLoading();
@@ -163,7 +160,7 @@ public class NewestAlbumActivity extends SkinBaseActivity<NewestAlbumView> imple
             @Override
             public void onFailure(int errorcode, String msg) {
                 stopLoading();
-                ShowToastView(msg);
+                ShowToast(msg);
                 LogUtil.e(msg);
             }
         });

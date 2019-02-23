@@ -100,7 +100,7 @@ public class DownloadView extends ViewImpl {
     }
 
     public void stopLoading(){
-        mRecyclerView.noMoreLoading();
+        mRecyclerView.stopMoreLoading();
     }
 
     public void stopRefreshLoadMore(boolean refresh) {

@@ -1,5 +1,6 @@
 package com.acg12.entity;
 
+import com.google.gson.annotations.SerializedName;
 import com.litesuits.orm.db.annotation.Table;
 
 @Table("album")
@@ -9,11 +10,12 @@ public class Album extends Param {
 
 	private String pinId = "";
 	private String content;    // 内容
-	private Integer love;      // 喜欢的个数 点赞
-	private Integer favorites; // 收藏的个数 采集
+	private int love;      // 喜欢的个数 点赞
+	private int favorites; // 收藏的个数 采集
 	private String resType;    // 资源类型
-	private Integer resWidth;  // 资源宽度
-	private Integer resHight;  // 资源高度
+	private int resWidth;  // 资源宽度
+	private int resHight;  // 资源高度
+	@SerializedName("image")
 	private String imageUrl;
 	private int isCollect; // 是否收藏
 
@@ -25,19 +27,19 @@ public class Album extends Param {
 		this.content = content;
 	}
 
-	public Integer getLove() {
+	public int getLove() {
 		return love;
 	}
 
-	public void setLove(Integer love) {
+	public void setLove(int love) {
 		this.love = love;
 	}
 
-	public Integer getFavorites() {
+	public int getFavorites() {
 		return favorites;
 	}
 
-	public void setFavorites(Integer favorites) {
+	public void setFavorites(int favorites) {
 		this.favorites = favorites;
 	}
 
@@ -49,29 +51,21 @@ public class Album extends Param {
 		this.resType = resType;
 	}
 
-	public Integer getResWidth() {
+	public int getResWidth() {
 		return resWidth;
 	}
 
-	public void setResWidth(Integer resWidth) {
+	public void setResWidth(int resWidth) {
 		this.resWidth = resWidth;
 	}
 
-	public Integer getResHight() {
+	public int getResHight() {
 		return resHight;
 	}
 
-	public void setResHight(Integer resHight) {
+	public void setResHight(int resHight) {
 		this.resHight = resHight;
 	}
-
-//	public ArrayList<String> getUrlList() {
-//		return urlList;
-//	}
-//
-//	public void setUrlList(ArrayList<String> urlList) {
-//		this.urlList = urlList;
-//	}
 
 	public String getPinId() {
 		return pinId;
@@ -88,7 +82,6 @@ public class Album extends Param {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-
 
 	public int getIsCollect() {
 		return isCollect;
