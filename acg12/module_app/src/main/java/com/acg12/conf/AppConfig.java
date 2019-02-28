@@ -21,7 +21,7 @@ public class AppConfig {
     public static ServerUrl SERVER = null;
     public final static List<ServerUrl> DefaultServerUrlList = new ArrayList<>();
     public final static ServerUrl URL_SERVER_PROP = new ServerUrl("http://acg12.club/acg12/"); //正式服
-    public final static ServerUrl URL_SERVER_DEBUG_130 = new ServerUrl("http://192.168.8.168:8081/acg12/");
+    public final static ServerUrl URL_SERVER_DEBUG_130 = new ServerUrl("http://192.168.8.130:8081/acg12/");
 
     static {
         DefaultServerUrlList.add(URL_SERVER_PROP);

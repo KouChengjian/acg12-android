@@ -1,15 +1,16 @@
 package com.acg12.ui.views;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.acg12.R;
 import com.acg12.entity.Album;
+import com.acg12.entity.CollectSubjectEntity;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.ui.adapter.CollectAlbumAdapter;
+import com.acg12.ui.adapter.CollectSubjectAdapter;
 
 import java.util.List;
 
@@ -18,62 +19,55 @@ import butterknife.BindView;
 /**
  * Created with Android Studio.
  * User: mayn
- * Date: 2019/1/4 15:00
+ * Date: 2019/2/28 17:32
  * Description:
  */
-public class CollectAlbumView extends ViewImpl {
+public class CollectSubjectView extends ViewImpl {
 
     @BindView(R.id.commonRecycleview)
     CommonRecycleview mCommonRecycleview;
-
-    CollectAlbumAdapter mCollectAlbumAdapter;
-    StaggeredGridLayoutManager staggeredGridLayoutManager;
+    CollectSubjectAdapter mCollectSubjectAdapter;
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_collect_album;
+        return R.layout.fragment_collect_subject;
     }
 
     @Override
     public void created() {
         super.created();
-        staggeredGridLayoutManager = mCommonRecycleview.setStaggeredGridLayoutManager();
-        mCollectAlbumAdapter = new CollectAlbumAdapter(getContext());
-        mCommonRecycleview.setAdapter(mCollectAlbumAdapter);
+        mCommonRecycleview.setLinearLayoutManager();
+        mCollectSubjectAdapter = new CollectSubjectAdapter(getContext());
+        mCommonRecycleview.setAdapter(mCollectSubjectAdapter);
         mCommonRecycleview.startRefreshing();
-
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        mCollectAlbumAdapter.setCollectAlbumListener((CollectAlbumAdapter.CollectAlbumListener) mPresenter);
+        mCollectSubjectAdapter.setCollectSubjectListener((CollectSubjectAdapter.CollectSubjectListener) mPresenter);
         mCommonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
         mCommonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
         mCommonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener) mPresenter);
         mCommonRecycleview.setRecycleUpdataListener((CommonRecycleview.IRecycleUpdataListener)mPresenter);
     }
 
-    public void bindData(List<Album> result, boolean refresh) {
+    public void bindData(List<CollectSubjectEntity> result, boolean refresh) {
         if (refresh) {
-            mCollectAlbumAdapter.setList(result);
+            mCollectSubjectAdapter.setList(result);
             mCommonRecycleview.notifyChanged();
         } else {
-            mCollectAlbumAdapter.addAll(result);
+            mCollectSubjectAdapter.addAll(result);
             mCommonRecycleview.notifyChanged(getList().size() - result.size(), getList().size());
         }
         mCommonRecycleview.stopRefreshLoadMore(true);
     }
 
-    public String getPicId() {
-        return mCollectAlbumAdapter.getList().get(mCollectAlbumAdapter.getList().size() - 1).getPinId();
+    public List<CollectSubjectEntity> getList() {
+        return mCollectSubjectAdapter.getList();
     }
 
-    public List<Album> getList() {
-        return mCollectAlbumAdapter.getList();
-    }
-
-    public Album getAlbum(int position) {
+    public CollectSubjectEntity getObject(int position) {
         return getList().get(position);
     }
 
@@ -81,22 +75,13 @@ public class CollectAlbumView extends ViewImpl {
         mCommonRecycleview.stopLoading();
     }
 
-    public void stopRefreshLoadMore(boolean refresh) {
-        mCommonRecycleview.stopRefreshLoadMore(refresh);
-    }
-
     public void recycleException() {
         mCommonRecycleview.recycleException();
     }
 
     public void updataObject(int position, int isCollect) {
-        Album album = getAlbum(position);
-        album.setIsCollect(isCollect);
+        CollectSubjectEntity collectSubjectEntity = getObject(position);
+        collectSubjectEntity.setIsCollect(isCollect);
         mCommonRecycleview.notifyChanged(position);
-    }
-
-    public void moveToPosition(int n) {
-        staggeredGridLayoutManager.scrollToPositionWithOffset(n, 0);
-//        manager.setStackFromEnd(true);
     }
 }

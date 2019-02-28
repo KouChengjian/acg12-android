@@ -1,14 +1,15 @@
 package com.acg12.ui.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
-import com.acg12.entity.Album;
+import com.acg12.entity.CollectSubjectEntity;
 import com.acg12.lib.constant.Constant;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
@@ -17,29 +18,26 @@ import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.net.impl.HttpRequestImpl;
-import com.acg12.ui.activity.PreviewAlbumActivity;
-import com.acg12.ui.adapter.CollectAlbumAdapter;
-import com.acg12.ui.adapter.NewestAlbumAdapter;
-import com.acg12.ui.views.CollectAlbumView;
+import com.acg12.ui.activity.SearchInfoActivity;
+import com.acg12.ui.adapter.CollectSubjectAdapter;
+import com.acg12.ui.views.CollectSubjectView;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created with Android Studio.
- * User: mayn
- * Date: 2019/1/4 14:57
- * Description:
+ * A simple {@link Fragment} subclass.
  */
-public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView> implements IRecycleView.LoadingListener,
-        SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener, CollectAlbumAdapter.CollectAlbumListener {
+public class CollectSubjectFragment extends PresenterFragmentImpl<CollectSubjectView> implements IRecycleView.LoadingListener,
+        SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener, CollectSubjectAdapter.CollectSubjectListener {
+
 
     private int pageNum = 1;
     private boolean refresh = true;
 
-    public static CollectAlbumFragment newInstance() {
-        CollectAlbumFragment fragment = new CollectAlbumFragment();
+    public static CollectSubjectFragment newInstance() {
+        CollectSubjectFragment fragment = new CollectSubjectFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -61,26 +59,15 @@ public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView
         super.onResume();
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == 1000) {
-                int position = data.getExtras().getInt("position");
-                List<Album> list = mView.getList();
-                list = PreviewAlbumActivity.mList;
-                PreviewAlbumActivity.mList = null;
-                mView.moveToPosition(position);
-            }
-        }
-    }
-
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-        Intent intent = new Intent(mContext, PreviewAlbumActivity.class);
+        CollectSubjectEntity collectSubjectEntity = mView.getObject(position);
         Bundle bundle = new Bundle();
-        bundle.putInt("position", position);
-        PreviewAlbumActivity.mList = mView.getList();
-        intent.putExtras(bundle);
-        startActivityForResult(intent, 1000);
+        bundle.putInt("id", collectSubjectEntity.getRelevanceId());
+        bundle.putInt("type", collectSubjectEntity.getType());
+        bundle.putString("typeName", collectSubjectEntity.getTypeName());
+        bundle.putString("title", TextUtils.isEmpty(collectSubjectEntity.getNameCn()) ? collectSubjectEntity.getName() : collectSubjectEntity.getNameCn());
+        startAnimActivity(SearchInfoActivity.class, bundle);
     }
 
     @Override
@@ -104,18 +91,18 @@ public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView
 
     @Override
     public void onClickCollect(int position) {
-        Album album = mView.getAlbum(position);
-        if (album.getIsCollect() == 1) {
-            delCollectAlbum(position, album);
+        CollectSubjectEntity collectSubjectEntity = mView.getObject(position);
+        if (collectSubjectEntity.getIsCollect() == 1) {
+            delCollect(position, collectSubjectEntity);
         } else {
-            addCollectAlbum(position, album);
+            addCollect(position, collectSubjectEntity);
         }
     }
 
     public void requestData() {
-        HttpRequestImpl.getInstance().collectAlbumList(pageNum, Constant.LIMIT_PAGER_20, new HttpRequestListener<List<Album>>() {
+        HttpRequestImpl.getInstance().collectSubjectList(pageNum, Constant.LIMIT_PAGER_20, new HttpRequestListener<List<CollectSubjectEntity>>() {
             @Override
-            public void onSuccess(List<Album> result) {
+            public void onSuccess(List<CollectSubjectEntity> result) {
                 if (result.size() < Constant.LIMIT_PAGER_20) {
                     mView.stopLoading();
                 }
@@ -131,21 +118,21 @@ public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView
         });
     }
 
-    public void addCollectAlbum(final int position, Album albun) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("pinId", albun.getPinId());
-        params.put("image", albun.getImageUrl());
-        params.put("content", albun.getContent());
-        params.put("love", albun.getLove());
-        params.put("favorites", albun.getFavorites());
-        params.put("resWidth", albun.getResWidth());
-        params.put("resHight", albun.getResHight());
+    private void addCollect(final int position, final CollectSubjectEntity collectSubjectEntity) {
         startLoading("收藏中...");
-        HttpRequestImpl.getInstance().collectAlbumAdd(params, new HttpRequestListener<String>() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("relevanceId", collectSubjectEntity.getRelevanceId());
+        params.put("type", collectSubjectEntity.getType());
+        params.put("typeName", collectSubjectEntity.getNameCn());
+        params.put("image", collectSubjectEntity.getImage());
+        params.put("name", collectSubjectEntity.getName());
+        params.put("nameCn", collectSubjectEntity.getNameCn());
+        HttpRequestImpl.getInstance().collectSubjectAdd(params, new HttpRequestListener<String>() {
             @Override
             public void onSuccess(String result) {
                 stopLoading();
-                mView.updataObject(position, 1);
+                collectSubjectEntity.setIsCollect(1);
+                mView.updataObject(position, collectSubjectEntity.getIsCollect());
             }
 
             @Override
@@ -153,20 +140,18 @@ public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView
                 stopLoading();
                 ShowToast(msg);
                 LogUtil.e(msg);
-                if(errorcode == 5010001){
-                    mView.updataObject(position, 1);
-                }
             }
         });
     }
 
-    public void delCollectAlbum(final int position, Album albun) {
+    private void delCollect(final int position, final CollectSubjectEntity collectSubjectEntity) {
         startLoading("取消收藏中...");
-        HttpRequestImpl.getInstance().collectAlbumDel(albun.getPinId(), new HttpRequestListener<String>() {
+        HttpRequestImpl.getInstance().collectSubjectDel(collectSubjectEntity.getRelevanceId(), new HttpRequestListener<String>() {
             @Override
             public void onSuccess(String result) {
                 stopLoading();
-                mView.updataObject(position, 0);
+                collectSubjectEntity.setIsCollect(0);
+                mView.updataObject(position, collectSubjectEntity.getIsCollect());
             }
 
             @Override
@@ -182,4 +167,6 @@ public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView
     public void onDestroy() {
         super.onDestroy();
     }
+
+
 }

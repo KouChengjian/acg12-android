@@ -15,6 +15,7 @@ import com.acg12.ui.fragment.CollectAlbumFragment;
 import com.acg12.ui.fragment.CollectBangunFragment;
 import com.acg12.ui.fragment.CollectCaricatureFragment;
 import com.acg12.ui.fragment.CollectPaletteFragment;
+import com.acg12.ui.fragment.CollectSubjectFragment;
 import com.acg12.ui.fragment.CollectVideoFragment;
 
 import butterknife.BindView;
@@ -31,9 +32,10 @@ public class CollectView extends ViewImpl {
     @BindView(R.id.viewpager)
     ViewPager mViewpager;
 
-    private String[] titles = new String[]{"插画", "画册", "漫画", "番剧", "动画"};
+    private String[] titles = new String[]{"搜索词条", "插画", "画册", "漫画", "番剧", "动画"};
     private Fragment[] fragments;
     private CommonPagerAdapter mCommonPagerAdapter;
+    private CollectSubjectFragment mCollectSubjectFragment;
     private CollectAlbumFragment mCollectAlbumFragment;
     private CollectPaletteFragment mCollectPaletteFragment;
     private CollectCaricatureFragment mCollectCaricatureFragment;
@@ -49,13 +51,14 @@ public class CollectView extends ViewImpl {
     public void created() {
         super.created();
         mToolBarView.setNavigationOrBreak("我的收藏");
+        mCollectSubjectFragment = CollectSubjectFragment.newInstance();
         mCollectAlbumFragment = CollectAlbumFragment.newInstance();
         mCollectPaletteFragment = CollectPaletteFragment.newInstance();
         mCollectCaricatureFragment = CollectCaricatureFragment.newInstance();
         mCollectBangunFragment = CollectBangunFragment.newInstance();
         mCollectVideoFragment = CollectVideoFragment.newInstance();
 
-        fragments = new Fragment[]{mCollectAlbumFragment, mCollectPaletteFragment, mCollectCaricatureFragment, mCollectBangunFragment, mCollectVideoFragment};
+        fragments = new Fragment[]{mCollectSubjectFragment, mCollectAlbumFragment, mCollectPaletteFragment, mCollectCaricatureFragment, mCollectBangunFragment, mCollectVideoFragment};
         mCommonPagerAdapter = new CommonPagerAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), fragments, titles);
         mViewpager.setAdapter(mCommonPagerAdapter);
         mViewpager.setOffscreenPageLimit(fragments.length);

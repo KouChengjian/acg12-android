@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <com.acg12.widget.LabelImageView
+            android:id="@+id/iv_collect_subject_cover"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_loading_pic"
+            app:backgroundColor="@color/theme_primary_dark"
+            app:labelBottomPadding="5dp"
+            app:labelDirection="leftTop"
+            app:labelTopDistance="10dp"
+            app:labelTopPadding="2dp"
+            app:textContent="晚场"
+            app:textContentSize="10sp"
+            app:textTitleColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_collect_subject_title"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="xxxx"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/text_666666"
+            android:textSize="16sp" />
+
+        <com.acg12.lib.widget.BGButton
+            android:id="@+id/btn_collect_subject_cover"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:text="收藏"
+            android:textSize="12sp"
+            app:normalSolid="@color/transparent"
+            app:normalStrokeColor="@color/line"
+            app:normalStrokeWidth="1dp"
+            app:normalTextColor="@color/text_666666"
+            app:radii="12dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line" />
+</LinearLayout>
