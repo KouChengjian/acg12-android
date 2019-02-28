@@ -8,37 +8,33 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.acg12.R;
+import com.acg12.cache.DaoBaseImpl;
 import com.acg12.conf.AppConfig;
 import com.acg12.conf.EventConfig;
-import com.acg12.lib.app.BaseApp;
-import com.acg12.lib.constant.Constant;
-import com.acg12.cache.DaoBaseImpl;
 import com.acg12.entity.Update;
 import com.acg12.entity.User;
-
+import com.acg12.lib.app.BaseApp;
 import com.acg12.lib.listener.HttpRequestListener;
-
-import com.acg12.net.download.DownloadManger;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.skin.AttrFactory;
 import com.acg12.lib.utils.skin.entity.DynamicAttr;
-
+import com.acg12.net.download.DownloadManger;
 import com.acg12.net.impl.HttpRequestImpl;
-import com.acg12.widget.dialog.UpdateDialog;
-import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
-
-import com.acg12.R;
 import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.MainView;
+import com.acg12.widget.dialog.UpdateDialog;
 import com.acg12.widget.dialog.debug.DebugBaseServerDialog;
+import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends SkinBaseActivity<MainView> implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener ,View.OnLongClickListener{
+public class MainActivity extends SkinBaseActivity<MainView> implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, View.OnLongClickListener {
 
     public static long firstTime;
 
@@ -127,10 +123,10 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
 
     @Override
     public boolean onLongClick(View v) {
-        if (v.getId() == R.id.iv_nav_avatar){
-            if(BaseApp.isDebug()){
+        if (v.getId() == R.id.iv_nav_avatar) {
+            if (BaseApp.isDebug()) {
                 new DebugBaseServerDialog(this).show();
-                String baseURLInfo = String.format("服务器地址:[%s] VodType:[%s]", AppConfig.SERVER.baseURL, AppConfig.SERVER.imAppid);
+                String baseURLInfo = String.format("服务器地址:[%s]", AppConfig.SERVER.baseURL);
                 ShowToast("当前地址为" + baseURLInfo);
             }
         }

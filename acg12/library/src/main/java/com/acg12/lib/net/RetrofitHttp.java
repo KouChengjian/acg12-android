@@ -127,7 +127,7 @@ public class RetrofitHttp {
                 if (json.isNull("data")) {
                     data = new JSONObject();
                 } else {
-                    data = json.getJSONObject("data");
+                    data = new JSONObject(json.getString("data"));
                 }
             } else {
                 throw new ApiException(code, desc);
@@ -153,7 +153,7 @@ public class RetrofitHttp {
                 if (json.isNull("data")) {
                     data = new JSONArray();
                 } else {
-                    data = json.getJSONArray("data");
+                    data = new JSONArray(json.getString("data"));
                 }
             } else {
                 throw new ApiException(code, desc);

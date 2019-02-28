@@ -19,16 +19,19 @@
         <attr name="spb_colors" format="reference" />
     </declare-styleable>
 
-
-
-
-
-
-
-
-
-
-
+    <declare-styleable name="ButtonStyle">
+        <attr name="corner" format="dimension" />
+        <attr name="press_color" format="reference|color" />
+        <attr name="normal_color" format="reference|color" />
+        <attr name="stroke_width" format="dimension" />
+        <attr name="stroke_color" format="reference|color" />
+        <attr name="type">
+            <enum name="ok" value="1" />
+            <enum name="info" value="2" />
+            <enum name="warning" value="3" />
+            <enum name="error" value="4" />
+        </attr>
+    </declare-styleable>
 
     <!--&lt;!&ndash; 图片显示时，淡入淡出动画的时间，单位为毫秒&ndash;&gt;-->
     <!--<attr name="fadeDuration" format="integer"/>-->
@@ -38,72 +41,72 @@
     <!--<attr name="placeholderImage" format="reference"/>-->
     <!--&lt;!&ndash; 占位图缩放种类 &ndash;&gt;-->
     <!--<attr name="placeholderImageScaleType">-->
-        <!--<enum name="none" value="-1" />-->
-        <!--<enum name="fitXY" value="0" />-->
-        <!--<enum name="fitStart" value="1" />-->
-        <!--<enum name="fitCenter" value="2" />-->
-        <!--<enum name="fitEnd" value="3" />-->
-        <!--<enum name="center" value="4" />-->
-        <!--<enum name="centerInside" value="5" />-->
-        <!--<enum name="centerCrop" value="6" />-->
-        <!--<enum name="focusCrop" value="7" />progressBarAutoRotateInterval-->
+    <!--<enum name="none" value="-1" />-->
+    <!--<enum name="fitXY" value="0" />-->
+    <!--<enum name="fitStart" value="1" />-->
+    <!--<enum name="fitCenter" value="2" />-->
+    <!--<enum name="fitEnd" value="3" />-->
+    <!--<enum name="center" value="4" />-->
+    <!--<enum name="centerInside" value="5" />-->
+    <!--<enum name="centerCrop" value="6" />-->
+    <!--<enum name="focusCrop" value="7" />progressBarAutoRotateInterval-->
     <!--</attr>-->
     <!--&lt;!&ndash; 重新加载图片占位 &ndash;&gt;-->
     <!--<attr name="retryImage" format="reference"/>-->
     <!--&lt;!&ndash; 重新加载图片占位缩放种类 &ndash;&gt;-->
     <!--<attr name="retryImageScaleType">-->
-        <!--<enum name="none" value="-1" />-->
-        <!--<enum name="fitXY" value="0" />-->
-        <!--<enum name="fitStart" value="1" />-->
-        <!--<enum name="fitCenter" value="2" />-->
-        <!--<enum name="fitEnd" value="3" />-->
-        <!--<enum name="center" value="4" />-->
-        <!--<enum name="centerInside" value="5" />-->
-        <!--<enum name="centerCrop" value="6" />-->
-        <!--<enum name="focusCrop" value="7" />-->
+    <!--<enum name="none" value="-1" />-->
+    <!--<enum name="fitXY" value="0" />-->
+    <!--<enum name="fitStart" value="1" />-->
+    <!--<enum name="fitCenter" value="2" />-->
+    <!--<enum name="fitEnd" value="3" />-->
+    <!--<enum name="center" value="4" />-->
+    <!--<enum name="centerInside" value="5" />-->
+    <!--<enum name="centerCrop" value="6" />-->
+    <!--<enum name="focusCrop" value="7" />-->
     <!--</attr>-->
     <!--&lt;!&ndash; 加载失败显示的图片 &ndash;&gt;-->
     <!--<attr name="failureImage" format="reference"/>-->
     <!--&lt;!&ndash; 加载失败显示的图片缩放种类 &ndash;&gt;-->
     <!--<attr name="failureImageScaleType">-->
-        <!--<enum name="none" value="-1" />-->
-        <!--<enum name="fitXY" value="0" />-->
-        <!--<enum name="fitStart" value="1" />-->
-        <!--<enum name="fitCenter" value="2" />-->
-        <!--<enum name="fitEnd" value="3" />-->
-        <!--<enum name="center" value="4" />-->
-        <!--<enum name="centerInside" value="5" />-->
-        <!--<enum name="centerCrop" value="6" />-->
-        <!--<enum name="focusCrop" value="7" />-->
+    <!--<enum name="none" value="-1" />-->
+    <!--<enum name="fitXY" value="0" />-->
+    <!--<enum name="fitStart" value="1" />-->
+    <!--<enum name="fitCenter" value="2" />-->
+    <!--<enum name="fitEnd" value="3" />-->
+    <!--<enum name="center" value="4" />-->
+    <!--<enum name="centerInside" value="5" />-->
+    <!--<enum name="centerCrop" value="6" />-->
+    <!--<enum name="focusCrop" value="7" />-->
     <!--</attr>-->
     <!--&lt;!&ndash; 加载图片过程中显示进度的图片 &ndash;&gt;-->
     <!--<attr name="progressBarImage" format="reference"/>-->
     <!--&lt;!&ndash; 加载图片过程中显示进度的图片缩放种类 &ndash;&gt;-->
     <!--<attr name="progressBarImageScaleType">-->
-        <!--<enum name="none" value="-1" />-->
-        <!--<enum name="fitXY" value="0" />-->
-        <!--<enum name="fitStart" value="1" />-->
-        <!--<enum name="fitCenter" value="2" />-->
-        <!--<enum name="fitEnd" value="3" />-->
-        <!--<enum name="center" value="4" />-->
-        <!--<enum name="centerInside" value="5" />-->
-        <!--<enum name="centerCrop" value="6" />-->
-        <!--<enum name="focusCrop" value="7" />-->
+    <!--<enum name="none" value="-1" />-->
+    <!--<enum name="fitXY" value="0" />-->
+    <!--<enum name="fitStart" value="1" />-->
+    <!--<enum name="fitCenter" value="2" />-->
+    <!--<enum name="fitEnd" value="3" />-->
+    <!--<enum name="center" value="4" />-->
+    <!--<enum name="centerInside" value="5" />-->
+    <!--<enum name="centerCrop" value="6" />-->
+    <!--<enum name="focusCrop" value="7" />-->
     <!--</attr>-->
     <!--&lt;!&ndash;进度条旋转的的间隔，单位为毫秒&ndash;&gt;-->
     <!--<attr name="progressBarAutoRotateInterval" format="integer"/>-->
 
     <!--&lt;!&ndash; 加载图片的缩放种类. &ndash;&gt;-->
     <!--<attr name="actualImageScaleType">-->
-        <!--<enum name="none" value="-1" />-->
-        <!--<enum name="fitXY" value="0" />-->
-        <!--<enum name="fitStart" value="1" />-->
-        <!--<enum name="fitCenter" value="2" />-->
-        <!--<enum name="fitEnd" value="3" />-->
-        <!--<enum name="center" value="4" />-->
-        <!--<enum name="centerInside" value="5" />-->
-        <!--<enum name="centerCrop" value="6" />-->
-        <!--<enum name="focusCrop" value="7" />-->
+    <!--<enum name="none" value="-1" />-->
+    <!--<enum name="fitXY" value="0" />-->
+    <!--<enum name="fitStart" value="1" />-->
+    <!--<enum name="fitCenter" value="2" />-->
+    <!--<enum name="fitEnd" value="3" />-->
+    <!--<enum name="center" value="4" />-->
+    <!--<enum name="centerInside" value="5" />-->
+    <!--<enum name="centerCrop" value="6" />-->
+    <!--<enum name="focusCrop" value="7" />-->
     <!--</attr>-->
 
     <!--&lt;!&ndash; 背景，可以为drawable或者color &ndash;&gt;-->

@@ -8,23 +8,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.acg12.R;
 import com.acg12.entity.Search;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.listener.ParameCallBack;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.ui.base.ViewImpl;
-import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.DeletableEditText;
 import com.acg12.lib.widget.ToolBarView;
-import com.acg12.ui.adapter.SearchAdapter;
-import com.acg12.utlis.SoftInputUtil;
-import com.acg12.widget.FlowLayout;
-
-import com.acg12.R;
-import com.acg12.entity.Search;
+import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.ui.adapter.SearchAdapter;
 import com.acg12.utlis.SoftInputUtil;
 import com.acg12.widget.FlowLayout;
@@ -62,8 +56,8 @@ public class SearchView extends ViewImpl {
     public void created() {
         super.created();
         View view = LayoutInflater.from(getContext()).inflate(R.layout.include_action_search, null);
-        mSearchEditText = (DeletableEditText) view.findViewById(R.id.edt_search);
-        mSearchFinish = (TextView) view.findViewById(R.id.tv_search_finish);
+        mSearchEditText = view.findViewById(R.id.edt_search);
+        mSearchFinish = view.findViewById(R.id.tv_search_finish);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layoutParams);
         mToolBarView.addTitleView(view);
@@ -78,13 +72,14 @@ public class SearchView extends ViewImpl {
     public void bindEvent() {
         super.bindEvent();
         PresenterHelper.click(mPresenter, mSearchFinish);
-        mSearchEditText.addTextChangedListener((TextWatcher)mPresenter);
-        mSearchEditText.setOnEditorActionListener((TextView.OnEditorActionListener)mPresenter);
-        commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
+        mSearchEditText.addTextChangedListener((TextWatcher) mPresenter);
+        mSearchEditText.setOnEditorActionListener((TextView.OnEditorActionListener) mPresenter);
+        commonRecycleview.setRecycleUpdataListener((CommonRecycleview.IRecycleUpdataListener)mPresenter);
+        commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener) mPresenter);
         commonRecycleview.getIRecycleView().setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_MOVE){
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     SoftInputUtil.hideSoftInputView(getContext());
                 }
                 return false;
@@ -98,6 +93,10 @@ public class SearchView extends ViewImpl {
 
     public void stopLoading() {
         commonRecycleview.getTipLayoutView().showContent();
+    }
+
+    public void recycleException() {
+        commonRecycleview.recycleException();
     }
 
     public void showSearchList() {
@@ -116,6 +115,10 @@ public class SearchView extends ViewImpl {
         return mSearchEditText.getText().toString();
     }
 
+    public void clearSearch() {
+        mSearchEditText.setText("");
+    }
+
     public void bindData(List result, boolean refresh) {
         if (refresh) {
             searchAdapter.setList(result);
@@ -126,8 +129,8 @@ public class SearchView extends ViewImpl {
         }
     }
 
-    public List<Search> getList(){
-        return (List<Search>)searchAdapter.getList();
+    public List<Search> getList() {
+        return (List<Search>) searchAdapter.getList();
     }
 
     public void bindHistorySearch(final List<String> historyList) {

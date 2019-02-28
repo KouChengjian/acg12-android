@@ -113,25 +113,6 @@
                         android:text="xxxx"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
-
-                        <com.acg12.lib.widget.BGButton
-                            android:id="@+id/btn_colloct"
-                            android:layout_width="60dp"
-                            android:layout_height="25dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="关注"
-                            android:textSize="12sp"
-                            app:normalSolid="@color/theme_body"
-                            app:normalTextColor="@color/white"
-                            app:radii="5dp" />
-                    </LinearLayout>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -167,16 +148,16 @@
         android:layout_below="@+id/appbar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <!--<com.acg12.lib.widget.ToolBarView-->
-    <!--android:id="@+id/toolBarView"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"/>-->
+    <com.acg12.lib.widget.ToolBarView
+        android:id="@+id/toolBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    <!--<com.acg12.lib.widget.TipLayoutView-->
-    <!--android:id="@+id/tipLayoutView"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_marginTop="75dp"/>-->
+    <com.acg12.lib.widget.TipLayoutView
+        android:id="@+id/tipLayoutView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="75dp" />
 
 </android.support.design.widget.CoordinatorLayout>
 

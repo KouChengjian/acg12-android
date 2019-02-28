@@ -31,6 +31,7 @@ import com.acg12.ui.fragment.SearchIntroFragment;
 import com.acg12.ui.fragment.SearchPaletteFragment;
 import com.acg12.ui.fragment.SearchVideoFragment;
 import com.acg12.utlis.BitmapBlurUtil;
+import com.acg12.widget.ButtonStyle;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 
@@ -67,17 +68,16 @@ public class SearchInfoView extends ViewImpl {
     TextView tv_header_play_eps;
     @BindView(R.id.tv_header_play_time)
     TextView tv_header_play_time;
-    @BindView(R.id.btn_colloct)
-    BGButton btn_colloct;
     @BindView(R.id.search_toolbar)
     protected Toolbar toolbar;
     @BindView(R.id.search_tabLayout)
     protected TabLayout mTabLayout;
     @BindView(R.id.search_viewpager)
     protected ViewPager mViewpager;
+    protected BGButton mTvCollection;
 
     private Fragment[] fragments;
-    private String[] tabTitles;
+    private String[] tabTitles = new String[]{"简介", "插画", "画册", "漫画"}; // , "动画"
     private CommonPagerAdapter commonPagerAdapter;
     private SearchIntroFragment searchIntroFragment;
     private SearchAlbumFragment searchAlbumFragment;
@@ -97,23 +97,32 @@ public class SearchInfoView extends ViewImpl {
     public void created() {
         super.created();
         toolbar.setNavigationIcon(R.mipmap.ic_action_back);
+        toolbar.inflateMenu(R.menu.menu_search_info);
 
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);//设置还没收缩时状态下字体颜色
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);//设置收缩后Toolbar上字体的颜色
         mCollapsingToolbarLayout.setTitleEnabled(false);
 
-        tabTitles = new String[]{"简介", "插画", "画册", "漫画"}; // , "动画"
+        mTvCollection = (BGButton) toolbar.getMenu().findItem(R.id.tv_menu_collection).getActionView();
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter, toolbar, mToolBarView.getToolbar(), btn_colloct);
+        PresenterHelper.click(mPresenter, toolbar, mToolBarView.getToolbar() ,mTvCollection);
         mTipLayoutView.setOnReloadClick((TipLayoutView.OnReloadClick) mPresenter);
     }
 
     public void setTitle(String title) {
         mToolBarView.setNavigationOrBreak(title);
+    }
+
+    public TabLayout getTabLayout() {
+        return mTabLayout;
+    }
+
+    public TipLayoutView getTipLayoutView() {
+        return mTipLayoutView;
     }
 
     public void bindData(int id, int type, String title, Subject subject) {
@@ -152,13 +161,8 @@ public class SearchInfoView extends ViewImpl {
         if (str.length > 2) {
             name = str[0];
         }
-        if (subject.getIsCollect() == 1) {
-            btn_colloct.setText("已收藏");
-            btn_colloct.setNormalSolid(getContext().getResources().getColor(R.color.background));
-        } else {
-            btn_colloct.setText("收藏");
-            btn_colloct.setNormalSolid(getContext().getResources().getColor(R.color.theme_body));
-        }
+
+        setCollectStatus(subject.getIsCollect());
 
         searchIntroFragment = SearchIntroFragment.newInstance(title, subject);
         searchAlbumFragment = SearchAlbumFragment.newInstance(name);
@@ -173,12 +177,13 @@ public class SearchInfoView extends ViewImpl {
         mTabLayout.setupWithViewPager(mViewpager);
     }
 
-    public TabLayout getTabLayout() {
-        return mTabLayout;
-    }
+    public void setCollectStatus(int status){
+        if (status == 1) {
+            mTvCollection.setText("已收藏");
+        } else {
+            mTvCollection.setText("收藏");
+        }
 
-    public TipLayoutView getTipLayoutView() {
-        return mTipLayoutView;
     }
 
     public void startProgress() {

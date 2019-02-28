@@ -107,4 +107,8 @@ public class ToolBarView extends FrameLayout {
         mTitleContainer.removeAllViews();
         mTitleContainer.addView(view);
     }
+
+    public  void inflateMenu(int resId){
+        mToolbar.inflateMenu(resId);
+    }
 }

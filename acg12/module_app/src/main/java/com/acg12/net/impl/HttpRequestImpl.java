@@ -563,6 +563,7 @@ public class HttpRequestImpl implements HttpRequest {
                     subject.setGender(JsonParse.getInt(data, "gender"));
                     subject.setBirthday(JsonParse.getString(data, "birthday"));
                     subject.setBloodtype(JsonParse.getInt(data, "bloodtype"));
+                    subject.setIsCollect(JsonParse.getInt(data, "isCollect"));
 
                     List<SubjectDetail> subjectDetailList = new ArrayList<>();
                     JSONArray subjectDetails = JsonParse.getJSONArray(data, "details");
@@ -957,12 +958,65 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
-    public Subscription collectAlbumDel(final String pinId,final HttpRequestListener<String> httpRequestListener) {
+    public Subscription collectAlbumDel(final String pinId, final HttpRequestListener<String> httpRequestListener) {
         return isUpdataToken()
                 .flatMap(new Func1<User, Observable<ResponseBody>>() {
                     @Override
                     public Observable<ResponseBody> call(User responseBody) {
                         return mHomeApi.collectAlbumDel(pinId);
+                    }
+                }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        if (data != null) {
+                            RetrofitHttp.success("", httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription collectSubjectList(int pageNumber, int pageSize, HttpRequestListener<List<Subject>> httpRequestListener) {
+        return null;
+    }
+
+    @Override
+    public Subscription collectSubjectAdd(final Map<String, Object> params, final HttpRequestListener<String> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectSubjectAdd(params);
+                    }
+                }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        if (data != null) {
+                            RetrofitHttp.success("", httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription collectSubjectDel(final int relevanceId, final HttpRequestListener<String> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectSubjectDel(relevanceId);
                     }
                 }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
                     @Override
