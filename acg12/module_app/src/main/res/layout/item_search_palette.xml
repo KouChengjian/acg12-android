@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/item_click_support"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_scale"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.acg12.lib.widget.ScaleImageView
+                android:id="@+id/iv_fragment_palete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/bg_loading_pic" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true">
+
+                <TextView
+                    android:id="@+id/tv_fragment_palete_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/bg_rect_gray"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="0dp"
+                    android:text="3456"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <com.acg12.lib.widget.BGButton
+                    android:id="@+id/btn_search_palete_collect"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="收藏"
+                    android:textSize="12sp"
+                    app:normalSolid="@color/transparent"
+                    app:normalStrokeColor="@color/line"
+                    app:normalStrokeWidth="1dp"
+                    app:normalTextColor="@color/text_666666"
+                    app:radii="12dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_fragment_palete_icon"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_scale">
+
+                <ImageView
+                    android:id="@+id/iv_fragment_palete_icon_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/bg_loading_pic" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_scale">
+
+                <ImageView
+                    android:id="@+id/iv_fragment_palete_icon_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/bg_loading_pic" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_scale">
+
+                <ImageView
+                    android:id="@+id/iv_fragment_palete_icon_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/bg_loading_pic" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_fragment_palete_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="画板"
+            android:textColor="@color/text_999999"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

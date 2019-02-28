@@ -26,8 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SearchAlbumFragment extends SkinBaseFragment<SearchAlbumView> implements IRecycleView.LoadingListener,
-        SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener ,SearchAlbumAdapter.SearchAlbumListener{
+public class SearchAlbumFragment extends SkinBaseFragment<SearchAlbumView> implements IRecycleView.LoadingListener, SearchAlbumAdapter.SearchAlbumListener,
+        SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener {
 
     private String title = "";
     private int page = 1;
@@ -144,7 +144,7 @@ public class SearchAlbumFragment extends SkinBaseFragment<SearchAlbumView> imple
                 stopLoading();
                 ShowToast(msg);
                 LogUtil.e(msg);
-                if(errorcode == 5010001){
+                if (errorcode == 5010001) {
                     mView.updataObject(position, 1);
                 }
             }

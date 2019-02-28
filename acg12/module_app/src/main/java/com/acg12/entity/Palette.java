@@ -8,6 +8,7 @@ public class Palette extends Param {
 	private String name; // 画板名
 	private Integer num = 0; // 图片数量
 	private String sign; // 图片签名
+	private int isCollect; // 是否收藏
 
 	private ArrayList<String> urlAlbum = new ArrayList<String>();
 	
@@ -50,5 +51,12 @@ public class Palette extends Param {
 	public void setBoardId(String boardId) {
 		this.boardId = boardId;
 	}
-	
+
+	public int getIsCollect() {
+		return isCollect;
+	}
+
+	public void setIsCollect(int isCollect) {
+		this.isCollect = isCollect;
+	}
 }

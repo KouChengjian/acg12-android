@@ -78,17 +78,23 @@ public interface HttpRequest {
 
     Subscription caricatureChaptersPage(int id, int index, int type, HttpRequestListener<CaricatureChaptersEntity> httpRequestListener);
 
+    Subscription collectSubjectList(int pageNumber, int pageSize, HttpRequestListener<List<CollectSubjectEntity>> httpRequestListener);
+
+    Subscription collectSubjectAdd(Map<String, Object> params, HttpRequestListener<String> httpRequestListener);
+
+    Subscription collectSubjectDel(int relevanceId, HttpRequestListener<String> httpRequestListener);
+
     Subscription collectAlbumList(int pageNumber, int pageSize, HttpRequestListener<List<Album>> httpRequestListener);
 
     Subscription collectAlbumAdd(Map<String, Object> params, HttpRequestListener<String> httpRequestListener);
 
     Subscription collectAlbumDel(String pinId, HttpRequestListener<String> httpRequestListener);
 
-    Subscription collectSubjectList(int pageNumber, int pageSize, HttpRequestListener<List<CollectSubjectEntity>> httpRequestListener);
+    Subscription collectPaletteList(int pageNumber, int pageSize, HttpRequestListener<List<Palette>> httpRequestListener);
 
-    Subscription collectSubjectAdd(Map<String, Object> params, HttpRequestListener<String> httpRequestListener);
+    Subscription collectPaletteAdd(Map<String, Object> params, HttpRequestListener<String> httpRequestListener);
 
-    Subscription collectSubjectDel(int relevanceId, HttpRequestListener<String> httpRequestListener);
+    Subscription collectPaletteDel(String pinId, HttpRequestListener<String> httpRequestListener);
 
     /**
      * ------------------------------------------------搜索-----------------------------------------------------------

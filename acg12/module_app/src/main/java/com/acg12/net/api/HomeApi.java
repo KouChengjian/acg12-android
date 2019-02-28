@@ -61,6 +61,18 @@ public interface HomeApi {
     Observable<ResponseBody> caricatureChaptersPage(@Field("id") int id, @Field("index") int index, @Field("type") int type);
 
     @FormUrlEncoded
+    @POST("api/app/collect/subject/list.json")
+    Observable<ResponseBody> collectSubjectList(@Field("pageNumber") int pageNumber, @Field("pageSize") int pageSize);
+
+    @FormUrlEncoded
+    @POST("api/app/collect/subject/add.json")
+    Observable<ResponseBody> collectSubjectAdd(@FieldMap Map<String, Object> params);
+
+    @FormUrlEncoded
+    @POST("api/app/collect/subject/del.json")
+    Observable<ResponseBody> collectSubjectDel(@Field("relevanceId") int relevanceId);
+
+    @FormUrlEncoded
     @POST("api/app/collect/album/list.json")
     Observable<ResponseBody> collectAlbumList(@Field("pageNumber") int pageNumber, @Field("pageSize") int pageSize);
 
@@ -73,14 +85,16 @@ public interface HomeApi {
     Observable<ResponseBody> collectAlbumDel(@Field("pinId") String pinId);
 
     @FormUrlEncoded
-    @POST("api/app/collect/subject/list.json")
-    Observable<ResponseBody> collectSubjectList(@Field("pageNumber") int pageNumber, @Field("pageSize") int pageSize);
+    @POST("api/app/collect/palette/list.json")
+    Observable<ResponseBody> collectPaletteList(@Field("pageNumber") int pageNumber, @Field("pageSize") int pageSize);
 
     @FormUrlEncoded
-    @POST("api/app/collect/subject/add.json")
-    Observable<ResponseBody> collectSubjectAdd(@FieldMap Map<String, Object> params);
+    @POST("api/app/collect/palette/add.json")
+    Observable<ResponseBody> collectPaletteAdd(@FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
-    @POST("api/app/collect/subject/del.json")
-    Observable<ResponseBody> collectSubjectDel(@Field("relevanceId") int relevanceId);
+    @POST("api/app/collect/palette/del.json")
+    Observable<ResponseBody> collectPaletteDel(@Field("pinId") String pinId);
+
+
 }

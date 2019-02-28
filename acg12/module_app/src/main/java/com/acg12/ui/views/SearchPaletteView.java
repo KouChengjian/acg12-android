@@ -2,16 +2,13 @@ package com.acg12.ui.views;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 
+import com.acg12.R;
 import com.acg12.entity.Palette;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
-import com.acg12.ui.adapter.TabPaletteAdapter;
-
-import com.acg12.R;
-import com.acg12.entity.Palette;
-import com.acg12.ui.adapter.TabPaletteAdapter;
+import com.acg12.ui.adapter.SearchPaletteAdapter;
 
 import java.util.List;
 
@@ -24,7 +21,7 @@ public class SearchPaletteView extends ViewImpl {
 
     @BindView(R.id.common_recyclerview)
     CommonRecycleview commonRecycleview;
-    TabPaletteAdapter tabPaletteAdapter;
+    SearchPaletteAdapter mSearchPaletteAdapter;
 
     @Override
     public int getLayoutId() {
@@ -35,8 +32,8 @@ public class SearchPaletteView extends ViewImpl {
     public void created() {
         super.created();
         commonRecycleview.setStaggeredGridLayoutManager();
-        tabPaletteAdapter = new TabPaletteAdapter(getContext());
-        commonRecycleview.setAdapter(tabPaletteAdapter);
+        mSearchPaletteAdapter = new SearchPaletteAdapter(getContext());
+        commonRecycleview.setAdapter(mSearchPaletteAdapter);
         commonRecycleview.startRefreshing();
     }
 
@@ -45,33 +42,35 @@ public class SearchPaletteView extends ViewImpl {
         super.bindEvent();
         commonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
         commonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
-        commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
+        commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener) mPresenter);
+        commonRecycleview.setRecycleUpdataListener((CommonRecycleview.IRecycleUpdataListener)mPresenter);
+        mSearchPaletteAdapter.setSearchPaletteListener((SearchPaletteAdapter.SearchPaletteListener)mPresenter);
     }
 
-    public void bindData(List<Palette> result , boolean refresh){
+    public void bindData(List<Palette> result, boolean refresh) {
         if (refresh) {
-            tabPaletteAdapter.setList(result);
+            mSearchPaletteAdapter.setList(result);
             commonRecycleview.notifyChanged();
         } else {
-            tabPaletteAdapter.addAll(result);
-            commonRecycleview.notifyChanged(tabPaletteAdapter.getList().size() - result.size() , tabPaletteAdapter.getList().size());
+            mSearchPaletteAdapter.addAll(result);
+            commonRecycleview.notifyChanged(getList().size() - result.size(), getList().size());
         }
+        commonRecycleview.stopRefreshLoadMore(refresh);
     }
 
-    public void resetLoading(){
-//        commonRecycleview.hideNullLayout();
-//        commonRecycleview.startRefreshing();
+    public List<Palette> getList() {
+        return mSearchPaletteAdapter.getList();
     }
 
-    public Palette getPalette(int position){
-        return tabPaletteAdapter.getList().get(position);
+    public Palette getObject(int position) {
+        return getList().get(position);
     }
 
-    public void stopLoading(){
+    public void stopLoading() {
         commonRecycleview.stopLoading();
     }
 
-    public void stopRefreshLoadMore(boolean refresh) {
-        commonRecycleview.stopRefreshLoadMore(refresh);
+    public void recycleException() {
+        commonRecycleview.recycleException();
     }
 }

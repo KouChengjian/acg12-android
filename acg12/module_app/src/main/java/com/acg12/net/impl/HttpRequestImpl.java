@@ -907,82 +907,6 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
-    public Subscription collectAlbumList(final int pageNumber, final int pageSize, final HttpRequestListener<List<Album>> httpRequestListener) {
-        return isUpdataToken()
-                .flatMap(new Func1<User, Observable<ResponseBody>>() {
-                    @Override
-                    public Observable<ResponseBody> call(User responseBody) {
-                        return mHomeApi.collectAlbumList(pageNumber, pageSize);
-                    }
-                })
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<ResponseBody>() {
-                    @Override
-                    public void call(ResponseBody response) {
-                        JSONArray data = RetrofitHttp.parseJSONArray(response);
-                        if (data != null) {
-                            List<Album> albums = JsonParse.fromListJson(data.toString(), Album.class);
-                            RetrofitHttp.success(albums, httpRequestListener);
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable, httpRequestListener);
-                    }
-                });
-    }
-
-    @Override
-    public Subscription collectAlbumAdd(final Map<String, Object> params, final HttpRequestListener<String> httpRequestListener) {
-        return isUpdataToken()
-                .flatMap(new Func1<User, Observable<ResponseBody>>() {
-                    @Override
-                    public Observable<ResponseBody> call(User responseBody) {
-                        return mHomeApi.collectAlbumAdd(params);
-                    }
-                }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
-                    @Override
-                    public void call(ResponseBody response) {
-                        JSONObject data = RetrofitHttp.parseJSONObject(response);
-                        if (data != null) {
-                            RetrofitHttp.success("", httpRequestListener);
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable, httpRequestListener);
-                    }
-                });
-    }
-
-    @Override
-    public Subscription collectAlbumDel(final String pinId, final HttpRequestListener<String> httpRequestListener) {
-        return isUpdataToken()
-                .flatMap(new Func1<User, Observable<ResponseBody>>() {
-                    @Override
-                    public Observable<ResponseBody> call(User responseBody) {
-                        return mHomeApi.collectAlbumDel(pinId);
-                    }
-                }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
-                    @Override
-                    public void call(ResponseBody response) {
-                        JSONObject data = RetrofitHttp.parseJSONObject(response);
-                        if (data != null) {
-                            RetrofitHttp.success("", httpRequestListener);
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        RetrofitHttp.failure(throwable, httpRequestListener);
-                    }
-                });
-    }
-
-    @Override
     public Subscription collectSubjectList(final int pageNumber, final int pageSize, final HttpRequestListener<List<CollectSubjectEntity>> httpRequestListener) {
         return isUpdataToken()
                 .flatMap(new Func1<User, Observable<ResponseBody>>() {
@@ -1059,11 +983,121 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
+    public Subscription collectAlbumList(final int pageNumber, final int pageSize, final HttpRequestListener<List<Album>> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectAlbumList(pageNumber, pageSize);
+                    }
+                })
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONArray data = RetrofitHttp.parseJSONArray(response);
+                        if (data != null) {
+                            List<Album> albums = JsonParse.fromListJson(data.toString(), Album.class);
+                            RetrofitHttp.success(albums, httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription collectAlbumAdd(final Map<String, Object> params, final HttpRequestListener<String> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectAlbumAdd(params);
+                    }
+                }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        if (data != null) {
+                            RetrofitHttp.success("", httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription collectAlbumDel(final String pinId, final HttpRequestListener<String> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectAlbumDel(pinId);
+                    }
+                }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        if (data != null) {
+                            RetrofitHttp.success("", httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription collectPaletteList(int pageNumber, int pageSize, HttpRequestListener<List<Palette>> httpRequestListener) {
+        return null;
+    }
+
+    @Override
+    public Subscription collectPaletteAdd(final Map<String, Object> params, final HttpRequestListener<String> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectPaletteAdd(params);
+                    }
+                }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        if (data != null) {
+                            RetrofitHttp.success("", httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription collectPaletteDel(String pinId, HttpRequestListener<String> httpRequestListener) {
+        return null;
+    }
+
+    @Override
     public Subscription searchAlbum(User user, String key, String page, final HttpRequestListener<List<Album>> httpRequestListener) {
         return mSearchApi.searchAlbum(key, page).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
             @Override
             public void call(ResponseBody response) {
-                List<Album> list = new ArrayList<Album>();
+                List<Album> list = new ArrayList<>();
                 JSONArray data = RetrofitHttp.parseJSONArrayString(response);
                 if (data != null) {
                     for (int i = 0, num = data.length(); i < num; i++) {
