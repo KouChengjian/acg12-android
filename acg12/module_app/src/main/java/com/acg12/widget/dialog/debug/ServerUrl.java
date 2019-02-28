@@ -2,13 +2,9 @@ package com.acg12.widget.dialog.debug;
 
 public class ServerUrl implements Cloneable {
 
-    public int imAppid;
-    public String videoId;
     public String baseURL;
 
-    public ServerUrl(int imAppid, String videoId, String baseUrl) {
-        this.imAppid = imAppid;
-        this.videoId = videoId;
+    public ServerUrl(String baseUrl) {
         this.baseURL = baseUrl;
     }
 

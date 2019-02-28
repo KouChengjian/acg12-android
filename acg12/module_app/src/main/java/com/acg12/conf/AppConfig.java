@@ -3,9 +3,8 @@ package com.acg12.conf;
 import android.content.Context;
 
 import com.acg12.lib.app.BaseApp;
-import com.acg12.lib.utils.PreferencesUtils;
-
 import com.acg12.lib.constant.Constant;
+import com.acg12.lib.utils.PreferencesUtils;
 import com.acg12.widget.dialog.debug.ServerUrl;
 
 import java.util.ArrayList;
@@ -21,10 +20,8 @@ public class AppConfig {
 
     public static ServerUrl SERVER = null;
     public final static List<ServerUrl> DefaultServerUrlList = new ArrayList<>();
-    public final static ServerUrl URL_SERVER_PROP       = new ServerUrl(1400120587, "0", "http://acg12.club/acg12/"); //正式服
-    public final static ServerUrl URL_SERVER_DEBUG_130 = new ServerUrl(1400120587, "0", "http://192.168.8.168:8081/acg12/");
-
-
+    public final static ServerUrl URL_SERVER_PROP = new ServerUrl("http://acg12.club/acg12/"); //正式服
+    public final static ServerUrl URL_SERVER_DEBUG_130 = new ServerUrl("http://192.168.8.168:8081/acg12/");
 
     static {
         DefaultServerUrlList.add(URL_SERVER_PROP);
