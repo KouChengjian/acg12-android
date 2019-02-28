@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 
-
 //读取签名配置文件
 def getSigningProperties() {
     Properties properties = new Properties()
@@ -91,6 +90,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:support-v4:27.1.1'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':lib_videoplayer')
     compile project(':library')
