@@ -30,6 +30,6 @@ public abstract class CommonRecyclerViewHolder extends RecyclerView.ViewHolder {
         return mLayoutInflater.inflate(rid, parent, false);
     }
 
-    public void bindData(Context mContext, final List list, int position) {
+    public void bindData(Context context, final List list, int position) {
     }
 }
