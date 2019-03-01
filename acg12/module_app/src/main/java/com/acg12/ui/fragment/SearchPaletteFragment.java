@@ -12,6 +12,7 @@ import com.acg12.entity.Palette;
 import com.acg12.lib.constant.Constant;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
+import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.net.impl.HttpRequestImpl;
@@ -20,7 +21,9 @@ import com.acg12.ui.adapter.SearchPaletteAdapter;
 import com.acg12.ui.base.SkinBaseFragment;
 import com.acg12.ui.views.SearchPaletteView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -103,50 +106,52 @@ public class SearchPaletteFragment extends SkinBaseFragment<SearchPaletteView> i
     }
 
     public void addCollectPalette(final int position, Palette palette) {
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("pinId", albun.getPinId());
-//        params.put("image", albun.getImageUrl());
-//        params.put("content", albun.getContent());
-//        params.put("love", albun.getLove());
-//        params.put("favorites", albun.getFavorites());
-//        params.put("resWidth", albun.getResWidth());
-//        params.put("resHight", albun.getResHight());
-//        startLoading("收藏中...");
-//        HttpRequestImpl.getInstance().collectAlbumAdd(params, new HttpRequestListener<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                stopLoading();
-//                mView.updataObject(position, 1);
-//            }
-//
-//            @Override
-//            public void onFailure(int errorcode, String msg) {
-//                stopLoading();
-//                ShowToast(msg);
-//                LogUtil.e(msg);
-//                if (errorcode == 5010001) {
-//                    mView.updataObject(position, 1);
-//                }
-//            }
-//        });
+        Map<String, Object> params = new HashMap<>();
+        params.put("boardId", palette.getBoardId());
+        params.put("title", palette.getName());
+        params.put("sign", palette.getSign());
+        params.put("num", palette.getNum());
+        List<String> list = palette.getUrlAlbum();
+        params.put("cover",      list.size() > 0 ? list.get(0) : "");
+        params.put("thumImage1", list.size() > 1 ? list.get(1) : "");
+        params.put("thumImage2", list.size() > 2 ? list.get(2) : "");
+        params.put("thumImage3", list.size() > 3 ? list.get(3) : "");
+        startLoading("收藏中...");
+        HttpRequestImpl.getInstance().collectPaletteAdd(params, new HttpRequestListener<String>() {
+            @Override
+            public void onSuccess(String result) {
+                stopLoading();
+                mView.updataObject(position, 1);
+            }
+
+            @Override
+            public void onFailure(int errorcode, String msg) {
+                stopLoading();
+                ShowToast(msg);
+                LogUtil.e(msg);
+                if (errorcode == 5010001) {
+                    mView.updataObject(position, 1);
+                }
+            }
+        });
     }
 
     public void delCollectPalette(final int position, Palette palette) {
-//        startLoading("取消收藏中...");
-//        HttpRequestImpl.getInstance().collectAlbumDel(albun.getPinId(), new HttpRequestListener<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                stopLoading();
-//                mView.updataObject(position, 0);
-//            }
-//
-//            @Override
-//            public void onFailure(int errorcode, String msg) {
-//                stopLoading();
-//                ShowToast(msg);
-//                LogUtil.e(msg);
-//            }
-//        });
+        startLoading("取消收藏中...");
+        HttpRequestImpl.getInstance().collectPaletteDel(palette.getBoardId(), new HttpRequestListener<String>() {
+            @Override
+            public void onSuccess(String result) {
+                stopLoading();
+                mView.updataObject(position, 0);
+            }
+
+            @Override
+            public void onFailure(int errorcode, String msg) {
+                stopLoading();
+                ShowToast(msg);
+                LogUtil.e(msg);
+            }
+        });
     }
 
     @Override

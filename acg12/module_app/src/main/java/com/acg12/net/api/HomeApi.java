@@ -94,7 +94,7 @@ public interface HomeApi {
 
     @FormUrlEncoded
     @POST("api/app/collect/palette/del.json")
-    Observable<ResponseBody> collectPaletteDel(@Field("pinId") String pinId);
+    Observable<ResponseBody> collectPaletteDel(@Field("boardId") String boardId);
 
 
 }

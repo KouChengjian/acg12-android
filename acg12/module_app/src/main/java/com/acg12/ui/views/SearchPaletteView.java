@@ -3,6 +3,7 @@ package com.acg12.ui.views;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.acg12.R;
+import com.acg12.entity.Album;
 import com.acg12.entity.Palette;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.ui.base.ViewImpl;
@@ -72,5 +73,11 @@ public class SearchPaletteView extends ViewImpl {
 
     public void recycleException() {
         commonRecycleview.recycleException();
+    }
+
+    public void updataObject(int position, int isCollect) {
+        Palette album = getObject(position);
+        album.setIsCollect(isCollect);
+        commonRecycleview.notifyChanged(position);
     }
 }

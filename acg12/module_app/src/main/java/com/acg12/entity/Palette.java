@@ -9,7 +9,6 @@ public class Palette extends Param {
 	private Integer num = 0; // 图片数量
 	private String sign; // 图片签名
 	private int isCollect; // 是否收藏
-
 	private ArrayList<String> urlAlbum = new ArrayList<String>();
 	
 	public String getName() {
