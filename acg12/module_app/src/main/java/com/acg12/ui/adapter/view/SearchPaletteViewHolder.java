@@ -85,6 +85,12 @@ public class SearchPaletteViewHolder extends CommonRecyclerViewHolder {
             }
         }
 
+        if(palette.getIsCollect() == 1){
+            btn_search_palete_collect.setText("已收藏");
+        } else {
+            btn_search_palete_collect.setText("收藏");
+        }
+
         btn_search_palete_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

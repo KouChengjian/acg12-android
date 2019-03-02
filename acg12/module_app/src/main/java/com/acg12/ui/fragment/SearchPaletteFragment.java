@@ -108,8 +108,8 @@ public class SearchPaletteFragment extends SkinBaseFragment<SearchPaletteView> i
     public void addCollectPalette(final int position, Palette palette) {
         Map<String, Object> params = new HashMap<>();
         params.put("boardId", palette.getBoardId());
-        params.put("title", palette.getName());
-        params.put("sign", palette.getSign());
+        params.put("title", palette.getName()== null ? "" : palette.getName());
+        params.put("sign", palette.getSign() == null ? "" : palette.getSign());
         params.put("num", palette.getNum());
         List<String> list = palette.getUrlAlbum();
         params.put("cover",      list.size() > 0 ? list.get(0) : "");

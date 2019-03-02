@@ -9,6 +9,7 @@ import com.acg12.entity.Calendar;
 import com.acg12.entity.CaricatureChaptersEntity;
 import com.acg12.entity.CaricatureChaptersPageEntity;
 import com.acg12.entity.CaricatureEntity;
+import com.acg12.entity.CollectPaletteEntity;
 import com.acg12.entity.CollectSubjectEntity;
 import com.acg12.entity.Home;
 import com.acg12.entity.News;
@@ -1059,8 +1060,31 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
-    public Subscription collectPaletteList(int pageNumber, int pageSize, HttpRequestListener<List<Palette>> httpRequestListener) {
-        return null;
+    public Subscription collectPaletteList(final int pageNumber, final int pageSize, final HttpRequestListener<List<CollectPaletteEntity>> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectPaletteList(pageNumber, pageSize);
+                    }
+                })
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONArray data = RetrofitHttp.parseJSONArray(response);
+                        if (data != null) {
+                            List<CollectPaletteEntity> albums = JsonParse.fromListJson(data.toString(), CollectPaletteEntity.class);
+                            RetrofitHttp.success(albums, httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
     }
 
     @Override
