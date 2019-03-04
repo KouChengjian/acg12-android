@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.acg12.R;
 import com.acg12.entity.CollectPaletteEntity;
-import com.acg12.entity.Palette;
 import com.acg12.lib.ui.adapter.CommonRecyclerViewHolder;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
@@ -52,52 +51,50 @@ public class CollectPaletteViewHolder extends CommonRecyclerViewHolder {
     @Override
     public void bindData(Context mContext, List list, final int position) {
         super.bindData(mContext, list, position);
-        CollectPaletteEntity palette = (CollectPaletteEntity)list.get(position);
+        CollectPaletteEntity palette = (CollectPaletteEntity) list.get(position);
 
-//        ViewUtil.setText(tv_palete_name , palette.getName());
-//        if(palette.getNum() == 0){
-//            tv_palete_num.setVisibility(View.GONE);
-//        }else{
-//            tv_palete_num.setVisibility(View.VISIBLE);
-//            ViewUtil.setText(tv_palete_num , palette.getNum()+"");
-//        }
+        ViewUtil.setText(tv_palete_name, palette.getTitle());
+        if (palette.getNum() == 0) {
+            tv_palete_num.setVisibility(View.GONE);
+        } else {
+            tv_palete_num.setVisibility(View.VISIBLE);
+            ViewUtil.setText(tv_palete_num, palette.getNum() + "");
+        }
+
+        imageView.setImageWidth(250);
+        imageView.setImageHeight(350);
+        ImageLoadUtils.glideLoading(mContext, palette.getCover().replace("_fw658", "_fw236"), imageView);
+        if(palette.getThumImage1() == null || palette.getThumImage1().isEmpty()){
+            iv_palete_icon_1.setImageResource(R.mipmap.bg_loading_pic);
+        } else {
+            ImageLoadUtils.glideLoading(mContext , palette.getThumImage1().replace("_fw658" , "_fw236") , iv_palete_icon_1);
+        }
+
+        if(palette.getThumImage2() == null || palette.getThumImage2().isEmpty()){
+            iv_palete_icon_2.setImageResource(R.mipmap.bg_loading_pic);
+        } else {
+            ImageLoadUtils.glideLoading(mContext , palette.getThumImage2().replace("_fw658" , "_fw236") , iv_palete_icon_2);
+        }
+
+        if(palette.getThumImage3() == null || palette.getThumImage3().isEmpty()){
+            iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
+        } else {
+            ImageLoadUtils.glideLoading(mContext , palette.getThumImage3().replace("_fw658" , "_fw236") , iv_palete_icon_3);
+        }
+
+        if (palette.getIsCollect() == 1) {
+            btn_search_palete_collect.setText("已收藏");
+        } else {
+            btn_search_palete_collect.setText("收藏");
+        }
 //
-//        List<String> paletteList = palette.getUrlAlbum();
-//        if(paletteList != null && !paletteList.isEmpty()) {
-//            imageView.setImageWidth(250);
-//            imageView.setImageHeight(350);
-//            for (int i = 0; i < paletteList.size(); i++) {
-//                if(i == 0){
-//                    ImageLoadUtils.glideLoading(mContext , paletteList.get(i).replace("_fw658" , "_fw236") , imageView);
-//                    iv_palete_icon_1.setImageResource(R.mipmap.bg_loading_pic);
-//                    iv_palete_icon_2.setImageResource(R.mipmap.bg_loading_pic);
-//                    iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
-//                } else if(i == 1){
-//                    ImageLoadUtils.glideLoading(mContext , paletteList.get(i).replace("_fw658" , "_fw236") , iv_palete_icon_1);
-//                    iv_palete_icon_2.setImageResource(R.mipmap.bg_loading_pic);
-//                    iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
-//                } else if(i == 2){
-//                    ImageLoadUtils.glideLoading(mContext , paletteList.get(i).replace("_fw658" , "_fw236") , iv_palete_icon_2);
-//                    iv_palete_icon_3.setImageResource(R.mipmap.bg_loading_pic);
-//                } else if(i == 3){
-//                    ImageLoadUtils.glideLoading(mContext , paletteList.get(i).replace("_fw658" , "_fw236") , iv_palete_icon_3);
-//                }
-//            }
-//        }
-//
-//        if(palette.getIsCollect() == 1){
-//            btn_search_palete_collect.setText("已收藏");
-//        } else {
-//            btn_search_palete_collect.setText("收藏");
-//        }
-//
-//        btn_search_palete_collect.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(searchPaletteListener != null){
-//                    searchPaletteListener.onClickCollect(position);
-//                }
-//            }
-//        });
+        btn_search_palete_collect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (searchPaletteListener != null) {
+                    searchPaletteListener.onClickCollect(position);
+                }
+            }
+        });
     }
 }

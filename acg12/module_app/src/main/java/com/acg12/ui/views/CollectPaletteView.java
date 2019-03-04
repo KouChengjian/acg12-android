@@ -47,7 +47,7 @@ public class CollectPaletteView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-//        mCollectPaletteAdapter.setCollectAlbumListener((CollectAlbumAdapter.CollectAlbumListener) mPresenter);
+        mCollectPaletteAdapter.setSearchPaletteListener((CollectPaletteAdapter.SearchPaletteListener) mPresenter);
         mCommonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
         mCommonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
         mCommonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener) mPresenter);

@@ -105,17 +105,16 @@ public class CollectPaletteFragment extends PresenterFragmentImpl<CollectPalette
         });
     }
 
-    public void addCollectPalette(final int position, Palette palette) {
+    public void addCollectPalette(final int position, CollectPaletteEntity palette) {
         Map<String, Object> params = new HashMap<>();
         params.put("boardId", palette.getBoardId());
-        params.put("title", palette.getName()== null ? "" : palette.getName());
+        params.put("title", palette.getTitle()== null ? "" : palette.getTitle());
         params.put("sign", palette.getSign() == null ? "" : palette.getSign());
         params.put("num", palette.getNum());
-        List<String> list = palette.getUrlAlbum();
-        params.put("cover",      list.size() > 0 ? list.get(0) : "");
-        params.put("thumImage1", list.size() > 1 ? list.get(1) : "");
-        params.put("thumImage2", list.size() > 2 ? list.get(2) : "");
-        params.put("thumImage3", list.size() > 3 ? list.get(3) : "");
+        params.put("cover",      palette.getCover()== null ? "" : palette.getCover());
+        params.put("thumImage1", palette.getThumImage1()== null ? "" : palette.getThumImage1());
+        params.put("thumImage2", palette.getThumImage2()== null ? "" : palette.getThumImage2());
+        params.put("thumImage3", palette.getThumImage3()== null ? "" : palette.getThumImage3());
         startLoading("收藏中...");
         HttpRequestImpl.getInstance().collectPaletteAdd(params, new HttpRequestListener<String>() {
             @Override
@@ -136,12 +135,13 @@ public class CollectPaletteFragment extends PresenterFragmentImpl<CollectPalette
         });
     }
 
-    public void delCollectPalette(final int position, Palette palette) {
+    public void delCollectPalette(final int position, CollectPaletteEntity palette) {
         startLoading("取消收藏中...");
         HttpRequestImpl.getInstance().collectPaletteDel(palette.getBoardId(), new HttpRequestListener<String>() {
             @Override
             public void onSuccess(String result) {
                 stopLoading();
+                ShowToast("已取消收藏");
                 mView.updataObject(position, 0);
             }
 
