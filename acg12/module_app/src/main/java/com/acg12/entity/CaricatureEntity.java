@@ -15,6 +15,7 @@ public class CaricatureEntity {
     private int type; // 1:酷克
     private String cover;
     private String title;
+    private int isCollect; // 是否收藏
     private List<CaricatureChaptersEntity> chaptersList = new ArrayList<>();
 
 
@@ -56,5 +57,13 @@ public class CaricatureEntity {
 
     public void setChaptersList(List<CaricatureChaptersEntity> chaptersList) {
         this.chaptersList = chaptersList;
+    }
+
+    public int getIsCollect() {
+        return isCollect;
+    }
+
+    public void setIsCollect(int isCollect) {
+        this.isCollect = isCollect;
     }
 }

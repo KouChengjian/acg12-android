@@ -5,6 +5,7 @@ import com.acg12.entity.Album;
 import com.acg12.entity.Calendar;
 import com.acg12.entity.CaricatureChaptersEntity;
 import com.acg12.entity.CaricatureEntity;
+import com.acg12.entity.CollectCaricatureEntity;
 import com.acg12.entity.CollectPaletteEntity;
 import com.acg12.entity.CollectSubjectEntity;
 import com.acg12.entity.Home;
@@ -96,6 +97,12 @@ public interface HttpRequest {
     Subscription collectPaletteAdd(Map<String, Object> params, HttpRequestListener<String> httpRequestListener);
 
     Subscription collectPaletteDel(String pinId, HttpRequestListener<String> httpRequestListener);
+
+    Subscription collectCaricatureList(int pageNumber, int pageSize, HttpRequestListener<List<CollectCaricatureEntity>> httpRequestListener);
+
+    Subscription collectCaricatureAdd(Map<String, Object> params, HttpRequestListener<String> httpRequestListener);
+
+    Subscription collectCaricatureDel(String pinId, HttpRequestListener<String> httpRequestListener);
 
     /**
      * ------------------------------------------------搜索-----------------------------------------------------------

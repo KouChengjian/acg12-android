@@ -3,14 +3,13 @@ package com.acg12.ui.views;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.acg12.R;
+import com.acg12.entity.Album;
 import com.acg12.entity.CaricatureEntity;
-import com.acg12.entity.Palette;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
-import com.acg12.ui.adapter.CaricatureAdapter;
-import com.acg12.ui.adapter.TabPaletteAdapter;
+import com.acg12.ui.adapter.SearchCaricatureAdapter;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class SearchCaricatureView extends ViewImpl {
     @BindView(R.id.common_recyclerview)
     CommonRecycleview commonRecycleview;
 
-    CaricatureAdapter mCaricatureAdapter;
+    SearchCaricatureAdapter mCaricatureAdapter;
 
     @Override
     public int getLayoutId() {
@@ -37,7 +36,7 @@ public class SearchCaricatureView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        mCaricatureAdapter = new CaricatureAdapter(getContext());
+        mCaricatureAdapter = new SearchCaricatureAdapter(getContext());
         commonRecycleview.setStaggeredGridLayoutManager();
         commonRecycleview.setAdapter(mCaricatureAdapter);
         commonRecycleview.startRefreshing();
@@ -46,6 +45,7 @@ public class SearchCaricatureView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
+        mCaricatureAdapter.setSearchCaricatureListener((SearchCaricatureAdapter.SearchCaricatureListener)mPresenter);
         commonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
         commonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
         commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
@@ -71,5 +71,11 @@ public class SearchCaricatureView extends ViewImpl {
 
     public void stopRefreshLoadMore(boolean refresh) {
         commonRecycleview.stopRefreshLoadMore(refresh);
+    }
+
+    public void updataObject(int position, int isCollect) {
+        CaricatureEntity caricatureEntity = getObject(position);
+        caricatureEntity.setIsCollect(isCollect);
+        commonRecycleview.notifyChanged(position);
     }
 }

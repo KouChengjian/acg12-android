@@ -9,6 +9,7 @@ import com.acg12.entity.Calendar;
 import com.acg12.entity.CaricatureChaptersEntity;
 import com.acg12.entity.CaricatureChaptersPageEntity;
 import com.acg12.entity.CaricatureEntity;
+import com.acg12.entity.CollectCaricatureEntity;
 import com.acg12.entity.CollectPaletteEntity;
 import com.acg12.entity.CollectSubjectEntity;
 import com.acg12.entity.Home;
@@ -1118,6 +1119,82 @@ public class HttpRequestImpl implements HttpRequest {
                     @Override
                     public Observable<ResponseBody> call(User responseBody) {
                         return mHomeApi.collectPaletteDel(boardId);
+                    }
+                }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        if (data != null) {
+                            RetrofitHttp.success("", httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription collectCaricatureList(final int pageNumber, final int pageSize, final HttpRequestListener<List<CollectCaricatureEntity>> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectCaricatureList(pageNumber, pageSize);
+                    }
+                })
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONArray data = RetrofitHttp.parseJSONArray(response);
+                        if (data != null) {
+                            List<CollectCaricatureEntity> albums = JsonParse.fromListJson(data.toString(), CollectCaricatureEntity.class);
+                            RetrofitHttp.success(albums, httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription collectCaricatureAdd(final Map<String, Object> params, final HttpRequestListener<String> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectCaricatureAdd(params);
+                    }
+                }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
+                    @Override
+                    public void call(ResponseBody response) {
+                        JSONObject data = RetrofitHttp.parseJSONObject(response);
+                        if (data != null) {
+                            RetrofitHttp.success("", httpRequestListener);
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        RetrofitHttp.failure(throwable, httpRequestListener);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription collectCaricatureDel(final String pinId, final HttpRequestListener<String> httpRequestListener) {
+        return isUpdataToken()
+                .flatMap(new Func1<User, Observable<ResponseBody>>() {
+                    @Override
+                    public Observable<ResponseBody> call(User responseBody) {
+                        return mHomeApi.collectCaricatureDel(pinId);
                     }
                 }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
                     @Override
