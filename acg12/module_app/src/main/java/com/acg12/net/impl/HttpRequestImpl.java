@@ -1189,12 +1189,12 @@ public class HttpRequestImpl implements HttpRequest {
     }
 
     @Override
-    public Subscription collectCaricatureDel(final String pinId, final HttpRequestListener<String> httpRequestListener) {
+    public Subscription collectCaricatureDel(final int comicId, final HttpRequestListener<String> httpRequestListener) {
         return isUpdataToken()
                 .flatMap(new Func1<User, Observable<ResponseBody>>() {
                     @Override
                     public Observable<ResponseBody> call(User responseBody) {
-                        return mHomeApi.collectCaricatureDel(pinId);
+                        return mHomeApi.collectCaricatureDel(comicId);
                     }
                 }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResponseBody>() {
                     @Override

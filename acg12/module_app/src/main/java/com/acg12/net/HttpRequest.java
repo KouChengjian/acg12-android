@@ -102,7 +102,7 @@ public interface HttpRequest {
 
     Subscription collectCaricatureAdd(Map<String, Object> params, HttpRequestListener<String> httpRequestListener);
 
-    Subscription collectCaricatureDel(String pinId, HttpRequestListener<String> httpRequestListener);
+    Subscription collectCaricatureDel(int comicId, HttpRequestListener<String> httpRequestListener);
 
     /**
      * ------------------------------------------------搜索-----------------------------------------------------------

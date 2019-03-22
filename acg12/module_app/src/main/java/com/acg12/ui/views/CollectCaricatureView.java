@@ -45,6 +45,7 @@ public class CollectCaricatureView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
+        mCollectCaricatureAdapter.setCollectCaricatureListener((CollectCaricatureAdapter.CollectCaricatureListener) mPresenter);
         commonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
         commonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
         commonRecycleview.setRecycleUpdataListener((CommonRecycleview.IRecycleUpdataListener) mPresenter);

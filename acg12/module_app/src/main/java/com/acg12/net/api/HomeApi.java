@@ -97,14 +97,14 @@ public interface HomeApi {
     Observable<ResponseBody> collectPaletteDel(@Field("boardId") String boardId);
 
     @FormUrlEncoded
-    @POST("api/app/collect/palette/list.json")
+    @POST("api/app/collect/caricature/list.json")
     Observable<ResponseBody> collectCaricatureList(@Field("pageNumber") int pageNumber, @Field("pageSize") int pageSize);
 
     @FormUrlEncoded
-    @POST("api/app/collect/palette/add.json")
+    @POST("api/app/collect/caricature/add.json")
     Observable<ResponseBody> collectCaricatureAdd(@FieldMap Map<String, Object> params);
 
     @FormUrlEncoded
-    @POST("api/app/collect/palette/del.json")
-    Observable<ResponseBody> collectCaricatureDel(@Field("boardId") String boardId);
+    @POST("api/app/collect/caricature/del.json")
+    Observable<ResponseBody> collectCaricatureDel(@Field("comicId") int comicId);
 }

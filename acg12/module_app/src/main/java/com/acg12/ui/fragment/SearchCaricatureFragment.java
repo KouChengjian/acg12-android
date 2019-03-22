@@ -6,9 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.acg12.entity.Album;
-import com.acg12.lib.constant.Constant;
 import com.acg12.entity.CaricatureEntity;
+import com.acg12.lib.constant.Constant;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.ui.fragment.PresenterFragmentImpl;
@@ -31,7 +30,7 @@ import java.util.Map;
  * Description: 搜索漫画
  */
 public class SearchCaricatureFragment extends PresenterFragmentImpl<SearchCaricatureView> implements IRecycleView.LoadingListener, SwipeRefreshLayout.OnRefreshListener
-        , ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener , SearchCaricatureAdapter.SearchCaricatureListener{
+        , ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener, SearchCaricatureAdapter.SearchCaricatureListener {
 
     private String title = "";
     private int page = 1;
@@ -64,7 +63,6 @@ public class SearchCaricatureFragment extends PresenterFragmentImpl<SearchCarica
 
     @Override
     public void onRecycleReload() {
-//        mView.resetLoading();
         refresh(title, page);
     }
 
@@ -113,50 +111,47 @@ public class SearchCaricatureFragment extends PresenterFragmentImpl<SearchCarica
     }
 
     public void addCollectCaricature(final int position, CaricatureEntity albun) {
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("pinId", albun.getPinId());
-//        params.put("image", albun.getImageUrl());
-//        params.put("content", albun.getContent());
-//        params.put("love", albun.getLove());
-//        params.put("favorites", albun.getFavorites());
-//        params.put("resWidth", albun.getResWidth());
-//        params.put("resHight", albun.getResHight());
-//        startLoading("收藏中...");
-//        HttpRequestImpl.getInstance().collectAlbumAdd(params, new HttpRequestListener<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                stopLoading();
-//                mView.updataObject(position, 1);
-//            }
-//
-//            @Override
-//            public void onFailure(int errorcode, String msg) {
-//                stopLoading();
-//                ShowToast(msg);
-//                LogUtil.e(msg);
-//                if (errorcode == 5010001) {
-//                    mView.updataObject(position, 1);
-//                }
-//            }
-//        });
+        Map<String, Object> params = new HashMap<>();
+        params.put("comicId", albun.getComicId());
+        params.put("type", albun.getType());
+        params.put("cover", albun.getCover());
+        params.put("title", albun.getTitle());
+        startLoading("收藏中...");
+        HttpRequestImpl.getInstance().collectCaricatureAdd(params, new HttpRequestListener<String>() {
+            @Override
+            public void onSuccess(String result) {
+                stopLoading();
+                mView.updataObject(position, 1);
+            }
+
+            @Override
+            public void onFailure(int errorcode, String msg) {
+                stopLoading();
+                ShowToast(msg);
+                LogUtil.e(msg);
+                if (errorcode == 5010001) {
+                    mView.updataObject(position, 1);
+                }
+            }
+        });
     }
 
-    public void delCollectCaricature(final int position, CaricatureEntity albun) {
-//        startLoading("取消收藏中...");
-//        HttpRequestImpl.getInstance().collectAlbumDel(albun.getPinId(), new HttpRequestListener<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                stopLoading();
-//                mView.updataObject(position, 0);
-//            }
-//
-//            @Override
-//            public void onFailure(int errorcode, String msg) {
-//                stopLoading();
-//                ShowToast(msg);
-//                LogUtil.e(msg);
-//            }
-//        });
+    public void delCollectCaricature(final int position, CaricatureEntity caricatureEntity) {
+        startLoading("取消收藏中...");
+        HttpRequestImpl.getInstance().collectCaricatureDel(caricatureEntity.getComicId(), new HttpRequestListener<String>() {
+            @Override
+            public void onSuccess(String result) {
+                stopLoading();
+                mView.updataObject(position, 0);
+            }
+
+            @Override
+            public void onFailure(int errorcode, String msg) {
+                stopLoading();
+                ShowToast(msg);
+                LogUtil.e(msg);
+            }
+        });
     }
 
     @Override
