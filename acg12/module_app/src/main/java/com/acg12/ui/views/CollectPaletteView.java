@@ -10,6 +10,7 @@ import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
+import com.acg12.lib.widget.recycle.LayoutStatus;
 import com.acg12.ui.adapter.CollectAlbumAdapter;
 import com.acg12.ui.adapter.CollectPaletteAdapter;
 
@@ -39,6 +40,7 @@ public class CollectPaletteView extends ViewImpl {
         super.created();
         mCommonRecycleview.setStaggeredGridLayoutManager();
         mCollectPaletteAdapter = new CollectPaletteAdapter(getContext());
+        mCommonRecycleview.setDefaultLayoutStatus(LayoutStatus.LAYOUT_STATUS_EMPTY_REFRESH);
         mCommonRecycleview.setAdapter(mCollectPaletteAdapter);
         mCommonRecycleview.startRefreshing();
 

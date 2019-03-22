@@ -16,9 +16,9 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
 
     private ViewStub mLayoutNull, mLayoutError, mLayoutLoading;
     private LinearLayout mLLTipviewNull, mLLTipviewError, mLLTipviewLoading;
-    private ImageView mTvTiplayoutPic;
-    private TextView mTvTiplayoutMsg;
-    private BGButton mReloadButton;
+    private ImageView mIvNullPic, mIvErrorPic;
+    private TextView mTvNullMsg, mTvErrorMsg;
+    private BGButton mBtnNull, mBtnError;
     private OnReloadClick onReloadClick;
 
     public TipLayoutView(Context context, AttributeSet attrs) {
@@ -86,10 +86,10 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
         if (mLLTipviewError == null) {
             View view = mLayoutError.inflate();
             mLLTipviewError = (LinearLayout) view.findViewById(R.id.ll_tipview_error);
-            mTvTiplayoutPic = (ImageView) view.findViewById(R.id.tv_tiplayout_pic);
-            mTvTiplayoutMsg = (TextView) view.findViewById(R.id.tv_tiplayout_msg);
-            mReloadButton = (BGButton) view.findViewById(R.id.bg_refush);
-            mReloadButton.setOnClickListener(this);
+            mIvErrorPic = (ImageView) view.findViewById(R.id.tv_tiplayout_pic);
+            mTvErrorMsg = (TextView) view.findViewById(R.id.tv_tiplayout_msg);
+            mBtnError = (BGButton) view.findViewById(R.id.bg_refush);
+            mBtnError.setOnClickListener(this);
         }
         if (mLLTipviewError.getVisibility() == View.GONE) {
             mLLTipviewError.setVisibility(View.VISIBLE);
@@ -99,38 +99,25 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
     /**
      * 显示加载失败
      */
-    public void showLoginError() {
-        resetStatus();
-        if (mLLTipviewError == null) {
-            View view = mLayoutError.inflate();
-            mLLTipviewError = (LinearLayout) view.findViewById(R.id.ll_tipview_error);
-            mTvTiplayoutPic = (ImageView) view.findViewById(R.id.tv_tiplayout_pic);
-            mTvTiplayoutMsg = (TextView) view.findViewById(R.id.tv_tiplayout_msg);
-            mReloadButton = (BGButton) view.findViewById(R.id.bg_refush);
-            mReloadButton.setOnClickListener(this);
-        }
-        mTvTiplayoutMsg.setText("获取消息失败，点击重新获取");
-        mReloadButton.setText("重新获取");
-        if (mLLTipviewError.getVisibility() == View.GONE) {
-            mLLTipviewError.setVisibility(View.VISIBLE);
-        }
-    }
-
-    /**
-     * 显示空数据且存在刷新按钮
-     */
-    public void showEmptyOrRefresh() {
+    public void showCustomError(int id, String msg, String btn) {
         resetStatus();
         if (mLLTipviewError == null) {
             View view = mLayoutError.inflate();
             mLLTipviewError = view.findViewById(R.id.ll_tipview_error);
-            mTvTiplayoutPic = view.findViewById(R.id.tv_tiplayout_pic);
-            mTvTiplayoutMsg = view.findViewById(R.id.tv_tiplayout_msg);
-            mReloadButton = view.findViewById(R.id.bg_refush);
-            mReloadButton.setOnClickListener(this);
+            mIvErrorPic = view.findViewById(R.id.tv_tiplayout_pic);
+            mTvErrorMsg = view.findViewById(R.id.tv_tiplayout_msg);
+            mBtnError = view.findViewById(R.id.bg_refush);
+            mBtnError.setOnClickListener(this);
         }
-        mTvTiplayoutPic.setImageResource(R.mipmap.bg_loading_null);
-        mReloadButton.setText("再次获取");
+        mIvErrorPic.setImageResource(id);
+        mTvErrorMsg.setText(msg);
+
+        if (btn != null && !btn.isEmpty()) {
+            mBtnError.setText(btn);
+            mBtnError.setVisibility(View.VISIBLE);
+        } else {
+            mBtnError.setVisibility(View.GONE);
+        }
         if (mLLTipviewError.getVisibility() == View.GONE) {
             mLLTipviewError.setVisibility(View.VISIBLE);
         }
@@ -151,29 +138,22 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
     }
 
     /**
-     * 显示加载失败
+     * 显示空数据
      */
-    public void showCustomError(int id, String msg, String btn) {
+    public void showEmptyOrRefresh() {
         resetStatus();
-        if (mLLTipviewError == null) {
-            View view = mLayoutError.inflate();
-            mLLTipviewError = view.findViewById(R.id.ll_tipview_error);
-            mTvTiplayoutPic = view.findViewById(R.id.tv_tiplayout_pic);
-            mTvTiplayoutMsg = view.findViewById(R.id.tv_tiplayout_msg);
-            mReloadButton = view.findViewById(R.id.bg_refush);
-            mReloadButton.setOnClickListener(this);
+        if (mLLTipviewNull == null) {
+            View view = mLayoutNull.inflate();
+            mLLTipviewNull = view.findViewById(R.id.ll_tipview_null);
+            mIvNullPic = view.findViewById(R.id.tv_tiplayout_pic);
+            mTvNullMsg = view.findViewById(R.id.tv_tiplayout_msg);
+            mBtnNull = view.findViewById(R.id.bg_null_refush);
+            mBtnNull.setOnClickListener(this);
         }
-        mTvTiplayoutPic.setImageResource(id);
-        mTvTiplayoutMsg.setText(msg);
-
-        if (btn != null && !btn.isEmpty()) {
-            mReloadButton.setText(btn);
-            mReloadButton.setVisibility(View.VISIBLE);
-        } else {
-            mReloadButton.setVisibility(View.GONE);
-        }
-        if (mLLTipviewError.getVisibility() == View.GONE) {
-            mLLTipviewError.setVisibility(View.VISIBLE);
+        mIvErrorPic.setImageResource(R.mipmap.bg_loading_null);
+        mBtnError.setText("再次获取");
+        if (mLLTipviewNull.getVisibility() == View.GONE) {
+            mLLTipviewNull.setVisibility(View.VISIBLE);
         }
     }
 
@@ -195,7 +175,7 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.bg_refush) {
+        if (v.getId() == R.id.bg_refush || v.getId() == R.id.bg_null_refush) {
             if (onReloadClick != null) {
                 resetStatus();
                 showLoading();

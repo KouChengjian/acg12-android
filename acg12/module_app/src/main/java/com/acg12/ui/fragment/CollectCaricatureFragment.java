@@ -15,6 +15,7 @@ import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.net.impl.HttpRequestImpl;
+import com.acg12.ui.activity.CaricatureInfoActivity;
 import com.acg12.ui.adapter.CollectCaricatureAdapter;
 import com.acg12.ui.views.CollectCaricatureView;
 
@@ -59,12 +60,12 @@ public class CollectCaricatureFragment extends PresenterFragmentImpl<CollectCari
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-//        Intent intent = new Intent(mContext, PreviewAlbumActivity.class);
-////        Bundle bundle = new Bundle();
-////        bundle.putInt("position", position);
-////        PreviewAlbumActivity.mList = mView.getList();
-////        intent.putExtras(bundle);
-////        startActivityForResult(intent, 1000);
+        CollectCaricatureEntity caricatureEntity = mView.getObject(position);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", caricatureEntity.getComicId());
+        bundle.putInt("type", caricatureEntity.getType());
+        bundle.putString("title", caricatureEntity.getTitle());
+        startAnimActivity(CaricatureInfoActivity.class, bundle);
     }
 
     @Override
