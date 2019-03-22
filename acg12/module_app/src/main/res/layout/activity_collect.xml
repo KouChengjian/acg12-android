@@ -4,7 +4,6 @@
     xmlns:skin="http://schemas.android.com/android/skin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -15,8 +14,8 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
-
+            >
+            <!--app:layout_scrollFlags="scroll|enterAlwaysCollapsed"-->
             <com.acg12.lib.widget.ToolBarView
                 android:id="@+id/toolBarView"
                 android:layout_width="match_parent"

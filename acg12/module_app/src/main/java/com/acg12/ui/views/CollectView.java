@@ -32,7 +32,7 @@ public class CollectView extends ViewImpl {
     @BindView(R.id.viewpager)
     ViewPager mViewpager;
 
-    private String[] titles = new String[]{"搜索词条", "插画", "画册", "漫画", "番剧", "动画"};
+    private String[] titles = new String[]{"搜索词条", "插画", "画册", "漫画"}; //, "番剧", "动画"
     private Fragment[] fragments;
     private CommonPagerAdapter mCommonPagerAdapter;
     private CollectSubjectFragment mCollectSubjectFragment;

@@ -13,17 +13,17 @@
         android:id="@+id/tv_tiplayout_pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/bg_loading_null"
-        android:alpha="0.5"/>
+        android:alpha="0.5"
+        android:src="@mipmap/bg_loading_null" />
 
     <TextView
         android:id="@+id/tv_tiplayout_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="加载失败，请检查网络状态"
-        android:textColor="@color/text_666666"
+        android:textColor="@color/text_999999"
         android:textSize="16sp" />
 
 

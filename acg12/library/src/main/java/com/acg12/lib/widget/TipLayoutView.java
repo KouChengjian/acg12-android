@@ -21,11 +21,6 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
     private BGButton mReloadButton;
     private OnReloadClick onReloadClick;
 
-    public TipLayoutView(Context context) {
-        super(context);
-        initView();
-    }
-
     public TipLayoutView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView();
@@ -40,9 +35,9 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.common_tiplayout_view, this);
         view.setOnClickListener(null);
-        mLayoutNull = (ViewStub) findViewById(R.id.layout_null);
-        mLayoutError = (ViewStub) findViewById(R.id.layout_error);
-        mLayoutLoading = (ViewStub) findViewById(R.id.layout_loading);
+        mLayoutNull = findViewById(R.id.layout_null);
+        mLayoutError = findViewById(R.id.layout_error);
+        mLayoutLoading = findViewById(R.id.layout_loading);
 
         showLoading();
     }
@@ -148,7 +143,7 @@ public class TipLayoutView extends RelativeLayout implements View.OnClickListene
         resetStatus();
         if (mLLTipviewNull == null) {
             View view = mLayoutNull.inflate();
-            mLLTipviewNull = (LinearLayout) view.findViewById(R.id.ll_tipview_null);
+            mLLTipviewNull = view.findViewById(R.id.ll_tipview_null);
         }
         if (mLLTipviewNull.getVisibility() == View.GONE) {
             mLLTipviewNull.setVisibility(View.VISIBLE);
