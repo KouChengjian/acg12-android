@@ -8,8 +8,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.acg12.lib.constant.Constant;
+import com.acg12.conf.EventConfig;
+import com.acg12.conf.event.CommonEnum;
+import com.acg12.conf.event.CommonEvent;
 import com.acg12.entity.Album;
+import com.acg12.lib.constant.Constant;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.utils.LogUtil;
@@ -19,6 +22,11 @@ import com.acg12.ui.adapter.NewestAlbumAdapter;
 import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.NewestAlbumView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +48,7 @@ public class NewestAlbumActivity extends SkinBaseActivity<NewestAlbumView> imple
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
+        EventConfig.get().getCommon().register(this);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -57,22 +66,17 @@ public class NewestAlbumActivity extends SkinBaseActivity<NewestAlbumView> imple
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 1000) {
                 int position = data.getExtras().getInt("position");
-                List<Album> list = mView.getAlbumList();
-                list = PreviewAlbumActivity.mList;
-                PreviewAlbumActivity.mList = null;
-                mView.MoveToPosition(position);
+                mView.moveToPosition(position);
             }
         }
     }
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-        Intent intent = new Intent(mContext, PreviewAlbumActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);
-        PreviewAlbumActivity.mList = mView.getAlbumList();
-        intent.putExtras(bundle);
-        startActivityForResult(intent, 1000);
+        bundle.putSerializable("list", (Serializable) mView.getAlbumList());
+        startAnimActivity(NewestAlbumInfoActivity.class, bundle , 1000);
     }
 
     @Override
@@ -97,24 +101,29 @@ public class NewestAlbumActivity extends SkinBaseActivity<NewestAlbumView> imple
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void commonEvent(CommonEvent commonEvent) {
+        if (CommonEnum.COMMON_NEWEST_ALBUM == commonEvent.getCommonEvent()) {
+            List<Album> albums = (ArrayList<Album>) commonEvent.getObject();
+            mView.bindData(albums, false);
+        }
+    }
+
     public void refresh(String pinId) {
         HttpRequestImpl.getInstance().albumList(currentUser(), pinId, new HttpRequestListener<List<Album>>() {
             @Override
             public void onSuccess(List<Album> result) {
-                if (result.size() != 0 && result.get(result.size() - 1) != null) {
-                    if (result.size() < Constant.LIMIT_PAGER_20) {
-                        mView.stopLoading();
-                    }
-                    mView.bindData(result, refresh);
+                if (result.size() < Constant.LIMIT_PAGER_20) {
+                    mView.stopLoading();
                 }
-                mView.stopRefreshLoadMore(refresh);
+                mView.bindData(result, refresh);
             }
 
             @Override
             public void onFailure(int errorcode, String msg) {
+                mView.recycleException();
                 LogUtil.e(mTag, msg);
                 ShowToastView(msg);
-                mView.stopRefreshLoadMore(refresh);
             }
         });
     }
@@ -141,7 +150,7 @@ public class NewestAlbumActivity extends SkinBaseActivity<NewestAlbumView> imple
                 stopLoading();
                 ShowToast(msg);
                 LogUtil.e(msg);
-                if(errorcode == 5010001){
+                if (errorcode == 5010001) {
                     mView.updataObject(position, 1);
                 }
             }
@@ -168,6 +177,7 @@ public class NewestAlbumActivity extends SkinBaseActivity<NewestAlbumView> imple
 
     @Override
     protected void onDestroy() {
+        EventConfig.get().getCommon().unregister(this);
         super.onDestroy();
     }
 }

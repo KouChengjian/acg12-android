@@ -3,6 +3,7 @@ package com.acg12.lib.ui.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -90,6 +91,15 @@ public class BsaeActivity extends AppCompatActivity implements View.OnClickListe
         if (view.getId() == -1) {
             aminFinish();
         }
+    }
+
+    public void finishResult() {
+        finishResult(new Intent());
+    }
+
+    public void finishResult(Intent intent) {
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     /*-------内部调用类---------*/

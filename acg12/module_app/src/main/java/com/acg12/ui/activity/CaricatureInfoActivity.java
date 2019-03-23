@@ -138,6 +138,4 @@ public class CaricatureInfoActivity extends SkinBaseActivity<CaricatureInfoView>
     protected void onDestroy() {
         super.onDestroy();
     }
-
-
 }

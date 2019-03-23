@@ -93,6 +93,11 @@ public class CaricatureInfoAdapter extends CommonRecyclerAdapter<CaricatureChapt
     @Nullable
     @Override
     public RequestBuilder<?> getPreloadRequestBuilder(@NonNull CaricatureChaptersPageEntity item) {
-        return GlideApp.with(mContext).asBitmap().load(item.getUrl()).override(tagWidth, tagHeight).placeholder(new ColorDrawable(Color.BLACK)).diskCacheStrategy(DiskCacheStrategy.ALL);
+        return GlideApp.with(mContext)
+                .asBitmap()
+                .load(item.getUrl())
+                .override(tagWidth, tagHeight)
+                .placeholder(new ColorDrawable(Color.BLACK))
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
     }
 }

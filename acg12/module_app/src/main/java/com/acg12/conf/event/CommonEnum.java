@@ -2,7 +2,8 @@ package com.acg12.conf.event;
 
 public enum CommonEnum {
     COMMON_DEF,
-    COMMON_UPDATA_USER,
+
+    COMMON_NEWEST_ALBUM,  // 每日插画更新
     COMMON_UPDATA_USER_LOAD,
 
     COMMON_UPDATA_GROUP_UNEXCUSE,

@@ -524,6 +524,7 @@ public class HttpRequestImpl implements HttpRequest {
                         album.setLove(JsonParse.getInt(item, "love"));
                         album.setFavorites(JsonParse.getInt(item, "favorites"));
                         album.setImageUrl(JsonParse.getString(item, "image"));
+                        album.setIsCollect(JsonParse.getInt(item, "isCollect"));
                         list.add(album);
                     }
                     httpRequestListener.onSuccess(list);

@@ -14,7 +14,6 @@ import com.acg12.lib.R;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.utils.PixelUtil;
 import com.acg12.lib.widget.TipLayoutView;
-import com.acg12.lib.widget.recycle.IRecycleView;
 
 /**
  * Created by Administrator on 2017/5/20.
@@ -52,9 +51,9 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
 
     public void init() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.common_loading_recyclerview, this);
-        mSwipeRefreshLayout =  view.findViewById(R.id.mSwipeRefreshLayout);
-        mRecyclerView =  view.findViewById(R.id.mRecyclerView);
-        mTipLayoutView =  view.findViewById(R.id.tip_layoutView);
+        mSwipeRefreshLayout = view.findViewById(R.id.mSwipeRefreshLayout);
+        mRecyclerView = view.findViewById(R.id.mRecyclerView);
+        mTipLayoutView = view.findViewById(R.id.tip_layoutView);
         mTipLayoutView.setOnReloadClick(this);
 
         mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_body);
@@ -70,8 +69,12 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
     }
 
     public LinearLayoutManager setLinearLayoutManager() {
+        return setLinearLayoutManager(LinearLayoutManager.VERTICAL);
+    }
+
+    public LinearLayoutManager setLinearLayoutManager(int orientation) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setOrientation(orientation);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setLoadingMoreEnabled(true);
         return layoutManager;
@@ -154,8 +157,16 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         ItemClickSupport.addTo(mRecyclerView).setOnItemLongClickListener(mPresenter);
     }
 
-    public void addOnScrollListener(RecyclerView.OnScrollListener listener){
+    public void addOnScrollListener(RecyclerView.OnScrollListener listener) {
         mRecyclerView.addOnScrollListener(listener);
+    }
+
+    public void scrollToPositionWithOffset(int position) {
+        if (position != -1) {
+            mRecyclerView.scrollToPosition(position);
+            LinearLayoutManager mLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+            mLayoutManager.scrollToPositionWithOffset(position, 0);
+        }
     }
 
     public void setRecycleUpdataListener(IRecycleUpdataListener recycleUpdataListener) {

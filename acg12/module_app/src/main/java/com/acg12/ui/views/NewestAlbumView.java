@@ -65,6 +65,7 @@ public class NewestAlbumView extends ViewImpl {
             tabAlbumAdapter.addAll(result);
             mCommonRecycleview.notifyChanged(tabAlbumAdapter.getList().size() - result.size(), tabAlbumAdapter.getList().size());
         }
+        mCommonRecycleview.stopRefreshLoadMore(refresh);
     }
 
     public String getPicId() {
@@ -83,8 +84,8 @@ public class NewestAlbumView extends ViewImpl {
         mCommonRecycleview.stopLoading();
     }
 
-    public void stopRefreshLoadMore(boolean refresh) {
-        mCommonRecycleview.stopRefreshLoadMore(refresh);
+    public void recycleException() {
+        mCommonRecycleview.recycleException();
     }
 
     public void updataObject(int position, int isCollect) {
@@ -93,13 +94,7 @@ public class NewestAlbumView extends ViewImpl {
         mCommonRecycleview.notifyChanged(position);
     }
 
-    /**
-     * RecyclerView 移动到当前位置，
-     *
-     * @param n 要跳转的位置
-     */
-    public void MoveToPosition(int n) {
+    public void moveToPosition(int n) {
         staggeredGridLayoutManager.scrollToPositionWithOffset(n, 0);
-//        manager.setStackFromEnd(true);
     }
 }
