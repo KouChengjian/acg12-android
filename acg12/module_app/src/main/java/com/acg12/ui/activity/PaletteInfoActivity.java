@@ -36,20 +36,22 @@ import java.util.Map;
 public class PaletteInfoActivity extends SkinBaseActivity<PaletteInfoView> implements IRecycleView.LoadingListener, SwipeRefreshLayout.OnRefreshListener
         , ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener, PaletteInfoAdapter.PaletteInfoListener {
 
-    private Palette palette;
+    private String boardId;
+    private String title;
     private boolean refresh = true;
 
     @Override
     public void create(Bundle savedInstance) {
         super.create(savedInstance);
-        palette = (Palette) getIntent().getSerializableExtra("palette");
+        boardId = getIntent().getStringExtra("boardId");
+        title = getIntent().getStringExtra("title");
     }
 
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
         EventConfig.get().getCommon().register(this);
-        mView.bindData(palette);
+        mView.setTitle(title);
         onRefresh();
     }
 
@@ -101,13 +103,13 @@ public class PaletteInfoActivity extends SkinBaseActivity<PaletteInfoView> imple
     @Override
     public void onRefresh() {
         refresh = true;
-        refresh(palette.getBoardId(), "");
+        refresh(boardId, "");
     }
 
     @Override
     public void onLoadMore() {
         refresh = false;
-        refresh(palette.getBoardId(), mView.getPicId());
+        refresh(boardId, mView.getPicId());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

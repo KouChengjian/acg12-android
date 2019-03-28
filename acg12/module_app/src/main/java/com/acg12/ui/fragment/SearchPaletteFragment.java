@@ -52,9 +52,12 @@ public class SearchPaletteFragment extends SkinBaseFragment<SearchPaletteView> i
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+        Palette palette = mView.getObject(position);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("palette", mView.getObject(position));
+        bundle.putString("boardId", palette.getBoardId());
+        bundle.putString("title", palette.getName());
         startAnimActivity(PaletteInfoActivity.class, bundle);
+
     }
 
     @Override
@@ -108,11 +111,11 @@ public class SearchPaletteFragment extends SkinBaseFragment<SearchPaletteView> i
     public void addCollectPalette(final int position, Palette palette) {
         Map<String, Object> params = new HashMap<>();
         params.put("boardId", palette.getBoardId());
-        params.put("title", palette.getName()== null ? "" : palette.getName());
+        params.put("title", palette.getName() == null ? "" : palette.getName());
         params.put("sign", palette.getSign() == null ? "" : palette.getSign());
         params.put("num", palette.getNum());
         List<String> list = palette.getUrlAlbum();
-        params.put("cover",      list.size() > 0 ? list.get(0) : "");
+        params.put("cover", list.size() > 0 ? list.get(0) : "");
         params.put("thumImage1", list.size() > 1 ? list.get(1) : "");
         params.put("thumImage2", list.size() > 2 ? list.get(2) : "");
         params.put("thumImage3", list.size() > 3 ? list.get(3) : "");

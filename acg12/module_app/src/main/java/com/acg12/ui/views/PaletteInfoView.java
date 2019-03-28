@@ -61,8 +61,8 @@ public class PaletteInfoView extends ViewImpl {
         commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
     }
 
-    public void bindData(Palette palette){
-        toolbar.setTitle(palette.getName());
+    public void setTitle(String title){
+        toolbar.setTitle(title);
     }
 
     public void bindData(List<Album> result , boolean refresh){

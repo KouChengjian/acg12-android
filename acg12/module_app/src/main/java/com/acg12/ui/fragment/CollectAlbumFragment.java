@@ -8,6 +8,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.acg12.conf.EventConfig;
+import com.acg12.conf.event.CommonEnum;
+import com.acg12.conf.event.CommonEvent;
 import com.acg12.entity.Album;
 import com.acg12.lib.constant.Constant;
 import com.acg12.lib.listener.HttpRequestListener;
@@ -17,11 +20,15 @@ import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.net.impl.HttpRequestImpl;
-import com.acg12.ui.activity.PreviewAlbumActivity;
+import com.acg12.ui.activity.AlbumInfoActivity;
 import com.acg12.ui.adapter.CollectAlbumAdapter;
-import com.acg12.ui.adapter.NewestAlbumAdapter;
 import com.acg12.ui.views.CollectAlbumView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +55,7 @@ public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
+        EventConfig.get().getCommon().register(this);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -65,9 +73,6 @@ public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 1000) {
                 int position = data.getExtras().getInt("position");
-                List<Album> list = mView.getList();
-                list = PreviewAlbumActivity.mList;
-                PreviewAlbumActivity.mList = null;
                 mView.moveToPosition(position);
             }
         }
@@ -75,12 +80,10 @@ public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-        Intent intent = new Intent(mContext, PreviewAlbumActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);
-        PreviewAlbumActivity.mList = mView.getList();
-        intent.putExtras(bundle);
-        startActivityForResult(intent, 1000);
+        bundle.putSerializable("list", (Serializable) mView.getList());
+        startAnimActivity(AlbumInfoActivity.class, bundle, 1000);
     }
 
     @Override
@@ -109,6 +112,14 @@ public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView
             delCollectAlbum(position, album);
         } else {
             addCollectAlbum(position, album);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void commonEvent(CommonEvent commonEvent) {
+        if (CommonEnum.COMMON_NEWEST_ALBUM == commonEvent.getCommonEvent()) {
+            List<Album> albums = (ArrayList<Album>) commonEvent.getObject();
+            mView.bindData(albums, false);
         }
     }
 
@@ -153,7 +164,7 @@ public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView
                 stopLoading();
                 ShowToast(msg);
                 LogUtil.e(msg);
-                if(errorcode == 5010001){
+                if (errorcode == 5010001) {
                     mView.updataObject(position, 1);
                 }
             }
@@ -180,6 +191,7 @@ public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView
 
     @Override
     public void onDestroy() {
+        EventConfig.get().getCommon().unregister(this);
         super.onDestroy();
     }
 }

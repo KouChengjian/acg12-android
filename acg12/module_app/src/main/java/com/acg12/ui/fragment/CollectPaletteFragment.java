@@ -15,6 +15,7 @@ import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.net.impl.HttpRequestImpl;
+import com.acg12.ui.activity.PaletteInfoActivity;
 import com.acg12.ui.adapter.CollectPaletteAdapter;
 import com.acg12.ui.views.CollectPaletteView;
 
@@ -28,8 +29,8 @@ import java.util.Map;
  * Date: 2019/1/4 14:57
  * Description:
  */
-public class CollectPaletteFragment extends PresenterFragmentImpl<CollectPaletteView>  implements IRecycleView.LoadingListener, SwipeRefreshLayout.OnRefreshListener
-        , ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener ,CollectPaletteAdapter.SearchPaletteListener {
+public class CollectPaletteFragment extends PresenterFragmentImpl<CollectPaletteView> implements IRecycleView.LoadingListener, SwipeRefreshLayout.OnRefreshListener
+        , ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener, CollectPaletteAdapter.SearchPaletteListener {
 
     private int pageNum = 1;
     private boolean refresh = true;
@@ -44,19 +45,21 @@ public class CollectPaletteFragment extends PresenterFragmentImpl<CollectPalette
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        onLoadMore();
+        onRefresh();
     }
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("palette", mView.getObject(position));
-//        startAnimActivity(PaletteInfoActivity.class, bundle);
+        CollectPaletteEntity collectPaletteEntity = mView.getObject(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("boardId", collectPaletteEntity.getBoardId());
+        bundle.putString("title", collectPaletteEntity.getTitle());
+        startAnimActivity(PaletteInfoActivity.class, bundle);
     }
 
     @Override
     public void onRecycleReload() {
-        onLoadMore();
+        onRefresh();
     }
 
     @Override
@@ -105,13 +108,13 @@ public class CollectPaletteFragment extends PresenterFragmentImpl<CollectPalette
     public void addCollectPalette(final int position, CollectPaletteEntity palette) {
         Map<String, Object> params = new HashMap<>();
         params.put("boardId", palette.getBoardId());
-        params.put("title", palette.getTitle()== null ? "" : palette.getTitle());
+        params.put("title", palette.getTitle() == null ? "" : palette.getTitle());
         params.put("sign", palette.getSign() == null ? "" : palette.getSign());
         params.put("num", palette.getNum());
-        params.put("cover",      palette.getCover()== null ? "" : palette.getCover());
-        params.put("thumImage1", palette.getThumImage1()== null ? "" : palette.getThumImage1());
-        params.put("thumImage2", palette.getThumImage2()== null ? "" : palette.getThumImage2());
-        params.put("thumImage3", palette.getThumImage3()== null ? "" : palette.getThumImage3());
+        params.put("cover", palette.getCover() == null ? "" : palette.getCover());
+        params.put("thumImage1", palette.getThumImage1() == null ? "" : palette.getThumImage1());
+        params.put("thumImage2", palette.getThumImage2() == null ? "" : palette.getThumImage2());
+        params.put("thumImage3", palette.getThumImage3() == null ? "" : palette.getThumImage3());
         startLoading("收藏中...");
         HttpRequestImpl.getInstance().collectPaletteAdd(params, new HttpRequestListener<String>() {
             @Override
