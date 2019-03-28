@@ -27,13 +27,13 @@ import java.util.List;
  * Date: 2019/3/23 10:23
  * Description:
  */
-public class NewestAlbumInfoViewHolder extends CommonRecyclerViewHolder {
+public class AlbumInfoViewHolder extends CommonRecyclerViewHolder {
 
     ProgressBar spinner;
     MyImageView dragPhotoView;
     TextView pageText;
 
-    public NewestAlbumInfoViewHolder(View itemView) {
+    public AlbumInfoViewHolder(View itemView) {
         super(itemView);
          spinner =  itemView.findViewById(R.id.page_loading);
          dragPhotoView =  itemView.findViewById(R.id.page_image);

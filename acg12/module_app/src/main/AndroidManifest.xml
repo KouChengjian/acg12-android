@@ -52,7 +52,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
-            android:name=".ui.activity.NewestAlbumInfoActivity"
+            android:name=".ui.activity.AlbumInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
@@ -68,7 +68,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
-            android:name=".ui.activity.PreviewPaletteActivity"
+            android:name=".ui.activity.PaletteInfoActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.PreviewAlbumActivity"

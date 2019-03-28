@@ -8,12 +8,11 @@ import com.acg12.R;
 import com.acg12.entity.Album;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.ui.base.ViewImpl;
-import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.Toastor;
 import com.acg12.lib.widget.ToolBarView;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
-import com.acg12.ui.activity.NewestAlbumInfoActivity;
-import com.acg12.ui.adapter.NewestAlbumInfoAdapter;
+import com.acg12.ui.activity.AlbumInfoActivity;
+import com.acg12.ui.adapter.AlbumInfoAdapter;
 
 import java.util.List;
 
@@ -27,20 +26,20 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
  * Date: 2019/3/22 18:46
  * Description:
  */
-public class NewestAlbumInfoView extends ViewImpl {
+public class AlbumInfoView extends ViewImpl {
 
     @BindView(R.id.toolBarView)
     ToolBarView mToolBarView;
     @BindView(R.id.commonRecycleview)
     CommonRecycleview mCommonRecycleview;
 
-    NewestAlbumInfoAdapter mNewestAlbumInfoAdapter;
+    AlbumInfoAdapter mNewestAlbumInfoAdapter;
     PagerSnapHelper mPagerSnapHelper; // RecyclerView帮助类。主要是变成Viewpager的模式需要
 
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_newest_album_info;
+        return R.layout.activity_album_info;
     }
 
     @Override
@@ -48,7 +47,7 @@ public class NewestAlbumInfoView extends ViewImpl {
         super.created();
         mToolBarView.setNavigationOrBreak("预览");
         mCommonRecycleview.setLinearLayoutManager(LinearLayoutManager.HORIZONTAL);
-        mNewestAlbumInfoAdapter = new NewestAlbumInfoAdapter(getContext());
+        mNewestAlbumInfoAdapter = new AlbumInfoAdapter(getContext());
         mCommonRecycleview.setRefreshEnabled(false);
         mCommonRecycleview.setAdapter(mNewestAlbumInfoAdapter);
 //        mCommonRecycleview.startRefreshing();
@@ -69,7 +68,7 @@ public class NewestAlbumInfoView extends ViewImpl {
                     //更新当前对象在更新信息
                     if (isVisBottom(mCommonRecycleview.getIRecycleView())) {
                         Toastor.ShowToast("加载数据...");
-                        ((NewestAlbumInfoActivity) getContext()).requestData();
+                        ((AlbumInfoActivity) getContext()).requestData();
                     }
                 }
             }

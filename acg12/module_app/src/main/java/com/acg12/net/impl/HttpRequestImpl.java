@@ -764,6 +764,7 @@ public class HttpRequestImpl implements HttpRequest {
                         album.setLove(JsonParse.getInt(item, "love"));
                         album.setFavorites(JsonParse.getInt(item, "favorites"));
                         album.setImageUrl(JsonParse.getString(item, "image"));
+                        album.setIsCollect(JsonParse.getInt(item, "isCollect"));
                         list.add(album);
                     }
                     httpRequestListener.onSuccess(list);
@@ -1231,6 +1232,7 @@ public class HttpRequestImpl implements HttpRequest {
                         album.setLove(JsonParse.getInt(item, "love"));
                         album.setFavorites(JsonParse.getInt(item, "favorites"));
                         album.setImageUrl(JsonParse.getString(item, "image"));
+                        album.setIsCollect(JsonParse.getInt(item, "isCollect"));
                         list.add(album);
                     }
                     httpRequestListener.onSuccess(list);
@@ -1258,6 +1260,7 @@ public class HttpRequestImpl implements HttpRequest {
                         palette.setBoardId(JsonParse.getString(item, "boardId"));
                         palette.setName(JsonParse.getString(item, "name"));
                         palette.setNum(JsonParse.getInt(item, "num"));
+                        palette.setIsCollect(JsonParse.getInt(item, "isCollect"));
                         JSONArray urls = JsonParse.getJSONArray(item, "urlAlbum");
                         ArrayList<String> urlAlbum = new ArrayList<String>();
                         for (int j = 0, n = urls.length(); j < n; j++) {

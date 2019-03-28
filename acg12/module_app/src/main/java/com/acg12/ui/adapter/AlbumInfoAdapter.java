@@ -6,9 +6,8 @@ import android.view.ViewGroup;
 
 import com.acg12.R;
 import com.acg12.entity.Album;
-import com.acg12.entity.CaricatureChaptersEntity;
 import com.acg12.lib.ui.adapter.CommonRecyclerAdapter;
-import com.acg12.ui.adapter.view.NewestAlbumInfoViewHolder;
+import com.acg12.ui.adapter.view.AlbumInfoViewHolder;
 
 /**
  * Created with Android Studio.
@@ -16,19 +15,19 @@ import com.acg12.ui.adapter.view.NewestAlbumInfoViewHolder;
  * Date: 2019/3/23 10:23
  * Description:
  */
-public class NewestAlbumInfoAdapter extends CommonRecyclerAdapter<Album> {
+public class AlbumInfoAdapter extends CommonRecyclerAdapter<Album> {
 
-    public NewestAlbumInfoAdapter(Context mContext) {
+    public AlbumInfoAdapter(Context mContext) {
         super(mContext);
     }
 
     @Override
     public RecyclerView.ViewHolder createView(ViewGroup parent, int viewType) {
-        return new NewestAlbumInfoViewHolder(getItemView(R.layout.item_newest_album_info, parent));
+        return new AlbumInfoViewHolder(getItemView(R.layout.item_album_info, parent));
     }
 
     @Override
     public void bindView(RecyclerView.ViewHolder holder, int position) {
-        ((NewestAlbumInfoViewHolder) holder).bindData(mContext, getList(), position);
+        ((AlbumInfoViewHolder) holder).bindData(mContext, getList(), position);
     }
 }

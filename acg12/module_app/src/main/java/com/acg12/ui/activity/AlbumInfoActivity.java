@@ -12,12 +12,12 @@ import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.ui.base.SkinBaseActivity;
-import com.acg12.ui.views.NewestAlbumInfoView;
+import com.acg12.ui.views.AlbumInfoView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewestAlbumInfoActivity extends SkinBaseActivity<NewestAlbumInfoView> {
+public class AlbumInfoActivity extends SkinBaseActivity<AlbumInfoView> {
 
     private int position;
     private boolean refresh = false;

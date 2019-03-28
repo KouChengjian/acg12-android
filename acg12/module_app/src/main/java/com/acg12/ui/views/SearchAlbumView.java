@@ -91,7 +91,7 @@ public class SearchAlbumView extends ViewImpl {
      *
      * @param n 要跳转的位置
      */
-    public void MoveToPosition(int n) {
+    public void moveToPosition(int n) {
         staggeredGridLayoutManager.scrollToPositionWithOffset(n, 0);
 //        manager.setStackFromEnd(true);
     }

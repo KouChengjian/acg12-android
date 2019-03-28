@@ -16,7 +16,7 @@ import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.net.impl.HttpRequestImpl;
-import com.acg12.ui.activity.PreviewPaletteActivity;
+import com.acg12.ui.activity.PaletteInfoActivity;
 import com.acg12.ui.adapter.SearchPaletteAdapter;
 import com.acg12.ui.base.SkinBaseFragment;
 import com.acg12.ui.views.SearchPaletteView;
@@ -54,7 +54,7 @@ public class SearchPaletteFragment extends SkinBaseFragment<SearchPaletteView> i
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("palette", mView.getObject(position));
-        startAnimActivity(PreviewPaletteActivity.class, bundle);
+        startAnimActivity(PaletteInfoActivity.class, bundle);
     }
 
     @Override

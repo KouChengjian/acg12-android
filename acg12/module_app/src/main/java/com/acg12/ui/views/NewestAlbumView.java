@@ -44,7 +44,6 @@ public class NewestAlbumView extends ViewImpl {
         tabAlbumAdapter = new NewestAlbumAdapter(getContext());
         mCommonRecycleview.setAdapter(tabAlbumAdapter);
         mCommonRecycleview.startRefreshing();
-
     }
 
     @Override

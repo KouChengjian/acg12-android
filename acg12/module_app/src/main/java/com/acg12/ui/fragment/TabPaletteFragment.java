@@ -14,7 +14,7 @@ import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.lib.constant.Constant;
 import com.acg12.entity.Palette;
 import com.acg12.net.impl.HttpRequestImpl;
-import com.acg12.ui.activity.PreviewPaletteActivity;
+import com.acg12.ui.activity.PaletteInfoActivity;
 import com.acg12.ui.base.SkinBaseFragment;
 import com.acg12.ui.views.TabPaletteView;
 
@@ -40,7 +40,7 @@ public class TabPaletteFragment extends SkinBaseFragment<TabPaletteView> impleme
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("palette",mView.getPalette(position));
-        startAnimActivity(PreviewPaletteActivity.class , bundle);
+        startAnimActivity(PaletteInfoActivity.class , bundle);
     }
 
     @Override
