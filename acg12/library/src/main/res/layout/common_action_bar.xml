@@ -10,7 +10,8 @@
         android:id="@+id/title_status"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/theme_primary" />
+        android:background="@color/theme_primary"
+        skin:enable="true"/>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

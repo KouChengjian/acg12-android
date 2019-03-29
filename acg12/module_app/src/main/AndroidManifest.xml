@@ -82,6 +82,7 @@
             android:theme="@style/Theme.MaterialSheetFab" />
         <activity
             android:name=".ui.activity.SkinActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.SettingActivity"
@@ -120,7 +121,6 @@
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.SearchActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.NoActionBar" />
         <activity
             android:name=".ui.activity.WebviewActivity"
