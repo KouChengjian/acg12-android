@@ -8,9 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.acg12.conf.EventConfig;
-import com.acg12.conf.event.CommonEnum;
-import com.acg12.conf.event.CommonEvent;
+import com.acg12.lib.conf.EventConfig;
+import com.acg12.lib.conf.event.CommonEnum;
+import com.acg12.lib.conf.event.CommonEvent;
 import com.acg12.entity.Album;
 import com.acg12.lib.constant.Constant;
 import com.acg12.lib.listener.HttpRequestListener;

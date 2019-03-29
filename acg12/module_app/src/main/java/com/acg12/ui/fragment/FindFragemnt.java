@@ -5,11 +5,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.acg12.lib.conf.event.CommonEnum;
 import com.acg12.lib.utils.skin.AttrFactory;
 import com.acg12.lib.utils.skin.entity.DynamicAttr;
 
 import com.acg12.R;
-import com.acg12.conf.EventConfig;
+import com.acg12.lib.conf.EventConfig;
 import com.acg12.lib.constant.Constant;
 import com.acg12.ui.activity.DownloadActivity;
 import com.acg12.ui.base.SkinBaseFragment;
@@ -38,7 +39,7 @@ public class FindFragemnt extends SkinBaseFragment<FindView> implements Toolbar.
     public void onClick(View v) {
         int id = v.getId();
         if(id == Constant.TOOLBAR_ID){
-            EventConfig.get().getNavigationEvent().post(true);
+            EventConfig.get().getCommon().post(CommonEnum.COMMON_TOGGLE_DRAWER);
         }
     }
 

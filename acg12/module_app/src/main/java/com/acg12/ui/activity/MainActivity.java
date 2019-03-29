@@ -11,15 +11,19 @@ import android.view.View;
 import com.acg12.R;
 import com.acg12.cache.DaoBaseImpl;
 import com.acg12.conf.AppConfig;
-import com.acg12.conf.EventConfig;
 import com.acg12.entity.Update;
 import com.acg12.entity.User;
 import com.acg12.lib.app.BaseApp;
+import com.acg12.lib.conf.EventConfig;
+import com.acg12.lib.conf.event.CommonEnum;
+import com.acg12.lib.conf.event.CommonEvent;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.AppUtil;
+import com.acg12.lib.utils.ForegroundUtil;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.skin.AttrFactory;
 import com.acg12.lib.utils.skin.entity.DynamicAttr;
+import com.acg12.lib.widget.CommonDialog;
 import com.acg12.net.download.DownloadManger;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.ui.base.SkinBaseActivity;
@@ -37,6 +41,7 @@ import java.util.List;
 public class MainActivity extends SkinBaseActivity<MainView> implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, View.OnLongClickListener {
 
     public static long firstTime;
+    private CommonDialog mCommonDialog;
 
     @Override
     public void create(Bundle savedInstance) {
@@ -49,7 +54,8 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
         super.created(savedInstance);
 //        BaseConfig.initListVideoUtil(this);
         EventConfig.get().getUserEvent().register(this);
-        EventConfig.get().getNavigationEvent().register(this);
+        EventConfig.get().getCommon().register(this);
+        ForegroundUtil.register(getApplication());
 
         List<DynamicAttr> mDynamicAttr = new ArrayList<>();
         mDynamicAttr.add(new DynamicAttr(AttrFactory.NAVIGATIONVIEW, R.color.theme_primary));
@@ -134,13 +140,17 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void toggleDrawer(Boolean toggle) {
-        mView.toggleDrawer();
+    public void updateUser(User user) {
+        mView.paddingDate(user);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void updateUser(User user) {
-        mView.paddingDate(user);
+    public void commonEvent(CommonEvent commonEvent) {
+        if (CommonEnum.HTTP_TOKEN_LOSE == commonEvent.getCommonEvent()) {
+            showExitDialog();
+        } else if (CommonEnum.COMMON_TOGGLE_DRAWER == commonEvent.getCommonEvent()) {
+            mView.toggleDrawer();
+        }
     }
 
     public void updateUser() {
@@ -180,6 +190,28 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
         });
     }
 
+    public void showExitDialog() {
+        if (ForegroundUtil.get().getActivity() == null) return;
+        if (mCommonDialog != null) {
+            mCommonDialog.dismiss();
+        }
+        mCommonDialog = new CommonDialog(ForegroundUtil.get().getActivity(), "警告", "登录时间已过期，请重新登录", true);
+        mCommonDialog.setCallback(new CommonDialog.Callback() {
+            @Override
+            public void commit() {
+                DaoBaseImpl.getInstance(mContext).delTabUser();
+                EventConfig.get().getUserEvent().post(new User(mContext));
+            }
+
+            @Override
+            public void cancle() {
+                DaoBaseImpl.getInstance(mContext).delTabUser();
+                EventConfig.get().getUserEvent().post(new User(mContext));
+            }
+        });
+        mCommonDialog.show();
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
@@ -205,9 +237,10 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
     @Override
     protected void onDestroy() {
         DownloadManger.getInstance(mContext).destroy();
+        ForegroundUtil.unregister(getApplication());
         super.onDestroy();
         EventConfig.get().getUserEvent().unregister(this);
-        EventConfig.get().getNavigationEvent().unregister(this);
+        EventConfig.get().getCommon().unregister(this);
 //        BaseConfig.ListVideoUtilInstance().releaseVideoPlayer();
         GSYVideoPlayer.releaseAllVideos();
     }

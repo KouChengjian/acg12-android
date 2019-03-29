@@ -2,6 +2,8 @@ package com.acg12.lib.net;
 
 import android.content.Context;
 
+import com.acg12.lib.conf.EventConfig;
+import com.acg12.lib.conf.event.CommonEnum;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.net.factory.ApiConverterFactory;
 import com.acg12.lib.net.factory.ApiErrorCode;
@@ -9,6 +11,7 @@ import com.acg12.lib.net.factory.ApiException;
 import com.acg12.lib.net.interceptor.RequestHeaderInterceptor;
 import com.acg12.lib.net.interceptor.RequestLogInterceptor;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -178,7 +181,10 @@ public class RetrofitHttp {
 
     public static void failure(final Throwable e, final HttpRequestListener httpRequestListener) {
         if (e instanceof ApiException) {
-            failure(((ApiException) e).getErrorCode(), ((ApiException) e).getMsg(), httpRequestListener);
+            ApiException apiException = (ApiException) e;
+            failure(apiException.getErrorCode(), apiException.getMsg(), httpRequestListener);
+            int errorCode = apiException.getErrorCode();
+            dealErrorCode(errorCode);
         } else if (e instanceof HttpException) {
             failure(-1, "网络超时", httpRequestListener);
         } else if (e instanceof ConnectException) {
@@ -197,6 +203,15 @@ public class RetrofitHttp {
             failure();
         }
     }
+
+    public static void dealErrorCode(int errorCode) {
+        switch (errorCode) {
+            case 5000103:
+                EventConfig.get().postCommon(CommonEnum.HTTP_TOKEN_LOSE);
+                break;
+        }
+    }
+
 
     public static RequestBody parseRequestBody(String value) {
         return RequestBody.create(MediaType.parse("text/plain"), value);

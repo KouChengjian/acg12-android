@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
-import com.acg12.conf.EventConfig;
+import com.acg12.lib.conf.EventConfig;
 import com.acg12.cache.DaoBaseImpl;
 import com.acg12.entity.Update;
 import com.acg12.entity.User;

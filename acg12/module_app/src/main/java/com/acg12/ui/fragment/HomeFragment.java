@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.acg12.cache.DaoBaseImpl;
+import com.acg12.lib.conf.event.CommonEnum;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.ui.activity.DownloadActivity;
@@ -17,7 +18,7 @@ import com.acg12.ui.activity.NewestNewsActivity;
 import com.acg12.ui.activity.SearchActivity;
 
 import com.acg12.R;
-import com.acg12.conf.EventConfig;
+import com.acg12.lib.conf.EventConfig;
 import com.acg12.lib.constant.Constant;
 import com.acg12.entity.Home;
 import com.acg12.net.impl.HttpRequestImpl;
@@ -48,7 +49,7 @@ public class HomeFragment extends SkinBaseFragment<HomeView> implements Toolbar.
     @Override
     public void onClick(View v) {
         if(v.getId() == Constant.TOOLBAR_ID){
-            EventConfig.get().getNavigationEvent().post(true);
+            EventConfig.get().getCommon().post(CommonEnum.COMMON_TOGGLE_DRAWER);
         } else if(v.getId() == R.id.btn_home_search){
             startAnimActivity(SearchActivity.class);
         } else if(v.getId() == R.id.btn_newest_news){

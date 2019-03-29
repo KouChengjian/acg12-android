@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.acg12.conf.EventConfig;
+import com.acg12.lib.conf.EventConfig;
 import com.acg12.cache.DaoBaseImpl;
 import com.acg12.entity.User;
 
-import com.acg12.cache.DaoBaseImpl;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;
 

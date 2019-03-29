@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.acg12.conf.EventConfig;
-import com.acg12.conf.event.CommonEnum;
+import com.acg12.lib.conf.EventConfig;
+import com.acg12.lib.conf.event.CommonEnum;
 import com.acg12.entity.Album;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;

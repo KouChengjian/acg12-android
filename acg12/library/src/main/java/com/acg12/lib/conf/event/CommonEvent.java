@@ -1,4 +1,4 @@
-package com.acg12.conf.event;
+package com.acg12.lib.conf.event;
 
 public class CommonEvent {
 

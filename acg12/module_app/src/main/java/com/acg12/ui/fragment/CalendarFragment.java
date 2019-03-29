@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.acg12.lib.conf.event.CommonEnum;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.skin.AttrFactory;
@@ -12,7 +13,7 @@ import com.acg12.lib.utils.skin.entity.DynamicAttr;
 import com.acg12.lib.widget.TipLayoutView;
 
 import com.acg12.R;
-import com.acg12.conf.EventConfig;
+import com.acg12.lib.conf.EventConfig;
 import com.acg12.lib.constant.Constant;
 import com.acg12.entity.Calendar;
 import com.acg12.net.impl.HttpRequestImpl;
@@ -51,7 +52,7 @@ public class CalendarFragment extends SkinBaseFragment<CalendarView> implements 
     public void onClick(View v) {
         int id = v.getId();
         if(id == Constant.TOOLBAR_ID){
-            EventConfig.get().getNavigationEvent().post(true);
+            EventConfig.get().getCommon().post(CommonEnum.COMMON_TOGGLE_DRAWER);
         }
     }
 

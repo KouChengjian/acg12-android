@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.acg12.R;
 import com.acg12.conf.AccountManager;
-import com.acg12.conf.EventConfig;
+import com.acg12.lib.conf.EventConfig;
 import com.acg12.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.ui.activity.PresenterActivityImpl;
