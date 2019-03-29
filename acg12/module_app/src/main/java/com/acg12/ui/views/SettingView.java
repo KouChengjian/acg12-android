@@ -1,21 +1,18 @@
 package com.acg12.ui.views;
 
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.acg12.R;
 import com.acg12.cache.DaoBaseImpl;
-
 import com.acg12.lib.app.BaseApp;
-import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
-
-import com.acg12.R;
-import com.acg12.lib.constant.Constant;
+import com.acg12.lib.widget.ToolBarView;
 
 import butterknife.BindView;
 
@@ -24,8 +21,8 @@ import butterknife.BindView;
  */
 public class SettingView extends ViewImpl {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolBarView)
+    ToolBarView toolBarView;
     @BindView(R.id.settings_cache)
     RelativeLayout settingsCache;
     @BindView(R.id.tv_setting_cache)
@@ -51,16 +48,15 @@ public class SettingView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        toolbar.setTitle(getContext().getString(R.string.setting));
+        toolBarView.setNavigationOrBreak("设置");
 
-        if(DaoBaseImpl.getInstance(getContext()).getCurrentUser() == null ){
+        if (DaoBaseImpl.getInstance(getContext()).getCurrentUser() == null) {
             userLogout.setVisibility(View.GONE);
             settingsAmdpwd.setVisibility(View.GONE);
         }
 
         String online = "";
-        if(BaseApp.isDebug()){
+        if (BaseApp.isDebug()) {
             online = "内测：";
         }
         ViewUtil.setText(tv_setting_update, online + new AppUtil().getPackageInfo(getContext()).versionName);
@@ -71,11 +67,15 @@ public class SettingView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter ,toolbar , settingsCache ,settingsUpdate ,
-                settingsAmdpwd, settingsFeedback , settingsAbout ,userLogout );
+        PresenterHelper.click(mPresenter, toolBarView.getToolbar(), settingsCache, settingsUpdate,
+                settingsAmdpwd, settingsFeedback, settingsAbout, userLogout);
     }
 
-    public void calculateCache(){
-        ViewUtil.setText(tv_setting_cache , ImageLoadUtils.getCacheSize(getContext()));
+    public ToolBarView getToolBarView() {
+        return toolBarView;
+    }
+
+    public void calculateCache() {
+        ViewUtil.setText(tv_setting_cache, ImageLoadUtils.getCacheSize(getContext()));
     }
 }

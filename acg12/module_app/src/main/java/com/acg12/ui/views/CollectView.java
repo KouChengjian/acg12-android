@@ -58,7 +58,8 @@ public class CollectView extends ViewImpl {
         mCollectBangunFragment = CollectBangunFragment.newInstance();
         mCollectVideoFragment = CollectVideoFragment.newInstance();
 
-        fragments = new Fragment[]{mCollectSubjectFragment, mCollectAlbumFragment, mCollectPaletteFragment, mCollectCaricatureFragment, mCollectBangunFragment, mCollectVideoFragment};
+        fragments = new Fragment[]{mCollectSubjectFragment, mCollectAlbumFragment, mCollectPaletteFragment, mCollectCaricatureFragment
+                , mCollectBangunFragment, mCollectVideoFragment};
         mCommonPagerAdapter = new CommonPagerAdapter(((AppCompatActivity) getContext()).getSupportFragmentManager(), fragments, titles);
         mViewpager.setAdapter(mCommonPagerAdapter);
         mViewpager.setOffscreenPageLimit(fragments.length);
@@ -72,4 +73,11 @@ public class CollectView extends ViewImpl {
         PresenterHelper.click(mPresenter, mToolBarView.getToolbar());
     }
 
+    public ToolBarView getToolBarView() {
+        return mToolBarView;
+    }
+
+    public TabLayout getTabLayout() {
+        return mTabLayout;
+    }
 }

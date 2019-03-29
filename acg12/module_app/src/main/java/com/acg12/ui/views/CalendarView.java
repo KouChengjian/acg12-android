@@ -72,6 +72,10 @@ public class CalendarView extends ViewImpl {
         return mToolBarView;
     }
 
+    public TabLayout getTabLayout() {
+        return mTabLayout;
+    }
+
     public void bindData(FragmentManager fragmentManager , List<Calendar> result) {
         SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
         String curDate = dateFm.format(new Date());

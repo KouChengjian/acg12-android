@@ -39,8 +39,8 @@ import java.util.Map;
  * Date: 2019/1/4 14:57
  * Description:
  */
-public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView> implements IRecycleView.LoadingListener,
-        SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener, CollectAlbumAdapter.CollectAlbumListener {
+public class CollectAlbumFragment extends PresenterFragmentImpl<CollectAlbumView> implements IRecycleView.LoadingListener, SwipeRefreshLayout.OnRefreshListener
+        , ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener, CollectAlbumAdapter.CollectAlbumListener {
 
     private int pageNum = 1;
     private boolean refresh = true;

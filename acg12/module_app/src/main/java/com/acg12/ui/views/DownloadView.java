@@ -16,11 +16,14 @@ import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.utils.PixelUtil;
 import com.acg12.lib.utils.ViewUtil;
+import com.acg12.lib.widget.ToolBarView;
+import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.ui.adapter.DownloadAdapter;
 
 import com.acg12.R;
 import com.acg12.ui.adapter.DownloadAdapter;
+import com.acg12.ui.adapter.SkinLoaderAdapter;
 
 import java.util.List;
 
@@ -31,16 +34,10 @@ import butterknife.BindView;
  */
 public class DownloadView extends ViewImpl {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.mRecyclerView)
-    IRecycleView mRecyclerView;
-    @BindView(R.id.mSwipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    @BindView(R.id.layout_load_null)
-    ViewStub layoutLoadNull;
-    ImageView loadNullImageview;
-    TextView loadNullTextview;
+    @BindView(R.id.toolBarView)
+    ToolBarView toolBarView;
+    @BindView(R.id.commonRecycleview)
+    CommonRecycleview commonRecycleview;
 
     DownloadAdapter downloadAdapter;
 
@@ -52,30 +49,28 @@ public class DownloadView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        toolbar.setTitle(getContext().getString(R.string.download));
+        toolBarView.setNavigationOrBreak("下载");
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setLoadingMoreEnabled(false);
-        mRecyclerView.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
+        commonRecycleview.setLinearLayoutManager();
+        commonRecycleview.setLoadingEnabled(false);
+        commonRecycleview.setRefreshEnabled(false);
         downloadAdapter = new DownloadAdapter(getContext());
-        mRecyclerView.setAdapter(downloadAdapter);
-
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_primary);
-        mSwipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(getContext(),50), PixelUtil.dp2px(getContext(),24));
-        mSwipeRefreshLayout.setRefreshing(true);
+        commonRecycleview.setAdapter(downloadAdapter);
+        commonRecycleview.startRefreshing();
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter , toolbar);
-        mSwipeRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
-        mRecyclerView.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
-        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
-        ItemClickSupport.addTo(mRecyclerView).setOnItemLongClickListener((ItemClickSupport.OnItemLongClickListener)mPresenter);
+        PresenterHelper.click(mPresenter , toolBarView.getToolbar());
+        commonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
+        commonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
+        commonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener) mPresenter);
+        commonRecycleview.setRecycleUpdataListener((CommonRecycleview.IRecycleUpdataListener)mPresenter);
+    }
+
+    public ToolBarView getToolBarView() {
+        return toolBarView;
     }
 
     public void bindData(List<DownLoad> result , boolean refresh){
@@ -100,37 +95,10 @@ public class DownloadView extends ViewImpl {
     }
 
     public void stopLoading(){
-        mRecyclerView.stopMoreLoading();
+        commonRecycleview.stopLoading();
     }
 
     public void stopRefreshLoadMore(boolean refresh) {
-        if (refresh)
-            mSwipeRefreshLayout.setRefreshing(false);
-        else
-            mRecyclerView.loadMoreComplete();
-        loadNull();
-    }
-
-    private void loadNull() {
-        List<DownLoad> mlist = downloadAdapter.getList();
-        if (mlist != null && !mlist.isEmpty()) {
-            if (loadNullImageview != null && loadNullTextview != null) {
-                ViewUtil.setText(loadNullTextview, "");
-                if (loadNullImageview.getVisibility() == View.VISIBLE) {
-                    loadNullImageview.setVisibility(View.GONE);
-                }
-            }
-        } else {
-            if (loadNullImageview == null && loadNullTextview == null) {
-                View view = layoutLoadNull.inflate();
-                loadNullImageview = (ImageView) view.findViewById(R.id.iv_load_null);
-                loadNullTextview = (TextView) view.findViewById(R.id.tv_load_null);
-            }
-            //loadNullImageview.setImageResource(R.mipmap.ic_error);
-            ViewUtil.setText(loadNullTextview, "暂时没有信息");
-            if (loadNullImageview.getVisibility() == View.GONE) {
-                loadNullImageview.setVisibility(View.VISIBLE);
-            }
-        }
+        commonRecycleview.stopRefreshLoadMore(refresh);
     }
 }

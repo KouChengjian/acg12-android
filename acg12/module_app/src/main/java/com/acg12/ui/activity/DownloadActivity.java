@@ -5,36 +5,40 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.acg12.R;
 import com.acg12.cache.DaoBaseImpl;
 import com.acg12.entity.DownLoad;
-
 import com.acg12.lib.listener.ItemClickSupport;
+import com.acg12.lib.utils.skin.AttrFactory;
+import com.acg12.lib.utils.skin.entity.DynamicAttr;
+import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
-
-import com.acg12.lib.constant.Constant;
 import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.DownloadView;
 import com.acg12.widget.dialog.AlertDialogView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class DownloadActivity extends SkinBaseActivity<DownloadView> implements View.OnClickListener ,ItemClickSupport.OnItemClickListener ,
-        SwipeRefreshLayout.OnRefreshListener ,IRecycleView.LoadingListener ,ItemClickSupport.OnItemLongClickListener{
+public class DownloadActivity extends SkinBaseActivity<DownloadView> implements ItemClickSupport.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener
+        , IRecycleView.LoadingListener, ItemClickSupport.OnItemLongClickListener, CommonRecycleview.IRecycleUpdataListener {
 
     boolean refresh = true;
 
     @Override
-    public void created(Bundle savedInstance) {
-        super.created(savedInstance);
-        refresh();
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
     }
 
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if(id == Constant.TOOLBAR_ID){
-            aminFinish();
-        }
+    public void created(Bundle savedInstance) {
+        super.created(savedInstance);
+        List<DynamicAttr> mDynamicAttr = new ArrayList<>();
+        mDynamicAttr.add(new DynamicAttr(AttrFactory.TOOLBARVIEW, R.color.theme_primary));
+        dynamicAddView(mView.getToolBarView(), mDynamicAttr);
+
+        refresh();
     }
 
     @Override
@@ -58,14 +62,19 @@ public class DownloadActivity extends SkinBaseActivity<DownloadView> implements 
 
     }
 
-    private void refresh(){
+    @Override
+    public void onRecycleReload() {
+        onRefresh();
+    }
+
+    private void refresh() {
         List<DownLoad> downloadList = DaoBaseImpl.getInstance(mContext).queryDownloadList();
-        mView.bindData(downloadList , refresh);
+        mView.bindData(downloadList, refresh);
         mView.stopRefreshLoadMore(refresh);
     }
 
-    public void delDialog(final int position){
-        final AlertDialogView alertDialog = new AlertDialogView(this,"");
+    public void delDialog(final int position) {
+        final AlertDialogView alertDialog = new AlertDialogView(this, "");
         alertDialog.setContent1("删除", new View.OnClickListener() {
 
             @Override
@@ -83,4 +92,6 @@ public class DownloadActivity extends SkinBaseActivity<DownloadView> implements 
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
 }

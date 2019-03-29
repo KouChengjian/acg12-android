@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/common_action_bar" />
+    <com.acg12.lib.widget.ToolBarView
+        android:id="@+id/toolBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,17 +25,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/selector_ripple_default"
-                android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
+                android:paddingTop="8dp"
                 android:paddingRight="16dp"
-                android:paddingTop="8dp">
+                android:paddingBottom="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingBottom="8dp"
                     android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:text="清除图片缓存"
                     android:textColor="@color/text_333333"
                     android:textSize="16sp" />
@@ -45,8 +46,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:paddingBottom="8dip"
                     android:paddingTop="8dip"
+                    android:paddingBottom="8dip"
                     android:textColor="@color/text_666666"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -63,17 +64,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_ripple_default"
-                android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
+                android:paddingTop="8dp"
                 android:paddingRight="16dp"
-                android:paddingTop="8dp">
+                android:paddingBottom="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingBottom="8dp"
                     android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:text="检查更新"
                     android:textColor="@color/text_333333"
                     android:textSize="16sp" />
@@ -84,8 +85,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:paddingBottom="8dip"
                     android:paddingTop="8dip"
+                    android:paddingBottom="8dip"
                     android:textColor="@color/text_666666"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -101,17 +102,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_ripple_default"
-                    android:paddingBottom="8dp"
                     android:paddingLeft="16dp"
+                    android:paddingTop="8dp"
                     android:paddingRight="16dp"
-                    android:paddingTop="8dp">
+                    android:paddingBottom="8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:paddingBottom="8dp"
                         android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
                         android:text="修改密码"
                         android:textColor="@color/text_333333"
                         android:textSize="16sp" />
@@ -129,17 +130,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_ripple_default"
-                    android:paddingBottom="8dp"
                     android:paddingLeft="16dp"
+                    android:paddingTop="8dp"
                     android:paddingRight="16dp"
-                    android:paddingTop="8dp">
+                    android:paddingBottom="8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:paddingBottom="8dp"
                         android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
                         android:text="意见反馈"
                         android:textColor="@color/text_333333"
                         android:textSize="16sp" />
@@ -157,17 +158,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_ripple_default"
-                    android:paddingBottom="8dp"
                     android:paddingLeft="16dp"
+                    android:paddingTop="8dp"
                     android:paddingRight="16dp"
-                    android:paddingTop="8dp">
+                    android:paddingBottom="8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:paddingBottom="8dp"
                         android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
                         android:text="关于我们"
                         android:textColor="@color/text_333333"
                         android:textSize="16sp" />
@@ -179,13 +180,13 @@
                 android:id="@+id/user_logout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginBottom="48dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="48dp"
                 android:background="@drawable/selector_ripple_default"
                 android:gravity="center|left"
-                android:paddingBottom="12dip"
                 android:paddingLeft="20dp"
                 android:paddingTop="12dip"
+                android:paddingBottom="12dip"
                 android:text="退出登录"
                 android:textColor="@color/text_333333"
                 android:textSize="16sp" />

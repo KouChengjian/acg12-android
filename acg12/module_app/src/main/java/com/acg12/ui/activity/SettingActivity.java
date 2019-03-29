@@ -16,6 +16,8 @@ import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 
+import com.acg12.lib.utils.skin.AttrFactory;
+import com.acg12.lib.utils.skin.entity.DynamicAttr;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.widget.dialog.UpdateDialog;
 
@@ -25,12 +27,24 @@ import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.SettingView;
 import com.acg12.widget.dialog.AlertDialogView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class SettingActivity extends SkinBaseActivity<SettingView> implements View.OnClickListener {
 
     @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
+    }
+
+    @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
+        List<DynamicAttr> mDynamicAttr = new ArrayList<>();
+        mDynamicAttr.add(new DynamicAttr(AttrFactory.TOOLBARVIEW, R.color.theme_primary));
+        dynamicAddView(mView.getToolBarView(), mDynamicAttr);
     }
 
     @Override

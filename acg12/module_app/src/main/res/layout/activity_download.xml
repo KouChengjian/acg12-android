@@ -2,12 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:orientation="vertical">
 
-    <include layout="@layout/common_action_bar"/>、
+    <com.acg12.lib.widget.ToolBarView
+        android:id="@+id/toolBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    <include layout="@layout/common_loading_recyclerview"/>
+    <com.acg12.lib.widget.recycle.CommonRecycleview
+        android:id="@+id/commonRecycleview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
