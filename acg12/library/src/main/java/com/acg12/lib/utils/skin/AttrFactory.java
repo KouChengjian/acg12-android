@@ -20,7 +20,6 @@ public class AttrFactory {
     public static final String SELECTORDTABINDICATOR = "tabIndicatorColor";
 
 
-    public static final String TABLAYOUT = "tabLayoutIndicator";
     public static final String NAVIGATIONVIEW = "navigationView";
     public static final String TOOLBARVIEW = "toolBarView";
 

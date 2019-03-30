@@ -30,9 +30,6 @@ public class FindFragemnt extends SkinBaseFragment<FindView> implements Toolbar.
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        List<DynamicAttr> mDynamicAttr = new ArrayList<DynamicAttr>();
-        mDynamicAttr.add(new DynamicAttr(AttrFactory.TABLAYOUT, R.color.theme_primary));
-        dynamicAddView(mView.getTabLayout(), mDynamicAttr);
     }
 
     @Override

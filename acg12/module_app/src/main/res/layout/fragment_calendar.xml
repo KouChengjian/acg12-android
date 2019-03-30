@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:skin="http://schemas.android.com/android/skin"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -27,10 +28,11 @@
             android:layout_height="45dp"
             android:background="@color/white"
             android:visibility="gone"
-            app:tabIndicatorColor="@color/theme_body"
+            app:tabIndicatorColor="@color/theme_primary"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/theme_body"
-            app:tabTextColor="@color/text_666666" />
+            app:tabSelectedTextColor="@color/theme_primary"
+            app:tabTextColor="@color/text_666666"
+            skin:enable="true" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -38,8 +40,8 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.acg12.lib.widget.TipLayoutView
         android:id="@+id/tipLayoutView"
