@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.acg12.R;
 import com.acg12.cache.DaoBaseImpl;
+import com.acg12.conf.AccountManager;
 import com.acg12.conf.AppConfig;
 import com.acg12.entity.Update;
 import com.acg12.entity.User;
@@ -192,21 +193,19 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
 
     public void showExitDialog() {
         if (ForegroundUtil.get().getActivity() == null) return;
-        if (mCommonDialog != null) {
-            mCommonDialog.dismiss();
+        if (mCommonDialog != null && mCommonDialog.isShowing()) {
+            return;
         }
         mCommonDialog = new CommonDialog(ForegroundUtil.get().getActivity(), "警告", "登录时间已过期，请重新登录", true);
         mCommonDialog.setCallback(new CommonDialog.Callback() {
             @Override
             public void commit() {
-                DaoBaseImpl.getInstance(mContext).delTabUser();
-                EventConfig.get().getUserEvent().post(new User(mContext));
+                AccountManager.getInstance().logout();
             }
 
             @Override
             public void cancle() {
-                DaoBaseImpl.getInstance(mContext).delTabUser();
-                EventConfig.get().getUserEvent().post(new User(mContext));
+                AccountManager.getInstance().logout();
             }
         });
         mCommonDialog.show();

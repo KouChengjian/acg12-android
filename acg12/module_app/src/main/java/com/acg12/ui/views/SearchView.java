@@ -99,6 +99,10 @@ public class SearchView extends ViewImpl {
         commonRecycleview.recycleException();
     }
 
+    public ToolBarView getToolBarView() {
+        return mToolBarView;
+    }
+
     public void showSearchList() {
         layout_search_tag.setVisibility(View.GONE);
         commonRecycleview.setVisibility(View.VISIBLE);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
+import com.acg12.conf.AccountManager;
 import com.acg12.lib.conf.EventConfig;
 import com.acg12.cache.DaoBaseImpl;
 import com.acg12.entity.Update;
@@ -111,8 +112,8 @@ public class SettingActivity extends SkinBaseActivity<SettingView> implements Vi
 
             @Override
             public void onClick(View arg0) {
-                logout();
                 alertDialog.cancel();
+                logout();
             }
         });
         alertDialog.setContent2("返回", new View.OnClickListener() {
@@ -125,8 +126,7 @@ public class SettingActivity extends SkinBaseActivity<SettingView> implements Vi
     }
 
     public void logout(){
-        DaoBaseImpl.getInstance(mContext).delTabUser();
-        EventConfig.get().getUserEvent().post(new User(mContext));
+        AccountManager.getInstance().logout();
         finish();
      }
 

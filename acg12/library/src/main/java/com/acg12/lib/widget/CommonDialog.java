@@ -30,13 +30,14 @@ public class CommonDialog extends Dialog {
     public CommonDialog(Context context, String title, String content, boolean falg) {
         super(context, R.style.Dialog);
         this.context = context;
+        this.setCancelable(falg);
         this.setCanceledOnTouchOutside(falg);
         setContentView(R.layout.include_dialog_common);
 
-        tvTitle = (TextView) findViewById(R.id.tv_title);
-        tvContent = (TextView) findViewById(R.id.tv_content);
-        cancel = (BGButton) findViewById(R.id.cancel);
-        commit = (BGButton) findViewById(R.id.commit);
+        tvTitle = findViewById(R.id.tv_title);
+        tvContent = findViewById(R.id.tv_content);
+        cancel = findViewById(R.id.cancel);
+        commit = findViewById(R.id.commit);
 
         tvTitle.setText(title);
         tvContent.setText(content);

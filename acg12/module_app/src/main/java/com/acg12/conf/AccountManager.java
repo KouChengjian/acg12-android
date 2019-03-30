@@ -2,7 +2,10 @@ package com.acg12.conf;
 
 import android.content.Context;
 
+import com.acg12.cache.DaoBaseImpl;
+import com.acg12.entity.User;
 import com.acg12.lib.app.BaseApp;
+import com.acg12.lib.conf.EventConfig;
 import com.acg12.lib.constant.Constant;
 import com.acg12.lib.utils.PreferencesUtils;
 
@@ -30,7 +33,8 @@ public class AccountManager {
     }
 
     public void logout() {
-
+        DaoBaseImpl.getInstance(getContext()).delTabUser();
+        EventConfig.get().getUserEvent().post(new User(getContext()));
     }
 
     /**

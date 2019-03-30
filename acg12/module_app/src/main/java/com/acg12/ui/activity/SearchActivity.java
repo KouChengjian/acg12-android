@@ -3,6 +3,7 @@ package com.acg12.ui.activity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.listener.ParameCallBack;
 import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.utils.skin.AttrFactory;
+import com.acg12.lib.utils.skin.entity.DynamicAttr;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.ui.base.SkinBaseActivity;
@@ -27,15 +30,25 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SearchActivity extends SkinBaseActivity<SearchView> implements View.OnClickListener, ParameCallBack, TextWatcher, TextView.OnEditorActionListener
-        , ItemClickSupport.OnItemClickListener ,CommonRecycleview.IRecycleUpdataListener{
+        , ItemClickSupport.OnItemClickListener, CommonRecycleview.IRecycleUpdataListener {
 
     private LinkedList<String> historyList = new LinkedList<>();
     private int histroyTotal = 8;
     private String searchKey = "";
 
     @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
+    }
+
+    @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
+        List<DynamicAttr> mDynamicAttr = new ArrayList<>();
+        mDynamicAttr.add(new DynamicAttr(AttrFactory.TOOLBARVIEW, R.color.theme_primary));
+        dynamicAddView(mView.getToolBarView(), mDynamicAttr);
+
         List<String> tags = Cache.getInstance().getHistoryTags();
         if (tags != null && tags.size() != 0) {
             historyList = new LinkedList<>(tags);
@@ -63,7 +76,7 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
         bundle.putInt("id", search.getSearchId());
         bundle.putInt("type", search.getType());
         bundle.putString("typeName", search.getTypeName());
-        bundle.putString("title", search.getTitle());
+        bundle.putString("title", TextUtils.isEmpty(search.getNameCn()) ? search.getTitle() : search.getNameCn());
         startAnimActivity(SearchInfoActivity.class, bundle);
     }
 

@@ -117,6 +117,10 @@ public class SearchInfoView extends ViewImpl {
         mToolBarView.setNavigationOrBreak(title);
     }
 
+    public ToolBarView getToolBarView() {
+        return mToolBarView;
+    }
+
     public TabLayout getTabLayout() {
         return mTabLayout;
     }

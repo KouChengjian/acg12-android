@@ -7,12 +7,16 @@ import com.acg12.R;
 import com.acg12.entity.Subject;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.utils.LogUtil;
+import com.acg12.lib.utils.skin.AttrFactory;
+import com.acg12.lib.utils.skin.entity.DynamicAttr;
 import com.acg12.lib.widget.TipLayoutView;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.SearchInfoView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SearchInfoActivity extends SkinBaseActivity<SearchInfoView> implements TipLayoutView.OnReloadClick {
@@ -23,12 +27,26 @@ public class SearchInfoActivity extends SkinBaseActivity<SearchInfoView> impleme
     private Subject subject;
 
     @Override
-    public void created(Bundle savedInstance) {
-        super.created(savedInstance);
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
         id = getIntent().getIntExtra("id", 0);
         type = getIntent().getIntExtra("type", 0);
         title = getIntent().getStringExtra("title");
         typeName = getIntent().getStringExtra("typeName");
+    }
+
+    @Override
+    public void created(Bundle savedInstance) {
+        super.created(savedInstance);
+        List<DynamicAttr> mDynamicAttr = new ArrayList<>();
+        mDynamicAttr.add(new DynamicAttr(AttrFactory.TOOLBARVIEW, R.color.theme_primary));
+        dynamicAddView(mView.getToolBarView(), mDynamicAttr);
+
+//        List<DynamicAttr> mDynamicAttr1 = new ArrayList<>();
+//        mDynamicAttr1.add(new DynamicAttr(AttrFactory.TABLAYOUT, R.color.theme_primary));
+//        dynamicAddView(mView.getTabLayout(), mDynamicAttr1);
+
         mView.setTitle(title);
         requestData();
     }
