@@ -49,7 +49,7 @@ public class HomeFragment extends SkinBaseFragment<HomeView> implements Toolbar.
     @Override
     public void onClick(View v) {
         if(v.getId() == Constant.TOOLBAR_ID){
-            EventConfig.get().getCommon().post(CommonEnum.COMMON_TOGGLE_DRAWER);
+            EventConfig.get().postCommon(CommonEnum.COMMON_TOGGLE_DRAWER);
         } else if(v.getId() == R.id.btn_home_search){
             startAnimActivity(SearchActivity.class);
         } else if(v.getId() == R.id.btn_newest_news){

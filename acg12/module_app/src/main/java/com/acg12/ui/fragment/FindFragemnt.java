@@ -36,7 +36,7 @@ public class FindFragemnt extends SkinBaseFragment<FindView> implements Toolbar.
     public void onClick(View v) {
         int id = v.getId();
         if(id == Constant.TOOLBAR_ID){
-            EventConfig.get().getCommon().post(CommonEnum.COMMON_TOGGLE_DRAWER);
+            EventConfig.get().postCommon(CommonEnum.COMMON_TOGGLE_DRAWER);
         }
     }
 

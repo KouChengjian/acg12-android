@@ -78,7 +78,6 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        mView.closeDrawers();
         switch (item.getItemId()) {
             case R.id.nav_home:
                 mView.onTabSelect(0);
@@ -109,6 +108,7 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
                 startAnimActivity(SettingActivity.class);
                 break;
         }
+        mView.closeDrawers();
         return false;
     }
 
