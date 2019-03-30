@@ -15,10 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <!--app:layout_scrollFlags="scroll|enterAlwaysCollapsed"-->
+
             <com.acg12.lib.widget.ToolBarView
                 android:id="@+id/toolBarView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:bar_background_color="@color/theme_primary"
+                skin:enable="true" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

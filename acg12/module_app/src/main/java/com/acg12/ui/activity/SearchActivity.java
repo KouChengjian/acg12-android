@@ -16,8 +16,6 @@ import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.listener.ParameCallBack;
 import com.acg12.lib.utils.LogUtil;
-import com.acg12.lib.utils.skin.AttrFactory;
-import com.acg12.lib.utils.skin.entity.DynamicAttr;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.ui.base.SkinBaseActivity;
@@ -45,9 +43,6 @@ public class SearchActivity extends SkinBaseActivity<SearchView> implements View
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        List<DynamicAttr> mDynamicAttr = new ArrayList<>();
-        mDynamicAttr.add(new DynamicAttr(AttrFactory.TOOLBARVIEW, R.color.theme_primary));
-        dynamicAddView(mView.getToolBarView(), mDynamicAttr);
 
         List<String> tags = Cache.getInstance().getHistoryTags();
         if (tags != null && tags.size() != 0) {

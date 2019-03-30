@@ -3,8 +3,13 @@
     <declare-styleable name="roundedimageview">
         <attr name="border_thickness" format="dimension" />
         <attr name="border_inside_color" format="color" />
-        <attr name="border_outside_color" format="color"></attr>
+        <attr name="border_outside_color" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="ToolBarView">
+        <attr name="bar_background_color" format="color" />
+    </declare-styleable>
+
     <declare-styleable name="BGButton">
         <!--圆角-->
         <attr name="topLeftRadius" format="dimension" />

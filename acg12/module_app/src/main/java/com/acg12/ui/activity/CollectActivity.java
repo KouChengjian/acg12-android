@@ -22,10 +22,5 @@ public class CollectActivity extends SkinBaseActivity<CollectView> {
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        List<DynamicAttr> mDynamicAttr = new ArrayList<>();
-        mDynamicAttr.add(new DynamicAttr(AttrFactory.TOOLBARVIEW, R.color.theme_primary));
-        dynamicAddView(mView.getToolBarView(), mDynamicAttr);
-
     }
-
 }

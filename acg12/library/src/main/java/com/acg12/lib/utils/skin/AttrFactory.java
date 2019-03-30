@@ -18,10 +18,9 @@ public class AttrFactory {
     public static final String DIVIDER = "divider";
     public static final String CONTENTSCRIM = "contentScrim";
     public static final String SELECTORDTABINDICATOR = "tabIndicatorColor";
-
+    public static final String TOOLBARVIEWBACKGROUND = "bar_background_color";
 
     public static final String NAVIGATIONVIEW = "navigationView";
-    public static final String TOOLBARVIEW = "toolBarView";
 
     public static SkinAttr get(String attrName, int attrValueRefId, String attrValueRefName, String typeName) {
 
@@ -39,10 +38,10 @@ public class AttrFactory {
             mSkinAttr = new ContentScrimAttr();
         } else if (SELECTORDTABINDICATOR.equals(attrName)) {
             mSkinAttr = new TabLayoutIndicatorAttr();
+        } else if (TOOLBARVIEWBACKGROUND.equals(attrName)) {
+            mSkinAttr = new ToolBarViewAttr();
         } else if (NAVIGATIONVIEW.equals(attrName)) {
             mSkinAttr = new NavigationViewAttr();
-        } else if (TOOLBARVIEW.equals(attrName)) {
-            mSkinAttr = new ToolBarViewAttr();
         } else {
             return null;
         }
@@ -78,6 +77,9 @@ public class AttrFactory {
             return true;
         }
         if (SELECTORDTABINDICATOR.equals(attrName)) {
+            return true;
+        }
+        if (TOOLBARVIEWBACKGROUND.equals(attrName)) {
             return true;
         }
         return false;

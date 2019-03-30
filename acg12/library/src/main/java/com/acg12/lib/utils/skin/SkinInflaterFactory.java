@@ -14,6 +14,7 @@ import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.skin.entity.DynamicAttr;
 import com.acg12.lib.utils.skin.entity.SkinAttr;
 import com.acg12.lib.utils.skin.entity.SkinItem;
+import com.acg12.lib.widget.ToolBarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +38,10 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         // if this is NOT enable to be skined , simplly skip it
         //Log.e("onCreateView","onCreateView = " +name);
-        LogUtil.e("name = " + name);
-        if (name.contains("TabLayout")) {
-            LogUtil.e("name = " + name);
-        }
+//        LogUtil.e("name = " + name);
+//        if (name.contains("ToolBarView")) {
+//            LogUtil.e("name = " + name);
+//        }
         boolean isSkinEnable = attrs.getAttributeBooleanValue(SkinConfig.NAMESPACE, SkinConfig.ATTR_SKIN_ENABLE, false);
         if (!isSkinEnable) {
             return null;
@@ -60,11 +61,16 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
                 if (view == null) {
                     return null;
                 }
+            } else if (name.contains("ToolBarView")) {
+                view = new ToolBarView(context, attrs);
+                if (view == null) {
+                    return null;
+                }
             } else {
                 return null;
             }
         }
-        LogUtil.e(view.getClass().getName() + "================");
+//        LogUtil.e(view.getClass().getName() + "================");
         parseSkinAttr(context, attrs, view);
         return view;
     }

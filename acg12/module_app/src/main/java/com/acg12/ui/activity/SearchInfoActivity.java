@@ -39,14 +39,6 @@ public class SearchInfoActivity extends SkinBaseActivity<SearchInfoView> impleme
     @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
-        List<DynamicAttr> mDynamicAttr = new ArrayList<>();
-        mDynamicAttr.add(new DynamicAttr(AttrFactory.TOOLBARVIEW, R.color.theme_primary));
-        dynamicAddView(mView.getToolBarView(), mDynamicAttr);
-
-//        List<DynamicAttr> mDynamicAttr1 = new ArrayList<>();
-//        mDynamicAttr1.add(new DynamicAttr(AttrFactory.TABLAYOUT, R.color.theme_primary));
-//        dynamicAddView(mView.getTabLayout(), mDynamicAttr1);
-
         mView.setTitle(title);
         requestData();
     }
