@@ -14,10 +14,17 @@ import com.acg12.lib.ui.activity.PresenterActivityImpl;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.net.impl.HttpRequestImpl;
+import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.LoginView;
 
 
-public class LoginActivity extends PresenterActivityImpl<LoginView> implements View.OnClickListener {
+public class LoginActivity extends SkinBaseActivity<LoginView> implements View.OnClickListener {
+
+    @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
+    }
 
     @Override
     public void created(Bundle savedInstance) {

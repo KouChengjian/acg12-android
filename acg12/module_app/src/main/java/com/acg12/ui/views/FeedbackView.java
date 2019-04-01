@@ -9,6 +9,7 @@ import com.acg12.lib.ui.base.PresenterHelper;
 import com.acg12.lib.utils.ViewUtil;
 
 import com.acg12.R;
+import com.acg12.lib.widget.ToolBarView;
 
 import butterknife.BindView;
 
@@ -17,10 +18,8 @@ import butterknife.BindView;
  */
 public class FeedbackView extends ViewImpl {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.title_right)
-    TextView title_right;
+    @BindView(R.id.toolBarView)
+    ToolBarView toolBarView;
     @BindView(R.id.et_feedback)
     EditText et_feedback;
 
@@ -32,15 +31,14 @@ public class FeedbackView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        toolbar.setTitle("意见反馈");
-        ViewUtil.setText(title_right , "保存");
+        toolBarView.setNavigationOrBreak("意见反馈");
+        toolBarView.setRightText("保存");
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter , toolbar , title_right);
+        PresenterHelper.click(mPresenter , toolBarView.getTitleRight() , toolBarView.getTitleRight());
     }
 
     public String getFeedback(){

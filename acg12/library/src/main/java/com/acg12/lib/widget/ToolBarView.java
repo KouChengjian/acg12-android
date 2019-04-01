@@ -50,7 +50,7 @@ public class ToolBarView extends FrameLayout {
         resetStatusHeight();
     }
 
-    public void resetStatusHeight(int height){
+    public void resetStatusHeight(int height) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height);
         mTitleStatus.setLayoutParams(params);
     }
@@ -72,7 +72,7 @@ public class ToolBarView extends FrameLayout {
         return result;
     }
 
-    public void setBackground(int color){
+    public void setBackground(int color) {
         mToolbar.setBackgroundColor(color);
         mTitleStatus.setBackgroundColor(color);
     }
@@ -81,34 +81,65 @@ public class ToolBarView extends FrameLayout {
         return mToolbar;
     }
 
-    public void setNavigationIcon(){
+    public TextView getTitleRight() {
+        return mTitleRight;
+    }
+
+    public void setNavigationIcon() {
         setNavigationIcon(R.mipmap.ic_action_back);
     }
 
-    public void setNavigationIcon(int rId){
+    public void setNavigationIcon(int rId) {
         mToolbar.setNavigationIcon(rId);
     }
 
-    public void setNavigationTitle(String title){
+    public void setNavigationTitle(String title) {
         mToolbar.setTitle(title);
     }
 
-    public void setNavigationOrBreak(String title){
+    public void setNavigationOrBreak(String title) {
         setNavigationTitle(title);
         setNavigationIcon();
     }
 
-    public void setNavigationOrBreak(int rId ,String title){
+    public void setNavigationOrBreak(int rId, String title) {
         setNavigationTitle(title);
         setNavigationIcon(rId);
     }
 
-    public void addTitleView(View view){
+    public void addTitleView(View view) {
         mTitleContainer.removeAllViews();
         mTitleContainer.addView(view);
     }
 
-    public  void inflateMenu(int resId){
+    public void inflateMenu(int resId) {
         mToolbar.inflateMenu(resId);
     }
+
+    public void setRightText(String right, int colorId) {
+        setRightText(right);
+        setRightTextColor(colorId);
+    }
+
+    public void setRightText(String right) {
+        if (right.isEmpty()) {
+            mTitleRight.setVisibility(View.GONE);
+        } else {
+            mTitleRight.setVisibility(View.VISIBLE);
+            mTitleRight.setText(right);
+        }
+    }
+
+    public void setRightTextColor(int colorId) {
+        mTitleRight.setTextColor(getContext().getResources().getColor(colorId));
+    }
+
+    public void setTitle(String title) {
+        if (title.length() > 12) {
+            mToolbar.setTitle(title.substring(0, 5) + "...");
+        } else {
+            mToolbar.setTitle(title);
+        }
+    }
+
 }

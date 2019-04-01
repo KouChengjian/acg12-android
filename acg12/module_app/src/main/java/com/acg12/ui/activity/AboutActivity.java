@@ -12,6 +12,12 @@ import com.acg12.ui.views.AboutView;
 public class AboutActivity extends SkinBaseActivity<AboutView> implements View.OnClickListener{
 
     @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
+    }
+
+    @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
     }

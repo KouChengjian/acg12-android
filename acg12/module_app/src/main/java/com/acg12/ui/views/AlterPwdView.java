@@ -9,6 +9,7 @@ import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.widget.DeletableEditText;
 
 import com.acg12.R;
+import com.acg12.lib.widget.ToolBarView;
 
 import butterknife.BindView;
 
@@ -17,10 +18,8 @@ import butterknife.BindView;
  */
 public class AlterPwdView extends ViewImpl {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.title_right)
-    TextView title_right;
+    @BindView(R.id.toolBarView)
+    ToolBarView toolBarView;
     @BindView(R.id.et_input_pwd_old)
     DeletableEditText et_input_pwd_old;
     @BindView(R.id.et_input_pwd_new)
@@ -34,15 +33,14 @@ public class AlterPwdView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        toolbar.setTitle("修改密码");
-        ViewUtil.setText(title_right , "保存");
+        toolBarView.setNavigationOrBreak("修改密码");
+        toolBarView.setRightText("保存");
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter ,toolbar , title_right);
+        PresenterHelper.click(mPresenter ,toolBarView.getToolbar() , toolBarView.getTitleRight());
     }
 
     public String getOldPwd(){

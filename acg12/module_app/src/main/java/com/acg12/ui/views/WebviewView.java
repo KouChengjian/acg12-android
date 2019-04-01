@@ -1,15 +1,14 @@
 package com.acg12.ui.views;
 
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
-import com.acg12.lib.ui.base.ViewImpl;
-import com.acg12.lib.ui.base.PresenterHelper;
-
 import com.acg12.R;
+import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.ui.base.ViewImpl;
+import com.acg12.lib.widget.ToolBarView;
 
 import butterknife.BindView;
 
@@ -19,8 +18,8 @@ import butterknife.BindView;
 
 public class WebviewView extends ViewImpl {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolBarView)
+    ToolBarView toolBarView;
     @BindView(R.id.webview_progress)
     ProgressBar webview_progress;
     @BindView(R.id.webview)
@@ -34,16 +33,16 @@ public class WebviewView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
+        toolBarView.setNavigationIcon();
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter ,toolbar);
+        PresenterHelper.click(mPresenter, toolBarView.getToolbar());
     }
 
-    public void paddingData(String url){
+    public void paddingData(String url) {
         webview.loadUrl(url);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setWebChromeClient(new WebChromeClient() {//监听网页加载
@@ -62,7 +61,7 @@ public class WebviewView extends ViewImpl {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
-                toolbar.setTitle(title);
+                toolBarView.setTitle(title);
             }
         });
 

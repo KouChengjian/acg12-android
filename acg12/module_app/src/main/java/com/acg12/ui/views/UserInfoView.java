@@ -14,6 +14,7 @@ import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
 
 import com.acg12.R;
+import com.acg12.lib.widget.ToolBarView;
 
 import butterknife.BindView;
 
@@ -22,8 +23,8 @@ import butterknife.BindView;
  */
 public class UserInfoView extends ViewImpl {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolBarView)
+    ToolBarView toolBarView;
     @BindView(R.id.rl_user_avatar)
     RelativeLayout rl_user_avatar;
     @BindView(R.id.iv_user_avatar)
@@ -53,14 +54,13 @@ public class UserInfoView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        toolbar.setTitle(getContext().getString(R.string.userinfo));
+        toolBarView.setNavigationOrBreak("用户信息");
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter ,toolbar);
+        PresenterHelper.click(mPresenter ,toolBarView.getToolbar());
         PresenterHelper.click(mPresenter ,rl_user_avatar ,rl_user_nick  ,iv_user_sex ,rl_user_sign);
     }
 

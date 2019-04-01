@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:skin="http://schemas.android.com/android/skin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/common_action_bar" />
+    <com.acg12.lib.widget.ToolBarView
+        android:id="@+id/toolBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_background_color="@color/theme_primary"
+        skin:enable="true" />
 
     <ImageView
         android:layout_width="80dp"
@@ -14,14 +20,14 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:src="@mipmap/ic_logo"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:layout_marginTop="40dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/selector_input_account"
         android:orientation="horizontal">
 
@@ -31,8 +37,8 @@
             android:layout_height="48dip"
             android:background="@null"
             android:drawableLeft="@mipmap/ic_login_account"
-            android:drawablePadding="10dp"
             android:drawableRight="@mipmap/ic_login_delete"
+            android:drawablePadding="10dp"
             android:ems="10"
             android:hint="请输入手机号码"
             android:inputType="number"
@@ -50,8 +56,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/selector_input_account"
         android:orientation="horizontal">
 
@@ -62,8 +68,8 @@
             android:layout_weight="1"
             android:background="@null"
             android:drawableLeft="@mipmap/ic_login_verify"
-            android:drawablePadding="10dp"
             android:drawableRight="@mipmap/ic_login_delete"
+            android:drawablePadding="10dp"
             android:ems="10"
             android:hint="请输入验证码"
             android:inputType="number"
@@ -88,20 +94,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/selector_input_account"
         android:orientation="horizontal">
 
         <com.acg12.lib.widget.DeletableEditText
             android:id="@+id/et_input_password"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="48dip"
+            android:layout_weight="1"
             android:background="@null"
             android:drawableLeft="@mipmap/ic_login_password"
-            android:drawablePadding="10dp"
             android:drawableRight="@mipmap/ic_login_delete"
+            android:drawablePadding="10dp"
             android:ems="10"
             android:hint="请输入密码"
             android:inputType="textPassword"
@@ -126,8 +132,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/bg_rect_body0"
         android:text="注册"
         android:textColor="@color/white"

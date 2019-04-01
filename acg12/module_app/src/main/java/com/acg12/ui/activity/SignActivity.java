@@ -21,6 +21,12 @@ public class SignActivity extends SkinBaseActivity<SignView> implements View.OnC
     private User user;
 
     @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
+    }
+
+    @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
         user = (User)getIntent().getExtras().getSerializable("user");

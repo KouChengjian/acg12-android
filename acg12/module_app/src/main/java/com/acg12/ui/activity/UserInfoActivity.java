@@ -25,8 +25,14 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class UserInfoActivity extends SkinBaseActivity<UserInfoView> implements View.OnClickListener ,CommonPopupWindows.OnUpdateAvatar {
 
-    User user;
-    CommonPopupWindows commonPopupWindows;
+    private User user;
+    private CommonPopupWindows commonPopupWindows;
+
+    @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
+    }
 
     @Override
     public void created(Bundle savedInstance) {

@@ -2,19 +2,16 @@ package com.acg12.ui.views;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.acg12.R;
 import com.acg12.lib.listener.ItemClickSupport;
-import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.ui.base.ViewImpl;
+import com.acg12.lib.widget.ToolBarView;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
-import com.acg12.ui.adapter.NewestNewsAdapter;
-import com.acg12.utlis.RecycleViewHeaderUtil;
-
-import com.acg12.R;
 import com.acg12.ui.adapter.NewestNewsAdapter;
 import com.acg12.utlis.RecycleViewHeaderUtil;
 
@@ -28,16 +25,16 @@ import butterknife.BindView;
 
 public class NewestNewsView extends ViewImpl {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolBarView)
+    ToolBarView toolBarView;
     @BindView(R.id.commonRecycleview)
     CommonRecycleview mCommonRecycleview;
     @BindView(R.id.layout_header)
-    RelativeLayout  layout_header;
+    RelativeLayout layout_header;
     @BindView(R.id.tv_header_title)
     TextView tv_header_title;
 
-    LinearLayoutManager layoutManager ;
+    LinearLayoutManager layoutManager;
     NewestNewsAdapter newestNewsAdapter;
     RecycleViewHeaderUtil mRecycleViewHeaderUtil;
 
@@ -49,25 +46,24 @@ public class NewestNewsView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        toolbar.setTitle("每日快报");
+        toolBarView.setNavigationOrBreak("每日快报");
 
         layoutManager = mCommonRecycleview.setLinearLayoutManager();
         newestNewsAdapter = new NewestNewsAdapter(getContext());
         mCommonRecycleview.setAdapter(newestNewsAdapter);
         mCommonRecycleview.startRefreshing();
 
-        mRecycleViewHeaderUtil = new RecycleViewHeaderUtil(layoutManager ,layout_header ,tv_header_title);
+        mRecycleViewHeaderUtil = new RecycleViewHeaderUtil(layoutManager, layout_header, tv_header_title);
 
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter , toolbar);
+        PresenterHelper.click(mPresenter, toolBarView.getToolbar());
         mCommonRecycleview.setLoadingListener((IRecycleView.LoadingListener) mPresenter);
         mCommonRecycleview.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) mPresenter);
-        mCommonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener)mPresenter);
+        mCommonRecycleview.setOnItemClickListener((ItemClickSupport.OnItemClickListener) mPresenter);
         mCommonRecycleview.getIRecycleView().addOnScrollListener(mRecycleViewHeaderUtil);
     }
 
@@ -75,7 +71,7 @@ public class NewestNewsView extends ViewImpl {
         return layout_header;
     }
 
-    public void bindData(List result , boolean refresh){
+    public void bindData(List result, boolean refresh) {
         if (refresh) {
             newestNewsAdapter.setList(result);
             mRecycleViewHeaderUtil.setList(result);
@@ -83,7 +79,7 @@ public class NewestNewsView extends ViewImpl {
         } else {
             newestNewsAdapter.addAll(result);
             mRecycleViewHeaderUtil.addList(result);
-            mCommonRecycleview.notifyChanged(newestNewsAdapter.getList().size() - result.size() , newestNewsAdapter.getList().size());
+            mCommonRecycleview.notifyChanged(newestNewsAdapter.getList().size() - result.size(), newestNewsAdapter.getList().size());
         }
     }
 
@@ -95,7 +91,7 @@ public class NewestNewsView extends ViewImpl {
         return getAlbumList().get(position);
     }
 
-    public void stopLoading(){
+    public void stopLoading() {
         mCommonRecycleview.stopLoading();
     }
 

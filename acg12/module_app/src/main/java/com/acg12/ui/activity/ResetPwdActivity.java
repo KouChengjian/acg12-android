@@ -5,22 +5,27 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.acg12.R;
 import com.acg12.entity.User;
 import com.acg12.lib.listener.HttpRequestListener;
-import com.acg12.lib.ui.activity.PresenterActivityImpl;
-
-import com.acg12.R;
-import com.acg12.net.impl.HttpRequestImpl;
-import com.acg12.ui.views.ResetPwdView;
 import com.acg12.lib.utils.CountDownTimerUtils;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.utils.ViewUtil;
+import com.acg12.net.impl.HttpRequestImpl;
+import com.acg12.ui.base.SkinBaseActivity;
+import com.acg12.ui.views.ResetPwdView;
 
 
-public class ResetPwdActivity extends PresenterActivityImpl<ResetPwdView> implements View.OnClickListener{
+public class ResetPwdActivity extends SkinBaseActivity<ResetPwdView> implements View.OnClickListener {
 
-    User user;
-    boolean flag = false;
+    private User user;
+    private boolean flag = false;
+
+    @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
+    }
 
     @Override
     public void created(Bundle savedInstance) {
@@ -36,18 +41,18 @@ public class ResetPwdActivity extends PresenterActivityImpl<ResetPwdView> implem
     @Override
     public void onClick(View view) {
         super.onClick(view);
-        if(view.getId() == R.id.tv_verify){
+        if (view.getId() == R.id.tv_verify) {
             verify();
-        } else if(view.getId() == R.id.iv_pwd_show){
+        } else if (view.getId() == R.id.iv_pwd_show) {
             flag = !flag;
             mView.edtShowOrHide(flag);
-        } else if(view.getId() == R.id.btn_resetpwd){
+        } else if (view.getId() == R.id.btn_resetpwd) {
             resetpwd();
         }
     }
 
-    private void verify(){
-        if(!ViewUtil.isNetConnected(mContext))return;
+    private void verify() {
+        if (!ViewUtil.isNetConnected(mContext)) return;
 
         String name = mView.getUsername();
         if (TextUtils.isEmpty(name)) {
@@ -55,8 +60,9 @@ public class ResetPwdActivity extends PresenterActivityImpl<ResetPwdView> implem
             return;
         }
 
-        final CountDownTimerUtils timerUtils = new CountDownTimerUtils(mView.getBtnVerify(), 60000, 1000);;
-        final ProgressDialog progress = ViewUtil.startLoading(mContext , "正在获取验证码...");
+        final CountDownTimerUtils timerUtils = new CountDownTimerUtils(mView.getBtnVerify(), 60000, 1000);
+        ;
+        final ProgressDialog progress = ViewUtil.startLoading(mContext, "正在获取验证码...");
 
         HttpRequestImpl.getInstance().verify(user, new HttpRequestListener<User>() {
             @Override
@@ -74,8 +80,8 @@ public class ResetPwdActivity extends PresenterActivityImpl<ResetPwdView> implem
         });
     }
 
-    private void resetpwd(){
-        if(!ViewUtil.isNetConnected(mContext))return;
+    private void resetpwd() {
+        if (!ViewUtil.isNetConnected(mContext)) return;
         String name = mView.getUsername();
         String verify = mView.getVerify();
         String pas = mView.getPassword();
@@ -94,7 +100,7 @@ public class ResetPwdActivity extends PresenterActivityImpl<ResetPwdView> implem
             return;
         }
 
-        if (pas.length() < 6 ) {
+        if (pas.length() < 6) {
             ShowToast(R.string.toast_error_password);
             return;
         }
@@ -103,7 +109,7 @@ public class ResetPwdActivity extends PresenterActivityImpl<ResetPwdView> implem
         user.setPassword(pas);
         user.setVerify(verify);
 
-        final ProgressDialog progress = ViewUtil.startLoading(mContext , "正在重置密码中...");
+        final ProgressDialog progress = ViewUtil.startLoading(mContext, "正在重置密码中...");
 
         HttpRequestImpl.getInstance().register(user, new HttpRequestListener<User>() {
             @Override

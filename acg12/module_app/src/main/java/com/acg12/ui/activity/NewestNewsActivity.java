@@ -6,13 +6,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.acg12.entity.News;
+import com.acg12.lib.constant.Constant;
 import com.acg12.lib.listener.HttpRequestListener;
 import com.acg12.lib.listener.ItemClickSupport;
 import com.acg12.lib.utils.LogUtil;
 import com.acg12.lib.widget.recycle.IRecycleView;
-
-import com.acg12.lib.constant.Constant;
-import com.acg12.entity.News;
 import com.acg12.net.impl.HttpRequestImpl;
 import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.NewestNewsView;
@@ -24,6 +23,12 @@ public class NewestNewsActivity extends SkinBaseActivity<NewestNewsView> impleme
 
     private boolean refresh = true;
     private int page = 0;
+
+    @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
+    }
 
     @Override
     public void created(Bundle savedInstance) {
@@ -43,10 +48,10 @@ public class NewestNewsActivity extends SkinBaseActivity<NewestNewsView> impleme
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-        News news = (News)mView.getObject(position);
+        News news = (News) mView.getObject(position);
         Bundle bundle = new Bundle();
-        bundle.putString("url",news.getLink());
-        startAnimActivity(WebviewActivity.class , bundle);
+        bundle.putString("url", news.getLink());
+        startAnimActivity(WebviewActivity.class, bundle);
     }
 
     @Override

@@ -42,6 +42,7 @@ public class PaletteInfoActivity extends SkinBaseActivity<PaletteInfoView> imple
     @Override
     public void create(Bundle savedInstance) {
         super.create(savedInstance);
+        setTranslucentStatus();
         boardId = getIntent().getStringExtra("boardId");
         title = getIntent().getStringExtra("title");
     }

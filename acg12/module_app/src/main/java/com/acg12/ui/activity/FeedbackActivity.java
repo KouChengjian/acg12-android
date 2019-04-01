@@ -22,6 +22,12 @@ import com.acg12.utlis.Network;
 public class FeedbackActivity extends SkinBaseActivity<FeedbackView> implements View.OnClickListener {
 
     @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
+    }
+
+    @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
     }

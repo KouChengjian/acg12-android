@@ -1,15 +1,12 @@
 package com.acg12.ui.views;
 
-import android.support.v7.widget.Toolbar;
 import android.widget.Button;
-import android.widget.TextView;
-
-import com.acg12.lib.ui.base.ViewImpl;
-import com.acg12.lib.ui.base.PresenterHelper;
-import com.acg12.lib.utils.ViewUtil;
-import com.acg12.lib.widget.DeletableEditText;
 
 import com.acg12.R;
+import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.ui.base.ViewImpl;
+import com.acg12.lib.widget.DeletableEditText;
+import com.acg12.lib.widget.ToolBarView;
 
 import butterknife.BindView;
 
@@ -18,10 +15,8 @@ import butterknife.BindView;
  */
 public class LoginView extends ViewImpl {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.title_right)
-    TextView title_right;
+    @BindView(R.id.toolBarView)
+    ToolBarView toolBarView;
     @BindView(R.id.et_input_name)
     DeletableEditText et_input_name;
     @BindView(R.id.et_input_password)
@@ -39,15 +34,14 @@ public class LoginView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        toolbar.setTitle("登录");
-        ViewUtil.setText(title_right, "忘记密码?");
+        toolBarView.setNavigationOrBreak("登录");
+        toolBarView.setRightText("忘记密码?");
     }
 
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter, toolbar, title_right, btn_login, btn_register);
+        PresenterHelper.click(mPresenter, toolBarView.getToolbar(), toolBarView.getTitleRight(), btn_login, btn_register);
     }
 
     public String getUsername() {

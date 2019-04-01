@@ -1,14 +1,13 @@
 package com.acg12.ui.views;
 
-import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-import com.acg12.lib.ui.base.ViewImpl;
+import com.acg12.R;
 import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.utils.AppUtil;
 import com.acg12.lib.utils.ViewUtil;
-
-import com.acg12.R;
+import com.acg12.lib.widget.ToolBarView;
 
 import butterknife.BindView;
 
@@ -17,8 +16,8 @@ import butterknife.BindView;
  */
 public class AboutView extends ViewImpl {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolBarView)
+    ToolBarView toolBarView;
     @BindView(R.id.version_name)
     TextView version_name;
 
@@ -30,8 +29,7 @@ public class AboutView extends ViewImpl {
     @Override
     public void created() {
         super.created();
-        toolbar.setNavigationIcon(R.mipmap.ic_action_back);
-        toolbar.setTitle(getContext().getString(R.string.about));
+        toolBarView.setNavigationOrBreak("关于");
         ViewUtil.setText(version_name, AppUtil.getPackageInfo(getContext()).versionName);
 
     }
@@ -39,6 +37,6 @@ public class AboutView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter ,toolbar);
+        PresenterHelper.click(mPresenter, toolBarView.getToolbar());
     }
 }

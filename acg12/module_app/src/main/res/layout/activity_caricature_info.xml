@@ -2,6 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fl_layout"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:skin="http://schemas.android.com/android/skin"
     android:layout_height="match_parent">
 
     <com.acg12.widget.caricature.TouchRecyclerView
@@ -12,7 +14,9 @@
     <com.acg12.lib.widget.ToolBarView
         android:id="@+id/toolBarView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:bar_background_color="@color/theme_primary"
+        skin:enable="true" />
 
     <TextView
         android:id="@+id/tv_curr_pager"

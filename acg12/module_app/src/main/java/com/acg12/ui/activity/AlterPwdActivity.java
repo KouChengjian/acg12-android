@@ -20,6 +20,12 @@ import com.acg12.ui.views.AlterPwdView;
 public class AlterPwdActivity extends SkinBaseActivity<AlterPwdView> implements View.OnClickListener{
 
     @Override
+    public void create(Bundle savedInstance) {
+        super.create(savedInstance);
+        setTranslucentStatus();
+    }
+
+    @Override
     public void created(Bundle savedInstance) {
         super.created(savedInstance);
     }
