@@ -1,14 +1,31 @@
 package com.acg12.lib.utils.glide;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.acg12.lib.utils.CacheUtils;
+import com.acg12.lib.utils.glide.progress.ProgressInterceptor;
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.AppGlideModule;
 
 import java.io.File;
+import java.io.InputStream;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Created by Administrator on 2017/6/23.
@@ -29,18 +46,54 @@ public class GlideCache extends AppGlideModule {
         builder.setDiskCache(new DiskLruCacheFactory(downloadDirectoryPath, cacheSize));
     }
 
-//    @Override
-//    public void registerComponents(Context context, Glide glide, Registry registry) {
-//        super.registerComponents(context, glide, registry);
-//    }
+    @Override
+    public void registerComponents(@NonNull Context context, @NonNull Glide glide,
+                                   @NonNull Registry registry) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .sslSocketFactory(overlockCard().getSocketFactory())
+                .addInterceptor(new ProgressInterceptor())
+                .hostnameVerifier(new HostnameVerifier() {
+                    @Override
+                    public boolean verify(String hostname, SSLSession session) {
+                        return true;
+                    }
+                });
+        registry.replace(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));
+    }
 
-    //    @Override
-//    public void applyOptions(Context context, GlideBuilder builder) {
+    /**
+     * 忽略所有https证书
+     */
+    private SSLContext overlockCard() {
+        final TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+            @Override
+            public void checkClientTrusted(X509Certificate[] chain, String authType) throws
+                    CertificateException {
+            }
 
-//    }
-//
-//    @Override
-//    public void registerComponents(Context context, Glide glide) {
-//
-//    }
+            @Override
+            public void checkServerTrusted(X509Certificate[] chain, String authType) throws
+                    CertificateException {
+            }
+
+            @Override
+            public X509Certificate[] getAcceptedIssuers() {
+                X509Certificate[] x509Certificates = new X509Certificate[0];
+                return x509Certificates;
+            }
+        }};
+        try {
+            SSLContext sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+            return sslContext;
+        } catch (Exception e) {
+            Log.e(GlideCache.class.getSimpleName(), "ssl出现异常");
+            return null;
+        }
+    }
+
+    @Override
+    public boolean isManifestParsingEnabled() {
+        return false;
+    }
 }

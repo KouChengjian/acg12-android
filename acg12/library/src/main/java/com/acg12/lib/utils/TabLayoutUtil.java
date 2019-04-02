@@ -32,6 +32,9 @@ public class TabLayoutUtil {
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
+        if(tabStrip ==null){
+            return;
+        }
 
         tabStrip.setAccessible(true);
         LinearLayout ll_tab = null;
