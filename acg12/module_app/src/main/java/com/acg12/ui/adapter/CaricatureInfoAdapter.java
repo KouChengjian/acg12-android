@@ -43,6 +43,7 @@ public class CaricatureInfoAdapter extends CommonRecyclerAdapter<CaricatureChapt
     private final SparseArray<CaricatureChaptersEntity> mComicPreViewSparseArray = new SparseArray<>(); //记录每一个集数的对象
     private ViewPreloadSizeProvider<CaricatureChaptersPageEntity> preloadSizeProvider; //预加载的ViewPreLoad
     private CaricatureChaptersEntity chaptersEntity;
+    private OnCaricatureInfoListener onCaricatureInfoListener;
 
     public CaricatureInfoAdapter(Context mContext, int layoutRes, ViewPreloadSizeProvider preloadSizeProvider) {
         super(mContext);
@@ -66,6 +67,10 @@ public class CaricatureInfoAdapter extends CommonRecyclerAdapter<CaricatureChapt
         return mComicPreViewSparseArray.get(index);
     }
 
+    public void setOnCaricatureInfoListener(OnCaricatureInfoListener onCaricatureInfoListener) {
+        this.onCaricatureInfoListener = onCaricatureInfoListener;
+    }
+
     @Override
     public RecyclerView.ViewHolder createView(ViewGroup parent, int viewType) {
         return new CaricatureInfoViewHolder(getItemView(layoutRes, parent));
@@ -75,6 +80,7 @@ public class CaricatureInfoAdapter extends CommonRecyclerAdapter<CaricatureChapt
     public void bindView(RecyclerView.ViewHolder holder, int position) {
         ((CaricatureInfoViewHolder) holder).setWidthOrHeight(tagWidth, tagHeight, screenWidth);
         ((CaricatureInfoViewHolder) holder).setPreloadSizeProvider(preloadSizeProvider);
+        ((CaricatureInfoViewHolder) holder).setOnCaricatureInfoListener(onCaricatureInfoListener);
         ((CaricatureInfoViewHolder) holder).bindData(mContext, chaptersEntity, getList(), position, module);
     }
 
@@ -99,5 +105,9 @@ public class CaricatureInfoAdapter extends CommonRecyclerAdapter<CaricatureChapt
                 .override(tagWidth, tagHeight)
                 .placeholder(new ColorDrawable(Color.BLACK))
                 .diskCacheStrategy(DiskCacheStrategy.ALL);
+    }
+
+    public interface OnCaricatureInfoListener{
+        void onClickItem(int position);
     }
 }

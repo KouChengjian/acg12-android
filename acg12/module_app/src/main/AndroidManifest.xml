@@ -124,7 +124,7 @@
         <activity
             android:name=".ui.activity.SearchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.MaterialSheetFab.NoActionBar" />
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
             android:name=".ui.activity.WebviewActivity"
             android:screenOrientation="portrait"

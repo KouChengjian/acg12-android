@@ -122,7 +122,7 @@ public class GlideProgressCaricatureImageView extends RelativeLayout {
             public boolean onResourceReady(Bitmap bitmap, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
                 ProgressInterceptor.removeListener(url);
                 glideProgressView.setVisibility(View.GONE);
-                imageView.setOnClickListener(null);
+                imageView.setOnClickListener(new OnClickSucceedListener());
                 int width = bitmap.getWidth();
                 int height = bitmap.getHeight();
                 float scale = ((float) height) / width;
@@ -169,7 +169,18 @@ public class GlideProgressCaricatureImageView extends RelativeLayout {
         }
     }
 
+    public class OnClickSucceedListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            if (onResetLoadingImageListener != null) {
+                onResetLoadingImageListener.onClickImage();
+            }
+        }
+    }
+
     public interface OnResetLoadingImageListener {
         void onResetLoadingImage();
+
+        void onClickImage();
     }
 }

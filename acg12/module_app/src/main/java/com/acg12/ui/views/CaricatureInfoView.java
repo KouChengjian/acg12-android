@@ -168,6 +168,7 @@ public class CaricatureInfoView extends ViewImpl {
         resetModule(module);
         final ViewPreloadSizeProvider<CaricatureChaptersPageEntity> preloadSizeProvider = new ViewPreloadSizeProvider<>();
         mCaricatureInfoAdapter = new CaricatureInfoAdapter(getContext(), layoutRes, preloadSizeProvider);
+        mCaricatureInfoAdapter.setOnCaricatureInfoListener((CaricatureInfoAdapter.OnCaricatureInfoListener)mPresenter);
         if (mRecyclerViewPreLoader != null) {
             touchRecyclerView.removeOnScrollListener(mRecyclerViewPreLoader);
         }
