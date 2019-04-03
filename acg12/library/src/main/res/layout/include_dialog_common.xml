@@ -82,9 +82,9 @@
                 android:textSize="16sp"
                 app:bottomRightRadius="10dp"
                 app:normalSolid="@color/white"
-                app:normalTextColor="@color/theme_body"
+                app:normalTextColor="@color/theme_primary"
                 app:pressedSolid="@color/white"
-                app:pressedTextColor="@color/theme_body"
+                app:pressedTextColor="@color/theme_primary"
                 app:radii="5dp" />
         </LinearLayout>
 

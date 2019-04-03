@@ -5,6 +5,7 @@ import com.acg12.lib.utils.skin.attr.ContentScrimAttr;
 import com.acg12.lib.utils.skin.attr.DividerAttr;
 import com.acg12.lib.utils.skin.attr.ListSelectorAttr;
 import com.acg12.lib.utils.skin.attr.NavigationViewAttr;
+import com.acg12.lib.utils.skin.attr.SwipeRefreshLayoutAttr;
 import com.acg12.lib.utils.skin.attr.TabLayoutIndicatorAttr;
 import com.acg12.lib.utils.skin.attr.TextColorAttr;
 import com.acg12.lib.utils.skin.attr.ToolBarViewAttr;
@@ -19,6 +20,7 @@ public class AttrFactory {
     public static final String CONTENTSCRIM = "contentScrim";
     public static final String SELECTORDTABINDICATOR = "tabIndicatorColor";
     public static final String TOOLBARVIEWBACKGROUND = "bar_background_color";
+    public static final String RECYCLE_REFRESH_SCHEME = "recycle_refresh_scheme";
 
     public static final String NAVIGATIONVIEW = "navigationView";
 
@@ -40,6 +42,8 @@ public class AttrFactory {
             mSkinAttr = new TabLayoutIndicatorAttr();
         } else if (TOOLBARVIEWBACKGROUND.equals(attrName)) {
             mSkinAttr = new ToolBarViewAttr();
+        }  else if (RECYCLE_REFRESH_SCHEME.equals(attrName)) {
+            mSkinAttr = new SwipeRefreshLayoutAttr();
         } else if (NAVIGATIONVIEW.equals(attrName)) {
             mSkinAttr = new NavigationViewAttr();
         } else {
@@ -80,6 +84,9 @@ public class AttrFactory {
             return true;
         }
         if (TOOLBARVIEWBACKGROUND.equals(attrName)) {
+            return true;
+        }
+        if (RECYCLE_REFRESH_SCHEME.equals(attrName)) {
             return true;
         }
         return false;

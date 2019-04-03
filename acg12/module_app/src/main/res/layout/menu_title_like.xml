@@ -10,7 +10,7 @@
     android:textSize="14sp"
     app:bottomRightRadius="10dp"
     app:normalSolid="@color/transparent"
-    app:normalStrokeColor="@color/theme_body"
+    app:normalStrokeColor="@color/theme_primary"
     app:normalStrokeWidth="0.5dp"
     app:normalTextColor="@color/white"
     app:radii="10dp" />

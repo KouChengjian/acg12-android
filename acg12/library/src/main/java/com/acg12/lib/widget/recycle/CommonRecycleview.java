@@ -56,7 +56,7 @@ public class CommonRecycleview extends FrameLayout implements TipLayoutView.OnRe
         mTipLayoutView = view.findViewById(R.id.tip_layoutView);
         mTipLayoutView.setOnReloadClick(this);
 
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_body);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.theme_primary);
         mSwipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(mContext, 50), PixelUtil.dp2px(mContext, 24));
     }
 

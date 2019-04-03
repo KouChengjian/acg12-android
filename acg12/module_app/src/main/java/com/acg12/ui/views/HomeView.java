@@ -23,8 +23,6 @@ import com.acg12.lib.utils.glide.ImageLoadUtils;
 import com.acg12.ui.adapter.HomeTagAdapter;
 
 import com.acg12.R;
-import com.acg12.entity.Home;
-import com.acg12.ui.adapter.HomeTagAdapter;
 
 import java.util.List;
 
@@ -86,7 +84,7 @@ public class HomeView extends ViewImpl {
         homeTagAdapter = new HomeTagAdapter(getContext());
         commonRecycleview.setAdapter(homeTagAdapter);
 
-        swipeRefreshLayout.setColorSchemeResources(com.acg12.lib.R.color.theme_body);
+        swipeRefreshLayout.setColorSchemeResources(com.acg12.lib.R.color.theme_primary);
         swipeRefreshLayout.setProgressViewOffset(false, -PixelUtil.dp2px(getContext(), 50), PixelUtil.dp2px(getContext(), 24));
         swipeRefreshLayout.setRefreshing(true);
     }

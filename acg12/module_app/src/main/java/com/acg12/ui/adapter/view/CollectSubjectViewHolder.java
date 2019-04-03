@@ -46,7 +46,7 @@ public class CollectSubjectViewHolder extends CommonRecyclerViewHolder {
         tvCollectSubjectTitle.setText(TextUtils.isEmpty(collectSubjectEntity.getNameCn()) ? collectSubjectEntity.getName() : collectSubjectEntity.getNameCn());
         ImageLoadUtils.glideLoading(mContext, collectSubjectEntity.getImage(), ivCollectSubjectCover);
         ivCollectSubjectCover.setTextContent(collectSubjectEntity.getTypeName());
-        ivCollectSubjectCover.setLabelBackGroundColor(mContext.getResources().getColor(R.color.theme_body));
+        ivCollectSubjectCover.setLabelBackGroundColor(mContext.getResources().getColor(R.color.theme_primary));
         ivCollectSubjectCover.setLabelVisable(true);
         if (collectSubjectEntity.getIsCollect() == 1) {
             btnCollectSubjectCover.setText("已收藏");

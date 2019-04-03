@@ -43,14 +43,14 @@
                     android:shadowDy="-1.0"
                     android:shadowRadius="1.0"
                     android:soundEffectsEnabled="true"
-                    android:textColor="@color/theme_body"
+                    android:textColor="@color/theme_primary"
                     android:textSize="20sp" />
 
                 <View
                     android:id="@+id/dialog_base_titleline"
                     android:layout_width="fill_parent"
                     android:layout_height="2dip"
-                    android:background="@color/theme_body" />
+                    android:background="@color/theme_primary" />
             </LinearLayout>
 
             <LinearLayout

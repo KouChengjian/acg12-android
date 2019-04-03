@@ -81,7 +81,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/bg_rect_body1"
             android:text="注册账号"
-            android:textColor="@color/theme_body"
+            android:textColor="@color/theme_primary"
             android:textSize="16sp"
             android:layout_marginRight="5dp"/>
 
