@@ -17,6 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.Headers;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -98,7 +99,7 @@ public class ImageLoadUtils {
     }
 
     public static void glideCircleLoading(Context mContext, String url, ImageView imageview) {
-        RequestOptions requestOptions;
+//        RequestOptions requestOptions;
 //        if (placeholder != R.mipmap.bg_loading_pic || errorResId != R.drawable.bg_default_image) {
 //            requestOptions = new RequestOptions()
 //                    .placeholder(R.mipmap.bg_loading_pic)
@@ -106,9 +107,14 @@ public class ImageLoadUtils {
 //        } else {
 //            requestOptions = mRequestOptions.clone();
 //        }
-        requestOptions = new RequestOptions().placeholder(R.mipmap.bg_loading_pic).error(R.mipmap.bg_loading_pic);
-        requestOptions.transform(new GlideCircleTransform());
-        loadWithContext(mContext, url).apply(mRequestOptions).into(imageview);
+//        requestOptions = new RequestOptions().placeholder(R.mipmap.bg_loading_pic).error(R.mipmap.bg_loading_pic);
+//        requestOptions.transform(new GlideCircleTransform());
+//        loadWithContext(mContext, url).apply(mRequestOptions).into(imageview);
+        RequestOptions requestOptions = mRequestOptions.clone()
+                .bitmapTransform(new CircleCrop());
+        loadWithContext(mContext , url)
+                .apply(requestOptions)
+                .into(imageview);
     }
 
     /**

@@ -63,7 +63,7 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
         dynamicAddView(mView.getNavigationView(), mDynamicAttr);
 
         updateUser();
-        updateApp();
+//        updateApp();
     }
 
     @Override

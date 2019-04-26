@@ -49,9 +49,7 @@
                     android:layout_height="60dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:background="#eeeeee"
-                    android:scaleType="centerInside"
-                    android:src="@mipmap/bg_avatar_default" />
+                    android:scaleType="centerCrop" />
             </RelativeLayout>
 
             <LinearLayout

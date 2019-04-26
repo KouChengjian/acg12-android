@@ -39,7 +39,7 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         // if this is NOT enable to be skined , simplly skip it
         //Log.e("onCreateView","onCreateView = " +name);
-        LogUtil.e("name = " + name);
+        LogUtil.i("name = " + name);
 //        if (name.contains("ToolBarView")) {
 //            LogUtil.e("name = " + name);
 //        }
@@ -52,7 +52,7 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
         View view = delegate.createView(parent, name, context, attrs);
 
         if (view == null) {
-            LogUtil.e("view = null");
+//            LogUtil.e("view = null");
             if (name.contains("CollapsingToolbarLayout")) {
                 view = new CollapsingToolbarLayout(context, attrs);
                 if (view == null) {
@@ -77,7 +77,7 @@ public class SkinInflaterFactory implements LayoutInflaterFactory {
                 return null;
             }
         }
-        LogUtil.e(view.getClass().getName() + "================");
+//        LogUtil.e(view.getClass().getName() + "================");
         parseSkinAttr(context, attrs, view);
         return view;
     }

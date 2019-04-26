@@ -31,9 +31,9 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 public class RetrofitHttp {
 
-    private final int CONNECT_TIMEOUT = 20;
-    private final int READ_TIMEOUT = 10;
-    private final int WRITE_TIMEOUT = 10;
+    private final int CONNECT_TIMEOUT = 40;
+    private final int READ_TIMEOUT = 40;
+    private final int WRITE_TIMEOUT = 40;
 
     private OkHttpClient mOkHttpClient;
     private retrofit2.Retrofit mRetrofit;
