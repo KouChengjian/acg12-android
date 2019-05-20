@@ -1,14 +1,10 @@
 package com.acg12.ui.views;
 
-import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import com.acg12.lib.ui.base.ViewImpl;
-import com.acg12.lib.ui.base.PresenterHelper;
-import com.acg12.lib.utils.ViewUtil;
 
 import com.acg12.R;
+import com.acg12.lib.ui.base.PresenterHelper;
+import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.widget.ToolBarView;
 
 import butterknife.BindView;
@@ -38,10 +34,10 @@ public class FeedbackView extends ViewImpl {
     @Override
     public void bindEvent() {
         super.bindEvent();
-        PresenterHelper.click(mPresenter , toolBarView.getTitleRight() , toolBarView.getTitleRight());
+        PresenterHelper.click(mPresenter, toolBarView.getToolbar(), toolBarView.getTitleRight());
     }
 
-    public String getFeedback(){
+    public String getFeedback() {
         return et_feedback.getText().toString();
     }
 }

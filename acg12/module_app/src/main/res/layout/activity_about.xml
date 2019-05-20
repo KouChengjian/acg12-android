@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:skin="http://schemas.android.com/android/skin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:skin="http://schemas.android.com/android/skin">
+    android:orientation="vertical">
 
     <com.acg12.lib.widget.ToolBarView
         android:id="@+id/toolBarView"
@@ -27,8 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingBottom="5dp"
         android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:text="@string/app_name"
         android:textColor="@color/text_333333"
         android:textSize="20sp" />
@@ -47,16 +46,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/copyright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
         android:text="注~ 本应用资源皆来自第三方，如涉及版权问题请与我联系 (*^__^*)... "
         android:textColor="@color/text_666666"
-        android:textSize="10sp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="5dp"/>
+        android:textSize="10sp" />
 
 </LinearLayout>
