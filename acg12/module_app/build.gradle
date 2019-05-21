@@ -50,26 +50,14 @@ android {
         debug {
             minifyEnabled false
             shrinkResources false
-//            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release  // 如果local.properties内容不为空，可以开启
         }
 
         release {
-            //压缩对齐，提高运行时的效率，也可以使用zipAlignEnabled true
-            zipAlignEnabled true
-            //不可调试
-            debuggable true
-            //是否混淆
             minifyEnabled true
-            //是否移除无用资源
-            zipAlignEnabled true
-            //图片、布局变成最小，没有删除它们。
-            //需要动态加载资源时，需要在不要使用该优化，
-            // 否则可能会出现运行时报错或者显示效果不正确的问题
-            //tools:keep="@layout/test_layout"
             shrinkResources true
-            //指定签名文件为release签名，注意非debug，如果不指定签名，则打出来的包不会签名
-            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
