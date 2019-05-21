@@ -4,224 +4,224 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
-    <RelativeLayout
-        android:id="@+id/surface_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/surface_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:gravity="center">-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
-    <com.shuyu.gsyvideoplayer.GSYImageCover
-        android:id="@+id/cover"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:scaleType="fitXY" />
-
-
-    <master.flame.danmaku.ui.widget.DanmakuView
-        android:id="@+id/danmaku_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <!--<com.shuyu.gsyvideoplayer.GSYImageCover-->
+        <!--android:id="@+id/cover"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:scaleType="fitXY" />-->
 
 
-    <LinearLayout
-        android:id="@+id/layout_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#99000000"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:visibility="invisible">
+    <!--<master.flame.danmaku.ui.widget.DanmakuView-->
+        <!--android:id="@+id/danmaku_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/current"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="00:00"
-                android:textColor="#ffffff" />
-
-            <SeekBar
-                android:id="@+id/progress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1.0"
-                android:background="@null"
-                android:max="100"
-                android:maxHeight="4dp"
-                android:minHeight="4dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:progressDrawable="@drawable/video_seek_progress"
-                android:thumb="@drawable/video_seek_thumb" />
-
-            <TextView
-                android:id="@+id/total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:text="00:00"
-                android:textColor="#ffffff" />
-
-            <ImageView
-                android:id="@+id/fullscreen"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingRight="10dp"
-                android:scaleType="center"
-                android:src="@mipmap/ic_custom_enlarge" />
-
-        </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/layout_bottom"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="#99000000"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="vertical"-->
+        <!--android:visibility="invisible">-->
 
         <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="20dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:orientation="horizontal">-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal">-->
 
-        <!--<TextView-->
-        <!--android:id="@+id/send_danmaku"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="#808080"-->
-        <!--android:gravity="center"-->
-        <!--android:text="发送弹幕"-->
-        <!--android:textColor="#ffffff" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/current"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:text="00:00"-->
+                <!--android:textColor="#ffffff" />-->
 
-        <!--<TextView-->
-        <!--android:id="@+id/toogle_danmaku"-->
-        <!--android:layout_width="50dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_marginLeft="20dp"-->
-        <!--android:gravity="center"-->
-        <!--android:text="弹幕关"-->
-        <!--android:textColor="#ffffff" />-->
+            <!--<SeekBar-->
+                <!--android:id="@+id/progress"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_weight="1.0"-->
+                <!--android:background="@null"-->
+                <!--android:max="100"-->
+                <!--android:maxHeight="4dp"-->
+                <!--android:minHeight="4dp"-->
+                <!--android:paddingBottom="8dp"-->
+                <!--android:paddingTop="8dp"-->
+                <!--android:progressDrawable="@drawable/video_seek_progress"-->
+                <!--android:thumb="@drawable/video_seek_thumb" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/total"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="16dp"-->
+                <!--android:text="00:00"-->
+                <!--android:textColor="#ffffff" />-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/fullscreen"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:paddingRight="10dp"-->
+                <!--android:scaleType="center"-->
+                <!--android:src="@mipmap/ic_custom_enlarge" />-->
 
         <!--</LinearLayout>-->
 
-    </LinearLayout>
+        <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="20dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:orientation="horizontal">&ndash;&gt;-->
 
-    <ProgressBar
-        android:id="@+id/bottom_progressbar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="1.5dp"
-        android:layout_alignParentBottom="true"
-        android:max="100"
-        android:progressDrawable="@drawable/video_progress" />
+        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/send_danmaku"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:background="#808080"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="发送弹幕"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textColor="#ffffff" />&ndash;&gt;-->
 
-    <ImageView
-        android:id="@+id/back_tiny"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="6dp"
-        android:visibility="gone" />
+        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/toogle_danmaku"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="50dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginLeft="20dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="弹幕关"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textColor="#ffffff" />&ndash;&gt;-->
 
-    <LinearLayout
-        android:id="@+id/layout_top"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/video_title_bg"
-        android:gravity="center_vertical">
+        <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:paddingLeft="10dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/video_back" />
+    <!--</LinearLayout>-->
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-    </LinearLayout>
+    <!--<ProgressBar-->
+        <!--android:id="@+id/bottom_progressbar"-->
+        <!--style="?android:attr/progressBarStyleHorizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1.5dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:max="100"-->
+        <!--android:progressDrawable="@drawable/video_progress" />-->
 
-    <moe.codeest.enviews.ENDownloadView
-        android:id="@+id/loading"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="invisible" />
+    <!--<ImageView-->
+        <!--android:id="@+id/back_tiny"-->
+        <!--android:layout_width="24dp"-->
+        <!--android:layout_height="24dp"-->
+        <!--android:layout_marginLeft="6dp"-->
+        <!--android:layout_marginTop="6dp"-->
+        <!--android:visibility="gone" />-->
 
-    <moe.codeest.enviews.ENPlayView
-        android:id="@+id/start"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_vertical"
-        android:visibility="gone" />
+    <!--<LinearLayout-->
+        <!--android:id="@+id/layout_top"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:background="@drawable/video_title_bg"-->
+        <!--android:gravity="center_vertical">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/back"-->
+            <!--android:layout_width="48dp"-->
+            <!--android:layout_height="48dp"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:scaleType="centerInside"-->
+            <!--android:src="@drawable/video_back" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="18sp" />-->
+    <!--</LinearLayout>-->
+
+    <!--<moe.codeest.enviews.ENDownloadView-->
+        <!--android:id="@+id/loading"-->
+        <!--android:layout_width="28dp"-->
+        <!--android:layout_height="28dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:visibility="invisible" />-->
+
+    <!--<moe.codeest.enviews.ENPlayView-->
+        <!--android:id="@+id/start"-->
+        <!--android:layout_width="60dp"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:visibility="gone" />-->
 
 
-    <ImageView
-        android:id="@+id/small_close"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/video_small_close"
-        android:visibility="gone" />
+    <!--<ImageView-->
+        <!--android:id="@+id/small_close"-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:scaleType="centerInside"-->
+        <!--android:src="@drawable/video_small_close"-->
+        <!--android:visibility="gone" />-->
 
-    <ImageView
-        android:id="@+id/lock_screen"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="50dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/unlock"
-        android:visibility="gone" />
+    <!--<ImageView-->
+        <!--android:id="@+id/lock_screen"-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginRight="50dp"-->
+        <!--android:scaleType="centerInside"-->
+        <!--android:src="@drawable/unlock"-->
+        <!--android:visibility="gone" />-->
 
-    <RelativeLayout
-        android:id="@+id/thumb"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="#f2f2f2"
-        android:scaleType="fitCenter">
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/thumb"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:background="#f2f2f2"-->
+        <!--android:scaleType="fitCenter">-->
 
-        <ImageView
-            android:id="@+id/bili_anim"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:background="@drawable/animation_bili_anim" />
+        <!--<ImageView-->
+            <!--android:id="@+id/bili_anim"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:background="@drawable/animation_bili_anim" />-->
 
-        <TextView
-            android:id="@+id/video_start_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="初始化播放器..."
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/video_start_info"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:text="初始化播放器..."-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="12sp" />-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
 </RelativeLayout>

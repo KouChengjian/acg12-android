@@ -9,7 +9,6 @@ import com.acg12.lib.utils.skin.entity.Skin;
 import com.acg12.lib.widget.ToolBarView;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.ui.adapter.SkinLoaderAdapter;
-import com.google.android.exoplayer.C;
 
 import butterknife.BindView;
 

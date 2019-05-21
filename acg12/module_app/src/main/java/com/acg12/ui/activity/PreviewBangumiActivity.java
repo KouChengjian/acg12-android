@@ -38,7 +38,7 @@ public class PreviewBangumiActivity extends SkinBaseActivity<PreviewBangumiView>
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("video", mView.getVideo(position));
-        startAnimActivity(PlayBungumiActivity.class, bundle);
+//        startAnimActivity(PlayBungumiActivity.class, bundle);
     }
 
     @Override

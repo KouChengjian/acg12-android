@@ -31,7 +31,6 @@ import com.acg12.ui.base.SkinBaseActivity;
 import com.acg12.ui.views.MainView;
 import com.acg12.widget.dialog.UpdateDialog;
 import com.acg12.widget.dialog.debug.DebugBaseServerDialog;
-import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -240,7 +239,5 @@ public class MainActivity extends SkinBaseActivity<MainView> implements Navigati
         super.onDestroy();
         EventConfig.get().getUserEvent().unregister(this);
         EventConfig.get().getCommon().unregister(this);
-//        BaseConfig.ListVideoUtilInstance().releaseVideoPlayer();
-        GSYVideoPlayer.releaseAllVideos();
     }
 }

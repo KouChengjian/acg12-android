@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.ImageLoadUtils;
-import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 
 import com.acg12.R;
 import com.acg12.entity.Video;
@@ -25,7 +24,7 @@ public class TabAnimatViewHolder extends RecyclerView.ViewHolder{
     TextView video_title;
     TextView video_des;
 
-    ListVideoUtil listVideoUtil;
+//    ListVideoUtil listVideoUtil;
     RecyclerView.Adapter recyclerBaseAdapter;
 
     public TabAnimatViewHolder(Context mContext , View itemView) {
@@ -72,11 +71,11 @@ public class TabAnimatViewHolder extends RecyclerView.ViewHolder{
         this.recyclerBaseAdapter = recyclerBaseAdapter;
     }
 
-    public ListVideoUtil getListVideoUtil() {
-        return listVideoUtil;
-    }
-
-    public void setListVideoUtil(ListVideoUtil listVideoUtil) {
-        this.listVideoUtil = listVideoUtil;
-    }
+//    public ListVideoUtil getListVideoUtil() {
+//        return listVideoUtil;
+//    }
+//
+//    public void setListVideoUtil(ListVideoUtil listVideoUtil) {
+//        this.listVideoUtil = listVideoUtil;
+//    }
 }

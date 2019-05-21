@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.acg12.ui.adapter.view.TabAnimatViewHolder;
-import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 
 import com.acg12.R;
 import com.acg12.entity.Video;
@@ -23,7 +22,6 @@ public class TabAnimatAdapter extends RecyclerView.Adapter<TabAnimatViewHolder> 
     private Context mContext;
     private List<Video> mList;
     private final LayoutInflater mInflater;
-    private ListVideoUtil listVideoUtil;
 
     public TabAnimatAdapter(Context mContext){
         this(mContext , new ArrayList<Video>());
@@ -64,18 +62,18 @@ public class TabAnimatAdapter extends RecyclerView.Adapter<TabAnimatViewHolder> 
 
     @Override
     public void onBindViewHolder(TabAnimatViewHolder holder, int position) {
-        holder.setListVideoUtil(listVideoUtil);
+//        holder.setListVideoUtil(listVideoUtil);
         holder.setRecyclerBaseAdapter(this);
         holder.bindData(mContext ,mList.get(position) ,position);
     }
 
-    public ListVideoUtil getListVideoUtil() {
-        return listVideoUtil;
-    }
-
-    public void setListVideoUtil(ListVideoUtil listVideoUtil) {
-        this.listVideoUtil = listVideoUtil;
-    }
+//    public ListVideoUtil getListVideoUtil() {
+//        return listVideoUtil;
+//    }
+//
+//    public void setListVideoUtil(ListVideoUtil listVideoUtil) {
+//        this.listVideoUtil = listVideoUtil;
+//    }
 
     public void startPlay(String url , String danmu){
 

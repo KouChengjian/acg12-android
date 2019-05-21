@@ -9,7 +9,6 @@ import com.acg12.lib.ui.base.ViewImpl;
 import com.acg12.lib.widget.recycle.CommonRecycleview;
 import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.ui.adapter.TabAnimatAdapter;
-import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 
 import com.acg12.R;
 import com.acg12.entity.Video;
@@ -29,7 +28,6 @@ public class SearchAnimatView extends ViewImpl {
     @BindView(R.id.common_recyclerview)
     CommonRecycleview commonRecycleview;
     TabAnimatAdapter tabAnimatAdapter;
-    ListVideoUtil listVideoUtil;
 
     @Override
     public int getLayoutId() {
@@ -80,8 +78,8 @@ public class SearchAnimatView extends ViewImpl {
         commonRecycleview.stopRefreshLoadMore(refresh);
     }
 
-    public ListVideoUtil getListVideoUtil(){
-        return listVideoUtil;
-    }
+//    public ListVideoUtil getListVideoUtil(){
+//        return listVideoUtil;
+//    }
 
 }

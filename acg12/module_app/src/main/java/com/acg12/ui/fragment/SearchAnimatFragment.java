@@ -15,7 +15,6 @@ import com.acg12.lib.widget.recycle.IRecycleView;
 import com.acg12.lib.constant.Constant;
 import com.acg12.entity.Video;
 import com.acg12.net.impl.HttpRequestImpl;
-import com.acg12.ui.activity.PlayBungumiActivity;
 import com.acg12.ui.base.SkinBaseFragment;
 import com.acg12.ui.views.SearchAnimatView;
 
@@ -51,7 +50,7 @@ public class SearchAnimatFragment extends SkinBaseFragment<SearchAnimatView> imp
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("video", mView.getVideo(position));
-        startAnimActivity(PlayBungumiActivity.class , bundle);
+//        startAnimActivity(PlayBungumiActivity.class , bundle);
     }
 
     @Override
