@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 //读取签名配置文件
 def getSigningProperties() {
@@ -81,6 +83,9 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':library')
 
-    def otherDependencies = rootProject.ext.otherDependencies
-    annotationProcessor otherDependencies.butterKnife_apt
+    def toolDependencies = rootProject.ext.toolDependencies
+    annotationProcessor toolDependencies.butterKnife_apt
+
+    def kotlinDependencies = rootProject.ext.kotlinDependencies
+    implementation kotlinDependencies.kotlin
 }

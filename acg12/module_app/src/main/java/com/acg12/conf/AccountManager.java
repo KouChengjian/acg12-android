@@ -32,6 +32,8 @@ public class AccountManager {
         return BaseApp.app();
     }
 
+
+
     public void logout() {
         DaoBaseImpl.getInstance(getContext()).delTabUser();
         EventConfig.get().getUserEvent().post(new User(getContext()));

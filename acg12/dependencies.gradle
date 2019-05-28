@@ -31,13 +31,6 @@ ext {
     rxjavaVersion = '1.3.8'
     rxandroidVersion = '1.2.1'
 
-    // player
-    ijkplayer = '0.7.9'
-    DanmakuFlameMaster = '0.6.4'
-    transitionseverywhere = '1.7.0'
-    videocache = '2.6.4'
-    leakcanary = '1.5'
-
     // kotlin
     kotlinVersion = '1.0.4'
 
@@ -55,9 +48,6 @@ ext {
             appcompat_v7   : "com.android.support:appcompat-v7:${supportLibraryVersion}",
             recyclerView_v7: "com.android.support:recyclerview-v7:${supportLibraryVersion}",
             multidex       : "com.android.support:multidex:1.0.1",
-
-//            compile 'com.android.support:percent:25.3.1'
-//            compile 'com.android.support:support-vector-drawable:25.3.1'
     ]
 
     httpDependencies = [
@@ -70,37 +60,15 @@ ext {
             rxandroid        : "io.reactivex:rxandroid:${rxandroidVersion}",
     ]
 
-    playDependencies = [
-            ijkplayer_java       : "tv.danmaku.ijk.media:ijkplayer-java:${ijkplayer}",
-            ijkplayer_exo        : "tv.danmaku.ijk.media:ijkplayer-exo:${ijkplayer}",
-            ijkplayer_armv7a     : "tv.danmaku.ijk.media:ijkplayer-armv7a:${ijkplayer}",
-            ijkplayer_armv5      : "tv.danmaku.ijk.media:ijkplayer-armv5:${ijkplayer}",
-            ijkplayer_arm64      : "tv.danmaku.ijk.media:ijkplayer-arm64:${ijkplayer}",
-            ijkplayer_x86_64     : "tv.danmaku.ijk.media:ijkplayer-x86_64:${ijkplayer}",
-            ijkplayer_x86        : "tv.danmaku.ijk.media:ijkplayer-x86:${ijkplayer}",
-
-            danmakuFlameMaster   : "com.github.ctiao:DanmakuFlameMaster:${DanmakuFlameMaster}",
-            ndkbitmap_armv7a     : "com.github.ctiao:ndkbitmap-armv7a:${DanmakuFlameMaster}",
-            ndkbitmap_armv5      : "com.github.ctiao:ndkbitmap-armv5:${DanmakuFlameMaster}",
-            ndkbitmap_x86        : "com.github.ctiao:ndkbitmap-x86:${DanmakuFlameMaster}",
-
-            transitionseverywhere: "com.andkulikov:transitionseverywhere:${transitionseverywhere}",
-            videocache           : "com.danikula:videocache:${videocache}",
-            leakcanary           : "com.squareup.leakcanary:leakcanary-android:${leakcanary}",
-    ]
-
     kotlinDependencies = [
-            kotlin : "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}",
+            kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.31",
     ]
 
     toolDependencies = [
-            bugly       : "com.tencent.bugly:crashreport:latest.release",
-            buglynation : "com.tencent.bugly:nativecrashreport:latest.release",
-            arouter     : "com.alibaba:arouter-api:1.2.4",
-            arouter_apt : "com.alibaba:arouter-compiler:1.1.4",
-    ]
-
-    otherDependencies = [
+            bugly                 : "com.tencent.bugly:crashreport:latest.release",
+            buglynation           : "com.tencent.bugly:nativecrashreport:latest.release",
+            arouter               : "com.alibaba:arouter-api:1.2.4",
+            arouter_apt           : "com.alibaba:arouter-compiler:1.1.4",
             eventbus              : "org.greenrobot:eventbus:${eventbusVersion}",
             butterKnife           : "com.jakewharton:butterknife:${butterKnifeVersion}",
             butterKnife_apt       : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
@@ -112,5 +80,4 @@ ext {
             glide_integration     : "com.github.bumptech.glide:okhttp3-integration:${glideVersion}",
             glide_recyclerview    : "com.github.bumptech.glide:recyclerview-integration:${glideVersion}",
     ]
-
 }

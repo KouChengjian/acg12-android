@@ -192,6 +192,4 @@ public class PaletteInfoActivity extends SkinBaseActivity<PaletteInfoView> imple
         super.onDestroy();
         ImageLoadUtils.clearImageMemoryCache(mContext);
     }
-
-
 }
