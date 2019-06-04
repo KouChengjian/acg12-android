@@ -80,8 +80,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':library')
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':library')
 
     def toolDependencies = rootProject.ext.toolDependencies
     annotationProcessor toolDependencies.butterKnife_apt

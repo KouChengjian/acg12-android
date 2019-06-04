@@ -22,25 +22,25 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
     def androidDependencies = rootProject.ext.androidDependencies
-    compile androidDependencies.design
-    compile androidDependencies.support_v4
-    compile androidDependencies.cardview_v7
-    compile androidDependencies.appcompat_v7
-    compile androidDependencies.recyclerView_v7
+    api androidDependencies.design
+    api androidDependencies.support_v4
+    api androidDependencies.cardview_v7
+    api androidDependencies.appcompat_v7
+    api androidDependencies.recyclerView_v7
     def httpDependencies = rootProject.ext.httpDependencies
-    compile httpDependencies.okhttp3
-    compile httpDependencies.retrofit2
-    compile httpDependencies.retrofit2_gson
-    compile httpDependencies.retrofit2_scalars
-    compile httpDependencies.retrofit2_rxjava
-    compile httpDependencies.rxandroid
+    api httpDependencies.okhttp3
+    api httpDependencies.retrofit2
+    api httpDependencies.retrofit2_gson
+    api httpDependencies.retrofit2_scalars
+    api httpDependencies.retrofit2_rxjava
+    api httpDependencies.rxandroid
     def toolDependencies = rootProject.ext.toolDependencies
-    compile toolDependencies.eventbus
-    compile toolDependencies.butterKnife
-    compile toolDependencies.glide
-    compile(toolDependencies.glide_recyclerview) {
+    api toolDependencies.eventbus
+    api toolDependencies.butterKnife
+    api toolDependencies.glide
+    api(toolDependencies.glide_recyclerview) {
         // Excludes the support library because it's already included by Glide.
         transitive = false
     }
