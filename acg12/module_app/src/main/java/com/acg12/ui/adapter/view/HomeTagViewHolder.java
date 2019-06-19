@@ -29,9 +29,9 @@ public class HomeTagViewHolder extends CommonRecyclerViewHolder {
 
     public HomeTagViewHolder(View itemView) {
         super(itemView);
-        layout_tag = (RelativeLayout) itemView.findViewById(R.id.layout_tag);
-        iv_tag_cover = (ImageView) itemView.findViewById(R.id.iv_tag_cover);
-        tv_tag_title = (TextView) itemView.findViewById(R.id.tv_tag_title);
+        layout_tag =  itemView.findViewById(R.id.layout_tag);
+        iv_tag_cover =  itemView.findViewById(R.id.iv_tag_cover);
+        tv_tag_title =  itemView.findViewById(R.id.tv_tag_title);
     }
 
     @Override

@@ -105,15 +105,6 @@
             android:name=".ui.activity.AboutActivity"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
         <activity
-            android:name=".ui.activity.PlayBungumiActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
-        <activity
-            android:name=".ui.activity.IndexActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
-        <activity
             android:name=".ui.activity.AlterPwdActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
