@@ -3,6 +3,7 @@ package com.acg12.lib.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.acg12.lib.app.BaseApp;
 
 
 /**
@@ -12,7 +13,7 @@ public class LogUtil {
 
     public static String customTagPrefix = "x_log";
 
-    public static final Boolean debug = true;
+    public static final Boolean debug = BaseApp.isDebug();
 
     private LogUtil() {
     }

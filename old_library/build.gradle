@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+//apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+//    publishNonDefault true
+
+    defaultConfig {
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+        versionCode globalConfiguration.getAt("androidVersionLibCode")
+        versionName globalConfiguration.getAt("androidVersionLibName")
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    def androidDependencies = rootProject.ext.androidDependencies
+    api androidDependencies.design
+    api androidDependencies.support_v4
+    api androidDependencies.cardview_v7
+    api androidDependencies.appcompat_v7
+    api androidDependencies.recyclerView_v7
+    def httpDependencies = rootProject.ext.httpDependencies
+    api httpDependencies.okhttp3
+    api httpDependencies.retrofit2
+    api httpDependencies.retrofit2_gson
+    api httpDependencies.retrofit2_scalars
+    api httpDependencies.retrofit2_rxjava
+    api httpDependencies.rxandroid
+    def toolDependencies = rootProject.ext.toolDependencies
+    api toolDependencies.eventbus
+    api toolDependencies.butterKnife
+    api toolDependencies.glide
+    api(toolDependencies.glide_recyclerview) {
+        // Excludes the support library because it's already included by Glide.
+        transitive = false
+    }
+    annotationProcessor toolDependencies.glide_compiler
+}

@@ -1,15 +1,9 @@
 package com.acg12.net.api;
 
-import com.acg12.entity.User;
-
-import com.acg12.entity.User;
-import com.acg12.lib.net.factory.ApiConverter;
-import com.acg12.net.converter.UserConverter;
-
-import com.acg12.net.converter.UserConverter;
 
 import java.util.Map;
 
+import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
@@ -17,19 +11,19 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PartMap;
-import rx.Observable;
 
 public interface UserApi {
 
-    @FormUrlEncoded
-    @POST("api/app/common/login.json")
-    @ApiConverter(converter = UserConverter.class)
-    Observable<User> login(@Field("username") String username, @Field("password") String password);
 
-    @FormUrlEncoded
-    @POST("api/register")
-    @ApiConverter(converter = UserConverter.class)
-    Observable<User> register(@Field("username") String username, @Field("password") String password, @Field("verify") String verify);
+//    Single<HttpResult<UserEntity>> login(@Field("username") String username, @Field("password") String password);
+
+//    @FormUrlEncoded
+//    @POST("api/app/common/login.json")
+//    Observable<User> login(@Field("username") String username, @Field("password") String password);
+//
+//    @FormUrlEncoded
+//    @POST("api/register")
+//    Observable<User> register(@Field("username") String username, @Field("password") String password, @Field("verify") String verify);
 
     @FormUrlEncoded
     @POST("api/verify")

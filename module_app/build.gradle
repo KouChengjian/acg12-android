@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-android'
 
 //读取签名配置文件
 def getSigningProperties() {
@@ -64,8 +64,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     android.applicationVariants.all { variant ->
@@ -80,12 +80,17 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
-    api project(':library')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':library')
 
     def toolDependencies = rootProject.ext.toolDependencies
+    implementation toolDependencies.dagger
+    implementation toolDependencies.dagger_android
+    implementation toolDependencies.dagger_android_support
+    annotationProcessor toolDependencies.dagger_compiler
+    annotationProcessor toolDependencies.dagger_android_processor
     annotationProcessor toolDependencies.butterKnife_apt
 
-    def kotlinDependencies = rootProject.ext.kotlinDependencies
-    implementation kotlinDependencies.kotlin
+//    def kotlinDependencies = rootProject.ext.kotlinDependencies
+//    implementation kotlinDependencies.kotlin
 }

@@ -32,14 +32,6 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter {
         this.mList.add(object);
     }
 
-    public void del(T object) {
-        this.mList.remove(object);
-    }
-
-    public void del(int index) {
-        this.mList.remove(index);
-    }
-
     public void addAll(List mList) {
         this.mList.addAll(mList);
     }
@@ -52,8 +44,16 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter {
         return mList;
     }
 
-    public T getObject(int position){
-        return getList().get(position);
+    public T getObject(int position) {
+        return mList.get(position);
+    }
+
+    protected int getViewId() {
+        return 0;
+    }
+
+    public View getItemView(ViewGroup parent) {
+        return mLayoutInflater.inflate(getViewId(), parent, false);
     }
 
     public View getItemView(int rid, ViewGroup parent) {
@@ -77,13 +77,5 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     public abstract RecyclerView.ViewHolder createView(ViewGroup parent, int viewType);
 
-    public abstract void bindView(RecyclerView.ViewHolder holder, int position) ;
-
-//    public RecyclerView.ViewHolder createView(ViewGroup parent, int viewType) {
-//        return null;
-//    }
-//
-//    public void bindView(RecyclerView.ViewHolder holder, int position) {
-//
-//    }
+    public abstract void bindView(RecyclerView.ViewHolder holder, int position);
 }

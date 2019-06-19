@@ -5,11 +5,9 @@ import android.content.Context;
 
 import java.lang.reflect.Method;
 
+
 /**
- * Created with Android Studio.
- * User: kcj
- * Date: 2019/2/21 11:38
- * Description:
+ * 需要在在application的onCreate中初始化: BaseApp.Ext.init(this);
  */
 public final class BaseApp {
 

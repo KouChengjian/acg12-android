@@ -1,12 +1,12 @@
 package com.acg12.net.api;
 
+import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-import rx.Observable;
 
 public interface SearchApi {
 
@@ -19,13 +19,13 @@ public interface SearchApi {
 
     @FormUrlEncoded
     @POST("api/app/search/albumList.json")
-    Observable<ResponseBody> searchAlbum(@Field("key") String key , @Field("page") String page);
+    Observable<ResponseBody> searchAlbum(@Field("key") String key, @Field("page") String page);
 
     @FormUrlEncoded
     @POST("api/app/search/paletteList.json")
-    Observable<ResponseBody> searchPalette(@Field("key") String key , @Field("page") String page);
+    Observable<ResponseBody> searchPalette(@Field("key") String key, @Field("page") String page);
 
     @FormUrlEncoded
     @POST("api/app/search/caricatureList.json")
-    Observable<ResponseBody> searchCaricatureList(@Field("key") String key , @Field("page") String page);
+    Observable<ResponseBody> searchCaricatureList(@Field("key") String key, @Field("page") String page);
 }

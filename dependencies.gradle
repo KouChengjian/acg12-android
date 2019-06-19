@@ -1,9 +1,3 @@
-allprojects {
-    repositories {
-        jcenter()
-    }
-}
-
 ext {
 
     // 开启组件调试模式
@@ -20,19 +14,6 @@ ext {
     // 版本
     androidVersionCode = 24
     androidVersionName = "3.1.0"
-
-    // acg12 lib
-    androidVersionLibCode = 1
-    androidVersionLibName = "1.0.0"
-
-    // http version
-    okhttp3Version = '3.10.0'
-    retrofit2Version = '2.4.0'
-    rxjavaVersion = '1.3.8'
-    rxandroidVersion = '1.2.1'
-
-    // kotlin
-    kotlinVersion = '1.0.4'
 
     // other version
     eventbusVersion = '3.0.0'
@@ -51,13 +32,17 @@ ext {
     ]
 
     httpDependencies = [
-            okhttp3          : "com.squareup.okhttp3:okhttp:${okhttp3Version}",
-            retrofit2        : "com.squareup.retrofit2:retrofit:${retrofit2Version}",
-            retrofit2_gson   : "com.squareup.retrofit2:converter-gson:${retrofit2Version}",
-            retrofit2_scalars: "com.squareup.retrofit2:converter-scalars:${retrofit2Version}",
-            retrofit2_rxjava : "com.squareup.retrofit2:adapter-rxjava:${retrofit2Version}",
-            rxjava           : "io.reactivex:rxjava:${rxjavaVersion}",
-            rxandroid        : "io.reactivex:rxandroid:${rxandroidVersion}",
+            okhttp3          : "com.squareup.okhttp3:okhttp:3.11.0",
+            okhttp3_logging  : "com.squareup.okhttp3:logging-interceptor:3.11.0",
+            retrofit2        : "com.squareup.retrofit2:retrofit:2.4.0",
+            retrofit2_gson   : "com.squareup.retrofit2:converter-gson:2.4.0",
+            retrofit2_adapter: "com.squareup.retrofit2:adapter-rxjava2:2.4.0",
+            rxjava           : "io.reactivex.rxjava2:rxjava:2.2.0",
+            rxandroid        : "io.reactivex.rxjava2:rxandroid:2.0.2",
+
+            rxbinding        : "com.jakewharton.rxbinding2:rxbinding:2.1.1",
+            rxlifecycle      : "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.2.2",
+            rxpermissions    : "com.github.tbruyelle:rxpermissions:0.10.2",
     ]
 
     kotlinDependencies = [
@@ -65,19 +50,23 @@ ext {
     ]
 
     toolDependencies = [
-            bugly                 : "com.tencent.bugly:crashreport:latest.release",
-            buglynation           : "com.tencent.bugly:nativecrashreport:latest.release",
-            arouter               : "com.alibaba:arouter-api:1.2.4",
-            arouter_apt           : "com.alibaba:arouter-compiler:1.1.4",
-            eventbus              : "org.greenrobot:eventbus:${eventbusVersion}",
-            butterKnife           : "com.jakewharton:butterknife:${butterKnifeVersion}",
-            butterKnife_apt       : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
-            stetho                : "com.facebook.stetho:stetho:${stethoVersion}",
-            stetho_okhttp         : "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",
-            universal_image_loader: "com.nostra13.universalimageloader:universal-image-loader:${universalImageLoaderVersion}",
-            glide                 : "com.github.bumptech.glide:glide:${glideVersion}",
-            glide_compiler        : "com.github.bumptech.glide:compiler:${glideVersion}",
-            glide_integration     : "com.github.bumptech.glide:okhttp3-integration:${glideVersion}",
-            glide_recyclerview    : "com.github.bumptech.glide:recyclerview-integration:${glideVersion}",
+            dagger                  : "com.google.dagger:dagger:2.16",
+            dagger_compiler         : "com.google.dagger:dagger-compiler:2.16",
+            dagger_android          : "com.google.dagger:dagger-android:2.16",
+            dagger_android_support  : "com.google.dagger:dagger-android-support:2.16",
+            dagger_android_processor: "com.google.dagger:dagger-android-processor:2.16",
+
+            bugly                   : "com.tencent.bugly:crashreport:latest.release",
+            buglynation             : "com.tencent.bugly:nativecrashreport:latest.release",
+            eventbus                : "org.greenrobot:eventbus:${eventbusVersion}",
+            butterKnife             : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            butterKnife_apt         : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+            stetho                  : "com.facebook.stetho:stetho:${stethoVersion}",
+            stetho_okhttp           : "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",
+            universal_image_loader  : "com.nostra13.universalimageloader:universal-image-loader:${universalImageLoaderVersion}",
+            glide                   : "com.github.bumptech.glide:glide:${glideVersion}",
+            glide_compiler          : "com.github.bumptech.glide:compiler:${glideVersion}",
+            glide_integration       : "com.github.bumptech.glide:okhttp3-integration:${glideVersion}",
+            glide_recyclerview      : "com.github.bumptech.glide:recyclerview-integration:${glideVersion}",
     ]
 }

@@ -1,16 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.acg12.lib">
+    package="com.acg12.lib" >
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
-    <application
-        android:allowBackup="true"
-        android:supportsRtl="true">
-
-        <!--<meta-data-->
-            <!--android:name="com.acg12.lib.utils.glide.GlideCache"-->
-            <!--android:value="GlideModule" />-->
-
-    </application>
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>

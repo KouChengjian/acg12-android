@@ -3,9 +3,9 @@ package com.acg12.conf;
 import android.content.Context;
 
 import com.acg12.lib.app.BaseApp;
-import com.acg12.lib.constant.Constant;
+import com.acg12.lib.cons.Constant;
 import com.acg12.lib.utils.PreferencesUtils;
-import com.acg12.widget.dialog.debug.ServerUrl;
+import com.acg12.widget.debug.ServerUrl;
 
 import java.util.ArrayList;
 import java.util.List;

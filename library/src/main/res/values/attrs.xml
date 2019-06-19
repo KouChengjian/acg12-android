@@ -1,58 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="roundedimageview">
-        <attr name="border_thickness" format="dimension" />
-        <attr name="border_inside_color" format="color" />
-        <attr name="border_outside_color" format="color" />
-    </declare-styleable>
-
-    <declare-styleable name="ToolBarView">
-        <attr name="bar_background_color" format="color" />
-    </declare-styleable>
-
-    <declare-styleable name="SwipeRefreshLayout">
-        <attr name="recycle_refresh_scheme" format="color" />
-    </declare-styleable>
-
-    <declare-styleable name="BGButton">
-        <!--圆角-->
-        <attr name="topLeftRadius" format="dimension" />
-        <attr name="topRightRadius" format="dimension" />
-        <attr name="bottomLeftRadius" format="dimension" />
-        <attr name="bottomRightRadius" format="dimension" />
-        <attr name="radii" format="dimension" />
-        <!--正常填充色-->
-        <attr name="normalSolid" format="color" />
-        <!--按下填充色-->
-        <attr name="pressedSolid" format="color" />
-        <!--边框颜色，大小-->
-        <attr name="normalStrokeWidth" format="dimension" />
-        <attr name="normalStrokeColor" format="color" />
-        <attr name="pressedStrokeWidth" format="dimension" />
-        <attr name="pressedStrokeColor" format="color" />
-        <!--文字按下颜色-->
-        <attr name="pressedTextColor" format="color" />
-        <attr name="normalTextColor" format="color" />
-    </declare-styleable>
-
-    <!--简单环形进度-->
-    <declare-styleable name="GlideProgressView">
-        <!--圆环颜色-->
-        <attr name="srp_roundColor" format="color" />
-        <!--圆环的宽度-->
-        <attr name="srp_roundWidth" format="dimension" />
-        <!--圆环上的进度颜色-->
-        <attr name="srp_progressColor" format="color" />
-        <!--圆环上的进度宽度-->
-        <attr name="srp_progressWidth" format="dimension" />
-        <!--进度值的最大值，一般为100-->
-        <attr name="srp_max" format="integer" />
-        <!--开始角度，指定进度初始点的绘制位置-->
-        <attr name="srp_startAngle" format="integer" />
-        <!--样式，空心还是实心-->
-        <attr name="srp_style">
-            <enum name="STROKE" value="0" />
-            <enum name="FILL" value="1" />
-        </attr>
+    <declare-styleable name="RoundTextView">
+        <attr name="rv_backgroundColor" />
+        <attr name="rv_backgroundPressColor" />
+        <attr name="rv_cornerRadius" />
+        <attr name="rv_strokeWidth" />
+        <attr name="rv_strokeColor" />
+        <attr name="rv_strokePressColor" />
+        <attr name="rv_textPressColor" />
+        <attr name="rv_isRadiusHalfHeight" />
+        <attr name="rv_isWidthHeightEqual" />
+        <attr name="rv_cornerRadius_TL" />
+        <attr name="rv_cornerRadius_TR" />
+        <attr name="rv_cornerRadius_BL" />
+        <attr name="rv_cornerRadius_BR" />
+        <attr name="rv_isRippleEnable" />
     </declare-styleable>
 </resources>
