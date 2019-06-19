@@ -37,8 +37,8 @@ dependencies {
     api httpDependencies.retrofit2_adapter
     api httpDependencies.rxjava
     api httpDependencies.rxandroid
-//    api httpDependencies.rxbinding
-//    api httpDependencies.rxlifecycle
+    api httpDependencies.rxbinding
+    api httpDependencies.rxlifecycle
 //    api httpDependencies.rxpermissions
 //
 //    def httpDependencies = rootProject.ext.httpDependencies

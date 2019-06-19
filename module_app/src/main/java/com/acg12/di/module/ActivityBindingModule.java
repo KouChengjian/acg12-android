@@ -1,7 +1,12 @@
 package com.acg12.di.module;
 
 
+import com.acg12.di.scope.PerActivity;
+import com.acg12.ui.activity.MainActivity;
+import com.acg12.ui.contract.MainContract;
+
 import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
 
 /**
  * We want Dagger.Android to create a Subcomponent which has a parent Component of whichever module ActivityManageBindingModule is on,
@@ -14,10 +19,10 @@ import dagger.Module;
 @Module
 public abstract class ActivityBindingModule {
 
-//    @PerActivity
-//    @ContributesAndroidInjector(modules = SplashContract.SplashModule.class)
-//    abstract SplashActivity SplashActivity();
-//
+    @PerActivity
+    @ContributesAndroidInjector(modules = MainContract.MainModule.class)
+    abstract MainActivity MainActivity();
+
 //    @PerActivity
 //    @ContributesAndroidInjector(modules = RegisterContract.RegisterModule.class)
 //    abstract RegisterActivity RegisterActivity();

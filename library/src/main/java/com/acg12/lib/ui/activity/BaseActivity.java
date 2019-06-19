@@ -10,7 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 
-import com.acg12.lib.ui.SupportView;
+import com.acg12.lib.ui.IView;
 import com.acg12.lib.utils.AppManager;
 import com.acg12.lib.utils.AppStartUtil;
 import com.acg12.lib.utils.DoubleClickUtil;
@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
  * Date: 2019/1/7 13:47
  * Description:
  */
-public abstract class SupportActivity extends AppCompatActivity implements SupportView, View.OnClickListener{
+public abstract class BaseActivity extends AppCompatActivity implements IView, View.OnClickListener{
 
     protected Context mContext = null; //context
     private DialogLoader dialogLoader;
@@ -103,7 +103,7 @@ public abstract class SupportActivity extends AppCompatActivity implements Suppo
     /**
      * Dagger2 use in your application module(not used in 'base' module)
      */
-    protected void create(Bundle savedInstanceState){}
+    protected abstract void create(Bundle savedInstanceState);
 
     /**
      * bind layout resource file

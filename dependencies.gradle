@@ -4,19 +4,19 @@ ext {
     isModule = true
 
     // Android
-    androidCompileSdkVersion = 27
-    androidBuildToolsVersion = "27.0.3"
-    supportLibraryVersion = '27.1.1'
+    androidCompileSdkVersion = 28
+    androidBuildToolsVersion = "28.0.3"
+    supportLibraryVersion = '28.0.0'
     androidApplicationId = "com.acg12"
     androidMinSdkVersion = 19
-    androidTargetSdkVersion = 27
+    androidTargetSdkVersion = 28
 
     // 版本
     androidVersionCode = 24
     androidVersionName = "3.1.0"
 
     // other version
-    eventbusVersion = '3.0.0'
+    daggerVersion = '2.23.1' // 2.16
     butterKnifeVersion = '8.1.0'
     stethoVersion = '1.3.1'
     universalImageLoaderVersion = '1.9.5'
@@ -39,8 +39,7 @@ ext {
             retrofit2_adapter: "com.squareup.retrofit2:adapter-rxjava2:2.4.0",
             rxjava           : "io.reactivex.rxjava2:rxjava:2.2.0",
             rxandroid        : "io.reactivex.rxjava2:rxandroid:2.0.2",
-
-            rxbinding        : "com.jakewharton.rxbinding2:rxbinding:2.1.1",
+            rxbinding        : "com.jakewharton.rxbinding2:rxbinding:2.1.1", // 防多点、触电
             rxlifecycle      : "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.2.2",
             rxpermissions    : "com.github.tbruyelle:rxpermissions:0.10.2",
     ]
@@ -50,20 +49,17 @@ ext {
     ]
 
     toolDependencies = [
-            dagger                  : "com.google.dagger:dagger:2.16",
-            dagger_compiler         : "com.google.dagger:dagger-compiler:2.16",
-            dagger_android          : "com.google.dagger:dagger-android:2.16",
-            dagger_android_support  : "com.google.dagger:dagger-android-support:2.16",
-            dagger_android_processor: "com.google.dagger:dagger-android-processor:2.16",
-
+            dagger                  : "com.google.dagger:dagger:${daggerVersion}",
+            dagger_compiler         : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger_android          : "com.google.dagger:dagger-android:${daggerVersion}",
+            dagger_android_support  : "com.google.dagger:dagger-android-support:${daggerVersion}",
+            dagger_android_processor: "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            eventbus                : "org.greenrobot:eventbus:3.1.1",
+            eventbus_apt            : "org.greenrobot:eventbus-annotation-processor:3.1.1",
             bugly                   : "com.tencent.bugly:crashreport:latest.release",
             buglynation             : "com.tencent.bugly:nativecrashreport:latest.release",
-            eventbus                : "org.greenrobot:eventbus:${eventbusVersion}",
             butterKnife             : "com.jakewharton:butterknife:${butterKnifeVersion}",
             butterKnife_apt         : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
-            stetho                  : "com.facebook.stetho:stetho:${stethoVersion}",
-            stetho_okhttp           : "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",
-            universal_image_loader  : "com.nostra13.universalimageloader:universal-image-loader:${universalImageLoaderVersion}",
             glide                   : "com.github.bumptech.glide:glide:${glideVersion}",
             glide_compiler          : "com.github.bumptech.glide:compiler:${glideVersion}",
             glide_integration       : "com.github.bumptech.glide:okhttp3-integration:${glideVersion}",

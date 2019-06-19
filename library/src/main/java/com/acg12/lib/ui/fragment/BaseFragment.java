@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.acg12.lib.ui.SupportView;
+import com.acg12.lib.ui.IView;
 import com.acg12.lib.utils.AppStartUtil;
 import com.acg12.lib.utils.DoubleClickUtil;
 import com.acg12.lib.utils.ToastUtil;
@@ -25,7 +25,7 @@ import butterknife.Unbinder;
  * Date: 2019/1/7 13:47
  * Description:
  */
-public abstract class SupportFragment extends Fragment implements SupportView, View.OnClickListener {
+public abstract class BaseFragment extends Fragment implements IView, View.OnClickListener {
 
     protected Context mContext;
     private DialogLoader dialogLoader;

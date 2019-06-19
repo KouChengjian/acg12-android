@@ -10,7 +10,7 @@ import com.acg12.lib.widget.dialog.factory.DialogLoader;
  * <br>
  * 2018/9/5 20:18
  */
-public interface SupportView {
+public interface IView {
     Context context();
 
     void setLoadingDialog(DialogLoader dialog);
