@@ -31,3 +31,16 @@ eclipse/acg12/.apt_generated
 eclipse/acg12/.apt_generated
 .DS_Store
 androidstudio/acg12/.DS_Store
+
+
+
+
+*.iml
+.gradle
+.idea
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
