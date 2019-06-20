@@ -1,13 +1,19 @@
-package com.acg12.lib.widget.dialog.factory;
+package com.acg12.lib.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.TextUtils;
+import android.view.View;
+
+import com.acg12.lib.R;
+import com.acg12.lib.widget.dialog.base.BaseDialog;
+import com.acg12.lib.widget.dialog.base.DialogLoader;
 
 /**
  * Created by SLAN on 2016/7/8.
  * <p/>
  */
-public class LoadingDialog extends DialogLoader {
+public class LoadingDialog implements DialogLoader<BaseDialog> {
 
     private Dialog mDialog;
 
@@ -28,11 +34,22 @@ public class LoadingDialog extends DialogLoader {
     }
 
     @Override
-    public void dismissProgressDialog(Context context) {
+    public BaseDialog createDialogLoader(Context context, String message) {
+        return new BaseDialog.Builder(context)
+                .setView(R.layout.include_dialog_loading)
+                .create()
+                .cancelable(false)
+                .canceledOnTouchOutside(false)
+                .setText(R.id.tv_content, message)
+                .setVisibility(R.id.tv_content, TextUtils.isEmpty(message) ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void dismissDialog(Context context) {
         dismiss();
     }
 
-    public void showProgressDialog(Context context, String message) {
+    public void showDialog(Context context, String message) {
         releaseDialog();
         mDialog = createDialogLoader(context, message).showDialog();
     }

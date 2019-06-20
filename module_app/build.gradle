@@ -32,6 +32,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath = true
+                arguments = [eventBusIndex: 'com.acg12.EventBusIndex']
             }
         }
     }
@@ -91,7 +92,7 @@ dependencies {
     annotationProcessor toolDependencies.dagger_compiler
     annotationProcessor toolDependencies.dagger_android_processor
     annotationProcessor toolDependencies.butterKnife_apt
-
+    annotationProcessor toolDependencies.eventbus_apt
 //    def kotlinDependencies = rootProject.ext.kotlinDependencies
 //    implementation kotlinDependencies.kotlin
 }

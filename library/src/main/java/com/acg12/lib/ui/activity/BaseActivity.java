@@ -9,14 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 
-
 import com.acg12.lib.ui.IView;
 import com.acg12.lib.utils.AppManager;
 import com.acg12.lib.utils.AppStartUtil;
 import com.acg12.lib.utils.DoubleClickUtil;
 import com.acg12.lib.utils.ToastUtil;
-import com.acg12.lib.widget.dialog.factory.DialogLoader;
-import com.acg12.lib.widget.dialog.factory.LoadingDialog;
+import com.acg12.lib.widget.dialog.base.DialogLoader;
+import com.acg12.lib.widget.dialog.LoadingDialog;
 
 import butterknife.ButterKnife;
 
@@ -27,7 +26,7 @@ import butterknife.ButterKnife;
  * Date: 2019/1/7 13:47
  * Description:
  */
-public abstract class BaseActivity extends AppCompatActivity implements IView, View.OnClickListener{
+public abstract class BaseActivity extends AppCompatActivity implements IView, View.OnClickListener {
 
     protected Context mContext = null; //context
     private DialogLoader dialogLoader;
@@ -86,13 +85,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IView, V
     @Override
     public void showProgressDialog(String msg) {
         if (null == dialogLoader) dialogLoader = LoadingDialog.get();
-        dialogLoader.showProgressDialog(mContext, msg);
+        dialogLoader.showDialog(mContext, msg);
     }
 
     @Override
     public void dismissProgressDialog() {
         if (null == dialogLoader) dialogLoader = LoadingDialog.get();
-        dialogLoader.dismissProgressDialog(mContext);
+        dialogLoader.dismissDialog(mContext);
     }
 
     @Override
@@ -118,7 +117,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IView, V
     /**
      * init views and events here
      */
-    protected void bindEvent() {}
+    protected void bindEvent() {
+    }
 
     protected void startAnimActivity(Class<?> cls) {
         startAnimActivity(cls, null, -1, 0);

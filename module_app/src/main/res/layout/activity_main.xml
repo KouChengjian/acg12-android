@@ -22,5 +22,6 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/include_drawer_view"
         app:menu="@menu/menu_main_nav"
+        app:nav_header_background_color="@color/theme_primary"
         skin:enable="true" />
 </android.support.v4.widget.DrawerLayout>

@@ -49,12 +49,12 @@ dependencies {
 //    api httpDependencies.retrofit2_rxjava
 //    api httpDependencies.rxandroid
     def toolDependencies = rootProject.ext.toolDependencies
-//    api toolDependencies.eventbus
+    api toolDependencies.eventbus
     api toolDependencies.butterKnife
-//    api toolDependencies.glide
-//    api(toolDependencies.glide_recyclerview) {
-//        // Excludes the support library because it's already included by Glide.
-//        transitive = false
-//    }
-//    annotationProcessor toolDependencies.glide_compiler
+    api toolDependencies.glide
+    api(toolDependencies.glide_recyclerview) {
+        // Excludes the support library because it's already included by Glide.
+        transitive = false
+    }
+    annotationProcessor toolDependencies.glide_compiler
 }

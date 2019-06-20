@@ -13,8 +13,8 @@ import com.acg12.lib.ui.IView;
 import com.acg12.lib.utils.AppStartUtil;
 import com.acg12.lib.utils.DoubleClickUtil;
 import com.acg12.lib.utils.ToastUtil;
-import com.acg12.lib.widget.dialog.factory.DialogLoader;
-import com.acg12.lib.widget.dialog.factory.LoadingDialog;
+import com.acg12.lib.widget.dialog.base.DialogLoader;
+import com.acg12.lib.widget.dialog.LoadingDialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -81,13 +81,13 @@ public abstract class BaseFragment extends Fragment implements IView, View.OnCli
     @Override
     public void showProgressDialog(String msg) {
         if (null == dialogLoader) dialogLoader = LoadingDialog.get();
-        dialogLoader.showProgressDialog(mContext, null);
+        dialogLoader.showDialog(mContext, null);
     }
 
     @Override
     public void dismissProgressDialog() {
         if (null == dialogLoader) dialogLoader = LoadingDialog.get();
-        dialogLoader.dismissProgressDialog(mContext);
+        dialogLoader.dismissDialog(mContext);
     }
 
     @Override

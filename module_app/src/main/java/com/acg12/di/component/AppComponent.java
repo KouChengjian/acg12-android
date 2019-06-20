@@ -5,7 +5,6 @@ import android.app.Application;
 
 import com.acg12.app.AppApplication;
 import com.acg12.di.module.ActivityBindingModule;
-import com.acg12.di.module.ActivityManageBindingModule;
 import com.acg12.di.module.ApiModule;
 import com.acg12.di.module.AppModule;
 
@@ -33,7 +32,6 @@ import dagger.android.support.AndroidSupportInjectionModule;
         AppModule.class,
         ApiModule.class,
         ActivityBindingModule.class,
-        ActivityManageBindingModule.class,
         AndroidInjectionModule.class,
         AndroidSupportInjectionModule.class})
 public interface AppComponent extends AndroidInjector<AppApplication> {

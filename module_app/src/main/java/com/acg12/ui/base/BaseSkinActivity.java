@@ -17,7 +17,6 @@ public abstract class BaseSkinActivity extends BaseDaggerActivity {
 
     @Override
     protected void create(Bundle savedInstanceState) {
-        super.create(savedInstanceState);
         setTranslucentStatus();
     }
 

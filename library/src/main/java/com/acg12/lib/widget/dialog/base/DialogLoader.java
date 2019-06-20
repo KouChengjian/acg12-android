@@ -5,11 +5,11 @@ import android.content.Context;
 
 import java.io.Serializable;
 
-public interface DialogLoaderInterface<T extends Dialog> extends Serializable {
+public interface DialogLoader<T extends Dialog> extends Serializable {
 
-    void showProgressDialog(Context context, String msg);
+    void showDialog(Context context, String msg);
 
-    void dismissProgressDialog(Context context);
+    void dismissDialog(Context context);
 
     T createDialogLoader(Context context, String message);
 }

@@ -37,4 +37,16 @@
         <attr name="pressedTextColor" format="color" />
         <attr name="normalTextColor" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="ToolBarView">
+        <attr name="bar_background_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="SwipeRefreshLayout">
+        <attr name="recycle_refresh_scheme" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="NavigationView">
+        <attr name="nav_header_background_color" format="color" />
+    </declare-styleable>
 </resources>

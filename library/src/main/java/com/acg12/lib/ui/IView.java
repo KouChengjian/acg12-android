@@ -2,7 +2,7 @@ package com.acg12.lib.ui;
 
 import android.content.Context;
 
-import com.acg12.lib.widget.dialog.factory.DialogLoader;
+import com.acg12.lib.widget.dialog.base.DialogLoader;
 
 
 /**
