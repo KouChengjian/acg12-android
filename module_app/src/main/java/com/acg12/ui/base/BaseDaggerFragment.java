@@ -21,7 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * Created with Android Studio.
- * User: KCJ
+ * UserEntity: KCJ
  * Date: 2019-06-19 17:06
  * Description:
  */

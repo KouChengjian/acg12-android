@@ -1,5 +1,6 @@
 package com.acg12.lib.ui.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import com.acg12.lib.ui.IView;
 import com.acg12.lib.utils.AppStartUtil;
 import com.acg12.lib.utils.DoubleClickUtil;
 import com.acg12.lib.utils.ToastUtil;
+import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.widget.dialog.base.DialogLoader;
 import com.acg12.lib.widget.dialog.LoadingDialog;
 
@@ -28,8 +30,9 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment implements IView, View.OnClickListener {
 
     protected Context mContext;
-    private DialogLoader dialogLoader;
-    private Unbinder unbinder;
+    protected DialogLoader dialogLoader;
+    protected Unbinder unbinder;
+    protected ProgressDialog mProgressDialog;
 
     @Override
     public void onAttach(Context context) {
@@ -80,14 +83,23 @@ public abstract class BaseFragment extends Fragment implements IView, View.OnCli
 
     @Override
     public void showProgressDialog(String msg) {
-        if (null == dialogLoader) dialogLoader = LoadingDialog.get();
-        dialogLoader.showDialog(mContext, null);
+//        if (null == dialogLoader) dialogLoader = LoadingDialog.get();
+//        dialogLoader.showDialog(mContext, null);
+        if (mProgressDialog == null) {
+            mProgressDialog = ViewUtil.startLoading(mContext, msg);
+        } else {
+            mProgressDialog.setMessage(msg);
+            mProgressDialog.show();
+        }
     }
 
     @Override
     public void dismissProgressDialog() {
-        if (null == dialogLoader) dialogLoader = LoadingDialog.get();
-        dialogLoader.dismissDialog(mContext);
+//        if (null == dialogLoader) dialogLoader = LoadingDialog.get();
+//        dialogLoader.dismissDialog(mContext);
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
     }
 
     @Override

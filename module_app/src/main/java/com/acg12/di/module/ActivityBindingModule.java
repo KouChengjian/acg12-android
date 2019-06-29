@@ -3,7 +3,9 @@ package com.acg12.di.module;
 
 import com.acg12.di.scope.PerActivity;
 import com.acg12.ui.activity.MainActivity;
+import com.acg12.ui.activity.setting.SettingActivity;
 import com.acg12.ui.contract.MainContract;
+import com.acg12.ui.contract.SettingContract;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -23,43 +25,8 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = MainContract.MainModule.class)
     abstract MainActivity MainActivity();
 
-//    @PerActivity
-//    @ContributesAndroidInjector(modules = RegisterContract.RegisterModule.class)
-//    abstract RegisterActivity RegisterActivity();
-//
-//    @PerActivity
-//    @ContributesAndroidInjector(modules = {LoginContract.LoginModule.class, DaoModule.class})
-//    abstract LoginActivity loginActivity();
-//
-//    @PerActivity
-//    @ContributesAndroidInjector(modules = LoginWXContract.LoginWXModule.class)
-//    abstract LoginWXActivity LoginWXActivity();
-//
-//    @PerActivity
-//    @ContributesAndroidInjector(modules = LoginZFBContract.LoginZFBModule.class)
-//    abstract LoginZFBActivity LoginZFBActivity();
-//
-//    @PerActivity
-//    @ContributesAndroidInjector(modules = ResetPwdContract.ResetPasswordModule.class)
-//    abstract ResetPwdActivity ResetPasswordActivity();
-//
-//    @PerActivity
-//    @ContributesAndroidInjector(modules = ResetPwdInputContract.ResetPwdInputModule.class)
-//    abstract ResetPwdInputActivity ResetPwdInputActivity();
-//
-//    @PerActivity
-//    @ContributesAndroidInjector(modules = MainClientContract.ClientMainModule.class)
-//    abstract MainClientActivity ClientMainActivity();
-//
-//    @PerActivity
-//    @ContributesAndroidInjector(modules = DiningHallInfoContract.DiningHallInfoModule.class)
-//    abstract DiningHallInfoActivity DiningHallInfoActivity();
-//
-//    @PerActivity
-//    @ContributesAndroidInjector(modules = DiningHallTableContract.DiningHallTableModule.class)
-//    abstract DiningHallTableActivity DiningHallTableActivity();
-//
-//    @PerActivity
-//    @ContributesAndroidInjector(modules = SearchCityContract.SearchCityModule.class)
-//    abstract SearchCityActivity SearchCityActivity();
+    @PerActivity
+    @ContributesAndroidInjector(modules = SettingContract.SettingModule.class)
+    abstract SettingActivity SettingActivity();
+
 }

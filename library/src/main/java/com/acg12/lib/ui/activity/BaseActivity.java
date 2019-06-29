@@ -1,5 +1,6 @@
 package com.acg12.lib.ui.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -14,10 +15,12 @@ import com.acg12.lib.utils.AppManager;
 import com.acg12.lib.utils.AppStartUtil;
 import com.acg12.lib.utils.DoubleClickUtil;
 import com.acg12.lib.utils.ToastUtil;
+import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.widget.dialog.base.DialogLoader;
 import com.acg12.lib.widget.dialog.LoadingDialog;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 /**
@@ -28,10 +31,12 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity implements IView, View.OnClickListener {
 
-    protected Context mContext = null; //context
-    private DialogLoader dialogLoader;
-    private int activityCloseEnterAnimation;
-    private int activityCloseExitAnimation;
+    protected Context mContext; //context
+    protected DialogLoader dialogLoader;
+    protected Unbinder unbinder;
+    protected ProgressDialog mProgressDialog;
+    protected int activityCloseEnterAnimation;
+    protected int activityCloseExitAnimation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IView, V
         if (getLayoutId() != 0) {
             setContentView(getLayoutId());
         }
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         TypedArray activityStyle = getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowAnimationStyle});
         int windowAnimationStyleResId = activityStyle.getResourceId(0, 0);
@@ -84,14 +89,23 @@ public abstract class BaseActivity extends AppCompatActivity implements IView, V
 
     @Override
     public void showProgressDialog(String msg) {
-        if (null == dialogLoader) dialogLoader = LoadingDialog.get();
-        dialogLoader.showDialog(mContext, msg);
+//        if (null == dialogLoader) dialogLoader = LoadingDialog.get();
+//        dialogLoader.showDialog(mContext, msg);
+        if (mProgressDialog == null) {
+            mProgressDialog = ViewUtil.startLoading(mContext, msg);
+        } else {
+            mProgressDialog.setMessage(msg);
+            mProgressDialog.show();
+        }
     }
 
     @Override
     public void dismissProgressDialog() {
-        if (null == dialogLoader) dialogLoader = LoadingDialog.get();
-        dialogLoader.dismissDialog(mContext);
+//        if (null == dialogLoader) dialogLoader = LoadingDialog.get();
+//        dialogLoader.dismissDialog(mContext);
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
     }
 
     @Override
@@ -173,6 +187,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IView, V
 
     @Override
     protected void onDestroy() {
+        if (null != unbinder) {
+            unbinder.unbind();
+        }
         AppManager.get().finishActivity(this);
         super.onDestroy();
     }

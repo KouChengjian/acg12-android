@@ -3,6 +3,7 @@ package com.acg12.net.api;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -14,7 +15,7 @@ import retrofit2.http.Query;
 public interface HomeApi {
 
     @GET("api/app/common/index.json")
-    Observable<ResponseBody> index();
+    Single<ResponseBody> index();
 
     @GET("api/app/common/albumList.json")
     Observable<ResponseBody> albumList(@Query("action") String action, @Query("max") String pinId);

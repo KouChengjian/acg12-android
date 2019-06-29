@@ -4,6 +4,7 @@ package com.acg12.di.module;
 
 
 import com.acg12.conf.AppConfig;
+import com.acg12.net.api.HomeApi;
 import com.acg12.net.api.UserApi;
 import com.acg12.net.intercept.LogInterceptor;
 
@@ -76,4 +77,9 @@ public class ApiModule {
         return retrofit.create(UserApi.class);
     }
 
+    @Provides
+    @Singleton
+    public static HomeApi provideHomeApi(Retrofit retrofit) {
+        return retrofit.create(HomeApi.class);
+    }
 }

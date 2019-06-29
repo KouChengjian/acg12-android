@@ -12,7 +12,7 @@ import dagger.Module;
 
 /**
  * Created with Android Studio.
- * User kcj
+ * UserEntity kcj
  * Date 2019/06/20
  * Description: 自动生成
  */

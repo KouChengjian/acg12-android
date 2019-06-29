@@ -19,11 +19,11 @@ public interface UserApi {
 
 //    @FormUrlEncoded
 //    @POST("api/app/common/login.json")
-//    Observable<User> login(@Field("username") String username, @Field("password") String password);
+//    Observable<UserEntity> login(@Field("username") String username, @Field("password") String password);
 //
 //    @FormUrlEncoded
 //    @POST("api/register")
-//    Observable<User> register(@Field("username") String username, @Field("password") String password, @Field("verify") String verify);
+//    Observable<UserEntity> register(@Field("username") String username, @Field("password") String password, @Field("verify") String verify);
 
     @FormUrlEncoded
     @POST("api/verify")

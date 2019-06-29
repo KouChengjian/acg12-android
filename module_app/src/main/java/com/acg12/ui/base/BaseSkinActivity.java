@@ -9,7 +9,7 @@ import android.view.WindowManager;
 
 /**
  * Created with Android Studio.
- * User: KCJ
+ * UserEntity: KCJ
  * Date: 2019-06-19 17:15
  * Description:
  */

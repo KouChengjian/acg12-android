@@ -1,7 +1,6 @@
 package com.acg12.ui.activity;
 
 
-import android.accounts.AccountManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -15,20 +14,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.acg12.R;
+import com.acg12.cache.AccountManager;
 import com.acg12.conf.AppConfig;
 import com.acg12.conf.EventBusConfig;
-import com.acg12.entity.User;
 import com.acg12.entity.event.CommonEnum;
 import com.acg12.entity.event.CommonEvent;
+import com.acg12.entity.po.UserEntity;
 import com.acg12.lib.app.BaseApp;
+import com.acg12.lib.utils.ClickUtil;
 import com.acg12.lib.utils.ForegroundUtil;
 import com.acg12.lib.utils.ViewUtil;
-import com.acg12.lib.utils.glide.ImageLoadUtils;
+import com.acg12.lib.utils.glide.GlideUtil;
 import com.acg12.lib.widget.dialog.CommonDialog;
-import com.acg12.lib.widget.dialog.base.BaseDialog;
+import com.acg12.ui.activity.setting.SettingActivity;
 import com.acg12.ui.base.BaseMvpActivity;
 import com.acg12.ui.contract.MainContract;
-import com.acg12.ui.fragment.CalendarFragment;
 import com.acg12.ui.fragment.HomeFragment;
 import com.acg12.ui.presenter.MainPresenter;
 import com.acg12.widget.debug.DebugBaseServerDialog;
@@ -40,11 +40,11 @@ import butterknife.BindView;
 
 /**
  * Created with Android Studio.
- * User kcj
+ * UserEntity kcj
  * Date 2019/06/19
  * Description: 自动生成
  */
-public class MainActivity extends BaseMvpActivity<MainPresenter> implements MainContract.View ,NavigationView.OnNavigationItemSelectedListener, View.OnLongClickListener{
+public class MainActivity extends BaseMvpActivity<MainPresenter> implements MainContract.View, NavigationView.OnNavigationItemSelectedListener, View.OnLongClickListener {
 
     @BindView(R.id.drawer_layout)
     protected DrawerLayout drawerLayout;
@@ -58,7 +58,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     private Fragment[] fragments;
     private HomeFragment homeFragment;
 //    private FindFragemnt findFragemnt;
-    private CalendarFragment calendarFragment;
+//    private CalendarFragment calendarFragment;
 
     private View headerView;
     private ImageView iv_nav_avatar;
@@ -93,14 +93,21 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
         mTabs[1] = menu.findItem(R.id.nav_find);
         mTabs[2] = menu.findItem(R.id.nav_calendar);
 
-        homeFragment =  HomeFragment.newInstance();
-        calendarFragment =  CalendarFragment.newInstance();
-        fragments = new Fragment[]{homeFragment ,calendarFragment};
+        homeFragment = HomeFragment.newInstance();
+//        calendarFragment =  CalendarFragment.newInstance();
+        fragments = new Fragment[]{homeFragment};
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.main_fragment_container, fragments[0])
                 .show(fragments[0])
                 .commit();
+    }
+
+    @Override
+    protected void bindEvent() {
+        super.bindEvent();
+        ClickUtil.click(this, iv_nav_avatar, tv_nav_nick, tv_nav_signature);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -137,7 +144,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
 //                startAnimActivity(SkinActivity.class);
                 break;
             case R.id.nav_settings:
-//                startAnimActivity(SettingActivity.class);
+                startAnimActivity(SettingActivity.class);
                 break;
         }
         closeDrawers();
@@ -149,7 +156,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
         int id = view.getId();
         if (id == R.id.iv_nav_avatar || id == R.id.tv_nav_nick || id == R.id.tv_nav_signature) {
             closeDrawers();
-//            User u = DaoBaseImpl.getInstance(mContext).getCurrentUser();
+//            UserEntity u = DaoBaseImpl.getInstance(mContext).getCurrentUser();
 //            if (u == null) {
 //                startAnimActivity(LoginActivity.class);
 //            } else {
@@ -173,7 +180,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void userEvent(User user) {
+    public void userEvent(UserEntity user) {
         paddingDate(user);
     }
 
@@ -182,11 +189,11 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
         if (CommonEnum.HTTP_TOKEN_LOSE == commonEvent.getCommonEvent()) {
             showExitDialog();
         } else if (CommonEnum.COMMON_TOGGLE_DRAWER == commonEvent.getCommonEvent()) {
-           toggleDrawer();
+            toggleDrawer();
         }
     }
 
-    public void paddingDate(User user) {
+    public void paddingDate(UserEntity user) {
         if (user == null || user.getUsername() == null) {
             iv_nav_avatar.setImageResource(R.mipmap.bg_avatar_default);
             iv_nav_sex.setVisibility(View.GONE);
@@ -195,7 +202,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
         } else {
             String avatar = user.getAvatar();
             if (avatar != null) {
-                ImageLoadUtils.glideCircleLoading(context() ,avatar, iv_nav_avatar);
+                GlideUtil.glideCircleLoading(context(), avatar, iv_nav_avatar);
                 iv_nav_sex.setVisibility(View.VISIBLE);
                 if (user.getSex() == 0) {
                     iv_nav_sex.setSelected(false);
@@ -244,12 +251,12 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
         commonDialog.setCallback(new CommonDialog.Callback() {
             @Override
             public void commit() {
-//                AccountManager.getInstance().logout();
+                AccountManager.getInstance().logout();
             }
 
             @Override
             public void cancle() {
-//                AccountManager.getInstance().logout();
+                AccountManager.getInstance().logout();
             }
         });
         commonDialog.showDialog();

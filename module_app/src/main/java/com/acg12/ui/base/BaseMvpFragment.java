@@ -8,7 +8,7 @@ import dagger.android.support.AndroidSupportInjection;
 
 /**
  * Created with Android Studio.
- * User: kcj
+ * UserEntity: kcj
  * Date: 2019/1/10 18:40
  * Description:
  */

@@ -2,7 +2,7 @@ package com.acg12.conf;
 
 
 import com.acg12.EventBusIndex;
-import com.acg12.entity.User;
+import com.acg12.entity.po.UserEntity;
 import com.acg12.entity.event.CommonEnum;
 import com.acg12.entity.event.CommonEvent;
 
@@ -112,7 +112,7 @@ public class EventBusConfig {
         mCommEventBus.post(object);
     }
 
-    public static void postUserEventBus(User object) {
+    public static void postUserEventBus(UserEntity object) {
         mUserEventBus.post(object);
     }
 

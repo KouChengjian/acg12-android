@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Created with Android Studio.
- * User: kcj
+ * UserEntity: kcj
  * Date: 2018/8/3 16:09
  * Description: url配置
  */
@@ -21,11 +21,11 @@ public class AppConfig {
     public static ServerUrl SERVER = null;
     public final static List<ServerUrl> DefaultServerUrlList = new ArrayList<>();
     public final static ServerUrl URL_SERVER_PROP = new ServerUrl("http://acg12.club/acg12/"); //正式服
-    public final static ServerUrl URL_SERVER_DEBUG_130 = new ServerUrl("http://192.168.8.177:8081/acg12/");
+    public final static ServerUrl URL_SERVER_DEBUG_130 = new ServerUrl("http://192.168.8.177:8080/acg12/");
 
     static {
-        DefaultServerUrlList.add(URL_SERVER_PROP);
         DefaultServerUrlList.add(URL_SERVER_DEBUG_130);
+        DefaultServerUrlList.add(URL_SERVER_PROP);
     }
 
     public static void init(Context context) {

@@ -15,7 +15,7 @@ import dagger.android.ContributesAndroidInjector;
 
 /**
  * Created with Android Studio.
- * User kcj
+ * UserEntity kcj
  * Date 2019/06/19
  * Description: 自动生成
  */
