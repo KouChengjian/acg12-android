@@ -18,6 +18,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -37,17 +42,9 @@ dependencies {
     api httpDependencies.retrofit2_adapter
     api httpDependencies.rxjava
     api httpDependencies.rxandroid
-    api httpDependencies.rxbinding
+    api httpDependencies.rxbinding // 用于绑定事件
     api httpDependencies.rxlifecycle
 //    api httpDependencies.rxpermissions
-//
-//    def httpDependencies = rootProject.ext.httpDependencies
-//    api httpDependencies.okhttp3
-//    api httpDependencies.retrofit2
-//    api httpDependencies.retrofit2_gson
-//    api httpDependencies.retrofit2_scalars
-//    api httpDependencies.retrofit2_rxjava
-//    api httpDependencies.rxandroid
     def toolDependencies = rootProject.ext.toolDependencies
     api toolDependencies.eventbus
     api toolDependencies.butterKnife

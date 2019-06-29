@@ -29,20 +29,14 @@ public class CommonDialog extends BaseDialogLoader {
                 .setText(R.id.tv_title, title)
                 .setVisibility(R.id.tv_title, TextUtils.isEmpty(title) ? View.GONE : View.VISIBLE)
                 .setText(R.id.tv_content, message)
-                .setOnClickListener(R.id.cancel, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (callback != null) {
-                            callback.cancle();
-                        }
+                .setOnClickListener(R.id.cancel, v -> {
+                    if (callback != null) {
+                        callback.cancle();
                     }
                 })
-                .setOnClickListener(R.id.commit, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (callback != null) {
-                            callback.commit();
-                        }
+                .setOnClickListener(R.id.commit, v -> {
+                    if (callback != null) {
+                        callback.commit();
                     }
                 });
     }
