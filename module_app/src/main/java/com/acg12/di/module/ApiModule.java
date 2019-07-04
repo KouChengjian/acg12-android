@@ -1,8 +1,6 @@
 package com.acg12.di.module;
 
 
-
-
 import com.acg12.conf.AppConfig;
 import com.acg12.net.api.HomeApi;
 import com.acg12.net.api.UserApi;
@@ -58,18 +56,6 @@ public class ApiModule {
                 .client(client)
                 .build();
     }
-
-//    @Provides
-//    @Singleton
-//    public static AuthService provideOauthService(Retrofit retrofit) {
-//        return retrofit.create(AuthService.class);
-//    }
-
-//    @Provides
-//    @Singleton
-//    public static ApiService provideDishService(Retrofit retrofit) {
-//        return retrofit.create(ApiService.class);
-//    }
 
     @Provides
     @Singleton

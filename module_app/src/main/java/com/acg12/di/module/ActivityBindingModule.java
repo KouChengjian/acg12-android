@@ -3,9 +3,17 @@ package com.acg12.di.module;
 
 import com.acg12.di.scope.PerActivity;
 import com.acg12.ui.activity.MainActivity;
+import com.acg12.ui.activity.SkinActivity;
+import com.acg12.ui.activity.setting.AboutActivity;
+import com.acg12.ui.activity.setting.FeedbackActivity;
 import com.acg12.ui.activity.setting.SettingActivity;
+import com.acg12.ui.activity.user.AlterPwdActivity;
+import com.acg12.ui.contract.AboutContract;
+import com.acg12.ui.contract.AlterPwdContract;
+import com.acg12.ui.contract.FeedbackContract;
 import com.acg12.ui.contract.MainContract;
 import com.acg12.ui.contract.SettingContract;
+import com.acg12.ui.contract.SkinContract;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -26,7 +34,22 @@ public abstract class ActivityBindingModule {
     abstract MainActivity MainActivity();
 
     @PerActivity
+    @ContributesAndroidInjector(modules = AlterPwdContract.AlterPwdModule.class)
+    abstract AlterPwdActivity AlterPwdActivity();
+
+    @PerActivity
+    @ContributesAndroidInjector(modules = SkinContract.SkinModule.class)
+    abstract SkinActivity SkinActivity();
+
+    @PerActivity
     @ContributesAndroidInjector(modules = SettingContract.SettingModule.class)
     abstract SettingActivity SettingActivity();
 
+    @PerActivity
+    @ContributesAndroidInjector(modules = FeedbackContract.FeedbackModule.class)
+    abstract FeedbackActivity FeedbackActivity();
+
+    @PerActivity
+    @ContributesAndroidInjector(modules = AboutContract.AboutModule.class)
+    abstract AboutActivity AboutActivity();
 }

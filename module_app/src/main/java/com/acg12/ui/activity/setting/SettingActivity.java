@@ -11,9 +11,11 @@ import com.acg12.R;
 import com.acg12.cache.AccountManager;
 import com.acg12.lib.app.BaseApp;
 import com.acg12.lib.utils.AppUtil;
+import com.acg12.lib.utils.ClickUtil;
 import com.acg12.lib.utils.ViewUtil;
 import com.acg12.lib.utils.glide.GlideUtil;
 import com.acg12.lib.widget.ToolBarView;
+import com.acg12.ui.activity.user.AlterPwdActivity;
 import com.acg12.ui.base.BaseMvpActivity;
 import com.acg12.ui.contract.SettingContract;
 import com.acg12.ui.presenter.SettingPresenter;
@@ -64,6 +66,12 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
     }
 
     @Override
+    protected void bindEvent() {
+        super.bindEvent();
+        ClickUtil.click(this, toolBarView.getToolbar());
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
     }
@@ -78,13 +86,13 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
                 updateApp();
                 break;
             case R.id.settings_amdpwd:
-//                startAnimActivity(AlterPwdActivity.class);
+                startAnimActivity(AlterPwdActivity.class);
                 break;
             case R.id.settings_feedback:
-//                startAnimActivity(FeedbackActivity.class);
+                startAnimActivity(FeedbackActivity.class);
                 break;
             case R.id.settings_about:
-//                startAnimActivity(AboutActivity.class);
+                startAnimActivity(AboutActivity.class);
                 break;
             case R.id.user_logout:
                 logoutDialog();
@@ -116,6 +124,4 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
     protected void onDestroy() {
         super.onDestroy();
     }
-
-
 }

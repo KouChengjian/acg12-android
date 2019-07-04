@@ -36,9 +36,24 @@
         </activity>
 
         <activity
+            android:name=".ui.activity.user.AlterPwdActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+
+
+        <activity
             android:name=".ui.activity.setting.SettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+        <activity
+            android:name=".ui.activity.setting.FeedbackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+        <activity
+            android:name=".ui.activity.setting.AboutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+
     </application>
 
 </manifest>

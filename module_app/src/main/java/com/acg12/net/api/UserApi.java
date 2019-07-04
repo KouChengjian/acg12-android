@@ -1,9 +1,16 @@
 package com.acg12.net.api;
 
 
+import com.acg12.entity.dto.UpdateDto;
+import com.acg12.entity.po.UserEntity;
+import com.acg12.lib.net.result.HttpResult;
+
+import org.json.JSONObject;
+
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
@@ -14,41 +21,38 @@ import retrofit2.http.PartMap;
 
 public interface UserApi {
 
+    @FormUrlEncoded
+    @POST("api/app/common/login.json")
+    Single<HttpResult<UserEntity>> login(@Field("username") String username, @Field("password") String password);
 
-//    Single<HttpResult<UserEntity>> login(@Field("username") String username, @Field("password") String password);
-
-//    @FormUrlEncoded
-//    @POST("api/app/common/login.json")
-//    Observable<UserEntity> login(@Field("username") String username, @Field("password") String password);
-//
-//    @FormUrlEncoded
-//    @POST("api/register")
-//    Observable<UserEntity> register(@Field("username") String username, @Field("password") String password, @Field("verify") String verify);
+    @FormUrlEncoded
+    @POST("api/register")
+    Single<HttpResult<UserEntity>> register(@Field("username") String username, @Field("password") String password, @Field("verify") String verify);
 
     @FormUrlEncoded
     @POST("api/verify")
-    Observable<ResponseBody> verify(@Field("username") String username, @Field("type") String type);
+    Single<HttpResult<String>> verify(@Field("username") String username, @Field("type") String type);
 
     @FormUrlEncoded
     @POST("api/restPwd")
-    Observable<ResponseBody> restPwd(@Field("username") String username, @Field("password") String password, @Field("verify") String verify);
+    Single<HttpResult<String>> restPwd(@Field("username") String username, @Field("password") String password, @Field("verify") String verify);
 
     @POST("api/userInfo")
-    Observable<ResponseBody> userInfo();
+    Single<HttpResult<UserEntity>> userInfo();
 
     @Multipart
     @POST("api/alteruser")
-    Observable<ResponseBody> uploadAvatar(@PartMap Map<String, RequestBody> map);
+    Single<HttpResult<String>> uploadAvatar(@PartMap Map<String, RequestBody> map);
 
     @FormUrlEncoded
     @POST("api/alteruser")
-    Observable<ResponseBody> userAlter(@Field("alterType") String type, @Field("param1") String param1, @Field("param2") String param2);
+    Single<HttpResult<String>> userAlter(@Field("alterType") String type, @Field("param1") String param1, @Field("param2") String param2);
 
     @FormUrlEncoded
     @POST("api/feedback")
-    Observable<ResponseBody> feedback(@Field("message") String message);
+    Single<HttpResult<String>> feedback(@Field("message") String message);
 
     @FormUrlEncoded
     @POST("api/update")
-    Observable<ResponseBody> updateApp(@Field("versionCode") String versionCode);
+    Single<HttpResult<UpdateDto>> updateApp(@Field("versionCode") String versionCode);
 }

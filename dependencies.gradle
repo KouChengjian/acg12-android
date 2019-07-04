@@ -12,8 +12,8 @@ ext {
     androidTargetSdkVersion = 28
 
     // 版本
-    androidVersionCode = 24
-    androidVersionName = "3.1.0"
+    androidVersionCode = 30
+    androidVersionName = "4.0.1"
 
     // other version
     daggerVersion = '2.23.1' // 2.16
