@@ -10,6 +10,7 @@ import com.acg12.conf.AppConfig;
 import com.acg12.di.component.DaggerAppComponent;
 import com.acg12.lib.app.BaseApp;
 import com.acg12.lib.utils.ToastUtil;
+import com.acg12.lib.utils.skin.SkinManager;
 
 import javax.inject.Inject;
 
@@ -63,9 +64,9 @@ public class AppApplication extends Application implements HasActivityInjector, 
 //        CrashHandler.init(this);
 //        PreferencesUtils.init(this); // xml存储
 //        HttpRequestImpl.init(this); // http请求
-        // 初始化皮肤
-//        SkinManager.getInstance().init(this);
-//        SkinManager.getInstance().load();
+//         初始化皮肤
+        SkinManager.getInstance().init(this);
+        SkinManager.getInstance().load();
     }
 
     @Override

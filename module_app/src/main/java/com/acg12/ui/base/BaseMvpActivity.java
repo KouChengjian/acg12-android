@@ -25,7 +25,7 @@ public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseSkinA
 
     @Override
     protected void created(Bundle savedInstanceState) {
-        super.create(savedInstanceState);
+        super.created(savedInstanceState);
         //和View绑定
         if (mPresenter != null) {
             mPresenter.take(this);

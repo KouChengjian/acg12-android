@@ -141,7 +141,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
 //                startAnimActivity(RecordActivity.class);
                 break;
             case R.id.nav_color_lens:
-//                startAnimActivity(SkinActivity.class);
+                startAnimActivity(SkinActivity.class);
                 break;
             case R.id.nav_settings:
                 startAnimActivity(SettingActivity.class);
