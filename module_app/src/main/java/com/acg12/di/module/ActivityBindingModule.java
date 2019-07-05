@@ -2,7 +2,9 @@ package com.acg12.di.module;
 
 
 import com.acg12.di.scope.PerActivity;
+import com.acg12.ui.activity.DownloadActivity;
 import com.acg12.ui.activity.MainActivity;
+import com.acg12.ui.activity.RecordActivity;
 import com.acg12.ui.activity.SkinActivity;
 import com.acg12.ui.activity.setting.AboutActivity;
 import com.acg12.ui.activity.setting.FeedbackActivity;
@@ -10,8 +12,10 @@ import com.acg12.ui.activity.setting.SettingActivity;
 import com.acg12.ui.activity.user.AlterPwdActivity;
 import com.acg12.ui.contract.AboutContract;
 import com.acg12.ui.contract.AlterPwdContract;
+import com.acg12.ui.contract.DownloadContract;
 import com.acg12.ui.contract.FeedbackContract;
 import com.acg12.ui.contract.MainContract;
+import com.acg12.ui.contract.RecordContract;
 import com.acg12.ui.contract.SettingContract;
 import com.acg12.ui.contract.SkinContract;
 
@@ -36,6 +40,14 @@ public abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector(modules = AlterPwdContract.AlterPwdModule.class)
     abstract AlterPwdActivity AlterPwdActivity();
+
+    @PerActivity
+    @ContributesAndroidInjector(modules = DownloadContract.DownloadModule.class)
+    abstract DownloadActivity DownloadActivity();
+
+    @PerActivity
+    @ContributesAndroidInjector(modules = RecordContract.RecordModule.class)
+    abstract RecordActivity RecordActivity();
 
     @PerActivity
     @ContributesAndroidInjector(modules = SkinContract.SkinModule.class)

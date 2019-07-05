@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,9 +52,6 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     @BindView(R.id.navigation_view)
     protected NavigationView navigationView;
 
-    private CommonDialog commonDialog;
-
-    private int currentTabIndex;
     private MenuItem[] mTabs;
     private Fragment[] fragments;
     private HomeFragment homeFragment;
@@ -65,6 +63,11 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     private TextView tv_nav_nick;
     private ImageView iv_nav_sex;
     private TextView tv_nav_signature;
+
+    private CommonDialog commonDialog;
+
+    private int currentTabIndex;
+    public static long firstTime;
 
     @Override
     protected int getLayoutId() {
@@ -135,10 +138,10 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
 //                }
                 break;
             case R.id.nav_down:
-//                startAnimActivity(DownloadActivity.class);
+                startAnimActivity(DownloadActivity.class);
                 break;
             case R.id.nav_history:
-//                startAnimActivity(RecordActivity.class);
+                startAnimActivity(RecordActivity.class);
                 break;
             case R.id.nav_color_lens:
                 startAnimActivity(SkinActivity.class);
@@ -260,6 +263,28 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
             }
         });
         commonDialog.showDialog();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            if (drawerLayout.isDrawerVisible(GravityCompat.START)) {
+                toggleDrawer();
+            } else {
+//                if (BaseConfig.ListVideoUtilInstance().backFromFull()) {
+//                    return true;
+//                }
+                if (firstTime + 2000 > System.currentTimeMillis()) {
+                    finish();
+                } else {
+                    showMsg(R.string.double_click_logout);
+                }
+                firstTime = System.currentTimeMillis();
+            }
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 
     @Override

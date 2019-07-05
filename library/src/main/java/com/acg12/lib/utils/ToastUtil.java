@@ -61,6 +61,13 @@ public class ToastUtil {
         return toast1;
     }
 
+    public static ToastUtil makeText(int resd, double time) {
+        ToastUtil toast1 = new ToastUtil();
+        toast1.setTime(time);
+        toast1.setToast(Toast.makeText(BaseApp.app(), resd, Toast.LENGTH_SHORT));
+        return toast1;
+    }
+
     /**
      * 可以自定义view的Toast
      *
@@ -112,6 +119,10 @@ public class ToastUtil {
 
     public static void showShort(String msg) {
         ToastUtil.makeText(msg, LENGTH_SHORT).show();
+    }
+
+    public static void showShort(int resId) {
+        ToastUtil.makeText(resId, LENGTH_SHORT).show();
     }
 
     /**

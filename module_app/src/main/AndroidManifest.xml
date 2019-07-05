@@ -33,6 +33,16 @@
         </activity>
 
         <activity
+            android:name=".ui.activity.DownloadActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+
+        <activity
+            android:name=".ui.activity.RecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />
+
+        <activity
             android:name=".ui.activity.SkinActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialSheetFab.SwipeBackLayout" />

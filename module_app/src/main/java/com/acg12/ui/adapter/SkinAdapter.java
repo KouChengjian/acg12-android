@@ -149,7 +149,7 @@ public class SkinAdapter extends CommonRecyclerAdapter<Skin> {
          */
         public String copySkinAssetsToDir(Context context, String name) {
             String toFile = CacheUtils.getCacheDirectory(context, true, "skin") + File.separator + name;
-            Log.e("toFile", toFile + "");
+            Log.i("toFile", toFile + "");
             try {
                 InputStream is = context.getAssets().open(name);
 //            File fileDir = new File(toDir);

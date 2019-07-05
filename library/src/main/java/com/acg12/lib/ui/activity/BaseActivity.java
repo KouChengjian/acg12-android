@@ -113,6 +113,10 @@ public abstract class BaseActivity extends AppCompatActivity implements IView, V
         ToastUtil.showShort(msg);
     }
 
+    public void showMsg(int resId) {
+        ToastUtil.showShort(resId);
+    }
+
     /**
      * Dagger2 use in your application module(not used in 'base' module)
      */
