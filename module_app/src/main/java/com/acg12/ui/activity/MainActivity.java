@@ -134,7 +134,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
 //                if (DaoBaseImpl.getInstance(mContext).getCurrentUser() == null) {
 //                    startAnimActivity(LoginActivity.class); //IndexActivity CollectActivity
 //                } else {
-//                    startAnimActivity(CollectActivity.class);
+                    startAnimActivity(CollectActivity.class);
 //                }
                 break;
             case R.id.nav_down:

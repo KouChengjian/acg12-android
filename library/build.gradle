@@ -33,7 +33,6 @@ dependencies {
     api androidDependencies.cardview_v7
     api androidDependencies.appcompat_v7
     api androidDependencies.recyclerView_v7
-
     def httpDependencies = rootProject.ext.httpDependencies
     api httpDependencies.okhttp3
     api httpDependencies.okhttp3_logging
