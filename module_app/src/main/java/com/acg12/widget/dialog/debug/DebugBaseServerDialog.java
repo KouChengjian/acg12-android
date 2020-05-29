@@ -106,7 +106,7 @@ public class DebugBaseServerDialog implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int which) {
                         AppConfig.setServerUrl(context , position);
                         Intent mStartActivity = new Intent("android.intent.action.MAIN");
-                        mStartActivity.setClassName("com.shangyizhijia.marke","com.shangyizhijia.marke.ui.activity.SplashNullActivity");
+                        mStartActivity.setClassName("com.acg12","com.acg12.ui.activity.SplashNullActivity");
                         int mPendingIntentId = 99999999;
                         PendingIntent mPendingIntent = PendingIntent.getActivity(context, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
                         AlarmManager mgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
